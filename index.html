@@ -8,16 +8,12 @@
     :root {
       --bg: #f3f6fb;
       --sidebar: #0f172a;
-      --sidebar-soft: #182235;
       --card: #ffffff;
       --text: #111827;
       --muted: #6b7280;
       --line: #e5e7eb;
       --green: #22c55e;
       --green-dark: #16a34a;
-      --blue: #2563eb;
-      --red: #ef4444;
-      --yellow: #f59e0b;
       --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
     }
 
@@ -95,7 +91,6 @@
       border: none;
       color: #d1d5db;
       background: transparent;
-      text-decoration: none;
       padding: 13px 14px;
       border-radius: 14px;
       font-size: 15px;
@@ -135,7 +130,6 @@
       padding: 10px 12px;
       font-size: 14px;
       color: #b8c2d2;
-      font-weight: 700;
     }
 
     .sidebar-footer {
@@ -213,7 +207,7 @@
     }
 
     .btn,
-    .content-btn {
+    button.content-btn {
       border: none;
       border-radius: 14px;
       padding: 12px 16px;
@@ -249,6 +243,31 @@
     .btn-green:hover {
       background: var(--green-dark);
       transform: translateY(-1px);
+    }
+
+    .btn-soft {
+      background: #f1f5f9;
+      color: var(--sidebar);
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-soft:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-danger:hover {
+      background: #fecaca;
+    }
+
+    .btn-small {
+      padding: 8px 10px;
+      font-size: 12px;
+      border-radius: 10px;
     }
 
     .cards {
@@ -342,14 +361,32 @@
       color: var(--sidebar);
     }
 
-    .notepad-layout {
+    .grid-menu {
       display: grid;
-      grid-template-columns: 420px 1fr;
-      gap: 18px;
-      align-items: start;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
-    .form-box,
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid #e9eef5;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      color: var(--sidebar);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
     .list-box {
       background: #ffffff;
       border: 1px solid #e9eef5;
@@ -358,66 +395,23 @@
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
     }
 
-    .form-box h3,
     .list-box h3 {
       font-size: 18px;
       color: var(--sidebar);
-      margin-bottom: 14px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      font-size: 14px;
-      font-weight: 800;
-      color: #374151;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      border: 1px solid #dbe3ef;
-      border-radius: 14px;
-      padding: 13px 14px;
-      font-size: 15px;
-      outline: none;
-      background: #fff;
-      color: var(--text);
-      transition: 0.2s;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 160px;
-      line-height: 1.6;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
-    }
-
-    .form-actions,
-    .notepad-tools {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
     }
 
     .notepad-tools {
+      display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-bottom: 14px;
     }
 
     .notepad-tools input {
       max-width: 330px;
+      width: 100%;
     }
 
     .note-list {
@@ -472,31 +466,6 @@
       flex-wrap: wrap;
     }
 
-    .btn-soft {
-      background: #f1f5f9;
-      color: var(--sidebar);
-      border: 1px solid #e2e8f0;
-    }
-
-    .btn-soft:hover {
-      background: #e2e8f0;
-    }
-
-    .btn-danger {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .btn-danger:hover {
-      background: #fecaca;
-    }
-
-    .btn-small {
-      padding: 8px 10px;
-      font-size: 12px;
-      border-radius: 10px;
-    }
-
     .empty-note {
       text-align: center;
       padding: 30px;
@@ -504,6 +473,118 @@
       border: 1px dashed #cbd5e1;
       border-radius: 18px;
       background: #f8fafc;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 700px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+      animation: modalPop 0.2s ease;
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h3 {
+      font-size: 22px;
+      color: var(--sidebar);
+    }
+
+    .modal-close {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: none;
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      background: #e2e8f0;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #dbe3ef;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+      transition: 0.2s;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 180px;
+      line-height: 1.6;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
     }
 
     .toast {
@@ -521,7 +602,7 @@
       pointer-events: none;
       transform: translateY(12px);
       transition: 0.25s;
-      z-index: 99;
+      z-index: 1000;
     }
 
     .toast.show {
@@ -529,37 +610,7 @@
       transform: translateY(0);
     }
 
-    .grid-menu {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .feature-card {
-      background: #ffffff;
-      border: 1px solid #e9eef5;
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
-    }
-
-    .feature-card h3 {
-      font-size: 17px;
-      color: var(--sidebar);
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
     @media (max-width: 1100px) {
-      .notepad-layout {
-        grid-template-columns: 1fr;
-      }
-
       .cards {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -622,15 +673,20 @@
       .hero-actions,
       .btn,
       .content-btn,
+      .section-head button,
       .form-actions button,
-      .notepad-tools input,
-      .notepad-tools button {
+      .notepad-tools input {
         width: 100%;
       }
 
       .section-head {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .modal-box {
+        padding: 18px;
+        border-radius: 20px;
       }
     }
   </style>
@@ -658,7 +714,7 @@
       </nav>
 
       <div class="sidebar-footer">
-        <b>Status:</b> Setiap menu sekarang punya ruang sendiri dan tidak gabung dalam satu halaman.
+        <b>Status:</b> Notepad sudah memakai popup input dengan background blur.
       </div>
     </aside>
 
@@ -684,8 +740,8 @@
           </div>
           <div class="card">
             <div class="label">Notepad</div>
-            <div class="number">0</div>
-            <div class="mini">Belum diisi</div>
+            <div class="number" id="noteTotalDashboard">0</div>
+            <div class="mini">Catatan tersimpan</div>
           </div>
           <div class="card">
             <div class="label">Postingan</div>
@@ -746,47 +802,25 @@
           <div>
             <div class="pill">📝 Ruang Notepad</div>
             <h1>Notepad</h1>
-            <p>Ruang khusus untuk catatan cepat, teks kerja, dan data harian. Isi fitur Notepad akan kita buat setelah ini.</p>
+            <p>Ruang khusus untuk catatan cepat, teks kerja, dan data harian.</p>
           </div>
         </section>
+
         <section class="section">
           <div class="section-head">
             <div>
               <h2 class="section-title">Isi Notepad</h2>
               <p class="section-desc">Tambah, simpan, cari, edit, hapus, dan copy catatan.</p>
             </div>
+            <button type="button" class="btn btn-primary" id="openNoteModalBtn">+ Input Data</button>
           </div>
 
-          <div class="notepad-layout">
-            <div class="form-box">
-              <h3 id="noteFormTitle">Tambah Catatan</h3>
-              <form id="noteForm">
-                <input type="hidden" id="noteEditId" />
-
-                <div class="form-group">
-                  <label for="noteTitle">Judul Catatan</label>
-                  <input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required />
-                </div>
-
-                <div class="form-group">
-                  <label for="noteContent">Isi Catatan</label>
-                  <textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea>
-                </div>
-
-                <div class="form-actions">
-                  <button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button>
-                  <button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button>
-                </div>
-              </form>
+          <div class="list-box">
+            <div class="notepad-tools">
+              <h3>Daftar Catatan</h3>
+              <input type="text" id="noteSearch" placeholder="Cari catatan..." />
             </div>
-
-            <div class="list-box">
-              <div class="notepad-tools">
-                <h3>Daftar Catatan</h3>
-                <input type="text" id="noteSearch" placeholder="Cari catatan..." />
-              </div>
-              <div class="note-list" id="noteList"></div>
-            </div>
+            <div class="note-list" id="noteList"></div>
           </div>
         </section>
       </div>
@@ -800,16 +834,7 @@
           </div>
         </section>
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Syair Togel</h2>
-              <p class="section-desc">Placeholder khusus Syair Togel.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Syair Togel.</b><br />
-            Nanti kita buat isi dan pola khusus untuk syair di bagian ini.
-          </div>
+          <div class="placeholder-box"><b>Placeholder Syair Togel.</b><br />Nanti kita buat isi dan pola khusus untuk syair di bagian ini.</div>
         </section>
       </div>
 
@@ -822,16 +847,7 @@
           </div>
         </section>
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Bukti Kemenangan</h2>
-              <p class="section-desc">Placeholder khusus Bukti Kemenangan.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Bukti Kemenangan.</b><br />
-            Nanti kita buat area khusus untuk konten bukti kemenangan.
-          </div>
+          <div class="placeholder-box"><b>Placeholder Bukti Kemenangan.</b><br />Nanti kita buat area khusus untuk konten bukti kemenangan.</div>
         </section>
       </div>
 
@@ -844,16 +860,7 @@
           </div>
         </section>
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Prediksi</h2>
-              <p class="section-desc">Placeholder khusus Prediksi.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Prediksi.</b><br />
-            Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.
-          </div>
+          <div class="placeholder-box"><b>Placeholder Prediksi.</b><br />Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.</div>
         </section>
       </div>
 
@@ -866,16 +873,7 @@
           </div>
         </section>
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Link Domain</h2>
-              <p class="section-desc">Placeholder khusus Link Domain.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Link Domain.</b><br />
-            Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.
-          </div>
+          <div class="placeholder-box"><b>Placeholder Link Domain.</b><br />Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.</div>
         </section>
       </div>
 
@@ -888,19 +886,38 @@
           </div>
         </section>
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Selisih</h2>
-              <p class="section-desc">Placeholder khusus Selisih.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Selisih.</b><br />
-            Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.
-          </div>
+          <div class="placeholder-box"><b>Placeholder Selisih.</b><br />Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div>
         </section>
       </div>
     </main>
+  </div>
+
+  <div class="modal-overlay" id="noteModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="noteFormTitle">Tambah Catatan</h3>
+        <button type="button" class="modal-close" id="closeNoteModalBtn">✕</button>
+      </div>
+
+      <form id="noteForm">
+        <input type="hidden" id="noteEditId" />
+
+        <div class="form-group">
+          <label for="noteTitle">Judul Catatan</label>
+          <input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required />
+        </div>
+
+        <div class="form-group">
+          <label for="noteContent">Isi Catatan</label>
+          <textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button>
+          <button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="toast" id="toast">Berhasil</div>
@@ -909,6 +926,10 @@
     const navButtons = document.querySelectorAll(".nav-btn, .open-page");
     const sidebarButtons = document.querySelectorAll(".nav-btn");
     const pages = document.querySelectorAll(".page");
+    const postinganDropdownBtn = document.getElementById("postinganDropdownBtn");
+    const postinganSubmenu = document.getElementById("postinganSubmenu");
+    const dropdownIcon = document.getElementById("dropdownIcon");
+    const heroPostinganBtn = document.getElementById("heroPostinganBtn");
 
     const toast = document.getElementById("toast");
     const noteForm = document.getElementById("noteForm");
@@ -920,12 +941,12 @@
     const noteResetBtn = document.getElementById("noteResetBtn");
     const noteSearch = document.getElementById("noteSearch");
     const noteList = document.getElementById("noteList");
+    const noteModal = document.getElementById("noteModal");
+    const openNoteModalBtn = document.getElementById("openNoteModalBtn");
+    const closeNoteModalBtn = document.getElementById("closeNoteModalBtn");
+    const noteTotalDashboard = document.getElementById("noteTotalDashboard");
 
     let notepadData = JSON.parse(localStorage.getItem("notepadKerjaBoss")) || [];
-    const postinganDropdownBtn = document.getElementById("postinganDropdownBtn");
-    const postinganSubmenu = document.getElementById("postinganSubmenu");
-    const dropdownIcon = document.getElementById("dropdownIcon");
-    const heroPostinganBtn = document.getElementById("heroPostinganBtn");
 
     function showToast(text) {
       toast.textContent = text;
@@ -934,14 +955,10 @@
     }
 
     function openPage(pageName) {
-      pages.forEach(page => {
-        page.classList.remove("active");
-      });
+      pages.forEach(page => page.classList.remove("active"));
 
       const targetPage = document.getElementById(`page-${pageName}`);
-      if (targetPage) {
-        targetPage.classList.add("active");
-      }
+      if (targetPage) targetPage.classList.add("active");
 
       sidebarButtons.forEach(button => {
         button.classList.toggle("active", button.dataset.page === pageName);
@@ -955,6 +972,32 @@
         openPage(this.dataset.page);
       });
     });
+
+    postinganDropdownBtn.addEventListener("click", function() {
+      postinganSubmenu.classList.toggle("show");
+      dropdownIcon.textContent = postinganSubmenu.classList.contains("show") ? "▴" : "▾";
+    });
+
+    heroPostinganBtn.addEventListener("click", function() {
+      postinganSubmenu.classList.add("show");
+      dropdownIcon.textContent = "▴";
+    });
+
+    function openNoteModal() {
+      noteModal.classList.add("show");
+      setTimeout(() => noteTitle.focus(), 100);
+    }
+
+    function closeNoteModal() {
+      noteModal.classList.remove("show");
+    }
+
+    function resetNoteForm() {
+      noteForm.reset();
+      noteEditId.value = "";
+      noteFormTitle.textContent = "Tambah Catatan";
+      noteSaveBtn.textContent = "Simpan Catatan";
+    }
 
     function saveNotepad() {
       localStorage.setItem("notepadKerjaBoss", JSON.stringify(notepadData));
@@ -979,14 +1022,22 @@
       });
     }
 
+    function updateNoteTotal() {
+      if (noteTotalDashboard) {
+        noteTotalDashboard.textContent = notepadData.length;
+      }
+    }
+
     function renderNotes() {
       const keyword = noteSearch.value.toLowerCase();
+
       const filteredNotes = notepadData.filter(note => {
         return note.title.toLowerCase().includes(keyword) || note.content.toLowerCase().includes(keyword);
       });
 
       if (filteredNotes.length === 0) {
         noteList.innerHTML = `<div class="empty-note">Belum ada catatan yang cocok.</div>`;
+        updateNoteTotal();
         return;
       }
 
@@ -1004,7 +1055,31 @@
           </div>
         </div>
       `).join("");
+
+      updateNoteTotal();
     }
+
+    openNoteModalBtn.addEventListener("click", function() {
+      resetNoteForm();
+      openNoteModal();
+    });
+
+    closeNoteModalBtn.addEventListener("click", closeNoteModal);
+
+    noteModal.addEventListener("click", function(e) {
+      if (e.target === noteModal) closeNoteModal();
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") closeNoteModal();
+    });
+
+    noteResetBtn.addEventListener("click", function() {
+      resetNoteForm();
+      showToast("Form dibersihkan");
+    });
+
+    noteSearch.addEventListener("input", renderNotes);
 
     noteForm.addEventListener("submit", function(e) {
       e.preventDefault();
@@ -1026,20 +1101,9 @@
       }
 
       saveNotepad();
-      resetNoteForm();
       renderNotes();
-    });
-
-    function resetNoteForm() {
-      noteForm.reset();
-      noteEditId.value = "";
-      noteFormTitle.textContent = "Tambah Catatan";
-      noteSaveBtn.textContent = "Simpan Catatan";
-    }
-
-    noteResetBtn.addEventListener("click", function() {
       resetNoteForm();
-      showToast("Form dibersihkan");
+      closeNoteModal();
     });
 
     function editNote(id) {
@@ -1052,6 +1116,7 @@
       noteFormTitle.textContent = "Edit Catatan";
       noteSaveBtn.textContent = "Update Catatan";
       openPage("notepad");
+      openNoteModal();
       showToast("Mode edit aktif");
     }
 
@@ -1076,18 +1141,7 @@
       });
     }
 
-    noteSearch.addEventListener("input", renderNotes);
     renderNotes();
-
-    postinganDropdownBtn.addEventListener("click", function() {
-      postinganSubmenu.classList.toggle("show");
-      dropdownIcon.textContent = postinganSubmenu.classList.contains("show") ? "▴" : "▾";
-    });
-
-    heroPostinganBtn.addEventListener("click", function() {
-      postinganSubmenu.classList.add("show");
-      dropdownIcon.textContent = "▴";
-    });
   </script>
 </body>
 </html>
