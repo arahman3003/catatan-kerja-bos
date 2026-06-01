@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KerjaBoss - Neon Dashboard</title>
+  <title>KerjaBoss - Dashboard Catatan Kerja</title>
   <style>
     :root {
-      --bg: #030712;
-      --panel: rgba(15, 23, 42, 0.76);
-      --panel-2: rgba(2, 6, 23, 0.82);
-      --text: #e5f7ff;
-      --muted: #94a3b8;
-      --line: rgba(148, 163, 184, 0.22);
-      --cyan: #22d3ee;
+      --bg: #f3f6fb;
+      --sidebar: #0f172a;
+      --sidebar-soft: #182235;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --line: #e5e7eb;
       --green: #22c55e;
-      --pink: #f472b6;
-      --purple: #a78bfa;
-      --yellow: #fde68a;
-      --red: #fb7185;
-      --shadow: 0 0 28px rgba(34, 211, 238, 0.18), 0 18px 55px rgba(0, 0, 0, 0.38);
+      --green-dark: #16a34a;
+      --blue: #2563eb;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Inter, Arial, sans-serif;
+      font-family: Arial, sans-serif;
     }
 
     html {
@@ -33,316 +33,160 @@
     }
 
     body {
-      min-height: 100vh;
       background: var(--bg);
       color: var(--text);
-      overflow-x: hidden;
-    }
-
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      inset: -30%;
-      z-index: -3;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.26), transparent 24%),
-        radial-gradient(circle at 80% 15%, rgba(244, 114, 182, 0.22), transparent 24%),
-        radial-gradient(circle at 60% 80%, rgba(34, 197, 94, 0.2), transparent 28%),
-        radial-gradient(circle at 15% 75%, rgba(167, 139, 250, 0.2), transparent 22%);
-      animation: neonMove 16s ease-in-out infinite alternate;
-      filter: blur(8px);
-    }
-
-    body::after {
-      z-index: -2;
-      background-image:
-        linear-gradient(rgba(34, 211, 238, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(244, 114, 182, 0.06) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity: 0.55;
-      animation: gridSlide 14s linear infinite;
-      filter: none;
-    }
-
-    @keyframes neonMove {
-      0% { transform: translate3d(-2%, -1%, 0) scale(1); }
-      50% { transform: translate3d(3%, 2%, 0) scale(1.06); }
-      100% { transform: translate3d(-1%, 3%, 0) scale(1.02); }
-    }
-
-    @keyframes gridSlide {
-      from { background-position: 0 0, 0 0; }
-      to { background-position: 96px 96px, 96px 96px; }
-    }
-
-    @keyframes borderFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 18px rgba(34, 211, 238, 0.25), 0 0 35px rgba(34, 197, 94, 0.1); }
-      50% { box-shadow: 0 0 30px rgba(34, 211, 238, 0.42), 0 0 55px rgba(244, 114, 182, 0.16); }
-    }
-
-    @keyframes floatSoft {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      min-height: 100vh;
     }
 
     .app {
       display: grid;
-      grid-template-columns: 290px 1fr;
+      grid-template-columns: 280px 1fr;
       min-height: 100vh;
     }
 
-    .neon-border {
-      position: relative;
-      border-radius: 28px;
-    }
-
-    .neon-border::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      background: linear-gradient(120deg, var(--cyan), var(--green), var(--pink), var(--purple), var(--cyan));
-      background-size: 300% 300%;
-      animation: borderFlow 7s linear infinite;
-      opacity: 0.65;
-      z-index: -1;
-    }
-
     .sidebar {
-      margin: 18px;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.92));
+      background: var(--sidebar);
       color: #fff;
-      padding: 18px;
+      padding: 24px 18px;
       position: sticky;
-      top: 18px;
-      height: calc(100vh - 36px);
-      border: 1px solid rgba(34, 211, 238, 0.18);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
+      top: 0;
+      height: 100vh;
     }
 
     .brand-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(34, 211, 238, 0.22);
-      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
       padding: 18px;
-      margin-bottom: 22px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .brand-box::after {
-      content: "";
-      position: absolute;
-      width: 140px;
-      height: 140px;
-      right: -70px;
-      top: -70px;
-      border-radius: 999px;
-      background: rgba(34, 211, 238, 0.22);
-      filter: blur(8px);
+      margin-bottom: 24px;
     }
 
     .brand {
-      font-size: 27px;
-      font-weight: 950;
-      letter-spacing: -0.8px;
+      font-size: 26px;
+      font-weight: 900;
       margin-bottom: 8px;
-      text-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
-      position: relative;
-      z-index: 1;
+      letter-spacing: -0.5px;
     }
 
     .brand span {
-      color: var(--cyan);
+      color: var(--green);
     }
 
     .subtitle {
       font-size: 13px;
-      color: #b6c7d7;
-      line-height: 1.6;
-      position: relative;
-      z-index: 1;
+      color: #aab4c4;
+      line-height: 1.5;
     }
 
     .menu-title {
-      color: #67e8f9;
       font-size: 12px;
-      font-weight: 900;
+      color: #64748b;
       text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
       margin: 18px 12px 10px;
-      letter-spacing: 1.6px;
-      text-shadow: 0 0 14px rgba(34, 211, 238, 0.4);
     }
 
     .menu {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .menu a {
-      color: #d8f3ff;
+      color: #d1d5db;
       text-decoration: none;
       padding: 13px 14px;
-      border-radius: 16px;
-      transition: 0.22s;
+      border-radius: 14px;
       font-size: 15px;
       display: flex;
       align-items: center;
       gap: 10px;
-      border: 1px solid transparent;
-      background: rgba(255,255,255,0.03);
+      transition: 0.2s;
     }
 
     .menu a:hover,
     .menu a.active {
-      background: rgba(34, 211, 238, 0.12);
-      border-color: rgba(34, 211, 238, 0.34);
+      background: var(--green);
       color: #fff;
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.18), inset 3px 0 0 var(--cyan);
-      transform: translateX(3px);
     }
 
     .sidebar-footer {
       position: absolute;
-      bottom: 18px;
       left: 18px;
       right: 18px;
-      padding: 15px;
-      border-radius: 20px;
-      background: rgba(34, 197, 94, 0.09);
-      border: 1px solid rgba(34, 197, 94, 0.24);
+      bottom: 22px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
       color: #dcfce7;
+      padding: 14px;
+      border-radius: 16px;
       font-size: 13px;
-      line-height: 1.6;
-      box-shadow: 0 0 18px rgba(34, 197, 94, 0.1);
+      line-height: 1.5;
     }
 
     .main {
-      padding: 18px 28px 30px 0;
-      max-width: 1500px;
+      padding: 28px;
       width: 100%;
+      max-width: 1500px;
     }
 
     .hero {
-      background: var(--panel);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(34, 211, 238, 0.2);
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid #e9eef5;
+      border-radius: 26px;
       box-shadow: var(--shadow);
-      border-radius: 30px;
-      padding: 28px;
+      padding: 26px;
       margin-bottom: 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 20px;
-      overflow: hidden;
-      position: relative;
-      animation: pulseGlow 4s ease-in-out infinite;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 0%, rgba(34, 211, 238, 0.08) 35%, rgba(244, 114, 182, 0.08) 60%, transparent 100%);
-      transform: translateX(-100%);
-      animation: scanLight 5.5s ease-in-out infinite;
-    }
-
-    @keyframes scanLight {
-      0% { transform: translateX(-100%); }
-      45%, 100% { transform: translateX(100%); }
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      border-radius: 999px;
-      right: -80px;
-      top: -100px;
-      background: rgba(34, 211, 238, 0.17);
-      pointer-events: none;
-      filter: blur(4px);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
     }
 
     .pill {
       display: inline-flex;
-      gap: 8px;
       align-items: center;
-      color: #cffafe;
-      background: rgba(34, 211, 238, 0.12);
-      border: 1px solid rgba(34, 211, 238, 0.42);
+      gap: 8px;
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
       font-size: 13px;
-      font-weight: 900;
-      padding: 8px 12px;
+      font-weight: 800;
       border-radius: 999px;
+      padding: 8px 12px;
       margin-bottom: 12px;
-      box-shadow: 0 0 18px rgba(34, 211, 238, 0.18);
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 12px var(--green), 0 0 22px var(--green);
-      display: inline-block;
     }
 
     .hero h1 {
-      font-size: clamp(30px, 4vw, 46px);
-      letter-spacing: -1.4px;
-      color: #fff;
+      font-size: clamp(28px, 4vw, 42px);
+      color: var(--sidebar);
+      letter-spacing: -1px;
       margin-bottom: 8px;
-      text-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
-    }
-
-    .hero h1 span {
-      color: var(--cyan);
-      text-shadow: 0 0 22px rgba(34, 211, 238, 0.68);
     }
 
     .hero p {
-      color: #b6c7d7;
+      color: var(--muted);
+      line-height: 1.7;
       max-width: 760px;
-      line-height: 1.75;
     }
 
     .hero-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
     }
 
     .btn,
     button,
     .wa-button {
       border: none;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 12px 16px;
       font-size: 14px;
-      font-weight: 900;
+      font-weight: 800;
       cursor: pointer;
-      transition: 0.22s;
+      transition: 0.2s;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -352,49 +196,44 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, rgba(34,211,238,0.95), rgba(167,139,250,0.95));
-      color: #020617;
-      box-shadow: 0 0 22px rgba(34, 211, 238, 0.34), 0 12px 28px rgba(0,0,0,0.28);
+      background: var(--sidebar);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 0 30px rgba(34, 211, 238, 0.55), 0 12px 32px rgba(0,0,0,0.32);
+      background: #020617;
+      transform: translateY(-1px);
     }
 
-    .btn-green,
     .wa-button {
-      background: linear-gradient(135deg, #22c55e, #22d3ee);
-      color: #02110a;
-      box-shadow: 0 0 22px rgba(34, 197, 94, 0.3), 0 12px 28px rgba(0,0,0,0.25);
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.22);
     }
 
-    .btn-green:hover,
     .wa-button:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+      background: var(--green-dark);
+      transform: translateY(-1px);
     }
 
     .btn-soft {
-      background: rgba(148, 163, 184, 0.14);
-      color: #e2e8f0;
-      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: #f1f5f9;
+      color: var(--sidebar);
+      border: 1px solid #e2e8f0;
     }
 
     .btn-soft:hover {
-      background: rgba(34, 211, 238, 0.12);
-      border-color: rgba(34, 211, 238, 0.35);
-      box-shadow: 0 0 18px rgba(34, 211, 238, 0.18);
+      background: #e2e8f0;
     }
 
     .btn-danger {
-      background: rgba(251, 113, 133, 0.14);
-      color: #fecdd3;
-      border: 1px solid rgba(251, 113, 133, 0.32);
+      background: #fee2e2;
+      color: #991b1b;
     }
 
     .btn-danger:hover {
-      box-shadow: 0 0 18px rgba(251, 113, 133, 0.22);
+      background: #fecaca;
     }
 
     .cards {
@@ -405,83 +244,53 @@
     }
 
     .card {
-      background: var(--panel);
-      backdrop-filter: blur(18px);
-      padding: 20px;
-      border-radius: 26px;
+      background: var(--card);
+      border: 1px solid #e9eef5;
+      border-radius: 22px;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(34, 211, 238, 0.18);
+      padding: 20px;
       position: relative;
       overflow: hidden;
-      animation: floatSoft 6s ease-in-out infinite;
     }
-
-    .card:nth-child(2) { animation-delay: -1s; }
-    .card:nth-child(3) { animation-delay: -2s; }
-    .card:nth-child(4) { animation-delay: -3s; }
 
     .card::after {
       content: "";
       position: absolute;
-      width: 110px;
-      height: 110px;
-      right: -40px;
-      bottom: -42px;
+      width: 90px;
+      height: 90px;
+      right: -36px;
+      bottom: -36px;
+      background: rgba(34, 197, 94, 0.1);
       border-radius: 50%;
-      background: rgba(34,211,238,0.15);
-      filter: blur(2px);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.06), transparent);
-      transform: translateX(-100%);
-      animation: cardShine 7s ease-in-out infinite;
-    }
-
-    @keyframes cardShine {
-      0%, 35% { transform: translateX(-100%); }
-      65%, 100% { transform: translateX(100%); }
     }
 
     .card .label {
-      color: #b6c7d7;
+      color: var(--muted);
       font-size: 14px;
+      font-weight: 700;
       margin-bottom: 10px;
-      font-weight: 800;
-      position: relative;
-      z-index: 1;
     }
 
     .card .number {
-      font-size: 36px;
-      font-weight: 950;
-      color: #fff;
+      color: var(--sidebar);
+      font-size: 34px;
+      font-weight: 900;
       letter-spacing: -1px;
-      text-shadow: 0 0 18px rgba(34, 211, 238, 0.38);
-      position: relative;
-      z-index: 1;
     }
 
     .card .mini {
-      color: #93a4b8;
+      color: #94a3b8;
       font-size: 12px;
       margin-top: 8px;
-      position: relative;
-      z-index: 1;
     }
 
     .section {
-      background: var(--panel);
-      backdrop-filter: blur(18px);
-      border-radius: 28px;
-      padding: 24px;
+      background: var(--card);
+      border: 1px solid #e9eef5;
+      border-radius: 24px;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(34, 211, 238, 0.17);
+      padding: 24px;
       margin-bottom: 24px;
-      position: relative;
     }
 
     .section-head {
@@ -494,13 +303,12 @@
 
     .section-title {
       font-size: 22px;
-      color: #fff;
-      letter-spacing: -0.4px;
-      text-shadow: 0 0 16px rgba(34, 211, 238, 0.28);
+      color: var(--sidebar);
+      letter-spacing: -0.3px;
     }
 
     .section-desc {
-      color: #a7b6c8;
+      color: var(--muted);
       font-size: 14px;
       margin-top: 5px;
       line-height: 1.5;
@@ -524,45 +332,34 @@
 
     label {
       font-size: 14px;
-      font-weight: 900;
-      color: #dff7ff;
+      font-weight: 800;
+      color: #374151;
     }
 
     input,
     select,
     textarea {
       width: 100%;
-      border: 1px solid rgba(148, 163, 184, 0.28);
-      border-radius: 16px;
+      border: 1px solid #dbe3ef;
+      border-radius: 14px;
       padding: 13px 14px;
       font-size: 15px;
       outline: none;
-      background: rgba(2, 6, 23, 0.58);
-      color: #f8fafc;
-      transition: 0.22s;
-      box-shadow: inset 0 0 18px rgba(0,0,0,0.18);
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #64748b;
-    }
-
-    select option {
-      background: #020617;
-      color: #fff;
+      background: #fff;
+      color: var(--text);
+      transition: 0.2s;
     }
 
     textarea {
       resize: vertical;
-      min-height: 104px;
+      min-height: 100px;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: rgba(34, 211, 238, 0.75);
-      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.12), 0 0 22px rgba(34, 211, 238, 0.18);
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
     }
 
     .actions {
@@ -597,10 +394,9 @@
 
     .table-wrap {
       overflow-x: auto;
-      border-radius: 20px;
-      border: 1px solid rgba(34, 211, 238, 0.18);
-      background: rgba(2, 6, 23, 0.55);
-      box-shadow: inset 0 0 30px rgba(34, 211, 238, 0.04);
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
     }
 
     table {
@@ -613,26 +409,21 @@
     td {
       padding: 15px 14px;
       text-align: left;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      border-bottom: 1px solid var(--line);
       font-size: 14px;
       vertical-align: top;
     }
 
     th {
-      color: #67e8f9;
-      background: rgba(15, 23, 42, 0.7);
+      color: #475569;
+      background: #f8fafc;
       font-size: 13px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-shadow: 0 0 12px rgba(34, 211, 238, 0.28);
-    }
-
-    td {
-      color: #dbeafe;
+      letter-spacing: 0.4px;
     }
 
     tr:hover td {
-      background: rgba(34, 211, 238, 0.07);
+      background: #f9fafb;
     }
 
     .badge {
@@ -640,29 +431,22 @@
       padding: 7px 11px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight: 950;
-      border: 1px solid transparent;
+      font-weight: 900;
     }
 
     .badge.proses {
-      background: rgba(253, 230, 138, 0.12);
-      color: #fde68a;
-      border-color: rgba(253, 230, 138, 0.28);
-      box-shadow: 0 0 16px rgba(253, 230, 138, 0.1);
+      background: #fef3c7;
+      color: #92400e;
     }
 
     .badge.selesai {
-      background: rgba(34, 197, 94, 0.12);
-      color: #bbf7d0;
-      border-color: rgba(34, 197, 94, 0.28);
-      box-shadow: 0 0 16px rgba(34, 197, 94, 0.12);
+      background: #dcfce7;
+      color: #166534;
     }
 
     .badge.batal {
-      background: rgba(251, 113, 133, 0.12);
-      color: #fecdd3;
-      border-color: rgba(251, 113, 133, 0.28);
-      box-shadow: 0 0 16px rgba(251, 113, 133, 0.12);
+      background: #fee2e2;
+      color: #991b1b;
     }
 
     .row-actions {
@@ -674,66 +458,56 @@
     .btn-small {
       padding: 8px 10px;
       font-size: 12px;
-      border-radius: 11px;
+      border-radius: 10px;
       box-shadow: none;
     }
 
     .edit {
-      background: rgba(96, 165, 250, 0.14);
-      color: #bfdbfe;
-      border: 1px solid rgba(96, 165, 250, 0.28);
+      background: #dbeafe;
+      color: #1e40af;
     }
 
     .delete {
-      background: rgba(251, 113, 133, 0.14);
-      color: #fecdd3;
-      border: 1px solid rgba(251, 113, 133, 0.28);
+      background: #fee2e2;
+      color: #991b1b;
     }
 
     .done {
-      background: rgba(34, 197, 94, 0.14);
-      color: #bbf7d0;
-      border: 1px solid rgba(34, 197, 94, 0.28);
+      background: #dcfce7;
+      color: #166534;
     }
 
     .empty {
       text-align: center;
-      color: #94a3b8;
+      color: var(--muted);
       padding: 34px;
     }
 
     .info-box {
-      background: rgba(2, 6, 23, 0.5);
-      border: 1px dashed rgba(34, 211, 238, 0.32);
-      border-radius: 22px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 18px;
       padding: 18px;
       line-height: 1.8;
-      color: #b6c7d7;
-      box-shadow: inset 0 0 25px rgba(34, 211, 238, 0.04);
-    }
-
-    .info-box b {
-      color: #67e8f9;
+      color: #475569;
     }
 
     .toast {
       position: fixed;
       right: 22px;
       bottom: 22px;
-      background: rgba(2, 6, 23, 0.92);
-      color: #e0faff;
+      background: var(--sidebar);
+      color: white;
       padding: 13px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(34, 211, 238, 0.32);
-      box-shadow: 0 0 25px rgba(34, 211, 238, 0.24), 0 16px 35px rgba(0,0,0,0.35);
+      border-radius: 14px;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.25);
       font-size: 14px;
-      font-weight: 900;
+      font-weight: 800;
       opacity: 0;
       pointer-events: none;
       transform: translateY(12px);
       transition: 0.25s;
       z-index: 99;
-      backdrop-filter: blur(12px);
     }
 
     .toast.show {
@@ -749,12 +523,6 @@
       .sidebar {
         position: relative;
         height: auto;
-        top: 0;
-        margin: 14px;
-      }
-
-      .main {
-        padding: 0 14px 24px;
       }
 
       .sidebar-footer {
@@ -782,9 +550,12 @@
     }
 
     @media (max-width: 640px) {
+      .main {
+        padding: 18px;
+      }
+
       .sidebar {
-        padding: 16px;
-        border-radius: 24px;
+        padding: 18px;
       }
 
       .menu {
@@ -797,7 +568,7 @@
 
       .hero,
       .section {
-        border-radius: 24px;
+        border-radius: 20px;
         padding: 20px;
       }
 
@@ -826,9 +597,9 @@
 <body>
   <div class="app">
     <aside class="sidebar">
-      <div class="brand-box neon-border">
+      <div class="brand-box">
         <div class="brand">Kerja<span>Boss</span></div>
-        <div class="subtitle">Aplikasi web neon untuk mencatat pekerjaan, pelanggan, status, dan laporan harian.</div>
+        <div class="subtitle">Dashboard ringan untuk mencatat pekerjaan, pelanggan, status, dan laporan harian.</div>
       </div>
 
       <div class="menu-title">Menu Utama</div>
@@ -845,11 +616,11 @@
     </aside>
 
     <main class="main">
-      <section class="hero neon-border" id="dashboard">
+      <section class="hero" id="dashboard">
         <div class="hero-content">
-          <div class="pill"><span class="dot"></span> Neon Online Dashboard</div>
-          <h1>Dashboard <span>Catatan Kerja</span></h1>
-          <p>Kelola pekerjaan harian dengan tampilan neon bergerak. Tambah data, cari catatan, pantau status, dan simpan semua langsung di browser.</p>
+          <div class="pill">● Dashboard Aktif</div>
+          <h1>Dashboard Catatan Kerja</h1>
+          <p>Kelola pekerjaan harian dengan tampilan elegan dan ringan. Tambah data, cari catatan, pantau status, dan simpan semua langsung di browser.</p>
         </div>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#input">＋ Tambah Data</a>
@@ -858,29 +629,29 @@
       </section>
 
       <section class="cards">
-        <div class="card neon-border">
+        <div class="card">
           <div class="label">Total Catatan</div>
           <div class="number" id="totalData">0</div>
           <div class="mini">Semua data pekerjaan</div>
         </div>
-        <div class="card neon-border">
+        <div class="card">
           <div class="label">Dalam Proses</div>
           <div class="number" id="totalProses">0</div>
           <div class="mini">Belum selesai dikerjakan</div>
         </div>
-        <div class="card neon-border">
+        <div class="card">
           <div class="label">Selesai</div>
           <div class="number" id="totalSelesai">0</div>
           <div class="mini">Pekerjaan selesai</div>
         </div>
-        <div class="card neon-border">
+        <div class="card">
           <div class="label">Batal</div>
           <div class="number" id="totalBatal">0</div>
           <div class="mini">Pekerjaan dibatalkan</div>
         </div>
       </section>
 
-      <section class="section neon-border" id="input">
+      <section class="section" id="input">
         <div class="section-head">
           <div>
             <h2 class="section-title">Input Catatan Kerja</h2>
@@ -937,7 +708,7 @@
         </form>
       </section>
 
-      <section class="section neon-border" id="data">
+      <section class="section" id="data">
         <div class="section-head">
           <div>
             <h2 class="section-title">Data Tersimpan</h2>
@@ -980,7 +751,7 @@
         </div>
       </section>
 
-      <section class="section neon-border" id="kontak">
+      <section class="section" id="kontak">
         <h2 class="section-title">Pengaturan Kontak</h2>
         <div class="info-box">
           Tombol WhatsApp bisa diganti dengan nomor bos sendiri di bagian JavaScript:
