@@ -342,6 +342,193 @@
       color: var(--sidebar);
     }
 
+    .notepad-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .form-box,
+    .list-box {
+      background: #ffffff;
+      border: 1px solid #e9eef5;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    .form-box h3,
+    .list-box h3 {
+      font-size: 18px;
+      color: var(--sidebar);
+      margin-bottom: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #dbe3ef;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+      transition: 0.2s;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 160px;
+      line-height: 1.6;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+    }
+
+    .form-actions,
+    .notepad-tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .notepad-tools {
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .notepad-tools input {
+      max-width: 330px;
+    }
+
+    .note-list {
+      display: grid;
+      gap: 12px;
+      max-height: 580px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .note-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+
+    .note-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .note-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--sidebar);
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .note-date {
+      font-size: 12px;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+
+    .note-content {
+      color: #475569;
+      line-height: 1.7;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 12px;
+    }
+
+    .note-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-soft {
+      background: #f1f5f9;
+      color: var(--sidebar);
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-soft:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-danger:hover {
+      background: #fecaca;
+    }
+
+    .btn-small {
+      padding: 8px 10px;
+      font-size: 12px;
+      border-radius: 10px;
+    }
+
+    .empty-note {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      border: 1px dashed #cbd5e1;
+      border-radius: 18px;
+      background: #f8fafc;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: var(--sidebar);
+      color: white;
+      padding: 13px 16px;
+      border-radius: 14px;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.25);
+      font-size: 14px;
+      font-weight: 800;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: 0.25s;
+      z-index: 99;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .grid-menu {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -369,6 +556,10 @@
     }
 
     @media (max-width: 1100px) {
+      .notepad-layout {
+        grid-template-columns: 1fr;
+      }
+
       .cards {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -430,7 +621,10 @@
 
       .hero-actions,
       .btn,
-      .content-btn {
+      .content-btn,
+      .form-actions button,
+      .notepad-tools input,
+      .notepad-tools button {
         width: 100%;
       }
 
@@ -559,12 +753,40 @@
           <div class="section-head">
             <div>
               <h2 class="section-title">Isi Notepad</h2>
-              <p class="section-desc">Placeholder khusus Notepad.</p>
+              <p class="section-desc">Tambah, simpan, cari, edit, hapus, dan copy catatan.</p>
             </div>
           </div>
-          <div class="placeholder-box">
-            <b>Placeholder Notepad.</b><br />
-            Nanti di sini bisa dibuat input catatan, tombol tambah, daftar catatan, edit, hapus, dan penyimpanan otomatis.
+
+          <div class="notepad-layout">
+            <div class="form-box">
+              <h3 id="noteFormTitle">Tambah Catatan</h3>
+              <form id="noteForm">
+                <input type="hidden" id="noteEditId" />
+
+                <div class="form-group">
+                  <label for="noteTitle">Judul Catatan</label>
+                  <input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="noteContent">Isi Catatan</label>
+                  <textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button>
+                  <button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="list-box">
+              <div class="notepad-tools">
+                <h3>Daftar Catatan</h3>
+                <input type="text" id="noteSearch" placeholder="Cari catatan..." />
+              </div>
+              <div class="note-list" id="noteList"></div>
+            </div>
           </div>
         </section>
       </div>
@@ -681,14 +903,35 @@
     </main>
   </div>
 
+  <div class="toast" id="toast">Berhasil</div>
+
   <script>
     const navButtons = document.querySelectorAll(".nav-btn, .open-page");
     const sidebarButtons = document.querySelectorAll(".nav-btn");
     const pages = document.querySelectorAll(".page");
+
+    const toast = document.getElementById("toast");
+    const noteForm = document.getElementById("noteForm");
+    const noteFormTitle = document.getElementById("noteFormTitle");
+    const noteEditId = document.getElementById("noteEditId");
+    const noteTitle = document.getElementById("noteTitle");
+    const noteContent = document.getElementById("noteContent");
+    const noteSaveBtn = document.getElementById("noteSaveBtn");
+    const noteResetBtn = document.getElementById("noteResetBtn");
+    const noteSearch = document.getElementById("noteSearch");
+    const noteList = document.getElementById("noteList");
+
+    let notepadData = JSON.parse(localStorage.getItem("notepadKerjaBoss")) || [];
     const postinganDropdownBtn = document.getElementById("postinganDropdownBtn");
     const postinganSubmenu = document.getElementById("postinganSubmenu");
     const dropdownIcon = document.getElementById("dropdownIcon");
     const heroPostinganBtn = document.getElementById("heroPostinganBtn");
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1800);
+    }
 
     function openPage(pageName) {
       pages.forEach(page => {
@@ -712,6 +955,129 @@
         openPage(this.dataset.page);
       });
     });
+
+    function saveNotepad() {
+      localStorage.setItem("notepadKerjaBoss", JSON.stringify(notepadData));
+    }
+
+    function cleanText(text) {
+      return String(text || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatDate(timestamp) {
+      return new Date(timestamp).toLocaleString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function renderNotes() {
+      const keyword = noteSearch.value.toLowerCase();
+      const filteredNotes = notepadData.filter(note => {
+        return note.title.toLowerCase().includes(keyword) || note.content.toLowerCase().includes(keyword);
+      });
+
+      if (filteredNotes.length === 0) {
+        noteList.innerHTML = `<div class="empty-note">Belum ada catatan yang cocok.</div>`;
+        return;
+      }
+
+      noteList.innerHTML = filteredNotes.map(note => `
+        <div class="note-card">
+          <div class="note-head">
+            <div class="note-title">${cleanText(note.title)}</div>
+            <div class="note-date">${formatDate(note.updatedAt)}</div>
+          </div>
+          <div class="note-content">${cleanText(note.content)}</div>
+          <div class="note-actions">
+            <button class="btn btn-small btn-soft" onclick="copyNote('${note.id}')">Copy</button>
+            <button class="btn btn-small btn-soft" onclick="editNote('${note.id}')">Edit</button>
+            <button class="btn btn-small btn-danger" onclick="deleteNote('${note.id}')">Hapus</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    noteForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const now = Date.now();
+      const note = {
+        id: noteEditId.value || now.toString(),
+        title: noteTitle.value.trim(),
+        content: noteContent.value.trim(),
+        updatedAt: now
+      };
+
+      if (noteEditId.value) {
+        notepadData = notepadData.map(item => item.id === noteEditId.value ? note : item);
+        showToast("Catatan berhasil diupdate");
+      } else {
+        notepadData.unshift(note);
+        showToast("Catatan berhasil disimpan");
+      }
+
+      saveNotepad();
+      resetNoteForm();
+      renderNotes();
+    });
+
+    function resetNoteForm() {
+      noteForm.reset();
+      noteEditId.value = "";
+      noteFormTitle.textContent = "Tambah Catatan";
+      noteSaveBtn.textContent = "Simpan Catatan";
+    }
+
+    noteResetBtn.addEventListener("click", function() {
+      resetNoteForm();
+      showToast("Form dibersihkan");
+    });
+
+    function editNote(id) {
+      const note = notepadData.find(item => item.id === id);
+      if (!note) return;
+
+      noteEditId.value = note.id;
+      noteTitle.value = note.title;
+      noteContent.value = note.content;
+      noteFormTitle.textContent = "Edit Catatan";
+      noteSaveBtn.textContent = "Update Catatan";
+      openPage("notepad");
+      showToast("Mode edit aktif");
+    }
+
+    function deleteNote(id) {
+      const yakin = confirm("Yakin mau hapus catatan ini?");
+      if (!yakin) return;
+
+      notepadData = notepadData.filter(item => item.id !== id);
+      saveNotepad();
+      renderNotes();
+      showToast("Catatan berhasil dihapus");
+    }
+
+    function copyNote(id) {
+      const note = notepadData.find(item => item.id === id);
+      if (!note) return;
+
+      navigator.clipboard.writeText(note.content).then(() => {
+        showToast("Isi catatan berhasil dicopy");
+      }).catch(() => {
+        alert("Browser tidak mengizinkan copy otomatis.");
+      });
+    }
+
+    noteSearch.addEventListener("input", renderNotes);
+    renderNotes();
 
     postinganDropdownBtn.addEventListener("click", function() {
       postinganSubmenu.classList.toggle("show");
