@@ -11,7 +11,6 @@
       --card: #ffffff;
       --text: #111827;
       --muted: #6b7280;
-      --line: #e5e7eb;
       --green: #22c55e;
       --green-dark: #16a34a;
       --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
@@ -258,28 +257,9 @@
     }
 
     .btn-soft {
-      background: rgba(255, 255, 255, 0.7);
+      background: #f1f5f9;
       color: var(--sidebar);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-    }
-
-    .btn-soft:hover {
-      background: #ffffff;
-    }
-
-    .btn-danger {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .btn-danger:hover {
-      background: #fecaca;
-    }
-
-    .btn-small {
-      padding: 8px 10px;
-      font-size: 12px;
-      border-radius: 10px;
+      border: 1px solid #e2e8f0;
     }
 
     .cards {
@@ -371,10 +351,6 @@
       color: var(--sidebar);
     }
 
-    .note-toolbar input {
-      max-width: 360px;
-    }
-
     input,
     textarea {
       width: 100%;
@@ -403,14 +379,14 @@
     .note-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 14px;
+      gap: 16px;
       align-items: start;
     }
 
     .note-card {
-      min-height: 230px;
-      border: 1px solid rgba(15, 23, 42, 0.14);
-      border-radius: 16px;
+      min-height: 260px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 18px;
       padding: 16px;
       color: #111827;
       position: relative;
@@ -426,20 +402,25 @@
       position: absolute;
       top: 10px;
       right: 12px;
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 999px;
       background: rgba(15, 23, 42, 0.25);
     }
 
-    .note-card.color-0 { background: #fff7ad; }
-    .note-card.color-1 { background: #c7f9cc; }
-    .note-card.color-2 { background: #bfdbfe; }
-    .note-card.color-3 { background: #fecdd3; }
-    .note-card.color-4 { background: #ddd6fe; }
-    .note-card.color-5 { background: #fed7aa; }
-    .note-card.color-6 { background: #bae6fd; }
-    .note-card.color-7 { background: #fbcfe8; }
+    .note-card.color-yellow { background: #fff7ad; }
+    .note-card.color-green { background: #c7f9cc; }
+    .note-card.color-blue { background: #bfdbfe; }
+    .note-card.color-pink { background: #fecdd3; }
+    .note-card.color-purple { background: #ddd6fe; }
+    .note-card.color-orange { background: #fed7aa; }
+    .note-card.color-cyan { background: #bae6fd; }
+    .note-card.color-rose { background: #fbcfe8; }
+
+    .note-main {
+      cursor: pointer;
+      padding-right: 8px;
+    }
 
     .note-title {
       font-size: 18px;
@@ -457,15 +438,24 @@
       font-size: 14px;
       white-space: pre-wrap;
       word-break: break-word;
-      margin-bottom: 16px;
-      flex: 1;
+      margin-bottom: 12px;
+    }
+
+    .note-image {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin: 8px 0 12px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      display: block;
     }
 
     .note-bottom {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .note-date {
@@ -476,9 +466,79 @@
 
     .note-actions {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid rgba(15, 23, 42, 0.12);
+      padding-top: 10px;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      background: rgba(255, 255, 255, 0.65);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 17px;
+      transition: 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .icon-btn.delete-icon:hover {
+      background: #fee2e2;
+    }
+
+    .color-popover {
+      display: none;
+      position: absolute;
+      left: 14px;
+      bottom: 58px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 16px;
+      padding: 10px;
       gap: 8px;
       flex-wrap: wrap;
+      width: 190px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+      z-index: 5;
     }
+
+    .color-popover.show {
+      display: flex;
+    }
+
+    .color-dot,
+    .modal-color-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 2px solid rgba(15, 23, 42, 0.14);
+      cursor: pointer;
+    }
+
+    .color-dot.active,
+    .modal-color-dot.active {
+      border-color: #0f172a;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12);
+    }
+
+    .dot-yellow { background: #fff7ad; }
+    .dot-green { background: #c7f9cc; }
+    .dot-blue { background: #bfdbfe; }
+    .dot-pink { background: #fecdd3; }
+    .dot-purple { background: #ddd6fe; }
+    .dot-orange { background: #fed7aa; }
+    .dot-cyan { background: #bae6fd; }
+    .dot-rose { background: #fbcfe8; }
 
     .empty-note {
       grid-column: 1 / -1;
@@ -558,6 +618,13 @@
       color: #374151;
     }
 
+    .modal-colors {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
     .form-actions {
       display: flex;
       gap: 10px;
@@ -586,6 +653,10 @@
     .toast.show {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    .hidden-file {
+      display: none;
     }
 
     @media (max-width: 1100px) {
@@ -653,10 +724,13 @@
 
       .hero-actions,
       .btn,
-      .note-toolbar input,
       .notepad-header button,
       .form-actions button {
         width: 100%;
+      }
+
+      .note-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -741,7 +815,7 @@
           <div class="notepad-header">
             <div>
               <h2>Isi Notepad</h2>
-              <p>Tambah, simpan, cari, edit, hapus, dan copy catatan.</p>
+              <p>Tambah catatan, pilih warna sticky note, dan tambahkan gambar bila perlu.</p>
             </div>
             <button type="button" class="btn btn-primary" id="openNoteModalBtn">+ Input Data</button>
           </div>
@@ -750,7 +824,6 @@
         <section class="section">
           <div class="note-toolbar">
             <h3>Daftar Catatan</h3>
-            <input type="text" id="noteSearch" placeholder="Cari catatan..." />
           </div>
           <div class="note-grid" id="noteList"></div>
         </section>
@@ -791,6 +864,7 @@
       </div>
       <form id="noteForm">
         <input type="hidden" id="noteEditId" />
+        <input type="hidden" id="noteColor" value="yellow" />
         <div class="form-group">
           <label for="noteTitle">Judul Catatan</label>
           <input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required />
@@ -798,6 +872,19 @@
         <div class="form-group">
           <label for="noteContent">Isi Catatan</label>
           <textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Pilih Warna Sticky Note</label>
+          <div class="modal-colors" id="modalColors">
+            <button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button>
+            <button type="button" class="modal-color-dot dot-green" data-color="green"></button>
+            <button type="button" class="modal-color-dot dot-blue" data-color="blue"></button>
+            <button type="button" class="modal-color-dot dot-pink" data-color="pink"></button>
+            <button type="button" class="modal-color-dot dot-purple" data-color="purple"></button>
+            <button type="button" class="modal-color-dot dot-orange" data-color="orange"></button>
+            <button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button>
+            <button type="button" class="modal-color-dot dot-rose" data-color="rose"></button>
+          </div>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button>
@@ -807,6 +894,7 @@
     </div>
   </div>
 
+  <input type="file" id="noteImageInput" class="hidden-file" accept="image/*" />
   <div class="toast" id="toast">Berhasil</div>
 
   <script>
@@ -824,16 +912,19 @@
     const noteEditId = document.getElementById("noteEditId");
     const noteTitle = document.getElementById("noteTitle");
     const noteContent = document.getElementById("noteContent");
+    const noteColor = document.getElementById("noteColor");
+    const modalColors = document.getElementById("modalColors");
     const noteSaveBtn = document.getElementById("noteSaveBtn");
     const noteResetBtn = document.getElementById("noteResetBtn");
-    const noteSearch = document.getElementById("noteSearch");
     const noteList = document.getElementById("noteList");
     const noteModal = document.getElementById("noteModal");
     const openNoteModalBtn = document.getElementById("openNoteModalBtn");
     const closeNoteModalBtn = document.getElementById("closeNoteModalBtn");
+    const noteImageInput = document.getElementById("noteImageInput");
     const noteTotalStat = document.getElementById("noteTotalStat");
 
     let notepadData = JSON.parse(localStorage.getItem("notepadKerjaBoss")) || [];
+    let selectedImageNoteId = null;
 
     function showToast(text) {
       toast.textContent = text;
@@ -874,11 +965,24 @@
       noteModal.classList.remove("show");
     }
 
+    function setModalColor(color) {
+      noteColor.value = color;
+      document.querySelectorAll(".modal-color-dot").forEach(dot => {
+        dot.classList.toggle("active", dot.dataset.color === color);
+      });
+    }
+
+    modalColors.addEventListener("click", function(e) {
+      if (!e.target.dataset.color) return;
+      setModalColor(e.target.dataset.color);
+    });
+
     function resetNoteForm() {
       noteForm.reset();
       noteEditId.value = "";
       noteFormTitle.textContent = "Tambah Catatan";
       noteSaveBtn.textContent = "Simpan Catatan";
+      setModalColor("yellow");
     }
 
     function saveNotepad() {
@@ -905,31 +1009,39 @@
       });
     }
 
-    function renderNotes() {
-      const keyword = noteSearch.value.toLowerCase();
-      const filteredNotes = notepadData.filter(note => {
-        return note.title.toLowerCase().includes(keyword) || note.content.toLowerCase().includes(keyword);
-      });
+    function renderColorPopover(note) {
+      const colors = ["yellow", "green", "blue", "pink", "purple", "orange", "cyan", "rose"];
+      return `
+        <div class="color-popover" id="color-popover-${note.id}">
+          ${colors.map(color => `
+            <button class="color-dot dot-${color} ${note.color === color ? "active" : ""}" onclick="changeNoteColor('${note.id}', '${color}')"></button>
+          `).join("")}
+        </div>
+      `;
+    }
 
+    function renderNotes() {
       noteTotalStat.textContent = notepadData.length;
 
-      if (filteredNotes.length === 0) {
-        noteList.innerHTML = `<div class="empty-note">Belum ada catatan yang cocok.</div>`;
+      if (notepadData.length === 0) {
+        noteList.innerHTML = `<div class="empty-note">Belum ada catatan.</div>`;
         return;
       }
 
-      noteList.innerHTML = filteredNotes.map((note, index) => `
-        <div class="note-card color-${index % 8}">
-          <div>
+      noteList.innerHTML = notepadData.map(note => `
+        <div class="note-card color-${note.color || "yellow"}">
+          ${renderColorPopover(note)}
+          <div class="note-main" onclick="editNote('${note.id}')">
             <div class="note-title">${cleanText(note.title)}</div>
             <div class="note-content">${cleanText(note.content)}</div>
+            ${note.image ? `<img class="note-image" src="${note.image}" alt="Gambar catatan" />` : ""}
           </div>
           <div class="note-bottom">
             <div class="note-date">${formatDate(note.updatedAt)}</div>
             <div class="note-actions">
-              <button class="btn btn-small btn-soft" onclick="copyNote('${note.id}')">Copy</button>
-              <button class="btn btn-small btn-soft" onclick="editNote('${note.id}')">Edit</button>
-              <button class="btn btn-small btn-danger" onclick="deleteNote('${note.id}')">Hapus</button>
+              <button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event, '${note.id}')">🎨</button>
+              <button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event, '${note.id}')">🖼️</button>
+              <button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event, '${note.id}')">🗑️</button>
             </div>
           </div>
         </div>
@@ -954,16 +1066,17 @@
       showToast("Form dibersihkan");
     });
 
-    noteSearch.addEventListener("input", renderNotes);
-
     noteForm.addEventListener("submit", function(e) {
       e.preventDefault();
 
       const now = Date.now();
+      const oldNote = notepadData.find(item => item.id === noteEditId.value);
       const note = {
         id: noteEditId.value || now.toString(),
         title: noteTitle.value.trim(),
         content: noteContent.value.trim(),
+        color: noteColor.value || "yellow",
+        image: oldNote ? oldNote.image : "",
         updatedAt: now
       };
 
@@ -987,14 +1100,15 @@
       noteEditId.value = note.id;
       noteTitle.value = note.title;
       noteContent.value = note.content;
+      setModalColor(note.color || "yellow");
       noteFormTitle.textContent = "Edit Catatan";
       noteSaveBtn.textContent = "Update Catatan";
       openPage("notepad");
       openNoteModal();
-      showToast("Mode edit aktif");
     }
 
-    function deleteNote(id) {
+    function deleteNote(event, id) {
+      event.stopPropagation();
       const yakin = confirm("Yakin mau hapus catatan ini?");
       if (!yakin) return;
       notepadData = notepadData.filter(item => item.id !== id);
@@ -1003,15 +1117,57 @@
       showToast("Catatan berhasil dihapus");
     }
 
-    function copyNote(id) {
-      const note = notepadData.find(item => item.id === id);
-      if (!note) return;
-      navigator.clipboard.writeText(note.content).then(() => {
-        showToast("Isi catatan berhasil dicopy");
-      }).catch(() => {
-        alert("Browser tidak mengizinkan copy otomatis.");
+    function toggleColorPopover(event, id) {
+      event.stopPropagation();
+      document.querySelectorAll(".color-popover").forEach(pop => {
+        if (pop.id !== `color-popover-${id}`) pop.classList.remove("show");
       });
+      const popover = document.getElementById(`color-popover-${id}`);
+      if (popover) popover.classList.toggle("show");
     }
+
+    function changeNoteColor(id, color) {
+      notepadData = notepadData.map(note => {
+        if (note.id === id) return { ...note, color, updatedAt: Date.now() };
+        return note;
+      });
+      saveNotepad();
+      renderNotes();
+      showToast("Warna catatan diganti");
+    }
+
+    function selectNoteImage(event, id) {
+      event.stopPropagation();
+      selectedImageNoteId = id;
+      noteImageInput.value = "";
+      noteImageInput.click();
+    }
+
+    noteImageInput.addEventListener("change", function() {
+      const file = this.files[0];
+      if (!file || !selectedImageNoteId) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        notepadData = notepadData.map(note => {
+          if (note.id === selectedImageNoteId) {
+            return { ...note, image: e.target.result, updatedAt: Date.now() };
+          }
+          return note;
+        });
+        saveNotepad();
+        renderNotes();
+        showToast("Gambar berhasil ditambahkan");
+        selectedImageNoteId = null;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.addEventListener("click", function(e) {
+      if (!e.target.classList.contains("color-dot") && !e.target.classList.contains("icon-btn")) {
+        document.querySelectorAll(".color-popover").forEach(pop => pop.classList.remove("show"));
+      }
+    });
 
     renderNotes();
   </script>
