@@ -117,7 +117,7 @@
     }
 
     .submenu {
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 6px;
       margin-left: 14px;
@@ -125,6 +125,10 @@
       margin-bottom: 6px;
       padding-left: 10px;
       border-left: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .submenu.show {
+      display: flex;
     }
 
     .submenu button {
@@ -449,8 +453,8 @@
       <nav class="menu">
         <button class="nav-btn active" data-page="dashboard">▣ Dashboard</button>
         <button class="nav-btn" data-page="notepad">📝 Notepad</button>
-        <button class="nav-btn" data-page="postingan">▤ Postingan</button>
-        <div class="submenu">
+        <button class="dropdown-btn" id="postinganDropdownBtn">▤ Postingan <span id="dropdownIcon" style="margin-left:auto;">▾</span></button>
+        <div class="submenu" id="postinganSubmenu">
           <button class="nav-btn" data-page="syair-togel">• Syair Togel</button>
           <button class="nav-btn" data-page="bukti-kemenangan">• Bukti Kemenangan</button>
           <button class="nav-btn" data-page="prediksi">• Prediksi</button>
@@ -474,7 +478,7 @@
           </div>
           <div class="hero-actions">
             <button class="btn btn-primary open-page" data-page="notepad">Mulai dari Notepad</button>
-            <button class="btn btn-green open-page" data-page="postingan">Lihat Postingan</button>
+            <button class="btn btn-green" id="heroPostinganBtn">Buka Menu Postingan</button>
           </div>
         </section>
 
@@ -561,27 +565,6 @@
           <div class="placeholder-box">
             <b>Placeholder Notepad.</b><br />
             Nanti di sini bisa dibuat input catatan, tombol tambah, daftar catatan, edit, hapus, dan penyimpanan otomatis.
-          </div>
-        </section>
-      </div>
-
-      <div class="page" id="page-postingan">
-        <section class="hero">
-          <div>
-            <div class="pill">▤ Ruang Postingan</div>
-            <h1>Postingan</h1>
-            <p>Ruang utama untuk semua kebutuhan postingan. Di dalamnya ada Syair Togel, Bukti Kemenangan, dan Prediksi.</p>
-          </div>
-          <div class="hero-actions">
-            <button class="btn btn-primary open-page" data-page="syair-togel">Syair Togel</button>
-            <button class="btn btn-green open-page" data-page="bukti-kemenangan">Bukti Kemenangan</button>
-            <button class="btn btn-primary open-page" data-page="prediksi">Prediksi</button>
-          </div>
-        </section>
-        <section class="section">
-          <div class="placeholder-box">
-            <b>Placeholder Postingan.</b><br />
-            Pilih salah satu sub menu postingan untuk masuk ke ruang masing-masing.
           </div>
         </section>
       </div>
@@ -702,6 +685,10 @@
     const navButtons = document.querySelectorAll(".nav-btn, .open-page");
     const sidebarButtons = document.querySelectorAll(".nav-btn");
     const pages = document.querySelectorAll(".page");
+    const postinganDropdownBtn = document.getElementById("postinganDropdownBtn");
+    const postinganSubmenu = document.getElementById("postinganSubmenu");
+    const dropdownIcon = document.getElementById("dropdownIcon");
+    const heroPostinganBtn = document.getElementById("heroPostinganBtn");
 
     function openPage(pageName) {
       pages.forEach(page => {
@@ -724,6 +711,16 @@
       button.addEventListener("click", function() {
         openPage(this.dataset.page);
       });
+    });
+
+    postinganDropdownBtn.addEventListener("click", function() {
+      postinganSubmenu.classList.toggle("show");
+      dropdownIcon.textContent = postinganSubmenu.classList.contains("show") ? "▴" : "▾";
+    });
+
+    heroPostinganBtn.addEventListener("click", function() {
+      postinganSubmenu.classList.add("show");
+      dropdownIcon.textContent = "▴";
     });
   </script>
 </body>
