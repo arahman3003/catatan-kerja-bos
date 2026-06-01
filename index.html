@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Catatan Kerja</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6fb;
+      color: #222;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: #111827;
+      color: #fff;
+      padding: 24px 18px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .brand span {
+      color: #22c55e;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .menu a {
+      color: #d1d5db;
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 12px;
+      transition: 0.2s;
+      font-size: 15px;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      background: #22c55e;
+      color: #fff;
+    }
+
+    .main {
+      padding: 28px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .topbar h1 {
+      font-size: 28px;
+      color: #111827;
+    }
+
+    .topbar p {
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    .wa-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #22c55e;
+      color: white;
+      text-decoration: none;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: bold;
+      box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25);
+      white-space: nowrap;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+      border: 1px solid #eef2f7;
+    }
+
+    .card .label {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .card .number {
+      font-size: 30px;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+      border: 1px solid #eef2f7;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: #111827;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #374151;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-size: 15px;
+      outline: none;
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+    }
+
+    .actions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: #111827;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #000;
+    }
+
+    .btn-reset {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .tools {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tools input,
+    .tools select {
+      max-width: 260px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th,
+    td {
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    th {
+      color: #374151;
+      background: #f9fafb;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .badge.proses {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge.selesai {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.batal {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .row-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-small {
+      padding: 8px 10px;
+      font-size: 12px;
+      border-radius: 9px;
+    }
+
+    .edit {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .delete {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .done {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .empty {
+      text-align: center;
+      color: #6b7280;
+      padding: 28px;
+    }
+
+    @media (max-width: 960px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .main {
+        padding: 18px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .tools input,
+      .tools select {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">Kerja<span>Boss</span></div>
+      <div class="subtitle">Dashboard catatan kerja sederhana dengan penyimpanan otomatis di browser.</div>
+      <nav class="menu">
+        <a href="#dashboard" class="active">Dashboard</a>
+        <a href="#input">Input Data</a>
+        <a href="#data">Data Tersimpan</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section class="topbar" id="dashboard">
+        <div>
+          <h1>Dashboard Catatan Kerja</h1>
+          <p>Kelola data pekerjaan harian, pelanggan, status, dan laporan sederhana.</p>
+        </div>
+        <a class="wa-button" id="waLink" href="#" target="_blank">Chat WhatsApp</a>
+      </section>
+
+      <section class="cards">
+        <div class="card">
+          <div class="label">Total Catatan</div>
+          <div class="number" id="totalData">0</div>
+        </div>
+        <div class="card">
+          <div class="label">Dalam Proses</div>
+          <div class="number" id="totalProses">0</div>
+        </div>
+        <div class="card">
+          <div class="label">Selesai</div>
+          <div class="number" id="totalSelesai">0</div>
+        </div>
+        <div class="card">
+          <div class="label">Batal</div>
+          <div class="number" id="totalBatal">0</div>
+        </div>
+      </section>
+
+      <section class="section" id="input">
+        <h2 class="section-title">Input Catatan Kerja</h2>
+        <form id="workForm">
+          <input type="hidden" id="editId" />
+
+          <div class="form-group">
+            <label for="tanggal">Tanggal</label>
+            <input type="date" id="tanggal" required />
+          </div>
+
+          <div class="form-group">
+            <label for="nama">Nama Pelanggan / Judul Kerja</label>
+            <input type="text" id="nama" placeholder="Contoh: Pak Budi / Desain Banner" required />
+          </div>
+
+          <div class="form-group">
+            <label for="jenis">Jenis Pekerjaan</label>
+            <input type="text" id="jenis" placeholder="Contoh: Edit Foto, Website, Data, Pesanan" required />
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" required>
+              <option value="Proses">Proses</option>
+              <option value="Selesai">Selesai</option>
+              <option value="Batal">Batal</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="harga">Harga / Nilai</label>
+            <input type="number" id="harga" placeholder="Contoh: 50000" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label for="kontak">Kontak</label>
+            <input type="text" id="kontak" placeholder="Nomor HP / WhatsApp pelanggan" />
+          </div>
+
+          <div class="form-group full">
+            <label for="catatan">Catatan</label>
+            <textarea id="catatan" placeholder="Tulis detail pekerjaan di sini..."></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn-primary" type="submit" id="saveBtn">Simpan Catatan</button>
+            <button class="btn-reset" type="button" id="resetBtn">Reset Form</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="section" id="data">
+        <h2 class="section-title">Data Tersimpan</h2>
+        <div class="tools">
+          <input type="text" id="searchInput" placeholder="Cari nama, jenis, catatan..." />
+          <select id="filterStatus">
+            <option value="Semua">Semua Status</option>
+            <option value="Proses">Proses</option>
+            <option value="Selesai">Selesai</option>
+            <option value="Batal">Batal</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Nama / Judul</th>
+                <th>Jenis</th>
+                <th>Status</th>
+                <th>Harga</th>
+                <th>Kontak</th>
+                <th>Catatan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="kontak">
+        <h2 class="section-title">Kontak Cepat</h2>
+        <p style="line-height: 1.7; color:#4b5563;">
+          Tombol WhatsApp di kanan atas bisa diganti dengan nomor bos sendiri di bagian JavaScript:
+          <b>const nomorWhatsApp = "628xxxxxxxxxx";</b>
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const nomorWhatsApp = "6281234567890";
+    const pesanWhatsApp = "Halo, saya mau tanya tentang pekerjaan/jasa.";
+
+    const waLink = document.getElementById("waLink");
+    waLink.href = `https://wa.me/${nomorWhatsApp}?text=${encodeURIComponent(pesanWhatsApp)}`;
+
+    const form = document.getElementById("workForm");
+    const editId = document.getElementById("editId");
+    const tanggal = document.getElementById("tanggal");
+    const nama = document.getElementById("nama");
+    const jenis = document.getElementById("jenis");
+    const status = document.getElementById("status");
+    const harga = document.getElementById("harga");
+    const kontak = document.getElementById("kontak");
+    const catatan = document.getElementById("catatan");
+    const dataBody = document.getElementById("dataBody");
+    const saveBtn = document.getElementById("saveBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const searchInput = document.getElementById("searchInput");
+    const filterStatus = document.getElementById("filterStatus");
+
+    const totalData = document.getElementById("totalData");
+    const totalProses = document.getElementById("totalProses");
+    const totalSelesai = document.getElementById("totalSelesai");
+    const totalBatal = document.getElementById("totalBatal");
+
+    let dataKerja = JSON.parse(localStorage.getItem("dataKerjaBoss")) || [];
+
+    tanggal.valueAsDate = new Date();
+
+    function simpanLocal() {
+      localStorage.setItem("dataKerjaBoss", JSON.stringify(dataKerja));
+    }
+
+    function formatRupiah(value) {
+      const angka = Number(value || 0);
+      return angka.toLocaleString("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+      });
+    }
+
+    function badgeClass(value) {
+      if (value === "Selesai") return "selesai";
+      if (value === "Batal") return "batal";
+      return "proses";
+    }
+
+    function updateStatistik() {
+      totalData.textContent = dataKerja.length;
+      totalProses.textContent = dataKerja.filter(item => item.status === "Proses").length;
+      totalSelesai.textContent = dataKerja.filter(item => item.status === "Selesai").length;
+      totalBatal.textContent = dataKerja.filter(item => item.status === "Batal").length;
+    }
+
+    function renderData() {
+      const keyword = searchInput.value.toLowerCase();
+      const statusDipilih = filterStatus.value;
+
+      const hasil = dataKerja.filter(item => {
+        const cocokKeyword =
+          item.nama.toLowerCase().includes(keyword) ||
+          item.jenis.toLowerCase().includes(keyword) ||
+          item.kontak.toLowerCase().includes(keyword) ||
+          item.catatan.toLowerCase().includes(keyword);
+
+        const cocokStatus = statusDipilih === "Semua" || item.status === statusDipilih;
+        return cocokKeyword && cocokStatus;
+      });
+
+      if (hasil.length === 0) {
+        dataBody.innerHTML = `<tr><td colspan="8" class="empty">Belum ada data yang cocok.</td></tr>`;
+        updateStatistik();
+        return;
+      }
+
+      dataBody.innerHTML = hasil.map(item => `
+        <tr>
+          <td>${item.tanggal}</td>
+          <td><b>${item.nama}</b></td>
+          <td>${item.jenis}</td>
+          <td><span class="badge ${badgeClass(item.status)}">${item.status}</span></td>
+          <td>${formatRupiah(item.harga)}</td>
+          <td>${item.kontak || "-"}</td>
+          <td>${item.catatan || "-"}</td>
+          <td>
+            <div class="row-actions">
+              <button class="btn-small done" onclick="ubahSelesai('${item.id}')">Selesai</button>
+              <button class="btn-small edit" onclick="editData('${item.id}')">Edit</button>
+              <button class="btn-small delete" onclick="hapusData('${item.id}')">Hapus</button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+
+      updateStatistik();
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const item = {
+        id: editId.value || Date.now().toString(),
+        tanggal: tanggal.value,
+        nama: nama.value.trim(),
+        jenis: jenis.value.trim(),
+        status: status.value,
+        harga: harga.value,
+        kontak: kontak.value.trim(),
+        catatan: catatan.value.trim()
+      };
+
+      if (editId.value) {
+        dataKerja = dataKerja.map(data => data.id === editId.value ? item : data);
+        saveBtn.textContent = "Simpan Catatan";
+      } else {
+        dataKerja.unshift(item);
+      }
+
+      simpanLocal();
+      form.reset();
+      editId.value = "";
+      tanggal.valueAsDate = new Date();
+      renderData();
+    });
+
+    resetBtn.addEventListener("click", function() {
+      form.reset();
+      editId.value = "";
+      tanggal.valueAsDate = new Date();
+      saveBtn.textContent = "Simpan Catatan";
+    });
+
+    function editData(id) {
+      const item = dataKerja.find(data => data.id === id);
+      if (!item) return;
+
+      editId.value = item.id;
+      tanggal.value = item.tanggal;
+      nama.value = item.nama;
+      jenis.value = item.jenis;
+      status.value = item.status;
+      harga.value = item.harga;
+      kontak.value = item.kontak;
+      catatan.value = item.catatan;
+      saveBtn.textContent = "Update Catatan";
+      window.location.hash = "input";
+    }
+
+    function hapusData(id) {
+      const yakin = confirm("Yakin mau hapus data ini?");
+      if (!yakin) return;
+
+      dataKerja = dataKerja.filter(data => data.id !== id);
+      simpanLocal();
+      renderData();
+    }
+
+    function ubahSelesai(id) {
+      dataKerja = dataKerja.map(data => {
+        if (data.id === id) {
+          return { ...data, status: "Selesai" };
+        }
+        return data;
+      });
+      simpanLocal();
+      renderData();
+    }
+
+    searchInput.addEventListener("input", renderData);
+    filterStatus.addEventListener("change", renderData);
+
+    renderData();
+  </script>
+</body>
+</html>
