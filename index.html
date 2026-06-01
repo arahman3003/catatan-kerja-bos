@@ -668,6 +668,43 @@
       display: none;
     }
 
+
+    .syair-toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      align-items: center;
+    }
+
+    .syair-stage {
+      background: #0f172a;
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      display: flex;
+      justify-content: center;
+      overflow: auto;
+    }
+
+    #syairCanvas {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      display: block;
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      background: #000;
+    }
+
+    .syair-info {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: 14px;
+    }
+
     @media (max-width: 1100px) {
       .cards {
         grid-template-columns: repeat(2, 1fr);
@@ -839,8 +876,34 @@
       </div>
 
       <div class="page" id="page-syair-togel">
-        <section class="hero"><div><div class="pill">▤ Ruang Syair</div><h1>Syair Togel</h1><p>Ruang khusus untuk membuat dan menyimpan konten Syair Togel.</p></div></section>
-        <section class="section"><div class="placeholder-box"><b>Placeholder Syair Togel.</b><br>Nanti kita buat isi dan pola khusus untuk syair di bagian ini.</div></section>
+        <section class="hero">
+          <div>
+            <div class="pill">▤ Ruang Syair</div>
+            <h1>Syair Togel</h1>
+            <p>Template syair dengan tombol acak dan download PNG.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Template Syair</h2>
+              <p class="section-desc">Gunakan tombol acak untuk mengisi template, lalu download hasilnya sebagai PNG.</p>
+            </div>
+          </div>
+
+          <div class="syair-toolbar">
+            <button type="button" class="btn btn-primary" id="acakSyairBtn">Acak Syair</button>
+            <button type="button" class="btn btn-green" id="acakSemuaBtn">Acak Semua</button>
+            <button type="button" class="btn btn-soft" id="downloadSyairBtn">Download PNG</button>
+          </div>
+
+          <div class="syair-stage">
+            <canvas id="syairCanvas" width="1254" height="1254"></canvas>
+          </div>
+          <p class="syair-info">Pastikan file gambar template bernama <b>syair-template.png</b> berada satu folder dengan <b>index.html</b>.</p>
+          <img id="syairTemplateImage" src="syair-template.png" alt="Template Syair" style="display:none;" />
+        </section>
       </div>
 
       <div class="page" id="page-bukti-kemenangan">
@@ -1177,6 +1240,137 @@
         document.querySelectorAll(".color-popover").forEach(pop => pop.classList.remove("show"));
       }
     });
+
+
+    const syairTemplateImage = document.getElementById("syairTemplateImage");
+    const syairCanvas = document.getElementById("syairCanvas");
+    const acakSyairBtn = document.getElementById("acakSyairBtn");
+    const acakSemuaBtn = document.getElementById("acakSemuaBtn");
+    const downloadSyairBtn = document.getElementById("downloadSyairBtn");
+    const syairCtx = syairCanvas.getContext("2d");
+
+    const syairList = [
+      ["Naga emas turun membawa kabar", "Angka hoki bersinar terang", "Rezeki datang tidak tertukar", "Malam ini peluang menang"],
+      ["Bintang jatuh di balik awan", "Burung malam memberi tanda", "Pegang angka penuh harapan", "Semoga JP datang menggoda"],
+      ["Air tenang menyimpan rahasia", "Ikan emas muncul perlahan", "Jangan ragu pada angka utama", "Hoki besar jadi tujuan"],
+      ["Angin malam membawa pesan", "Cahaya bulan tampak berpijar", "Pilih angka penuh keyakinan", "Semoga hasil jadi benar"],
+      ["Kuda berlari di tanah lapang", "Membawa tanda dari kejauhan", "Angka pilihan jangan dibuang", "Malam ini ada harapan"]
+    ];
+
+    const shioList = ["TIKUS", "KERBAU", "MACAN", "KELINCI", "NAGA", "ULAR", "KUDA", "KAMBING", "MONYET", "AYAM", "ANJING", "BABI"];
+    let syairState = {
+      bbfs: [1, 2, 3, 4, 5, 6],
+      angkaMain: [7, 8, 9, 0],
+      colok: 5,
+      shio: "NAGA",
+      syair: syairList[0]
+    };
+
+    function randomDigit() {
+      return Math.floor(Math.random() * 10);
+    }
+
+    function randomUniqueDigits(total) {
+      const digits = [0,1,2,3,4,5,6,7,8,9];
+      for (let i = digits.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [digits[i], digits[j]] = [digits[j], digits[i]];
+      }
+      return digits.slice(0, total);
+    }
+
+    function pickRandom(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function drawCenteredText(text, x, y, size, color = "#ffe07a", font = "Arial Black") {
+      syairCtx.save();
+      syairCtx.font = `${size}px ${font}`;
+      syairCtx.fillStyle = color;
+      syairCtx.textAlign = "center";
+      syairCtx.textBaseline = "middle";
+      syairCtx.shadowColor = "rgba(0,0,0,0.85)";
+      syairCtx.shadowBlur = 8;
+      syairCtx.lineWidth = Math.max(3, size / 9);
+      syairCtx.strokeStyle = "rgba(0,0,0,0.75)";
+      syairCtx.strokeText(String(text), x, y);
+      syairCtx.fillText(String(text), x, y);
+      syairCtx.restore();
+    }
+
+    function drawSyairTemplate() {
+      syairCtx.clearRect(0, 0, syairCanvas.width, syairCanvas.height);
+
+      if (syairTemplateImage.complete && syairTemplateImage.naturalWidth > 0) {
+        syairCtx.drawImage(syairTemplateImage, 0, 0, syairCanvas.width, syairCanvas.height);
+      } else {
+        syairCtx.fillStyle = "#050505";
+        syairCtx.fillRect(0, 0, syairCanvas.width, syairCanvas.height);
+        drawCenteredText("TEMPLATE BELUM TERBACA", 627, 600, 44);
+      }
+
+      drawCenteredText(syairState.colok, 247, 646, 72);
+      drawCenteredText(syairState.shio, 627, 625, 54);
+
+      const angkaPositions = [
+        [955, 617], [1040, 617],
+        [955, 704], [1040, 704]
+      ];
+      syairState.angkaMain.forEach((num, i) => {
+        drawCenteredText(num, angkaPositions[i][0], angkaPositions[i][1], 56);
+      });
+
+      const bbfsPositions = [382, 481, 579, 676, 774, 871];
+      syairState.bbfs.forEach((num, i) => {
+        drawCenteredText(num, bbfsPositions[i], 910, 58);
+      });
+
+      syairCtx.save();
+      syairCtx.textAlign = "center";
+      syairCtx.fillStyle = "#ffe07a";
+      syairCtx.strokeStyle = "rgba(0,0,0,0.75)";
+      syairCtx.lineWidth = 4;
+      syairCtx.shadowColor = "rgba(0,0,0,0.9)";
+      syairCtx.shadowBlur = 8;
+      syairCtx.font = "38px Arial Black";
+      syairState.syair.forEach((line, index) => {
+        const y = 1048 + (index * 48);
+        syairCtx.strokeText(line.toUpperCase(), 627, y);
+        syairCtx.fillText(line.toUpperCase(), 627, y);
+      });
+      syairCtx.restore();
+    }
+
+    function acakSyair() {
+      syairState.syair = pickRandom(syairList);
+      drawSyairTemplate();
+      showToast("Syair berhasil diacak");
+    }
+
+    function acakSemua() {
+      syairState.bbfs = randomUniqueDigits(6);
+      syairState.angkaMain = [randomDigit(), randomDigit(), randomDigit(), randomDigit()];
+      syairState.colok = randomDigit();
+      syairState.shio = pickRandom(shioList);
+      syairState.syair = pickRandom(syairList);
+      drawSyairTemplate();
+      showToast("Semua data syair diacak");
+    }
+
+    function downloadSyairPNG() {
+      drawSyairTemplate();
+      const link = document.createElement("a");
+      link.download = `syair-togel-${Date.now()}.png`;
+      link.href = syairCanvas.toDataURL("image/png");
+      link.click();
+      showToast("PNG berhasil didownload");
+    }
+
+    syairTemplateImage.addEventListener("load", drawSyairTemplate);
+    acakSyairBtn.addEventListener("click", acakSyair);
+    acakSemuaBtn.addEventListener("click", acakSemua);
+    downloadSyairBtn.addEventListener("click", downloadSyairPNG);
+    drawSyairTemplate();
 
     renderNotes();
   </script>
