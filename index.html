@@ -28,10 +28,6 @@
       font-family: Arial, sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       background: var(--bg);
       color: var(--text);
@@ -93,9 +89,12 @@
       gap: 8px;
     }
 
-    .menu a,
-    .submenu a {
+    .menu button,
+    .submenu button {
+      width: 100%;
+      border: none;
       color: #d1d5db;
+      background: transparent;
       text-decoration: none;
       padding: 13px 14px;
       border-radius: 14px;
@@ -104,11 +103,15 @@
       align-items: center;
       gap: 10px;
       transition: 0.2s;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 700;
     }
 
-    .menu a:hover,
-    .menu a.active,
-    .submenu a:hover {
+    .menu button:hover,
+    .menu button.active,
+    .submenu button:hover,
+    .submenu button.active {
       background: var(--green);
       color: #fff;
     }
@@ -124,10 +127,11 @@
       border-left: 1px solid rgba(255,255,255,0.12);
     }
 
-    .submenu a {
+    .submenu button {
       padding: 10px 12px;
       font-size: 14px;
       color: #b8c2d2;
+      font-weight: 700;
     }
 
     .sidebar-footer {
@@ -148,6 +152,14 @@
       padding: 28px;
       width: 100%;
       max-width: 1500px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
     }
 
     .hero {
@@ -197,7 +209,7 @@
     }
 
     .btn,
-    button {
+    .content-btn {
       border: none;
       border-radius: 14px;
       padding: 12px 16px;
@@ -414,7 +426,7 @@
 
       .hero-actions,
       .btn,
-      button {
+      .content-btn {
         width: 100%;
       }
 
@@ -435,191 +447,284 @@
 
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
-        <a href="#dashboard" class="active">▣ Dashboard</a>
-        <a href="#notepad">📝 Notepad</a>
-        <a href="#postingan">▤ Postingan</a>
+        <button class="nav-btn active" data-page="dashboard">▣ Dashboard</button>
+        <button class="nav-btn" data-page="notepad">📝 Notepad</button>
+        <button class="nav-btn" data-page="postingan">▤ Postingan</button>
         <div class="submenu">
-          <a href="#syair-togel">• Syair Togel</a>
-          <a href="#bukti-kemenangan">• Bukti Kemenangan</a>
-          <a href="#prediksi">• Prediksi</a>
+          <button class="nav-btn" data-page="syair-togel">• Syair Togel</button>
+          <button class="nav-btn" data-page="bukti-kemenangan">• Bukti Kemenangan</button>
+          <button class="nav-btn" data-page="prediksi">• Prediksi</button>
         </div>
-        <a href="#link-domain">🔗 Link Domain</a>
-        <a href="#selisih">⇄ Selisih</a>
+        <button class="nav-btn" data-page="link-domain">🔗 Link Domain</button>
+        <button class="nav-btn" data-page="selisih">⇄ Selisih</button>
       </nav>
 
       <div class="sidebar-footer">
-        <b>Status:</b> Kerangka dashboard sudah siap. Isi tiap menu akan dibuat satu per satu.
+        <b>Status:</b> Setiap menu sekarang punya ruang sendiri dan tidak gabung dalam satu halaman.
       </div>
     </aside>
 
     <main class="main">
-      <section class="hero" id="dashboard">
-        <div class="hero-content">
-          <div class="pill">● Dashboard Aktif</div>
-          <h1>Dashboard KerjaBoss</h1>
-          <p>Panel utama untuk mengelola Notepad, Postingan, Link Domain, dan Selisih. Untuk sekarang semua menu dibuat sebagai kerangka awal dulu.</p>
-        </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#notepad">Mulai dari Notepad</a>
-          <a class="btn btn-green" href="#postingan">Lihat Postingan</a>
-        </div>
-      </section>
+      <div class="page active" id="page-dashboard">
+        <section class="hero">
+          <div class="hero-content">
+            <div class="pill">● Dashboard Aktif</div>
+            <h1>Dashboard KerjaBoss</h1>
+            <p>Panel utama untuk mengelola Notepad, Postingan, Link Domain, dan Selisih. Klik menu di samping untuk masuk ke ruang masing-masing.</p>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary open-page" data-page="notepad">Mulai dari Notepad</button>
+            <button class="btn btn-green open-page" data-page="postingan">Lihat Postingan</button>
+          </div>
+        </section>
 
-      <section class="cards">
-        <div class="card">
-          <div class="label">Menu</div>
-          <div class="number">5</div>
-          <div class="mini">Menu utama dashboard</div>
-        </div>
-        <div class="card">
-          <div class="label">Notepad</div>
-          <div class="number">0</div>
-          <div class="mini">Belum diisi</div>
-        </div>
-        <div class="card">
-          <div class="label">Postingan</div>
-          <div class="number">3</div>
-          <div class="mini">Sub menu postingan</div>
-        </div>
-        <div class="card">
-          <div class="label">Domain</div>
-          <div class="number">0</div>
-          <div class="mini">Belum diisi</div>
-        </div>
-        <div class="card">
-          <div class="label">Selisih</div>
-          <div class="number">0</div>
-          <div class="mini">Belum diisi</div>
-        </div>
-      </section>
+        <section class="cards">
+          <div class="card">
+            <div class="label">Menu</div>
+            <div class="number">5</div>
+            <div class="mini">Menu utama dashboard</div>
+          </div>
+          <div class="card">
+            <div class="label">Notepad</div>
+            <div class="number">0</div>
+            <div class="mini">Belum diisi</div>
+          </div>
+          <div class="card">
+            <div class="label">Postingan</div>
+            <div class="number">3</div>
+            <div class="mini">Sub menu postingan</div>
+          </div>
+          <div class="card">
+            <div class="label">Domain</div>
+            <div class="number">0</div>
+            <div class="mini">Belum diisi</div>
+          </div>
+          <div class="card">
+            <div class="label">Selisih</div>
+            <div class="number">0</div>
+            <div class="mini">Belum diisi</div>
+          </div>
+        </section>
 
-      <section class="section">
-        <div class="section-head">
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Ringkasan Menu</h2>
+              <p class="section-desc">Setiap kartu ini akan diarahkan ke ruangnya masing-masing.</p>
+            </div>
+          </div>
+
+          <div class="grid-menu">
+            <div class="feature-card">
+              <h3>📝 Notepad</h3>
+              <p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p>
+            </div>
+            <div class="feature-card">
+              <h3>▤ Syair Togel</h3>
+              <p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p>
+            </div>
+            <div class="feature-card">
+              <h3>🏆 Bukti Kemenangan</h3>
+              <p>Bagian untuk data atau konten bukti kemenangan.</p>
+            </div>
+            <div class="feature-card">
+              <h3>🔮 Prediksi</h3>
+              <p>Bagian untuk menyimpan atau membuat data prediksi.</p>
+            </div>
+            <div class="feature-card">
+              <h3>🔗 Link Domain</h3>
+              <p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p>
+            </div>
+            <div class="feature-card">
+              <h3>⇄ Selisih</h3>
+              <p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="page" id="page-notepad">
+        <section class="hero">
           <div>
-            <h2 class="section-title">Ringkasan Menu</h2>
-            <p class="section-desc">Kerangka menu yang akan kita isi satu per satu.</p>
+            <div class="pill">📝 Ruang Notepad</div>
+            <h1>Notepad</h1>
+            <p>Ruang khusus untuk catatan cepat, teks kerja, dan data harian. Isi fitur Notepad akan kita buat setelah ini.</p>
           </div>
-        </div>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Isi Notepad</h2>
+              <p class="section-desc">Placeholder khusus Notepad.</p>
+            </div>
+          </div>
+          <div class="placeholder-box">
+            <b>Placeholder Notepad.</b><br />
+            Nanti di sini bisa dibuat input catatan, tombol tambah, daftar catatan, edit, hapus, dan penyimpanan otomatis.
+          </div>
+        </section>
+      </div>
 
-        <div class="grid-menu">
-          <div class="feature-card">
-            <h3>📝 Notepad</h3>
-            <p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p>
-          </div>
-          <div class="feature-card">
-            <h3>▤ Syair Togel</h3>
-            <p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p>
-          </div>
-          <div class="feature-card">
-            <h3>🏆 Bukti Kemenangan</h3>
-            <p>Bagian untuk data atau konten bukti kemenangan.</p>
-          </div>
-          <div class="feature-card">
-            <h3>🔮 Prediksi</h3>
-            <p>Bagian untuk menyimpan atau membuat data prediksi.</p>
-          </div>
-          <div class="feature-card">
-            <h3>🔗 Link Domain</h3>
-            <p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p>
-          </div>
-          <div class="feature-card">
-            <h3>⇄ Selisih</h3>
-            <p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="notepad">
-        <div class="section-head">
+      <div class="page" id="page-postingan">
+        <section class="hero">
           <div>
-            <h2 class="section-title">Notepad</h2>
-            <p class="section-desc">Menu ini akan kita isi setelah kerangka dashboard selesai.</p>
+            <div class="pill">▤ Ruang Postingan</div>
+            <h1>Postingan</h1>
+            <p>Ruang utama untuk semua kebutuhan postingan. Di dalamnya ada Syair Togel, Bukti Kemenangan, dan Prediksi.</p>
           </div>
-        </div>
-        <div class="placeholder-box">
-          <b>Placeholder Notepad.</b><br />
-          Nanti di sini bisa dibuat input catatan, tombol tambah, daftar catatan, edit, hapus, dan penyimpanan otomatis.
-        </div>
-      </section>
+          <div class="hero-actions">
+            <button class="btn btn-primary open-page" data-page="syair-togel">Syair Togel</button>
+            <button class="btn btn-green open-page" data-page="bukti-kemenangan">Bukti Kemenangan</button>
+            <button class="btn btn-primary open-page" data-page="prediksi">Prediksi</button>
+          </div>
+        </section>
+        <section class="section">
+          <div class="placeholder-box">
+            <b>Placeholder Postingan.</b><br />
+            Pilih salah satu sub menu postingan untuk masuk ke ruang masing-masing.
+          </div>
+        </section>
+      </div>
 
-      <section class="section" id="postingan">
-        <div class="section-head">
+      <div class="page" id="page-syair-togel">
+        <section class="hero">
           <div>
-            <h2 class="section-title">Postingan</h2>
-            <p class="section-desc">Menu utama untuk semua kebutuhan postingan.</p>
+            <div class="pill">▤ Ruang Syair</div>
+            <h1>Syair Togel</h1>
+            <p>Ruang khusus untuk membuat dan menyimpan konten Syair Togel.</p>
           </div>
-        </div>
-        <div class="placeholder-box">
-          <b>Placeholder Postingan.</b><br />
-          Di dalam postingan ada Syair Togel, Bukti Kemenangan, dan Prediksi.
-        </div>
-      </section>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Isi Syair Togel</h2>
+              <p class="section-desc">Placeholder khusus Syair Togel.</p>
+            </div>
+          </div>
+          <div class="placeholder-box">
+            <b>Placeholder Syair Togel.</b><br />
+            Nanti kita buat isi dan pola khusus untuk syair di bagian ini.
+          </div>
+        </section>
+      </div>
 
-      <section class="section" id="syair-togel">
-        <div class="section-head">
+      <div class="page" id="page-bukti-kemenangan">
+        <section class="hero">
           <div>
-            <h2 class="section-title">Syair Togel</h2>
-            <p class="section-desc">Sub menu dari Postingan.</p>
+            <div class="pill">🏆 Ruang Bukti</div>
+            <h1>Bukti Kemenangan</h1>
+            <p>Ruang khusus untuk data atau konten bukti kemenangan.</p>
           </div>
-        </div>
-        <div class="placeholder-box">
-          <b>Placeholder Syair Togel.</b><br />
-          Nanti kita buat isi dan pola khusus untuk syair di bagian ini.
-        </div>
-      </section>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Isi Bukti Kemenangan</h2>
+              <p class="section-desc">Placeholder khusus Bukti Kemenangan.</p>
+            </div>
+          </div>
+          <div class="placeholder-box">
+            <b>Placeholder Bukti Kemenangan.</b><br />
+            Nanti kita buat area khusus untuk konten bukti kemenangan.
+          </div>
+        </section>
+      </div>
 
-      <section class="section" id="bukti-kemenangan">
-        <div class="section-head">
+      <div class="page" id="page-prediksi">
+        <section class="hero">
           <div>
-            <h2 class="section-title">Bukti Kemenangan</h2>
-            <p class="section-desc">Sub menu dari Postingan.</p>
+            <div class="pill">🔮 Ruang Prediksi</div>
+            <h1>Prediksi</h1>
+            <p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p>
           </div>
-        </div>
-        <div class="placeholder-box">
-          <b>Placeholder Bukti Kemenangan.</b><br />
-          Nanti kita buat area khusus untuk konten bukti kemenangan.
-        </div>
-      </section>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Isi Prediksi</h2>
+              <p class="section-desc">Placeholder khusus Prediksi.</p>
+            </div>
+          </div>
+          <div class="placeholder-box">
+            <b>Placeholder Prediksi.</b><br />
+            Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.
+          </div>
+        </section>
+      </div>
 
-      <section class="section" id="prediksi">
-        <div class="section-head">
+      <div class="page" id="page-link-domain">
+        <section class="hero">
           <div>
-            <h2 class="section-title">Prediksi</h2>
-            <p class="section-desc">Sub menu dari Postingan.</p>
+            <div class="pill">🔗 Ruang Domain</div>
+            <h1>Link Domain</h1>
+            <p>Ruang khusus untuk mengatur daftar link dan domain.</p>
           </div>
-        </div>
-        <div class="placeholder-box">
-          <b>Placeholder Prediksi.</b><br />
-          Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.
-        </div>
-      </section>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Isi Link Domain</h2>
+              <p class="section-desc">Placeholder khusus Link Domain.</p>
+            </div>
+          </div>
+          <div class="placeholder-box">
+            <b>Placeholder Link Domain.</b><br />
+            Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.
+          </div>
+        </section>
+      </div>
 
-      <section class="section" id="link-domain">
-        <div class="section-head">
+      <div class="page" id="page-selisih">
+        <section class="hero">
           <div>
-            <h2 class="section-title">Link Domain</h2>
-            <p class="section-desc">Tempat mengatur daftar link dan domain.</p>
+            <div class="pill">⇄ Ruang Selisih</div>
+            <h1>Selisih</h1>
+            <p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p>
           </div>
-        </div>
-        <div class="placeholder-box">
-          <b>Placeholder Link Domain.</b><br />
-          Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.
-        </div>
-      </section>
-
-      <section class="section" id="selisih">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title">Selisih</h2>
-            <p class="section-desc">Tempat menghitung atau menyimpan data selisih.</p>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Isi Selisih</h2>
+              <p class="section-desc">Placeholder khusus Selisih.</p>
+            </div>
           </div>
-        </div>
-        <div class="placeholder-box">
-          <b>Placeholder Selisih.</b><br />
-          Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.
-        </div>
-      </section>
+          <div class="placeholder-box">
+            <b>Placeholder Selisih.</b><br />
+            Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.
+          </div>
+        </section>
+      </div>
     </main>
   </div>
+
+  <script>
+    const navButtons = document.querySelectorAll(".nav-btn, .open-page");
+    const sidebarButtons = document.querySelectorAll(".nav-btn");
+    const pages = document.querySelectorAll(".page");
+
+    function openPage(pageName) {
+      pages.forEach(page => {
+        page.classList.remove("active");
+      });
+
+      const targetPage = document.getElementById(`page-${pageName}`);
+      if (targetPage) {
+        targetPage.classList.add("active");
+      }
+
+      sidebarButtons.forEach(button => {
+        button.classList.toggle("active", button.dataset.page === pageName);
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    navButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        openPage(this.dataset.page);
+      });
+    });
+  </script>
 </body>
 </html>
