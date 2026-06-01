@@ -8,16 +8,12 @@
     :root {
       --bg: #f3f6fb;
       --sidebar: #0f172a;
-      --sidebar-soft: #182235;
       --card: #ffffff;
       --text: #111827;
       --muted: #6b7280;
       --line: #e5e7eb;
       --green: #22c55e;
       --green-dark: #16a34a;
-      --blue: #2563eb;
-      --red: #ef4444;
-      --yellow: #f59e0b;
       --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
     }
 
@@ -95,7 +91,6 @@
       border: none;
       color: #d1d5db;
       background: transparent;
-      text-decoration: none;
       padding: 13px 14px;
       border-radius: 14px;
       font-size: 15px;
@@ -116,6 +111,10 @@
       color: #fff;
     }
 
+    .dropdown-btn span {
+      margin-left: auto;
+    }
+
     .submenu {
       display: none;
       flex-direction: column;
@@ -124,7 +123,7 @@
       margin-top: 4px;
       margin-bottom: 6px;
       padding-left: 10px;
-      border-left: 1px solid rgba(255,255,255,0.12);
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .submenu.show {
@@ -135,7 +134,6 @@
       padding: 10px 12px;
       font-size: 14px;
       color: #b8c2d2;
-      font-weight: 700;
     }
 
     .sidebar-footer {
@@ -166,17 +164,23 @@
       display: block;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    .hero,
+    .section,
+    .notepad-panel {
+      background: var(--card);
       border: 1px solid #e9eef5;
-      border-radius: 26px;
+      border-radius: 24px;
       box-shadow: var(--shadow);
-      padding: 26px;
-      margin-bottom: 22px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .hero {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     }
 
     .pill {
@@ -200,10 +204,13 @@
       margin-bottom: 8px;
     }
 
-    .hero p {
+    .hero p,
+    .section-desc,
+    .notepad-header p {
       color: var(--muted);
       line-height: 1.7;
       max-width: 760px;
+      font-size: 14px;
     }
 
     .hero-actions {
@@ -212,8 +219,7 @@
       flex-wrap: wrap;
     }
 
-    .btn,
-    .content-btn {
+    .btn {
       border: none;
       border-radius: 14px;
       padding: 12px 16px;
@@ -251,6 +257,31 @@
       transform: translateY(-1px);
     }
 
+    .btn-soft {
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--sidebar);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .btn-soft:hover {
+      background: #ffffff;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-danger:hover {
+      background: #fecaca;
+    }
+
+    .btn-small {
+      padding: 8px 10px;
+      font-size: 12px;
+      border-radius: 10px;
+    }
+
     .cards {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -258,25 +289,13 @@
       margin-bottom: 22px;
     }
 
-    .card {
+    .card,
+    .feature-card {
       background: var(--card);
       border: 1px solid #e9eef5;
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      right: -36px;
-      bottom: -36px;
-      background: rgba(34, 197, 94, 0.1);
-      border-radius: 50%;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+      padding: 18px;
     }
 
     .card .label {
@@ -290,43 +309,43 @@
       color: var(--sidebar);
       font-size: 30px;
       font-weight: 900;
-      letter-spacing: -1px;
     }
 
-    .card .mini {
+    .card .mini,
+    .feature-card p {
       color: #94a3b8;
       font-size: 12px;
       margin-top: 8px;
+      line-height: 1.6;
     }
 
-    .section {
-      background: var(--card);
-      border: 1px solid #e9eef5;
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 24px;
+    .section-title,
+    .notepad-header h2 {
+      font-size: 24px;
+      color: var(--sidebar);
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
     }
 
-    .section-head {
+    .section-head,
+    .notepad-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 14px;
-      margin-bottom: 18px;
     }
 
-    .section-title {
-      font-size: 22px;
+    .grid-menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
       color: var(--sidebar);
-      letter-spacing: -0.3px;
-    }
-
-    .section-desc {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 5px;
-      line-height: 1.5;
+      margin-bottom: 8px;
     }
 
     .placeholder-box {
@@ -336,39 +355,6 @@
       padding: 22px;
       color: #475569;
       line-height: 1.7;
-    }
-
-    .placeholder-box b {
-      color: var(--sidebar);
-    }
-
-    .notepad-panel {
-      background: var(--card);
-      border: 1px solid #e9eef5;
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-
-    .notepad-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .notepad-header h2 {
-      font-size: 24px;
-      color: var(--sidebar);
-      margin-bottom: 6px;
-    }
-
-    .notepad-header p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
     }
 
     .note-toolbar {
@@ -389,9 +375,34 @@
       max-width: 360px;
     }
 
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #dbe3ef;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+      transition: 0.2s;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 180px;
+      line-height: 1.6;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+    }
+
     .note-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 14px;
       align-items: start;
     }
@@ -469,31 +480,6 @@
       flex-wrap: wrap;
     }
 
-    .btn-soft {
-      background: rgba(255,255,255,0.7);
-      color: var(--sidebar);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-    }
-
-    .btn-soft:hover {
-      background: #ffffff;
-    }
-
-    .btn-danger {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .btn-danger:hover {
-      background: #fecaca;
-    }
-
-    .btn-small {
-      padding: 8px 10px;
-      font-size: 12px;
-      border-radius: 10px;
-    }
-
     .empty-note {
       grid-column: 1 / -1;
       text-align: center;
@@ -502,6 +488,81 @@
       border: 1px dashed #cbd5e1;
       border-radius: 18px;
       background: #f8fafc;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 700px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h3 {
+      font-size: 22px;
+      color: var(--sidebar);
+    }
+
+    .modal-close {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: none;
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      background: #e2e8f0;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
     }
 
     .toast {
@@ -519,38 +580,12 @@
       pointer-events: none;
       transform: translateY(12px);
       transition: 0.25s;
-      z-index: 99;
+      z-index: 1000;
     }
 
     .toast.show {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    .grid-menu {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .feature-card {
-      background: #ffffff;
-      border: 1px solid #e9eef5;
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
-    }
-
-    .feature-card h3 {
-      font-size: 17px;
-      color: var(--sidebar);
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
     }
 
     @media (max-width: 1100px) {
@@ -587,7 +622,9 @@
         grid-column: 1 / -1;
       }
 
-      .hero {
+      .hero,
+      .notepad-header,
+      .section-head {
         flex-direction: column;
         align-items: flex-start;
       }
@@ -608,23 +645,18 @@
       }
 
       .hero,
-      .section {
+      .section,
+      .notepad-panel {
         border-radius: 20px;
         padding: 20px;
       }
 
       .hero-actions,
       .btn,
-      .content-btn,
-      .form-actions button,
       .note-toolbar input,
-      .notepad-header button {
+      .notepad-header button,
+      .form-actions button {
         width: 100%;
-      }
-
-      .section-head {
-        flex-direction: column;
-        align-items: flex-start;
       }
     }
   </style>
@@ -641,7 +673,7 @@
       <nav class="menu">
         <button class="nav-btn active" data-page="dashboard">▣ Dashboard</button>
         <button class="nav-btn" data-page="notepad">📝 Notepad</button>
-        <button class="dropdown-btn" id="postinganDropdownBtn">▤ Postingan <span id="dropdownIcon" style="margin-left:auto;">▾</span></button>
+        <button class="dropdown-btn" id="postinganDropdownBtn">▤ Postingan <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
           <button class="nav-btn" data-page="syair-togel">• Syair Togel</button>
           <button class="nav-btn" data-page="bukti-kemenangan">• Bukti Kemenangan</button>
@@ -652,17 +684,17 @@
       </nav>
 
       <div class="sidebar-footer">
-        <b>Status:</b> Setiap menu sekarang punya ruang sendiri dan tidak gabung dalam satu halaman.
+        <b>Status:</b> Setiap menu punya ruang sendiri. Postingan hanya dropdown.
       </div>
     </aside>
 
     <main class="main">
       <div class="page active" id="page-dashboard">
         <section class="hero">
-          <div class="hero-content">
+          <div>
             <div class="pill">● Dashboard Aktif</div>
             <h1>Dashboard KerjaBoss</h1>
-            <p>Panel utama untuk mengelola Notepad, Postingan, Link Domain, dan Selisih. Klik menu di samping untuk masuk ke ruang masing-masing.</p>
+            <p>Panel utama untuk mengelola Notepad, Postingan, Link Domain, dan Selisih.</p>
           </div>
           <div class="hero-actions">
             <button class="btn btn-primary open-page" data-page="notepad">Mulai dari Notepad</button>
@@ -671,66 +703,27 @@
         </section>
 
         <section class="cards">
-          <div class="card">
-            <div class="label">Menu</div>
-            <div class="number">5</div>
-            <div class="mini">Menu utama dashboard</div>
-          </div>
-          <div class="card">
-            <div class="label">Notepad</div>
-            <div class="number">0</div>
-            <div class="mini">Belum diisi</div>
-          </div>
-          <div class="card">
-            <div class="label">Postingan</div>
-            <div class="number">3</div>
-            <div class="mini">Sub menu postingan</div>
-          </div>
-          <div class="card">
-            <div class="label">Domain</div>
-            <div class="number">0</div>
-            <div class="mini">Belum diisi</div>
-          </div>
-          <div class="card">
-            <div class="label">Selisih</div>
-            <div class="number">0</div>
-            <div class="mini">Belum diisi</div>
-          </div>
+          <div class="card"><div class="label">Menu</div><div class="number">5</div><div class="mini">Menu utama dashboard</div></div>
+          <div class="card"><div class="label">Notepad</div><div class="number" id="noteTotalStat">0</div><div class="mini">Jumlah catatan</div></div>
+          <div class="card"><div class="label">Postingan</div><div class="number">3</div><div class="mini">Sub menu postingan</div></div>
+          <div class="card"><div class="label">Domain</div><div class="number">0</div><div class="mini">Belum diisi</div></div>
+          <div class="card"><div class="label">Selisih</div><div class="number">0</div><div class="mini">Belum diisi</div></div>
         </section>
 
         <section class="section">
           <div class="section-head">
             <div>
               <h2 class="section-title">Ringkasan Menu</h2>
-              <p class="section-desc">Setiap kartu ini akan diarahkan ke ruangnya masing-masing.</p>
+              <p class="section-desc">Pilih menu di samping untuk masuk ke ruang masing-masing.</p>
             </div>
           </div>
-
           <div class="grid-menu">
-            <div class="feature-card">
-              <h3>📝 Notepad</h3>
-              <p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p>
-            </div>
-            <div class="feature-card">
-              <h3>▤ Syair Togel</h3>
-              <p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p>
-            </div>
-            <div class="feature-card">
-              <h3>🏆 Bukti Kemenangan</h3>
-              <p>Bagian untuk data atau konten bukti kemenangan.</p>
-            </div>
-            <div class="feature-card">
-              <h3>🔮 Prediksi</h3>
-              <p>Bagian untuk menyimpan atau membuat data prediksi.</p>
-            </div>
-            <div class="feature-card">
-              <h3>🔗 Link Domain</h3>
-              <p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p>
-            </div>
-            <div class="feature-card">
-              <h3>⇄ Selisih</h3>
-              <p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p>
-            </div>
+            <div class="feature-card"><h3>📝 Notepad</h3><p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p></div>
+            <div class="feature-card"><h3>▤ Syair Togel</h3><p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p></div>
+            <div class="feature-card"><h3>🏆 Bukti Kemenangan</h3><p>Bagian untuk data atau konten bukti kemenangan.</p></div>
+            <div class="feature-card"><h3>🔮 Prediksi</h3><p>Bagian untuk menyimpan atau membuat data prediksi.</p></div>
+            <div class="feature-card"><h3>🔗 Link Domain</h3><p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p></div>
+            <div class="feature-card"><h3>⇄ Selisih</h3><p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p></div>
           </div>
         </section>
       </div>
@@ -740,9 +733,10 @@
           <div>
             <div class="pill">📝 Ruang Notepad</div>
             <h1>Notepad</h1>
-            <p>Ruang khusus untuk catatan cepat, teks kerja, dan data harian. Isi fitur Notepad akan kita buat setelah ini.</p>
+            <p>Ruang khusus untuk catatan cepat, teks kerja, dan data harian.</p>
           </div>
         </section>
+
         <section class="notepad-panel">
           <div class="notepad-header">
             <div>
@@ -763,115 +757,54 @@
       </div>
 
       <div class="page" id="page-syair-togel">
-        <section class="hero">
-          <div>
-            <div class="pill">▤ Ruang Syair</div>
-            <h1>Syair Togel</h1>
-            <p>Ruang khusus untuk membuat dan menyimpan konten Syair Togel.</p>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Syair Togel</h2>
-              <p class="section-desc">Placeholder khusus Syair Togel.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Syair Togel.</b><br />
-            Nanti kita buat isi dan pola khusus untuk syair di bagian ini.
-          </div>
-        </section>
+        <section class="hero"><div><div class="pill">▤ Ruang Syair</div><h1>Syair Togel</h1><p>Ruang khusus untuk membuat dan menyimpan konten Syair Togel.</p></div></section>
+        <section class="section"><div class="placeholder-box"><b>Placeholder Syair Togel.</b><br>Nanti kita buat isi dan pola khusus untuk syair di bagian ini.</div></section>
       </div>
 
       <div class="page" id="page-bukti-kemenangan">
-        <section class="hero">
-          <div>
-            <div class="pill">🏆 Ruang Bukti</div>
-            <h1>Bukti Kemenangan</h1>
-            <p>Ruang khusus untuk data atau konten bukti kemenangan.</p>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Bukti Kemenangan</h2>
-              <p class="section-desc">Placeholder khusus Bukti Kemenangan.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Bukti Kemenangan.</b><br />
-            Nanti kita buat area khusus untuk konten bukti kemenangan.
-          </div>
-        </section>
+        <section class="hero"><div><div class="pill">🏆 Ruang Bukti</div><h1>Bukti Kemenangan</h1><p>Ruang khusus untuk data atau konten bukti kemenangan.</p></div></section>
+        <section class="section"><div class="placeholder-box"><b>Placeholder Bukti Kemenangan.</b><br>Nanti kita buat area khusus untuk konten bukti kemenangan.</div></section>
       </div>
 
       <div class="page" id="page-prediksi">
-        <section class="hero">
-          <div>
-            <div class="pill">🔮 Ruang Prediksi</div>
-            <h1>Prediksi</h1>
-            <p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Prediksi</h2>
-              <p class="section-desc">Placeholder khusus Prediksi.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Prediksi.</b><br />
-            Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.
-          </div>
-        </section>
+        <section class="hero"><div><div class="pill">🔮 Ruang Prediksi</div><h1>Prediksi</h1><p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p></div></section>
+        <section class="section"><div class="placeholder-box"><b>Placeholder Prediksi.</b><br>Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.</div></section>
       </div>
 
       <div class="page" id="page-link-domain">
-        <section class="hero">
-          <div>
-            <div class="pill">🔗 Ruang Domain</div>
-            <h1>Link Domain</h1>
-            <p>Ruang khusus untuk mengatur daftar link dan domain.</p>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Link Domain</h2>
-              <p class="section-desc">Placeholder khusus Link Domain.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Link Domain.</b><br />
-            Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.
-          </div>
-        </section>
+        <section class="hero"><div><div class="pill">🔗 Ruang Domain</div><h1>Link Domain</h1><p>Ruang khusus untuk mengatur daftar link dan domain.</p></div></section>
+        <section class="section"><div class="placeholder-box"><b>Placeholder Link Domain.</b><br>Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.</div></section>
       </div>
 
       <div class="page" id="page-selisih">
-        <section class="hero">
-          <div>
-            <div class="pill">⇄ Ruang Selisih</div>
-            <h1>Selisih</h1>
-            <p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Isi Selisih</h2>
-              <p class="section-desc">Placeholder khusus Selisih.</p>
-            </div>
-          </div>
-          <div class="placeholder-box">
-            <b>Placeholder Selisih.</b><br />
-            Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.
-          </div>
-        </section>
+        <section class="hero"><div><div class="pill">⇄ Ruang Selisih</div><h1>Selisih</h1><p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p></div></section>
+        <section class="section"><div class="placeholder-box"><b>Placeholder Selisih.</b><br>Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div></section>
       </div>
     </main>
+  </div>
+
+  <div class="modal-overlay" id="noteModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="noteFormTitle">Tambah Catatan</h3>
+        <button type="button" class="modal-close" id="closeNoteModalBtn">✕</button>
+      </div>
+      <form id="noteForm">
+        <input type="hidden" id="noteEditId" />
+        <div class="form-group">
+          <label for="noteTitle">Judul Catatan</label>
+          <input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required />
+        </div>
+        <div class="form-group">
+          <label for="noteContent">Isi Catatan</label>
+          <textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button>
+          <button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="toast" id="toast">Berhasil</div>
@@ -880,6 +813,10 @@
     const navButtons = document.querySelectorAll(".nav-btn, .open-page");
     const sidebarButtons = document.querySelectorAll(".nav-btn");
     const pages = document.querySelectorAll(".page");
+    const postinganDropdownBtn = document.getElementById("postinganDropdownBtn");
+    const postinganSubmenu = document.getElementById("postinganSubmenu");
+    const dropdownIcon = document.getElementById("dropdownIcon");
+    const heroPostinganBtn = document.getElementById("heroPostinganBtn");
 
     const toast = document.getElementById("toast");
     const noteForm = document.getElementById("noteForm");
@@ -891,12 +828,12 @@
     const noteResetBtn = document.getElementById("noteResetBtn");
     const noteSearch = document.getElementById("noteSearch");
     const noteList = document.getElementById("noteList");
+    const noteModal = document.getElementById("noteModal");
+    const openNoteModalBtn = document.getElementById("openNoteModalBtn");
+    const closeNoteModalBtn = document.getElementById("closeNoteModalBtn");
+    const noteTotalStat = document.getElementById("noteTotalStat");
 
     let notepadData = JSON.parse(localStorage.getItem("notepadKerjaBoss")) || [];
-    const postinganDropdownBtn = document.getElementById("postinganDropdownBtn");
-    const postinganSubmenu = document.getElementById("postinganSubmenu");
-    const dropdownIcon = document.getElementById("dropdownIcon");
-    const heroPostinganBtn = document.getElementById("heroPostinganBtn");
 
     function showToast(text) {
       toast.textContent = text;
@@ -905,19 +842,10 @@
     }
 
     function openPage(pageName) {
-      pages.forEach(page => {
-        page.classList.remove("active");
-      });
-
+      pages.forEach(page => page.classList.remove("active"));
       const targetPage = document.getElementById(`page-${pageName}`);
-      if (targetPage) {
-        targetPage.classList.add("active");
-      }
-
-      sidebarButtons.forEach(button => {
-        button.classList.toggle("active", button.dataset.page === pageName);
-      });
-
+      if (targetPage) targetPage.classList.add("active");
+      sidebarButtons.forEach(button => button.classList.toggle("active", button.dataset.page === pageName));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -927,8 +855,35 @@
       });
     });
 
+    postinganDropdownBtn.addEventListener("click", function() {
+      postinganSubmenu.classList.toggle("show");
+      dropdownIcon.textContent = postinganSubmenu.classList.contains("show") ? "▴" : "▾";
+    });
+
+    heroPostinganBtn.addEventListener("click", function() {
+      postinganSubmenu.classList.add("show");
+      dropdownIcon.textContent = "▴";
+    });
+
+    function openNoteModal() {
+      noteModal.classList.add("show");
+      setTimeout(() => noteTitle.focus(), 50);
+    }
+
+    function closeNoteModal() {
+      noteModal.classList.remove("show");
+    }
+
+    function resetNoteForm() {
+      noteForm.reset();
+      noteEditId.value = "";
+      noteFormTitle.textContent = "Tambah Catatan";
+      noteSaveBtn.textContent = "Simpan Catatan";
+    }
+
     function saveNotepad() {
       localStorage.setItem("notepadKerjaBoss", JSON.stringify(notepadData));
+      noteTotalStat.textContent = notepadData.length;
     }
 
     function cleanText(text) {
@@ -956,6 +911,8 @@
         return note.title.toLowerCase().includes(keyword) || note.content.toLowerCase().includes(keyword);
       });
 
+      noteTotalStat.textContent = notepadData.length;
+
       if (filteredNotes.length === 0) {
         noteList.innerHTML = `<div class="empty-note">Belum ada catatan yang cocok.</div>`;
         return;
@@ -979,6 +936,26 @@
       `).join("");
     }
 
+    openNoteModalBtn.addEventListener("click", function() {
+      resetNoteForm();
+      openNoteModal();
+    });
+
+    closeNoteModalBtn.addEventListener("click", function() {
+      closeNoteModal();
+    });
+
+    noteModal.addEventListener("click", function(e) {
+      if (e.target === noteModal) closeNoteModal();
+    });
+
+    noteResetBtn.addEventListener("click", function() {
+      resetNoteForm();
+      showToast("Form dibersihkan");
+    });
+
+    noteSearch.addEventListener("input", renderNotes);
+
     noteForm.addEventListener("submit", function(e) {
       e.preventDefault();
 
@@ -999,39 +976,27 @@
       }
 
       saveNotepad();
-      resetNoteForm();
       renderNotes();
-    });
-
-    function resetNoteForm() {
-      noteForm.reset();
-      noteEditId.value = "";
-      noteFormTitle.textContent = "Tambah Catatan";
-      noteSaveBtn.textContent = "Simpan Catatan";
-    }
-
-    noteResetBtn.addEventListener("click", function() {
       resetNoteForm();
-      showToast("Form dibersihkan");
+      closeNoteModal();
     });
 
     function editNote(id) {
       const note = notepadData.find(item => item.id === id);
       if (!note) return;
-
       noteEditId.value = note.id;
       noteTitle.value = note.title;
       noteContent.value = note.content;
       noteFormTitle.textContent = "Edit Catatan";
       noteSaveBtn.textContent = "Update Catatan";
       openPage("notepad");
+      openNoteModal();
       showToast("Mode edit aktif");
     }
 
     function deleteNote(id) {
       const yakin = confirm("Yakin mau hapus catatan ini?");
       if (!yakin) return;
-
       notepadData = notepadData.filter(item => item.id !== id);
       saveNotepad();
       renderNotes();
@@ -1041,7 +1006,6 @@
     function copyNote(id) {
       const note = notepadData.find(item => item.id === id);
       if (!note) return;
-
       navigator.clipboard.writeText(note.content).then(() => {
         showToast("Isi catatan berhasil dicopy");
       }).catch(() => {
@@ -1049,18 +1013,7 @@
       });
     }
 
-    noteSearch.addEventListener("input", renderNotes);
     renderNotes();
-
-    postinganDropdownBtn.addEventListener("click", function() {
-      postinganSubmenu.classList.toggle("show");
-      dropdownIcon.textContent = postinganSubmenu.classList.contains("show") ? "▴" : "▾";
-    });
-
-    heroPostinganBtn.addEventListener("click", function() {
-      postinganSubmenu.classList.add("show");
-      dropdownIcon.textContent = "▴";
-    });
   </script>
 </body>
 </html>
