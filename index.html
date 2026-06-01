@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KerjaBoss - Dashboard Catatan Kerja</title>
+  <title>Dashboard KerjaBoss</title>
   <style>
     :root {
       --bg: #f3f6fb;
@@ -93,7 +93,8 @@
       gap: 8px;
     }
 
-    .menu a {
+    .menu a,
+    .submenu a {
       color: #d1d5db;
       text-decoration: none;
       padding: 13px 14px;
@@ -106,9 +107,27 @@
     }
 
     .menu a:hover,
-    .menu a.active {
+    .menu a.active,
+    .submenu a:hover {
       background: var(--green);
       color: #fff;
+    }
+
+    .submenu {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-left: 14px;
+      margin-top: 4px;
+      margin-bottom: 6px;
+      padding-left: 10px;
+      border-left: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .submenu a {
+      padding: 10px 12px;
+      font-size: 14px;
+      color: #b8c2d2;
     }
 
     .sidebar-footer {
@@ -178,8 +197,7 @@
     }
 
     .btn,
-    button,
-    .wa-button {
+    button {
       border: none;
       border-radius: 14px;
       padding: 12px 16px;
@@ -206,39 +224,20 @@
       transform: translateY(-1px);
     }
 
-    .wa-button {
+    .btn-green {
       background: var(--green);
       color: #fff;
       box-shadow: 0 8px 20px rgba(34, 197, 94, 0.22);
     }
 
-    .wa-button:hover {
+    .btn-green:hover {
       background: var(--green-dark);
       transform: translateY(-1px);
     }
 
-    .btn-soft {
-      background: #f1f5f9;
-      color: var(--sidebar);
-      border: 1px solid #e2e8f0;
-    }
-
-    .btn-soft:hover {
-      background: #e2e8f0;
-    }
-
-    .btn-danger {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .btn-danger:hover {
-      background: #fecaca;
-    }
-
     .cards {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 16px;
       margin-bottom: 22px;
     }
@@ -273,7 +272,7 @@
 
     .card .number {
       color: var(--sidebar);
-      font-size: 34px;
+      font-size: 30px;
       font-weight: 900;
       letter-spacing: -1px;
     }
@@ -314,208 +313,56 @@
       line-height: 1.5;
     }
 
-    form {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-size: 14px;
-      font-weight: 800;
-      color: #374151;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      border: 1px solid #dbe3ef;
-      border-radius: 14px;
-      padding: 13px 14px;
-      font-size: 15px;
-      outline: none;
-      background: #fff;
-      color: var(--text);
-      transition: 0.2s;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
-    }
-
-    .actions {
-      grid-column: 1 / -1;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    .tools {
-      display: flex;
-      gap: 12px;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .tools-left,
-    .tools-right {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .tools input,
-    .tools select {
-      max-width: 290px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: #fff;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 980px;
-    }
-
-    th,
-    td {
-      padding: 15px 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--line);
-      font-size: 14px;
-      vertical-align: top;
-    }
-
-    th {
-      color: #475569;
-      background: #f8fafc;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    tr:hover td {
-      background: #f9fafb;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 7px 11px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .badge.proses {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .badge.selesai {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .badge.batal {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .row-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn-small {
-      padding: 8px 10px;
-      font-size: 12px;
-      border-radius: 10px;
-      box-shadow: none;
-    }
-
-    .edit {
-      background: #dbeafe;
-      color: #1e40af;
-    }
-
-    .delete {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .done {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .empty {
-      text-align: center;
-      color: var(--muted);
-      padding: 34px;
-    }
-
-    .info-box {
+    .placeholder-box {
       background: #f8fafc;
       border: 1px dashed #cbd5e1;
       border-radius: 18px;
-      padding: 18px;
-      line-height: 1.8;
+      padding: 22px;
       color: #475569;
+      line-height: 1.7;
     }
 
-    .toast {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      background: var(--sidebar);
-      color: white;
-      padding: 13px 16px;
-      border-radius: 14px;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.25);
+    .placeholder-box b {
+      color: var(--sidebar);
+    }
+
+    .grid-menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid #e9eef5;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      color: var(--sidebar);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
       font-size: 14px;
-      font-weight: 800;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(12px);
-      transition: 0.25s;
-      z-index: 99;
+      line-height: 1.6;
     }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
+    @media (max-width: 1100px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-menu {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    @media (max-width: 1050px) {
+    @media (max-width: 900px) {
       .app {
         grid-template-columns: 1fr;
       }
@@ -532,20 +379,16 @@
 
       .menu {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .submenu {
+        grid-column: 1 / -1;
       }
 
       .hero {
         flex-direction: column;
         align-items: flex-start;
-      }
-
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      form {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -558,11 +401,8 @@
         padding: 18px;
       }
 
-      .menu {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .cards {
+      .cards,
+      .grid-menu {
         grid-template-columns: 1fr;
       }
 
@@ -572,17 +412,8 @@
         padding: 20px;
       }
 
-      .tools,
-      .tools-left,
-      .tools-right,
-      .hero-actions {
-        width: 100%;
-      }
-
-      .tools input,
-      .tools select,
+      .hero-actions,
       .btn,
-      .wa-button,
       button {
         width: 100%;
       }
@@ -599,19 +430,25 @@
     <aside class="sidebar">
       <div class="brand-box">
         <div class="brand">Kerja<span>Boss</span></div>
-        <div class="subtitle">Dashboard ringan untuk mencatat pekerjaan, pelanggan, status, dan laporan harian.</div>
+        <div class="subtitle">Dashboard kerja untuk notepad, postingan, domain, dan selisih.</div>
       </div>
 
-      <div class="menu-title">Menu Utama</div>
+      <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
         <a href="#dashboard" class="active">▣ Dashboard</a>
-        <a href="#input">＋ Input Data</a>
-        <a href="#data">☰ Data Kerja</a>
-        <a href="#kontak">☎ Kontak</a>
+        <a href="#notepad">📝 Notepad</a>
+        <a href="#postingan">▤ Postingan</a>
+        <div class="submenu">
+          <a href="#syair-togel">• Syair Togel</a>
+          <a href="#bukti-kemenangan">• Bukti Kemenangan</a>
+          <a href="#prediksi">• Prediksi</a>
+        </div>
+        <a href="#link-domain">🔗 Link Domain</a>
+        <a href="#selisih">⇄ Selisih</a>
       </nav>
 
       <div class="sidebar-footer">
-        <b>Status:</b> Data tersimpan otomatis di browser perangkat ini memakai LocalStorage.
+        <b>Status:</b> Kerangka dashboard sudah siap. Isi tiap menu akan dibuat satu per satu.
       </div>
     </aside>
 
@@ -619,378 +456,170 @@
       <section class="hero" id="dashboard">
         <div class="hero-content">
           <div class="pill">● Dashboard Aktif</div>
-          <h1>Dashboard Catatan Kerja</h1>
-          <p>Kelola pekerjaan harian dengan tampilan elegan dan ringan. Tambah data, cari catatan, pantau status, dan simpan semua langsung di browser.</p>
+          <h1>Dashboard KerjaBoss</h1>
+          <p>Panel utama untuk mengelola Notepad, Postingan, Link Domain, dan Selisih. Untuk sekarang semua menu dibuat sebagai kerangka awal dulu.</p>
         </div>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#input">＋ Tambah Data</a>
-          <a class="wa-button" id="waLink" href="#" target="_blank">Chat WhatsApp</a>
+          <a class="btn btn-primary" href="#notepad">Mulai dari Notepad</a>
+          <a class="btn btn-green" href="#postingan">Lihat Postingan</a>
         </div>
       </section>
 
       <section class="cards">
         <div class="card">
-          <div class="label">Total Catatan</div>
-          <div class="number" id="totalData">0</div>
-          <div class="mini">Semua data pekerjaan</div>
+          <div class="label">Menu</div>
+          <div class="number">5</div>
+          <div class="mini">Menu utama dashboard</div>
         </div>
         <div class="card">
-          <div class="label">Dalam Proses</div>
-          <div class="number" id="totalProses">0</div>
-          <div class="mini">Belum selesai dikerjakan</div>
+          <div class="label">Notepad</div>
+          <div class="number">0</div>
+          <div class="mini">Belum diisi</div>
         </div>
         <div class="card">
-          <div class="label">Selesai</div>
-          <div class="number" id="totalSelesai">0</div>
-          <div class="mini">Pekerjaan selesai</div>
+          <div class="label">Postingan</div>
+          <div class="number">3</div>
+          <div class="mini">Sub menu postingan</div>
         </div>
         <div class="card">
-          <div class="label">Batal</div>
-          <div class="number" id="totalBatal">0</div>
-          <div class="mini">Pekerjaan dibatalkan</div>
+          <div class="label">Domain</div>
+          <div class="number">0</div>
+          <div class="mini">Belum diisi</div>
+        </div>
+        <div class="card">
+          <div class="label">Selisih</div>
+          <div class="number">0</div>
+          <div class="mini">Belum diisi</div>
         </div>
       </section>
 
-      <section class="section" id="input">
+      <section class="section">
         <div class="section-head">
           <div>
-            <h2 class="section-title">Input Catatan Kerja</h2>
-            <p class="section-desc">Isi data pekerjaan, pelanggan, harga, status, dan catatan penting.</p>
+            <h2 class="section-title">Ringkasan Menu</h2>
+            <p class="section-desc">Kerangka menu yang akan kita isi satu per satu.</p>
           </div>
         </div>
 
-        <form id="workForm">
-          <input type="hidden" id="editId" />
-
-          <div class="form-group">
-            <label for="tanggal">Tanggal</label>
-            <input type="date" id="tanggal" required />
+        <div class="grid-menu">
+          <div class="feature-card">
+            <h3>📝 Notepad</h3>
+            <p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p>
           </div>
-
-          <div class="form-group">
-            <label for="nama">Nama Pelanggan / Judul Kerja</label>
-            <input type="text" id="nama" placeholder="Contoh: Pak Budi / Desain Banner" required />
+          <div class="feature-card">
+            <h3>▤ Syair Togel</h3>
+            <p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p>
           </div>
-
-          <div class="form-group">
-            <label for="jenis">Jenis Pekerjaan</label>
-            <input type="text" id="jenis" placeholder="Contoh: Edit Foto, Website, Data, Pesanan" required />
+          <div class="feature-card">
+            <h3>🏆 Bukti Kemenangan</h3>
+            <p>Bagian untuk data atau konten bukti kemenangan.</p>
           </div>
-
-          <div class="form-group">
-            <label for="status">Status</label>
-            <select id="status" required>
-              <option value="Proses">Proses</option>
-              <option value="Selesai">Selesai</option>
-              <option value="Batal">Batal</option>
-            </select>
+          <div class="feature-card">
+            <h3>🔮 Prediksi</h3>
+            <p>Bagian untuk menyimpan atau membuat data prediksi.</p>
           </div>
-
-          <div class="form-group">
-            <label for="harga">Harga / Nilai</label>
-            <input type="number" id="harga" placeholder="Contoh: 50000" min="0" />
+          <div class="feature-card">
+            <h3>🔗 Link Domain</h3>
+            <p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p>
           </div>
-
-          <div class="form-group">
-            <label for="kontak">Kontak</label>
-            <input type="text" id="kontak" placeholder="Nomor HP / WhatsApp pelanggan" />
+          <div class="feature-card">
+            <h3>⇄ Selisih</h3>
+            <p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p>
           </div>
-
-          <div class="form-group full">
-            <label for="catatan">Catatan</label>
-            <textarea id="catatan" placeholder="Tulis detail pekerjaan di sini..."></textarea>
-          </div>
-
-          <div class="actions">
-            <button class="btn-primary" type="submit" id="saveBtn">Simpan Catatan</button>
-            <button class="btn-soft" type="button" id="resetBtn">Reset Form</button>
-          </div>
-        </form>
+        </div>
       </section>
 
-      <section class="section" id="data">
+      <section class="section" id="notepad">
         <div class="section-head">
           <div>
-            <h2 class="section-title">Data Tersimpan</h2>
-            <p class="section-desc">Cari, filter, edit, hapus, atau tandai pekerjaan sebagai selesai.</p>
+            <h2 class="section-title">Notepad</h2>
+            <p class="section-desc">Menu ini akan kita isi setelah kerangka dashboard selesai.</p>
           </div>
         </div>
-
-        <div class="tools">
-          <div class="tools-left">
-            <input type="text" id="searchInput" placeholder="Cari nama, jenis, kontak, catatan..." />
-            <select id="filterStatus">
-              <option value="Semua">Semua Status</option>
-              <option value="Proses">Proses</option>
-              <option value="Selesai">Selesai</option>
-              <option value="Batal">Batal</option>
-            </select>
-          </div>
-          <div class="tools-right">
-            <button class="btn-soft" type="button" id="exportBtn">Export Data</button>
-            <button class="btn-danger" type="button" id="clearAllBtn">Hapus Semua</button>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Tanggal</th>
-                <th>Nama / Judul</th>
-                <th>Jenis</th>
-                <th>Status</th>
-                <th>Harga</th>
-                <th>Kontak</th>
-                <th>Catatan</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="dataBody"></tbody>
-          </table>
+        <div class="placeholder-box">
+          <b>Placeholder Notepad.</b><br />
+          Nanti di sini bisa dibuat input catatan, tombol tambah, daftar catatan, edit, hapus, dan penyimpanan otomatis.
         </div>
       </section>
 
-      <section class="section" id="kontak">
-        <h2 class="section-title">Pengaturan Kontak</h2>
-        <div class="info-box">
-          Tombol WhatsApp bisa diganti dengan nomor bos sendiri di bagian JavaScript:
-          <br />
-          <b>const nomorWhatsApp = "628xxxxxxxxxx";</b>
-          <br />
-          Data saat ini masih tersimpan di browser. Kalau nanti mau bisa dibuka dari semua perangkat, kita sambungkan ke database online.
+      <section class="section" id="postingan">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Postingan</h2>
+            <p class="section-desc">Menu utama untuk semua kebutuhan postingan.</p>
+          </div>
+        </div>
+        <div class="placeholder-box">
+          <b>Placeholder Postingan.</b><br />
+          Di dalam postingan ada Syair Togel, Bukti Kemenangan, dan Prediksi.
+        </div>
+      </section>
+
+      <section class="section" id="syair-togel">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Syair Togel</h2>
+            <p class="section-desc">Sub menu dari Postingan.</p>
+          </div>
+        </div>
+        <div class="placeholder-box">
+          <b>Placeholder Syair Togel.</b><br />
+          Nanti kita buat isi dan pola khusus untuk syair di bagian ini.
+        </div>
+      </section>
+
+      <section class="section" id="bukti-kemenangan">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Bukti Kemenangan</h2>
+            <p class="section-desc">Sub menu dari Postingan.</p>
+          </div>
+        </div>
+        <div class="placeholder-box">
+          <b>Placeholder Bukti Kemenangan.</b><br />
+          Nanti kita buat area khusus untuk konten bukti kemenangan.
+        </div>
+      </section>
+
+      <section class="section" id="prediksi">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Prediksi</h2>
+            <p class="section-desc">Sub menu dari Postingan.</p>
+          </div>
+        </div>
+        <div class="placeholder-box">
+          <b>Placeholder Prediksi.</b><br />
+          Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.
+        </div>
+      </section>
+
+      <section class="section" id="link-domain">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Link Domain</h2>
+            <p class="section-desc">Tempat mengatur daftar link dan domain.</p>
+          </div>
+        </div>
+        <div class="placeholder-box">
+          <b>Placeholder Link Domain.</b><br />
+          Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.
+        </div>
+      </section>
+
+      <section class="section" id="selisih">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Selisih</h2>
+            <p class="section-desc">Tempat menghitung atau menyimpan data selisih.</p>
+          </div>
+        </div>
+        <div class="placeholder-box">
+          <b>Placeholder Selisih.</b><br />
+          Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.
         </div>
       </section>
     </main>
   </div>
-
-  <div class="toast" id="toast">Berhasil disimpan</div>
-
-  <script>
-    const nomorWhatsApp = "6281234567890";
-    const pesanWhatsApp = "Halo, saya mau tanya tentang pekerjaan/jasa.";
-
-    const waLink = document.getElementById("waLink");
-    waLink.href = `https://wa.me/${nomorWhatsApp}?text=${encodeURIComponent(pesanWhatsApp)}`;
-
-    const form = document.getElementById("workForm");
-    const editId = document.getElementById("editId");
-    const tanggal = document.getElementById("tanggal");
-    const nama = document.getElementById("nama");
-    const jenis = document.getElementById("jenis");
-    const status = document.getElementById("status");
-    const harga = document.getElementById("harga");
-    const kontak = document.getElementById("kontak");
-    const catatan = document.getElementById("catatan");
-    const dataBody = document.getElementById("dataBody");
-    const saveBtn = document.getElementById("saveBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const searchInput = document.getElementById("searchInput");
-    const filterStatus = document.getElementById("filterStatus");
-    const exportBtn = document.getElementById("exportBtn");
-    const clearAllBtn = document.getElementById("clearAllBtn");
-    const toast = document.getElementById("toast");
-
-    const totalData = document.getElementById("totalData");
-    const totalProses = document.getElementById("totalProses");
-    const totalSelesai = document.getElementById("totalSelesai");
-    const totalBatal = document.getElementById("totalBatal");
-
-    let dataKerja = JSON.parse(localStorage.getItem("dataKerjaBoss")) || [];
-
-    tanggal.valueAsDate = new Date();
-
-    function showToast(text) {
-      toast.textContent = text;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 1800);
-    }
-
-    function simpanLocal() {
-      localStorage.setItem("dataKerjaBoss", JSON.stringify(dataKerja));
-    }
-
-    function formatRupiah(value) {
-      const angka = Number(value || 0);
-      return angka.toLocaleString("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumFractionDigits: 0
-      });
-    }
-
-    function badgeClass(value) {
-      if (value === "Selesai") return "selesai";
-      if (value === "Batal") return "batal";
-      return "proses";
-    }
-
-    function updateStatistik() {
-      totalData.textContent = dataKerja.length;
-      totalProses.textContent = dataKerja.filter(item => item.status === "Proses").length;
-      totalSelesai.textContent = dataKerja.filter(item => item.status === "Selesai").length;
-      totalBatal.textContent = dataKerja.filter(item => item.status === "Batal").length;
-    }
-
-    function bersihkanText(text) {
-      return String(text || "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function renderData() {
-      const keyword = searchInput.value.toLowerCase();
-      const statusDipilih = filterStatus.value;
-
-      const hasil = dataKerja.filter(item => {
-        const cocokKeyword =
-          item.nama.toLowerCase().includes(keyword) ||
-          item.jenis.toLowerCase().includes(keyword) ||
-          item.kontak.toLowerCase().includes(keyword) ||
-          item.catatan.toLowerCase().includes(keyword);
-
-        const cocokStatus = statusDipilih === "Semua" || item.status === statusDipilih;
-        return cocokKeyword && cocokStatus;
-      });
-
-      if (hasil.length === 0) {
-        dataBody.innerHTML = `<tr><td colspan="8" class="empty">Belum ada data yang cocok.</td></tr>`;
-        updateStatistik();
-        return;
-      }
-
-      dataBody.innerHTML = hasil.map(item => `
-        <tr>
-          <td>${bersihkanText(item.tanggal)}</td>
-          <td><b>${bersihkanText(item.nama)}</b></td>
-          <td>${bersihkanText(item.jenis)}</td>
-          <td><span class="badge ${badgeClass(item.status)}">${bersihkanText(item.status)}</span></td>
-          <td>${formatRupiah(item.harga)}</td>
-          <td>${bersihkanText(item.kontak) || "-"}</td>
-          <td>${bersihkanText(item.catatan) || "-"}</td>
-          <td>
-            <div class="row-actions">
-              <button class="btn-small done" onclick="ubahSelesai('${item.id}')">Selesai</button>
-              <button class="btn-small edit" onclick="editData('${item.id}')">Edit</button>
-              <button class="btn-small delete" onclick="hapusData('${item.id}')">Hapus</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
-
-      updateStatistik();
-    }
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const item = {
-        id: editId.value || Date.now().toString(),
-        tanggal: tanggal.value,
-        nama: nama.value.trim(),
-        jenis: jenis.value.trim(),
-        status: status.value,
-        harga: harga.value,
-        kontak: kontak.value.trim(),
-        catatan: catatan.value.trim()
-      };
-
-      if (editId.value) {
-        dataKerja = dataKerja.map(data => data.id === editId.value ? item : data);
-        saveBtn.textContent = "Simpan Catatan";
-        showToast("Data berhasil diupdate");
-      } else {
-        dataKerja.unshift(item);
-        showToast("Data berhasil disimpan");
-      }
-
-      simpanLocal();
-      form.reset();
-      editId.value = "";
-      tanggal.valueAsDate = new Date();
-      renderData();
-    });
-
-    resetBtn.addEventListener("click", function() {
-      form.reset();
-      editId.value = "";
-      tanggal.valueAsDate = new Date();
-      saveBtn.textContent = "Simpan Catatan";
-      showToast("Form dibersihkan");
-    });
-
-    function editData(id) {
-      const item = dataKerja.find(data => data.id === id);
-      if (!item) return;
-
-      editId.value = item.id;
-      tanggal.value = item.tanggal;
-      nama.value = item.nama;
-      jenis.value = item.jenis;
-      status.value = item.status;
-      harga.value = item.harga;
-      kontak.value = item.kontak;
-      catatan.value = item.catatan;
-      saveBtn.textContent = "Update Catatan";
-      window.location.hash = "input";
-      showToast("Mode edit aktif");
-    }
-
-    function hapusData(id) {
-      const yakin = confirm("Yakin mau hapus data ini?");
-      if (!yakin) return;
-
-      dataKerja = dataKerja.filter(data => data.id !== id);
-      simpanLocal();
-      renderData();
-      showToast("Data berhasil dihapus");
-    }
-
-    function ubahSelesai(id) {
-      dataKerja = dataKerja.map(data => {
-        if (data.id === id) {
-          return { ...data, status: "Selesai" };
-        }
-        return data;
-      });
-      simpanLocal();
-      renderData();
-      showToast("Status diubah jadi selesai");
-    }
-
-    exportBtn.addEventListener("click", function() {
-      if (dataKerja.length === 0) {
-        alert("Belum ada data untuk diexport.");
-        return;
-      }
-
-      const blob = new Blob([JSON.stringify(dataKerja, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "data-catatan-kerja.json";
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast("Data berhasil diexport");
-    });
-
-    clearAllBtn.addEventListener("click", function() {
-      const yakin = confirm("Yakin mau hapus semua data? Tindakan ini tidak bisa dibatalkan.");
-      if (!yakin) return;
-
-      dataKerja = [];
-      simpanLocal();
-      renderData();
-      showToast("Semua data dihapus");
-    });
-
-    searchInput.addEventListener("input", renderData);
-    filterStatus.addEventListener("change", renderData);
-
-    renderData();
-  </script>
 </body>
 </html>
