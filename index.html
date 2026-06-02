@@ -141,6 +141,17 @@
     let syairState={shio:"kerbau",pasaran:"BANGKOK",bbfs:[1,3,2,7,9,5],colok:[6,4,2,8],angkaMain:[2,8,7,1],syair:SYAIR_DATA.kerbau[0]};
     Object.keys(SHIO_LOGOS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k.toUpperCase();shioSelect.appendChild(o)});Object.keys(PASARAN_LOGOS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;pasaranSelect.appendChild(o)});shioSelect.value=syairState.shio;pasaranSelect.value=syairState.pasaran;
     function rand1to9(){return Math.floor(Math.random()*9)+1}function unique1to9(n){let a=[1,2,3,4,5,6,7,8,9];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,n)}function pick(a){return a[Math.floor(Math.random()*a.length)]}
+    
+    function normalizeColok() {
+      if (!Array.isArray(syairState.colok) || syairState.colok.length !== 4) {
+        syairState.colok = [rand1to9(), rand1to9(), rand1to9(), rand1to9()];
+      }
+      syairState.colok = syairState.colok.map(n => {
+        const angka = Number(n);
+        return Number.isFinite(angka) && angka >= 1 && angka <= 9 ? angka : rand1to9();
+      }).slice(0, 4);
+    }
+
     function todayText(){return new Date().toLocaleDateString("id-ID",{day:"2-digit",month:"long",year:"numeric"}).replace(/\s/g," ").toUpperCase()}
     function loadImg(src){return new Promise((res,rej)=>{let im=new Image();im.crossOrigin="anonymous";im.onload=()=>res(im);im.onerror=rej;im.src=src})}
     function textGold(t,x,y,size,align="center"){
@@ -168,11 +179,11 @@
       try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,627,252,300,92)}catch(e){textGold(syairState.pasaran,627,252,34)}
       try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,627,583,142,142)}catch(e){}
       textPlain(syairState.shio.toUpperCase(),627,682,46);
-      [[215,614],[280,614],[215,680],[280,680]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],44));
+      normalizeColok();[[205,614],[286,614],[205,684],[286,684]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],42));
       [[955,617],[1040,617],[955,704],[1040,704]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],56));
       [382,481,579,676,774,871].forEach((x,i)=>textPlain(syairState.bbfs[i],x,910,58));
       ctx.save();ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="30px Arial Black";let sg=ctx.createLinearGradient(627,990,627,1170);sg.addColorStop(0,"#fff7c5");sg.addColorStop(.2,"#fffef0");sg.addColorStop(.52,"#ffe57e");sg.addColorStop(.76,"#e7ba36");sg.addColorStop(1,"#9d5f00");ctx.fillStyle=sg;ctx.shadowColor="rgba(0,0,0,.95)";ctx.shadowBlur=8;ctx.lineWidth=4.5;ctx.strokeStyle="rgba(0,0,0,.88)";syairState.syair.forEach((line,i)=>{let y=1050+i*44;ctx.strokeText(line.toUpperCase(),627,y);ctx.fillText(line.toUpperCase(),627,y)});ctx.restore()}
-    function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));syairState.pasaran=pick(Object.keys(PASARAN_LOGOS));shioSelect.value=syairState.shio;pasaranSelect.value=syairState.pasaran;syairState.bbfs=unique1to9(6);syairState.colok=rand1to9();syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
+    function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));shioSelect.value=syairState.shio;syairState.bbfs=unique1to9(6);syairState.colok=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
     shioSelect.addEventListener("change",()=>{syairState.shio=shioSelect.value;syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair()});pasaranSelect.addEventListener("change",()=>{syairState.pasaran=pasaranSelect.value;drawSyair()});acakSyairBtn.addEventListener("click",acakSyair);acakSemuaBtn.addEventListener("click",acakSemua);downloadSyairBtn.addEventListener("click",downloadSyair);templateImg.addEventListener("load",drawSyair);templateImg.addEventListener("error",()=>showToast("File syair-template.png belum terbaca"));renderNotes();drawSyair();
   </script>
 </body>
