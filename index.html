@@ -138,7 +138,7 @@
       harimau:[["Harimau gagah di tengah rimba","Matanya tajam penuh kuasa","Rezeki datang membawa wibawa","Hoki besar mulai terasa"],["Auman kuat membelah malam","Tanda baik mulai terdengar","Shio Harimau masuk ke dalam","Untung datang makin besar"],["Langkah berani tak pernah mundur","Meski jalan penuh halangan","Nasib baik mulai mengalir","Membawa berkah dan kemenangan"],["Harimau emas turun perlahan","Membawa pesan dari kejauhan","Rezeki hadir dalam hitungan","Hoki datang jadi pegangan"],["Jangan takut menghadapi badai","Kekuatan hati jadi cahaya","Shio Harimau membawa damai","Untung besar siap berjaya"]]
     };
     const shioSelect=document.getElementById("shioSelect"),pasaranSelect=document.getElementById("pasaranSelect"),acakSyairBtn=document.getElementById("acakSyairBtn"),acakSemuaBtn=document.getElementById("acakSemuaBtn"),downloadSyairBtn=document.getElementById("downloadSyairBtn"),canvas=document.getElementById("syairCanvas"),ctx=canvas.getContext("2d"),templateImg=document.getElementById("templateImg");
-    let syairState={shio:"kerbau",pasaran:"BANGKOK",bbfs:[1,3,2,7,9,5],colok:[6,4,2,8],angkaMain:[2,8,7,1],syair:SYAIR_DATA.kerbau[0]};
+    let syairState={shio:"kerbau",pasaran:"BANGKOK",bbfs:[1,3,2,7,9,5,8],colok:[6,4,2,8],angkaMain:[2,8,7,1,5],syair:SYAIR_DATA.kerbau[0]};
     Object.keys(SHIO_LOGOS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k.toUpperCase();shioSelect.appendChild(o)});Object.keys(PASARAN_LOGOS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;pasaranSelect.appendChild(o)});shioSelect.value=syairState.shio;pasaranSelect.value=syairState.pasaran;
     function rand1to9(){return Math.floor(Math.random()*9)+1}function unique1to9(n){let a=[1,2,3,4,5,6,7,8,9];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,n)}function pick(a){return a[Math.floor(Math.random()*a.length)]}
     
@@ -174,31 +174,34 @@
       ctx.fillText(String(t).toUpperCase(),x,y);ctx.restore()
     }
     function drawShioBadge(cx,cy){ctx.save();
-      const outer=118, ring1=98, ring2=88, inner=80;
-      const rg=ctx.createRadialGradient(cx,cy,10,cx,cy,outer);
-      rg.addColorStop(0,"rgba(48,33,10,.98)");
-      rg.addColorStop(.55,"rgba(27,18,6,.96)");
-      rg.addColorStop(.86,"rgba(12,8,3,.88)");
+      const outer=128, ringA=116, ringB=104, ringC=92, fillR=86;
+      const rg=ctx.createRadialGradient(cx,cy,12,cx,cy,outer);
+      rg.addColorStop(0,"rgba(70,46,12,.98)");
+      rg.addColorStop(.34,"rgba(42,28,8,.96)");
+      rg.addColorStop(.7,"rgba(20,13,5,.92)");
       rg.addColorStop(1,"rgba(0,0,0,0)");
       ctx.fillStyle=rg;ctx.beginPath();ctx.arc(cx,cy,outer,0,Math.PI*2);ctx.fill();
-      ctx.shadowColor="rgba(255,191,55,.42)";ctx.shadowBlur=20;
-      ctx.lineWidth=8;ctx.strokeStyle="rgba(235,183,48,.98)";ctx.beginPath();ctx.arc(cx,cy,ring1,0,Math.PI*2);ctx.stroke();
-      ctx.shadowBlur=0;
-      ctx.lineWidth=3;ctx.strokeStyle="rgba(255,236,170,.86)";ctx.beginPath();ctx.arc(cx,cy,ring2,0,Math.PI*2);ctx.stroke();
-      ctx.setLineDash([5,7]);ctx.lineWidth=2.2;ctx.strokeStyle="rgba(171,116,17,.76)";ctx.beginPath();ctx.arc(cx,cy,inner,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
-      ctx.fillStyle="rgba(20,13,5,.84)";ctx.beginPath();ctx.arc(cx,cy,74,0,Math.PI*2);ctx.fill();
+      ctx.shadowColor="rgba(255,190,55,.55)";ctx.shadowBlur=22;
+      ctx.lineWidth=9;ctx.strokeStyle="rgba(234,181,47,1)";ctx.beginPath();ctx.arc(cx,cy,ringA,0,Math.PI*2);ctx.stroke();
+      ctx.shadowBlur=0;ctx.lineWidth=4;ctx.strokeStyle="rgba(255,242,186,.95)";ctx.beginPath();ctx.arc(cx,cy,ringB,0,Math.PI*2);ctx.stroke();
+      ctx.setLineDash([6,7]);ctx.lineWidth=2.4;ctx.strokeStyle="rgba(171,116,17,.85)";ctx.beginPath();ctx.arc(cx,cy,ringC,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      const fg=ctx.createRadialGradient(cx,cy,10,cx,cy,fillR);
+      fg.addColorStop(0,"rgba(50,33,9,.92)");
+      fg.addColorStop(.75,"rgba(23,15,5,.88)");
+      fg.addColorStop(1,"rgba(10,7,2,.94)");
+      ctx.fillStyle=fg;ctx.beginPath();ctx.arc(cx,cy,fillR,0,Math.PI*2);ctx.fill();
       ctx.restore()}
     function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
     async function drawSyair(){ctx.clearRect(0,0,1254,1254);if(!templateImg.complete||!templateImg.naturalWidth){ctx.fillStyle="#000";ctx.fillRect(0,0,1254,1254);textPlain("TEMPLATE BELUM TERBACA",627,627,42);return}ctx.drawImage(templateImg,0,0,1254,1254);
       textGold(todayText(),627,184,32);
       try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,627,252,300,92)}catch(e){textGold(syairState.pasaran,627,252,34)}
-      try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,627,580,214,214)}catch(e){}
-      textPlain(syairState.shio.toUpperCase(),627,686,46);
+      try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,627,578,232,232)}catch(e){}
+      textPlain(syairState.shio.toUpperCase(),627,690,46);
       normalizeColok();[[205,614],[286,614],[205,684],[286,684]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],42));
-      [[955,617],[1040,617],[955,704],[1040,704]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],56));
-      [382,481,579,676,774,871].forEach((x,i)=>textPlain(syairState.bbfs[i],x,910,58));
+      textPlain(syairState.angkaMain.join(" - "),1000,660,38);
+      [332,419,506,593,680,767,854].forEach((x,i)=>textPlain(syairState.bbfs[i],x,910,54));
       ctx.save();ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="30px Arial Black";let sg=ctx.createLinearGradient(627,990,627,1170);sg.addColorStop(0,"#fff7c5");sg.addColorStop(.2,"#fffef0");sg.addColorStop(.52,"#ffe57e");sg.addColorStop(.76,"#e7ba36");sg.addColorStop(1,"#9d5f00");ctx.fillStyle=sg;ctx.shadowColor="rgba(0,0,0,.95)";ctx.shadowBlur=8;ctx.lineWidth=4.5;ctx.strokeStyle="rgba(0,0,0,.88)";syairState.syair.forEach((line,i)=>{let y=1050+i*44;ctx.strokeText(line.toUpperCase(),627,y);ctx.fillText(line.toUpperCase(),627,y)});ctx.restore()}
-    function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));shioSelect.value=syairState.shio;syairState.bbfs=unique1to9(6);syairState.colok=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
+    function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));shioSelect.value=syairState.shio;syairState.bbfs=unique1to9(7);syairState.colok=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
     shioSelect.addEventListener("change",()=>{syairState.shio=shioSelect.value;syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair()});pasaranSelect.addEventListener("change",()=>{syairState.pasaran=pasaranSelect.value;drawSyair()});acakSyairBtn.addEventListener("click",acakSyair);acakSemuaBtn.addEventListener("click",acakSemua);downloadSyairBtn.addEventListener("click",downloadSyair);templateImg.addEventListener("load",drawSyair);templateImg.addEventListener("error",()=>showToast("File syair-template.png belum terbaca"));renderNotes();drawSyair();
   </script>
 </body>
