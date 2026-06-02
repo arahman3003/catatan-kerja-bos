@@ -202,32 +202,36 @@
       }
       ctx.drawImage(templateImg,0,0,1086,1448);
 
-      // tanggal: benar-benar di tengah box atas
-      textGold(todayText(),543,262,18);
+      // POSISI FINAL TEMPLATE BARU
+      // Tanggal di tengah area atas dalam frame.
+      textGold(todayText(),543,278,18);
 
-      // logo pasaran: di area kosong bawah kotak tanggal
+      // Logo pasaran di bawah tanggal, tetap dalam area frame atas.
       try{
         let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);
-        fitImage(p,543,333,220,46);
+        fitImage(p,543,342,210,46);
       }catch(e){
-        textGold(syairState.pasaran,543,333,20);
+        textGold(syairState.pasaran,543,342,20);
       }
 
-      // shio
-      try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,543,786,200,200)}catch(e){}
+      // Shio dan nama shio, posisi ini dipertahankan karena sudah pas.
+      try{
+        let s=await loadImg(SHIO_LOGOS[syairState.shio]);
+        fitImage(s,543,786,200,200);
+      }catch(e){}
       textPlain(syairState.shio.toUpperCase(),543,904,44);
 
-      // colok bebas presisi
+      // Colok bebas, disejajarkan dengan kompas kiri.
       normalizeColok();
-      [[150,792],[237,792],[150,886],[237,886]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],32));
+      [[150,798],[246,798],[150,886],[246,886]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],31));
 
-      // angka main presisi di tengah 5 kotak
-      [[834,784],[925,784],[880,856],[834,928],[925,928]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],30));
+      // Angka main, pusat angka mengikuti pusat 5 kotak asli template.
+      [[848,758],[927,758],[890,813],[848,869],[927,869]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],28));
 
-      // bbfs presisi di tengah 7 kotak
-      [329,418,507,596,685,774,863].forEach((x,i)=>textPlain(syairState.bbfs[i],x,1070,31));
+      // BBFS, pusat angka mengikuti pusat 7 kotak asli template.
+      [325,403,479,556,629,703,777].forEach((x,i)=>textPlain(syairState.bbfs[i],x,1072,30));
 
-      // syair tetap rapi di dalam box
+      // Isi syair tetap rapi di dalam box.
       ctx.save();
       ctx.textAlign="center";
       ctx.textBaseline="middle";
