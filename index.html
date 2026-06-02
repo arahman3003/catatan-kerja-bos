@@ -193,14 +193,14 @@
       ctx.restore()}
     function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
     async function drawSyair(){ctx.clearRect(0,0,1086,1448);if(!templateImg.complete||!templateImg.naturalWidth){ctx.fillStyle="#000";ctx.fillRect(0,0,1086,1448);textPlain("TEMPLATE BELUM TERBACA",543,724,42);return}ctx.drawImage(templateImg,0,0,1086,1448);
-      textGold(todayText(),543,264,24);
-      try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,543,341,270,84)}catch(e){textGold(syairState.pasaran,543,341,28)}
+      textGold(todayText(),543,288,22);
+      try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,543,356,230,68)}catch(e){textGold(syairState.pasaran,543,356,26)}
       try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,543,786,200,200)}catch(e){}
       textPlain(syairState.shio.toUpperCase(),543,904,44);
-      normalizeColok();[[167,806],[262,806],[167,896],[262,896]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],38));
-      [[828,808],[924,808],[876,894],[828,982],[924,982]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],36));
-      [312,400,488,576,664,752,840].forEach((x,i)=>textPlain(syairState.bbfs[i],x,1138,38));
-      ctx.save();ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="28px Arial Black";ctx.fillStyle="#f2cd63";ctx.shadowColor="rgba(0,0,0,.95)";ctx.shadowBlur=8;ctx.lineWidth=4.5;ctx.strokeStyle="rgba(0,0,0,.88)";syairState.syair.forEach((line,i)=>{let y=1294+i*44;ctx.strokeText(line.toUpperCase(),543,y);ctx.fillText(line.toUpperCase(),543,y)});ctx.restore()}
+      normalizeColok();[[167,806],[262,806],[167,874],[262,874]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],36));
+      [[840,786],[931,786],[886,856],[840,926],[931,926]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],34));
+      [318,408,498,588,678,768,858].forEach((x,i)=>textPlain(syairState.bbfs[i],x,1086,36));
+      ctx.save();ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="26px Arial Black";ctx.fillStyle="#f2cd63";ctx.shadowColor="rgba(0,0,0,.95)";ctx.shadowBlur=8;ctx.lineWidth=4.5;ctx.strokeStyle="rgba(0,0,0,.88)";syairState.syair.forEach((line,i)=>{let y=1284+i*42;ctx.strokeText(line.toUpperCase(),543,y);ctx.fillText(line.toUpperCase(),543,y)});ctx.restore()}
     function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));shioSelect.value=syairState.shio;syairState.bbfs=unique1to9(7);syairState.colok=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
     shioSelect.addEventListener("change",()=>{syairState.shio=shioSelect.value;syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair()});pasaranSelect.addEventListener("change",()=>{syairState.pasaran=pasaranSelect.value;drawSyair()});acakSyairBtn.addEventListener("click",acakSyair);acakSemuaBtn.addEventListener("click",acakSemua);downloadSyairBtn.addEventListener("click",downloadSyair);templateImg.addEventListener("load",drawSyair);templateImg.addEventListener("error",()=>showToast("File syair-template.png belum terbaca"));renderNotes();drawSyair();
   </script>
