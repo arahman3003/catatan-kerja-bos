@@ -147,8 +147,8 @@
     function textPlain(t,x,y,size,color="#ffe56a",align="center"){ctx.save();ctx.font=`${size}px Arial Black`;ctx.textAlign=align;ctx.textBaseline="middle";ctx.fillStyle=color;ctx.shadowColor="rgba(0,0,0,.9)";ctx.shadowBlur=8;ctx.lineWidth=Math.max(3,size/8);ctx.strokeStyle="rgba(0,0,0,.82)";ctx.strokeText(String(t).toUpperCase(),x,y);ctx.fillText(String(t).toUpperCase(),x,y);ctx.restore()}
     function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
     async function drawSyair(){ctx.clearRect(0,0,1254,1254);if(!templateImg.complete||!templateImg.naturalWidth){ctx.fillStyle="#000";ctx.fillRect(0,0,1254,1254);textPlain("TEMPLATE BELUM TERBACA",627,627,42);return}ctx.drawImage(templateImg,0,0,1254,1254);
-      textGold(todayText(),627,154,32);
-      try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,627,208,300,92)}catch(e){textGold(syairState.pasaran,627,207,34)}
+      textGold(todayText(),627,184,32);
+      try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,627,252,300,92)}catch(e){textGold(syairState.pasaran,627,252,34)}
       try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,627,583,142,142)}catch(e){}
       textPlain(syairState.shio.toUpperCase(),627,680,44);
       textPlain(syairState.colok,247,646,72);
