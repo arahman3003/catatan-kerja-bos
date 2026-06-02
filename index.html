@@ -192,14 +192,50 @@
       ctx.fillStyle=fg;ctx.beginPath();ctx.arc(cx,cy,fillR,0,Math.PI*2);ctx.fill();
       ctx.restore()}
     function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
-    async function drawSyair(){ctx.clearRect(0,0,1254,1254);if(!templateImg.complete||!templateImg.naturalWidth){ctx.fillStyle="#000";ctx.fillRect(0,0,1254,1254);textPlain("TEMPLATE BELUM TERBACA",627,627,42);return}ctx.drawImage(templateImg,0,0,1254,1254);
+    async function drawAngkaMainBanner(value,cx,cy){ctx.save();
+      const w=296,h=122,x=cx-w/2,y=cy-h/2,r=16;
+      const bg=ctx.createLinearGradient(x,y,x,y+h);
+      bg.addColorStop(0,"rgba(112,18,12,.97)");bg.addColorStop(.45,"rgba(92,11,8,.97)");bg.addColorStop(1,"rgba(56,5,5,.97)");
+      ctx.shadowColor="rgba(0,0,0,.45)";ctx.shadowBlur=14;ctx.fillStyle=bg;
+      ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();ctx.fill();
+      ctx.shadowBlur=0;ctx.lineWidth=4;ctx.strokeStyle="#d6a63a";ctx.stroke();
+      ctx.lineWidth=1.5;ctx.strokeStyle="rgba(255,235,180,.9)";ctx.strokeRect(x+8,y+8,w-16,h-16);
+      function deco(px,py,sx,sy){ctx.beginPath();ctx.moveTo(px,py+12*sy);ctx.lineTo(px,py);ctx.lineTo(px+12*sx,py);ctx.moveTo(px+5*sx,py+5*sy);ctx.lineTo(px+5*sx,py+10*sy);ctx.lineTo(px+10*sx,py+10*sy);ctx.stroke();}
+      ctx.strokeStyle="#d6a63a";ctx.lineWidth=2.1;deco(x+14,y+14,1,1);deco(x+w-14,y+14,-1,1);deco(x+14,y+h-14,1,-1);deco(x+w-14,y+h-14,-1,-1);
+      let tg=ctx.createLinearGradient(cx,y+6,cx,y+42);tg.addColorStop(0,"#fff2bf");tg.addColorStop(.45,"#ffd864");tg.addColorStop(1,"#bb7807");
+      ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="32px Georgia";ctx.fillStyle=tg;ctx.strokeStyle="rgba(70,22,7,.9)";ctx.lineWidth=2.8;ctx.strokeText("ANGKA MAIN",cx,y+25);ctx.fillText("ANGKA MAIN",cx,y+25);
+      ctx.font="42px Arial Black";ctx.fillStyle="#fff7e1";ctx.strokeStyle="rgba(65,18,7,.92)";ctx.lineWidth=4.5;ctx.strokeText(value,cx,y+80);ctx.fillText(value,cx,y+80);
+      ctx.restore()}
+
+    function drawBBFSPanel(values,cx,cy){ctx.save();
+      const count=7, slotW=64, slotH=64, gap=12, padX=26, padY=18, titleH=22;
+      const innerW=count*slotW+(count-1)*gap;
+      const w=innerW+padX*2, h=slotH+padY*2+20, x=cx-w/2, y=cy-h/2;
+      const bg=ctx.createLinearGradient(x,y,x,y+h);
+      bg.addColorStop(0,"rgba(22,17,8,.96)");bg.addColorStop(.55,"rgba(10,8,4,.96)");bg.addColorStop(1,"rgba(17,12,4,.96)");
+      ctx.shadowColor="rgba(0,0,0,.38)";ctx.shadowBlur=16;ctx.fillStyle=bg;
+      const r=18;ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();ctx.fill();
+      ctx.shadowBlur=0;ctx.lineWidth=4;ctx.strokeStyle="#c89a2e";ctx.stroke();ctx.lineWidth=1.4;ctx.strokeStyle="rgba(255,228,163,.8)";ctx.strokeRect(x+8,y+8,w-16,h-16);
+      let tg=ctx.createLinearGradient(cx,y,cx,y+titleH+10);tg.addColorStop(0,"#fff4c9");tg.addColorStop(.5,"#ffd960");tg.addColorStop(1,"#a86a05");
+      ctx.font="28px Georgia";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=tg;ctx.strokeStyle="rgba(55,18,6,.9)";ctx.lineWidth=2.6;ctx.strokeText("BBFS",cx,y+18);ctx.fillText("BBFS",cx,y+18);
+      const startX=x+padX; const slotY=y+36;
+      for(let i=0;i<count;i++){
+        const sx=startX+i*(slotW+gap);
+        const sgrad=ctx.createLinearGradient(sx,slotY,sx,slotY+slotH);
+        sgrad.addColorStop(0,"rgba(12,12,12,.98)");sgrad.addColorStop(1,"rgba(30,23,8,.98)");
+        ctx.fillStyle=sgrad;ctx.beginPath();ctx.roundRect(sx,slotY,slotW,slotH,12);ctx.fill();ctx.lineWidth=2.2;ctx.strokeStyle="#e1b221";ctx.stroke();
+        ctx.font="48px Arial Black";ctx.fillStyle="#fff6de";ctx.strokeStyle="rgba(40,18,7,.95)";ctx.lineWidth=4;ctx.strokeText(String(values[i]??''),sx+slotW/2,slotY+slotH/2+2);ctx.fillText(String(values[i]??''),sx+slotW/2,slotY+slotH/2+2);
+      }
+      ctx.restore()}
+
+    function drawSyair(){ctx.clearRect(0,0,1254,1254);if(!templateImg.complete||!templateImg.naturalWidth){ctx.fillStyle="#000";ctx.fillRect(0,0,1254,1254);textPlain("TEMPLATE BELUM TERBACA",627,627,42);return}ctx.drawImage(templateImg,0,0,1254,1254);
       textGold(todayText(),627,184,32);
       try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,627,252,300,92)}catch(e){textGold(syairState.pasaran,627,252,34)}
       try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,627,578,232,232)}catch(e){}
       textPlain(syairState.shio.toUpperCase(),627,690,46);
       normalizeColok();[[205,614],[286,614],[205,684],[286,684]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],42));
-      textPlain(syairState.angkaMain.join(" - "),1000,660,38);
-      [332,419,506,593,680,767,854].forEach((x,i)=>textPlain(syairState.bbfs[i],x,910,54));
+      drawAngkaMainBanner(syairState.angkaMain.join(" - "),1000,646);
+      drawBBFSPanel(syairState.bbfs,627,910);
       ctx.save();ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="30px Arial Black";let sg=ctx.createLinearGradient(627,990,627,1170);sg.addColorStop(0,"#fff7c5");sg.addColorStop(.2,"#fffef0");sg.addColorStop(.52,"#ffe57e");sg.addColorStop(.76,"#e7ba36");sg.addColorStop(1,"#9d5f00");ctx.fillStyle=sg;ctx.shadowColor="rgba(0,0,0,.95)";ctx.shadowBlur=8;ctx.lineWidth=4.5;ctx.strokeStyle="rgba(0,0,0,.88)";syairState.syair.forEach((line,i)=>{let y=1050+i*44;ctx.strokeText(line.toUpperCase(),627,y);ctx.fillText(line.toUpperCase(),627,y)});ctx.restore()}
     function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));shioSelect.value=syairState.shio;syairState.bbfs=unique1to9(7);syairState.colok=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
     shioSelect.addEventListener("change",()=>{syairState.shio=shioSelect.value;syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair()});pasaranSelect.addEventListener("change",()=>{syairState.pasaran=pasaranSelect.value;drawSyair()});acakSyairBtn.addEventListener("click",acakSyair);acakSemuaBtn.addEventListener("click",acakSemua);downloadSyairBtn.addEventListener("click",downloadSyair);templateImg.addEventListener("load",drawSyair);templateImg.addEventListener("error",()=>showToast("File syair-template.png belum terbaca"));renderNotes();drawSyair();
