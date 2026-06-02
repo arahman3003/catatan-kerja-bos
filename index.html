@@ -174,25 +174,26 @@
       ctx.fillText(String(t).toUpperCase(),x,y);ctx.restore()
     }
     function drawShioBadge(cx,cy){ctx.save();
-      const outer=102, inner=86;
-      const rg=ctx.createRadialGradient(cx,cy,12,cx,cy,outer);
-      rg.addColorStop(0,"rgba(35,24,6,.96)");
-      rg.addColorStop(.55,"rgba(20,14,4,.92)");
+      const outer=118, ring1=98, ring2=88, inner=80;
+      const rg=ctx.createRadialGradient(cx,cy,10,cx,cy,outer);
+      rg.addColorStop(0,"rgba(48,33,10,.98)");
+      rg.addColorStop(.55,"rgba(27,18,6,.96)");
+      rg.addColorStop(.86,"rgba(12,8,3,.88)");
       rg.addColorStop(1,"rgba(0,0,0,0)");
       ctx.fillStyle=rg;ctx.beginPath();ctx.arc(cx,cy,outer,0,Math.PI*2);ctx.fill();
-      ctx.shadowColor="rgba(255,196,60,.38)";ctx.shadowBlur=18;
-      ctx.lineWidth=7;ctx.strokeStyle="rgba(233,180,45,.95)";ctx.beginPath();ctx.arc(cx,cy,78,0,Math.PI*2);ctx.stroke();
-      ctx.shadowBlur=0;ctx.lineWidth=2.5;ctx.strokeStyle="rgba(255,236,166,.82)";ctx.beginPath();ctx.arc(cx,cy,70,0,Math.PI*2);ctx.stroke();
-      ctx.setLineDash([4,6]);ctx.lineWidth=2;ctx.strokeStyle="rgba(180,124,18,.7)";ctx.beginPath();ctx.arc(cx,cy,62,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
-      ctx.fillStyle="rgba(25,18,7,.78)";ctx.beginPath();ctx.arc(cx,cy,58,0,Math.PI*2);ctx.fill();
+      ctx.shadowColor="rgba(255,191,55,.42)";ctx.shadowBlur=20;
+      ctx.lineWidth=8;ctx.strokeStyle="rgba(235,183,48,.98)";ctx.beginPath();ctx.arc(cx,cy,ring1,0,Math.PI*2);ctx.stroke();
+      ctx.shadowBlur=0;
+      ctx.lineWidth=3;ctx.strokeStyle="rgba(255,236,170,.86)";ctx.beginPath();ctx.arc(cx,cy,ring2,0,Math.PI*2);ctx.stroke();
+      ctx.setLineDash([5,7]);ctx.lineWidth=2.2;ctx.strokeStyle="rgba(171,116,17,.76)";ctx.beginPath();ctx.arc(cx,cy,inner,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle="rgba(20,13,5,.84)";ctx.beginPath();ctx.arc(cx,cy,74,0,Math.PI*2);ctx.fill();
       ctx.restore()}
     function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
     async function drawSyair(){ctx.clearRect(0,0,1254,1254);if(!templateImg.complete||!templateImg.naturalWidth){ctx.fillStyle="#000";ctx.fillRect(0,0,1254,1254);textPlain("TEMPLATE BELUM TERBACA",627,627,42);return}ctx.drawImage(templateImg,0,0,1254,1254);
       textGold(todayText(),627,184,32);
       try{let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);fitImage(p,627,252,300,92)}catch(e){textGold(syairState.pasaran,627,252,34)}
-      drawShioBadge(627,585);
-      try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,627,584,182,182)}catch(e){}
-      textPlain(syairState.shio.toUpperCase(),627,684,46);
+      try{let s=await loadImg(SHIO_LOGOS[syairState.shio]);fitImage(s,627,580,214,214)}catch(e){}
+      textPlain(syairState.shio.toUpperCase(),627,686,46);
       normalizeColok();[[205,614],[286,614],[205,684],[286,684]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],42));
       [[955,617],[1040,617],[955,704],[1040,704]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],56));
       [382,481,579,676,774,871].forEach((x,i)=>textPlain(syairState.bbfs[i],x,910,58));
