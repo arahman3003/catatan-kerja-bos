@@ -5,9 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard KerjaBoss</title>
   <style>
-    :root{
-      --bg:#f3f6fb;--sidebar:#0f172a;--card:#fff;--text:#111827;--muted:#6b7280;
-      --green:#22c55e;--green-dark:#16a34a;--shadow:0 12px 30px rgba(15,23,42,.08);
+:root{
+  --bg:#f3f6fb;
+  --sidebar:#0f172a;
+  --card:#fff;
+  --text:#111827;
+  --muted:#6b7280;
+  --green:#22c55e;
+  --green-dark:#16a34a;
+  --shadow:0 12px 30px rgba(15,23,42,.08);
+
+  --syair-panel-x:0px;
+}
 
       /* KONTROL POSISI & UKURAN LOGO SHIO DI CANVAS */
       --shio-logo-x:555;
@@ -78,7 +87,17 @@
   align-items:start;
   width:100%
 }
-.syair-stage{background:transparent;border-radius:0;padding:0;display:flex;justify-content:center;align-items:flex-start;overflow:visible;width:100%;min-height:auto}.syair-stage canvas{width:100%;max-width:1086px;height:auto;border-radius:18px;display:block;background:transparent;box-shadow:none}.syair-panel{background:linear-gradient(180deg,#4f0f08 0%,#300804 100%);border:2px solid #a86d16;border-radius:24px;box-shadow:0 12px 30px rgba(0,0,0,.22);padding:18px;position:sticky;top:18px}.syair-panel-title{font-size:18px;font-weight:900;color:#f7d87d;text-align:center;line-height:1.35;margin-bottom:14px;text-transform:uppercase}.syair-controls{display:flex;flex-direction:column;gap:12px;margin:0}.syair-controls .btn{width:100%;justify-content:center}.syair-panel .btn-primary,.syair-panel .btn-green,.syair-panel .btn-soft{background:linear-gradient(180deg,#ffd25c 0%,#ffb423 100%);color:#5b1200;box-shadow:none;border:1px solid rgba(255,255,255,.25)}.syair-panel .btn-primary:hover,.syair-panel .btn-green:hover,.syair-panel .btn-soft:hover{background:linear-gradient(180deg,#ffe07e 0%,#ffbd39 100%);transform:translateY(-1px)}.syair-select{max-width:100%;font-weight:800;background:#fff7f0;border:1px solid #c98d2b}.syair-help{font-size:12px;color:#f9dca2;line-height:1.6;text-align:center;margin-top:12px;opacity:.95}
+    .syair-panel{
+  background:linear-gradient(180deg,#4f0f08 0%,#300804 100%);
+  border:2px solid #a86d16;
+  border-radius:24px;
+  box-shadow:0 12px 30px rgba(0,0,0,.22);
+  padding:18px;
+  position:sticky;
+  top:18px;
+  transform:translateX(var(--syair-panel-x));
+}
+.syair-stage{background:transparent;border-radius:0;padding:0;display:flex;justify-content:center;align-items:flex-start;overflow:visible;width:100%;min-height:auto}.syair-stage canvas{width:100%;max-width:1086px;height:auto;border-radius:18px;display:block;background:transparent;box-shadow:none}.syair-panel-title{font-size:18px;font-weight:900;color:#f7d87d;text-align:center;line-height:1.35;margin-bottom:14px;text-transform:uppercase}.syair-controls{display:flex;flex-direction:column;gap:12px;margin:0}.syair-controls .btn{width:100%;justify-content:center}.syair-panel .btn-primary,.syair-panel .btn-green,.syair-panel .btn-soft{background:linear-gradient(180deg,#ffd25c 0%,#ffb423 100%);color:#5b1200;box-shadow:none;border:1px solid rgba(255,255,255,.25)}.syair-panel .btn-primary:hover,.syair-panel .btn-green:hover,.syair-panel .btn-soft:hover{background:linear-gradient(180deg,#ffe07e 0%,#ffbd39 100%);transform:translateY(-1px)}.syair-select{max-width:100%;font-weight:800;background:#fff7f0;border:1px solid #c98d2b}.syair-help{font-size:12px;color:#f9dca2;line-height:1.6;text-align:center;margin-top:12px;opacity:.95}
     @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid-menu{grid-template-columns:repeat(2,1fr)}.syair-shell{grid-template-columns:1fr}.syair-panel{position:static}}@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.sidebar-footer{position:static;margin-top:18px}.menu{display:grid;grid-template-columns:repeat(2,1fr)}.submenu{grid-column:1/-1}.hero,.notepad-header,.section-head{flex-direction:column;align-items:flex-start}}@media(max-width:640px){.main{padding:18px}.sidebar{padding:18px}.cards,.grid-menu{grid-template-columns:1fr}.hero,.section,.notepad-panel{border-radius:20px;padding:20px}.hero-actions,.btn,.notepad-header button,.form-actions button,.syair-select{width:100%;max-width:100%}.note-grid{grid-template-columns:1fr}.syair-clean{padding:0!important}.syair-panel{padding:16px}.syair-stage{padding:0;border-radius:0}}
   </style>
 </head>
