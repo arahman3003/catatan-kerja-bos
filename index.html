@@ -221,15 +221,9 @@
       }catch(e){}
       textPlain(syairState.shio.toUpperCase(),543,904,44);
 
-      // Colok bebas, disejajarkan dengan kompas kiri.
-      normalizeColok();
-
-const colokPos = [
-  [138, 808], // kiri atas
-  [232, 808], // kanan atas
-  [138, 888], // kiri bawah
-  [232, 888]  // kanan bawah
-];
+// Colok bebas, rapikan agar benar-benar masuk ke rongga kompas.
+normalizeColok();
+[[138,808],[232,808],[138,888],[232,888]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],29));
 
 colokPos.forEach((p, i) => {
   textPlain(syairState.colok[i], p[0], p[1], 29);
