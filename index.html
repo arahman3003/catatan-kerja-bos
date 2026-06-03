@@ -12,6 +12,11 @@
   --syair-panel-x:-260px;
   --syair-panel-y:15px;
 
+  /* KONTROL WALLPAPER HALAMAN */
+  --bukti-wallpaper:url("https://i.imgur.com/VThZugb.jpeg");
+  --prediksi-wallpaper:url("https://i.imgur.com/VThZugb.jpeg");
+  --page-wallpaper-dark:.30;
+
   /* KONTROL POSISI & UKURAN LOGO SHIO DI CANVAS */
   --shio-logo-x:555;
   --shio-logo-y:763;
@@ -72,6 +77,40 @@
   margin:-28px;
   min-height:100vh;
   width:calc(100% + 56px);}
+
+    #page-bukti-kemenangan,
+    #page-prediksi{
+      background-size:cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+      border:none;
+      box-shadow:none;
+      padding:28px;
+      margin:-28px;
+      min-height:100vh;
+      width:calc(100% + 56px);
+    }
+
+    #page-bukti-kemenangan{
+      background-image:
+        linear-gradient(rgba(0,0,0,var(--page-wallpaper-dark)), rgba(0,0,0,var(--page-wallpaper-dark))),
+        var(--bukti-wallpaper);
+    }
+
+    #page-prediksi{
+      background-image:
+        linear-gradient(rgba(0,0,0,var(--page-wallpaper-dark)), rgba(0,0,0,var(--page-wallpaper-dark))),
+        var(--prediksi-wallpaper);
+    }
+
+    #page-bukti-kemenangan .hero,
+    #page-bukti-kemenangan .section,
+    #page-prediksi .hero,
+    #page-prediksi .section{
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+    }
     
   .syair-shell{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start;width:100%}.syair-stage{background:transparent;border-radius:0;padding:0;display:flex;justify-content:center;align-items:flex-start;overflow:visible;width:100%;min-height:auto}.syair-stage canvas{width:100%;max-width:1086px;height:auto;border-radius:18px;display:block;background:transparent;box-shadow:none}
   .syair-panel{
