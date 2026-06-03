@@ -12,10 +12,6 @@
   --syair-panel-x:-260px;
   --syair-panel-y:15px;
 
-  --syair-scale:0.67;
-  --syair-shift-x:0px;
-  --syair-shift-y:0px;
-
   /* KONTROL POSISI & UKURAN LOGO SHIO DI CANVAS */
   --shio-logo-x:555;
   --shio-logo-y:763;
@@ -63,7 +59,7 @@
     .note-main{cursor:pointer;padding-right:8px}.note-title{font-size:18px;font-weight:900;color:#0f172a;line-height:1.35;word-break:break-word;margin-bottom:10px;padding-right:18px}.note-content{color:#1f2937;line-height:1.55;font-size:14px;white-space:pre-wrap;word-break:break-word;margin-bottom:12px}.note-image{width:100%;height:130px;object-fit:cover;border-radius:14px;margin:8px 0 12px;border:1px solid rgba(15,23,42,.12);display:block}.note-bottom{display:flex;flex-direction:column;gap:12px;margin-top:12px}.note-date{font-size:12px;color:rgba(15,23,42,.58);font-weight:700}.note-actions{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid rgba(15,23,42,.12);padding-top:10px}.icon-btn{width:36px;height:36px;border-radius:999px;border:1px solid rgba(15,23,42,.1);background:rgba(255,255,255,.65);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:.2s}.icon-btn:hover{background:#fff;transform:translateY(-1px)}.icon-btn.delete-icon:hover{background:#fee2e2}
     .color-popover{display:none;position:absolute;left:14px;bottom:58px;background:rgba(255,255,255,.95);border:1px solid rgba(15,23,42,.12);border-radius:16px;padding:10px;gap:8px;flex-wrap:wrap;width:190px;box-shadow:0 12px 30px rgba(15,23,42,.18);z-index:5}.color-popover.show{display:flex}.color-dot,.modal-color-dot{width:26px;height:26px;border-radius:999px;border:2px solid rgba(15,23,42,.14);cursor:pointer}.color-dot.active,.modal-color-dot.active{border-color:#0f172a;box-shadow:0 0 0 3px rgba(15,23,42,.12)}.dot-yellow{background:#fff7ad}.dot-green{background:#c7f9cc}.dot-blue{background:#bfdbfe}.dot-pink{background:#fecdd3}.dot-purple{background:#ddd6fe}.dot-orange{background:#fed7aa}.dot-cyan{background:#bae6fd}.dot-rose{background:#fbcfe8}.empty-note{grid-column:1/-1;text-align:center;padding:36px;color:var(--muted);border:1px dashed #cbd5e1;border-radius:18px;background:#f8fafc}
     .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;z-index:999}.modal-overlay.show{display:flex}.modal-box{width:100%;max-width:700px;background:#fff;border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(15,23,42,.18)}.modal-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.modal-header h3{font-size:22px;color:var(--sidebar)}.modal-close{width:42px;height:42px;border-radius:12px;border:none;background:#f1f5f9;color:#0f172a;font-size:18px;font-weight:900;cursor:pointer}.modal-close:hover{background:#e2e8f0}.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}.form-group label{font-size:14px;font-weight:800;color:#374151}.modal-colors{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}.toast{position:fixed;right:22px;bottom:22px;background:var(--sidebar);color:white;padding:13px 16px;border-radius:14px;box-shadow:0 14px 32px rgba(15,23,42,.25);font-size:14px;font-weight:800;opacity:0;pointer-events:none;transform:translateY(12px);transition:.25s;z-index:1000}.toast.show{opacity:1;transform:translateY(0)}.hidden-file{display:none}
-.syair-clean{
+    .syair-clean{
   background-image:
     linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)),
     url("https://i.imgur.com/VThZugb.jpeg");
@@ -75,21 +71,9 @@
   padding:28px;
   margin:-28px;
   min-height:100vh;
-  width:calc(100% + 56px);
-  overflow:auto;
-}
-  ..syair-shell{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 300px;
-  gap:22px;
-  align-items:start;
-  width:max-content;
-  margin:0 auto;
-  zoom:var(--syair-scale);
-  transform:translate(var(--syair-shift-x), var(--syair-shift-y));
-  transform-origin:top center;
-  }
-  .syair-stage{background:transparent;border-radius:0;padding:0;display:flex;justify-content:center;align-items:flex-start;overflow:visible;width:100%;min-height:auto}.syair-stage canvas{width:100%;max-width:1086px;height:auto;border-radius:18px;display:block;background:transparent;box-shadow:none}
+  width:calc(100% + 56px);}
+    
+  .syair-shell{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start;width:100%}.syair-stage{background:transparent;border-radius:0;padding:0;display:flex;justify-content:center;align-items:flex-start;overflow:visible;width:100%;min-height:auto}.syair-stage canvas{width:100%;max-width:1086px;height:auto;border-radius:18px;display:block;background:transparent;box-shadow:none}
   .syair-panel{
   background:linear-gradient(180deg,#4f0f08 0%,#300804 100%);
   border:2px solid #a86d16;
