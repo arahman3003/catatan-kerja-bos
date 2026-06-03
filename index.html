@@ -288,12 +288,12 @@ function drawBigShioOnly(img){
   textGold(todayText(),560,304,24);
 
   // Logo pasaran
-  try{
-    let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);
-    fitImage(p,543,427,280,64);
-  }catch(e){
-    textGold(syairState.pasaran,543,427,26);
-  }
+try{
+  let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);
+  fitImage(p,543,427,360,90);
+}catch(e){
+  textGold(syairState.pasaran,543,427,34);
+}
 
 // Shio - posisi dan ukuran logo diatur dari CSS :root
 try{
