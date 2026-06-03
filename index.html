@@ -12,9 +12,6 @@
   --syair-panel-x:-260px;
   --syair-panel-y:15px;
 
-  /* KUNCI TAMPILAN SYAIR SEPERTI ZOOM BROWSER 67% */
-  --syair-page-zoom:.67;
-
   /* KONTROL POSISI & UKURAN LOGO SHIO DI CANVAS */
   --shio-logo-x:555;
   --shio-logo-y:763;
@@ -29,13 +26,6 @@
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
     body{background:var(--bg);color:var(--text);min-height:100vh}
     .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-    body.syair-zoom{background:#050505;overflow:auto}
-    body.syair-zoom .app{
-      width:calc(100% / var(--syair-page-zoom));
-      min-height:calc(100vh / var(--syair-page-zoom));
-      transform:scale(var(--syair-page-zoom));
-      transform-origin:top left;
-    }
     .sidebar{background:var(--sidebar);color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh}
     .brand-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:18px;margin-bottom:24px}
     .brand{font-size:26px;font-weight:900;margin-bottom:8px;letter-spacing:-.5px}.brand span{color:var(--green)}
@@ -97,14 +87,6 @@
 }
     .syair-panel-title{font-size:18px;font-weight:900;color:#f7d87d;text-align:center;line-height:1.35;margin-bottom:14px;text-transform:uppercase}.syair-controls{display:flex;flex-direction:column;gap:12px;margin:0}.syair-controls .btn{width:100%;justify-content:center}.syair-panel .btn-primary,.syair-panel .btn-green,.syair-panel .btn-soft{background:linear-gradient(180deg,#ffd25c 0%,#ffb423 100%);color:#5b1200;box-shadow:none;border:1px solid rgba(255,255,255,.25)}.syair-panel .btn-primary:hover,.syair-panel .btn-green:hover,.syair-panel .btn-soft:hover{background:linear-gradient(180deg,#ffe07e 0%,#ffbd39 100%);transform:translateY(-1px)}.syair-select{max-width:100%;font-weight:800;background:#fff7f0;border:1px solid #c98d2b}.syair-help{font-size:12px;color:#f9dca2;line-height:1.6;text-align:center;margin-top:12px;opacity:.95}
     @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid-menu{grid-template-columns:repeat(2,1fr)}.syair-shell{grid-template-columns:1fr}.syair-panel{position:static}}@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.sidebar-footer{position:static;margin-top:18px}.menu{display:grid;grid-template-columns:repeat(2,1fr)}.submenu{grid-column:1/-1}.hero,.notepad-header,.section-head{flex-direction:column;align-items:flex-start}}@media(max-width:640px){.main{padding:18px}.sidebar{padding:18px}.cards,.grid-menu{grid-template-columns:1fr}.hero,.section,.notepad-panel{border-radius:20px;padding:20px}.hero-actions,.btn,.notepad-header button,.form-actions button,.syair-select{width:100%;max-width:100%}.note-grid{grid-template-columns:1fr}.syair-clean{padding:0!important}.syair-panel{padding:16px}.syair-stage{padding:0;border-radius:0}}
-
-    @media(max-width:900px){
-      body.syair-zoom .app{
-        width:100%;
-        min-height:100vh;
-        transform:none;
-      }
-    }
   </style>
 </head>
 <body>
@@ -187,14 +169,7 @@ const notesDb = firebase.database().ref("notepadKerjaBoss");
 let notepadData = [];
 let selectedImageNoteId = null;
     function showToast(t){toast.textContent=t;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}
-    function openPage(n){
-      pages.forEach(p=>p.classList.remove("active"));
-      const t=document.getElementById(`page-${n}`);
-      if(t)t.classList.add("active");
-      sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));
-      document.body.classList.toggle("syair-zoom", n==="syair-togel");
-      window.scrollTo({top:0,behavior:"smooth"});
-    }
+    function openPage(n){pages.forEach(p=>p.classList.remove("active"));const t=document.getElementById(`page-${n}`);if(t)t.classList.add("active");sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));window.scrollTo({top:0,behavior:"smooth"})}
     navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
