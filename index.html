@@ -192,19 +192,26 @@
       ctx.fillStyle="rgba(20,13,5,.84)";ctx.beginPath();ctx.arc(cx,cy,74,0,Math.PI*2);ctx.fill();
       ctx.restore()}
     function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
-    function drawImageCoverInCircle(img, cx, cy, radius, zoom = 1.08){
+function drawImageCoverInCircle(img, cx, cy, radius, scale = 1.22, offsetX = 0, offsetY = 0){
   ctx.save();
   ctx.beginPath();
   ctx.arc(cx, cy, radius, 0, Math.PI * 2);
   ctx.closePath();
   ctx.clip();
 
-  const target = radius * 2 * zoom;
-  const ratio = Math.max(target / img.width, target / img.height);
+  const targetSize = radius * 2 * scale;
+  const ratio = Math.max(targetSize / img.width, targetSize / img.height);
   const w = img.width * ratio;
   const h = img.height * ratio;
 
-  ctx.drawImage(img, cx - w / 2, cy - h / 2, w, h);
+  ctx.drawImage(
+    img,
+    cx - w / 2 + offsetX,
+    cy - h / 2 + offsetY,
+    w,
+    h
+  );
+
   ctx.restore();
 }
     async function drawSyair(){
@@ -231,7 +238,7 @@
 // Shio - diperbesar dan dipotong mengikuti lingkaran bingkai
 try{
   let s = await loadImg(SHIO_LOGOS[syairState.shio]);
-  drawImageCoverInCircle(s, 543, 786, 118, 1.30);
+  drawImageCoverInCircle(s, 543, 786, 132, 1.24, 0, 0);
 }catch(e){}
 
 textPlain(syairState.shio.toUpperCase(), 543, 904, 44);
