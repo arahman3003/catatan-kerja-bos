@@ -192,26 +192,34 @@
       ctx.fillStyle="rgba(20,13,5,.84)";ctx.beginPath();ctx.arc(cx,cy,74,0,Math.PI*2);ctx.fill();
       ctx.restore()}
     function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
-function drawImageCoverInCircle(img, cx, cy, radius, scale = 1.22, offsetX = 0, offsetY = 0){
+function drawBigShioOnly(img, cx, cy){
+  // Tutup lingkaran dalam template agar hilang
+  ctx.save();
+  const bg = ctx.createRadialGradient(cx, cy, 15, cx, cy, 132);
+  bg.addColorStop(0, "rgba(28,18,6,0.98)");
+  bg.addColorStop(0.65, "rgba(16,10,3,0.98)");
+  bg.addColorStop(1, "rgba(8,5,2,0.99)");
+  ctx.fillStyle = bg;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 128, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  // Clip area agar gambar hanya tampil di dalam lingkaran
   ctx.save();
   ctx.beginPath();
-  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.arc(cx, cy, 126, 0, Math.PI * 2);
   ctx.closePath();
   ctx.clip();
 
-  const targetSize = radius * 2 * scale;
+  // Buat gambar hewan sangat besar
+  const targetSize = 320;
   const ratio = Math.max(targetSize / img.width, targetSize / img.height);
   const w = img.width * ratio;
   const h = img.height * ratio;
 
-  ctx.drawImage(
-    img,
-    cx - w / 2 + offsetX,
-    cy - h / 2 + offsetY,
-    w,
-    h
-  );
-
+  // Sedikit naik biar komposisi lebih pas
+  ctx.drawImage(img, cx - w / 2, cy - h / 2 - 8, w, h);
   ctx.restore();
 }
     async function drawSyair(){
@@ -235,10 +243,10 @@ function drawImageCoverInCircle(img, cx, cy, radius, scale = 1.22, offsetX = 0, 
     textGold(syairState.pasaran,543,427,26);
   }
 
-// Shio - diperbesar dan dipotong mengikuti lingkaran bingkai
+// Shio - hilangkan lingkaran dalam, tampilkan hewan saja, dan buat besar
 try{
   let s = await loadImg(SHIO_LOGOS[syairState.shio]);
-  drawImageCoverInCircle(s, 543, 786, 136, 1.35, 0, 0);
+  drawBigShioOnly(s, 543, 786);
 }catch(e){}
 
 textPlain(syairState.shio.toUpperCase(), 543, 904, 44);
