@@ -223,7 +223,17 @@
 
       // Colok bebas, disejajarkan dengan kompas kiri.
       normalizeColok();
-      [[150,798],[246,798],[150,886],[246,886]].forEach((p,i)=>textPlain(syairState.colok[i],p[0],p[1],31));
+
+const colokPos = [
+  [138, 808], // kiri atas
+  [232, 808], // kanan atas
+  [138, 888], // kiri bawah
+  [232, 888]  // kanan bawah
+];
+
+colokPos.forEach((p, i) => {
+  textPlain(syairState.colok[i], p[0], p[1], 29);
+});
 
       // Angka main, pusat angka mengikuti pusat 5 kotak asli template.
       [[848,758],[927,758],[890,813],[848,869],[927,869]].forEach((p,i)=>textPlain(syairState.angkaMain[i],p[0],p[1],28));
