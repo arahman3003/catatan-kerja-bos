@@ -124,7 +124,16 @@
   z-index:5;
 }
     .syair-panel-title{font-size:18px;font-weight:900;color:#f7d87d;text-align:center;line-height:1.35;margin-bottom:14px;text-transform:uppercase}.syair-controls{display:flex;flex-direction:column;gap:12px;margin:0}.syair-controls .btn{width:100%;justify-content:center}.syair-panel .btn-primary,.syair-panel .btn-green,.syair-panel .btn-soft{background:linear-gradient(180deg,#ffd25c 0%,#ffb423 100%);color:#5b1200;box-shadow:none;border:1px solid rgba(255,255,255,.25)}.syair-panel .btn-primary:hover,.syair-panel .btn-green:hover,.syair-panel .btn-soft:hover{background:linear-gradient(180deg,#ffe07e 0%,#ffbd39 100%);transform:translateY(-1px)}.syair-select{max-width:100%;font-weight:800;background:#fff7f0;border:1px solid #c98d2b}.syair-help{font-size:12px;color:#f9dca2;line-height:1.6;text-align:center;margin-top:12px;opacity:.95}
-    @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid-menu{grid-template-columns:repeat(2,1fr)}.syair-shell{grid-template-columns:1fr}.syair-panel{position:static}}@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.sidebar-footer{position:static;margin-top:18px}.menu{display:grid;grid-template-columns:repeat(2,1fr)}.submenu{grid-column:1/-1}.hero,.notepad-header,.section-head{flex-direction:column;align-items:flex-start}}@media(max-width:640px){.main{padding:18px}.sidebar{padding:18px}.cards,.grid-menu{grid-template-columns:1fr}.hero,.section,.notepad-panel{border-radius:20px;padding:20px}.hero-actions,.btn,.notepad-header button,.form-actions button,.syair-select{width:100%;max-width:100%}.note-grid{grid-template-columns:1fr}.syair-clean{padding:0!important}.syair-panel{padding:16px}.syair-stage{padding:0;border-radius:0}}
+
+
+    .bukti-clean{padding:28px;margin:-28px;min-height:100vh;width:calc(100% + 56px)}
+    .bukti-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start;width:100%}
+    .bukti-stage{background:transparent;border-radius:0;padding:0;display:flex;justify-content:center;align-items:flex-start;overflow:visible;width:100%;min-height:auto}
+    .bukti-stage canvas{width:100%;max-width:820px;height:auto;border-radius:20px;display:block;background:transparent;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+    .bukti-panel{background:linear-gradient(180deg,#071832 0%,#041024 100%);border:2px solid rgba(84,184,255,.55);border-radius:24px;box-shadow:0 12px 30px rgba(0,0,0,.25);padding:18px;position:sticky;top:18px;z-index:5;color:#eaf6ff}
+    .bukti-panel-title{font-size:18px;font-weight:900;color:#bfe9ff;text-align:center;line-height:1.35;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+    .bukti-controls{display:flex;flex-direction:column;gap:11px;margin:0}.bukti-controls .form-group{margin-bottom:0;gap:6px}.bukti-controls label{color:#bfe9ff;font-size:12px;text-transform:uppercase;letter-spacing:.5px}.bukti-controls input,.bukti-controls select{background:#f8fcff;border:1px solid rgba(84,184,255,.45);font-weight:800;color:#0f172a}.bukti-controls .btn{width:100%;justify-content:center}.bukti-help{font-size:12px;color:#cdeeff;line-height:1.6;text-align:center;margin-top:12px;opacity:.92}
+    @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid-menu{grid-template-columns:repeat(2,1fr)}.syair-shell,.bukti-shell{grid-template-columns:1fr}.syair-panel,.bukti-panel{position:static;transform:none}}@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.sidebar-footer{position:static;margin-top:18px}.menu{display:grid;grid-template-columns:repeat(2,1fr)}.submenu{grid-column:1/-1}.hero,.notepad-header,.section-head{flex-direction:column;align-items:flex-start}}@media(max-width:640px){.main{padding:18px}.sidebar{padding:18px}.cards,.grid-menu{grid-template-columns:1fr}.hero,.section,.notepad-panel{border-radius:20px;padding:20px}.hero-actions,.btn,.notepad-header button,.form-actions button,.syair-select{width:100%;max-width:100%}.note-grid{grid-template-columns:1fr}.syair-clean{padding:0!important}.syair-panel{padding:16px}.syair-stage{padding:0;border-radius:0}}
   </style>
 </head>
 <body>
@@ -175,7 +184,30 @@
           <img id="templateImg" src="syair-template.png" style="display:none" alt="template syair">
         </section>
       </div>
-      <div class="page" id="page-bukti-kemenangan"><section class="hero"><div><div class="pill">🏆 Ruang Bukti</div><h1>Bukti Kemenangan</h1><p>Ruang khusus untuk data atau konten bukti kemenangan.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Bukti Kemenangan.</b><br>Nanti kita buat area khusus untuk konten bukti kemenangan.</div></section></div>
+      <div class="page" id="page-bukti-kemenangan">
+        <section class="bukti-clean">
+          <div class="bukti-shell">
+            <div class="bukti-stage"><canvas id="buktiCanvas" width="1080" height="1080"></canvas></div>
+            <div class="bukti-panel">
+              <div class="bukti-panel-title">Generator Bukti Kemenangan</div>
+              <div class="bukti-controls">
+                <div class="form-group"><label for="buktiWallpaperUrl">Link Wallpaper</label><input type="text" id="buktiWallpaperUrl" value="https://i.imgur.com/3rZGGoL.jpeg" placeholder="Tempel link wallpaper di sini"></div>
+                <div class="form-group"><label for="buktiJudul">Judul</label><input type="text" id="buktiJudul" value="BUKTI KEMENANGAN"></div>
+                <div class="form-group"><label for="buktiPasaran">Pasaran</label><input type="text" id="buktiPasaran" value="BANGKOK"></div>
+                <div class="form-group"><label for="buktiMember">Nama / ID Member</label><input type="text" id="buktiMember" value="MEMBER VIP"></div>
+                <div class="form-group"><label for="buktiNominal">Nominal</label><input type="text" id="buktiNominal" value="Rp 25.000.000"></div>
+                <div class="form-group"><label for="buktiTanggal">Tanggal</label><input type="text" id="buktiTanggal"></div>
+                <button type="button" class="btn btn-green" id="uploadBuktiBtn">🖼 Upload Foto Bukti</button>
+                <button type="button" class="btn btn-primary" id="updateBuktiBtn">↻ Update Preview</button>
+                <button type="button" class="btn btn-soft" id="resetBuktiBtn">Reset</button>
+                <button type="button" class="btn btn-soft" id="downloadBuktiBtn">⬇ Download PNG</button>
+              </div>
+              <div class="bukti-help">Foto bukti akan masuk ke tengah canvas. Wallpaper halaman dan hasil PNG bisa diganti dari link di atas.</div>
+            </div>
+          </div>
+          <input type="file" id="buktiImageInput" class="hidden-file" accept="image/*">
+        </section>
+      </div>
       <div class="page" id="page-prediksi"><section class="hero"><div><div class="pill">🔮 Ruang Prediksi</div><h1>Prediksi</h1><p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Prediksi.</b><br>Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.</div></section></div>
       <div class="page" id="page-link-domain"><section class="hero"><div><div class="pill">🔗 Ruang Domain</div><h1>Link Domain</h1><p>Ruang khusus untuk mengatur daftar link dan domain.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Link Domain.</b><br>Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.</div></section></div>
       <div class="page" id="page-selisih"><section class="hero"><div><div class="pill">⇄ Ruang Selisih</div><h1>Selisih</h1><p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Selisih.</b><br>Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div></section></div>
@@ -515,6 +547,49 @@ textPlain(
 }
     function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));shioSelect.value=syairState.shio;syairState.bbfs=unique1to9(7);syairState.colok=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
     shioSelect.addEventListener("change",()=>{syairState.shio=shioSelect.value;syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair()});pasaranSelect.addEventListener("change",()=>{syairState.pasaran=pasaranSelect.value;drawSyair()});acakSyairBtn.addEventListener("click",acakSyair);acakSemuaBtn.addEventListener("click",acakSemua);downloadSyairBtn.addEventListener("click",downloadSyair);templateImg.addEventListener("load",drawSyair);templateImg.addEventListener("error",()=>showToast("File syair-template.png belum terbaca"));
+
+
+    // GENERATOR BUKTI KEMENANGAN
+    const buktiCanvas=document.getElementById("buktiCanvas"),buktiCtx=buktiCanvas?buktiCanvas.getContext("2d"):null;
+    const buktiWallpaperUrl=document.getElementById("buktiWallpaperUrl"),buktiJudul=document.getElementById("buktiJudul"),buktiPasaran=document.getElementById("buktiPasaran"),buktiMember=document.getElementById("buktiMember"),buktiNominal=document.getElementById("buktiNominal"),buktiTanggal=document.getElementById("buktiTanggal"),uploadBuktiBtn=document.getElementById("uploadBuktiBtn"),buktiImageInput=document.getElementById("buktiImageInput"),updateBuktiBtn=document.getElementById("updateBuktiBtn"),resetBuktiBtn=document.getElementById("resetBuktiBtn"),downloadBuktiBtn=document.getElementById("downloadBuktiBtn");
+    let buktiUploadedImage="";
+    function buktiTodayText(){return new Date().toLocaleDateString("id-ID",{day:"2-digit",month:"long",year:"numeric"}).toUpperCase()}
+    function drawRoundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath()}
+    function coverDraw(c,img,x,y,w,h){const r=Math.max(w/img.width,h/img.height);const iw=img.width*r,ih=img.height*r;c.drawImage(img,x+(w-iw)/2,y+(h-ih)/2,iw,ih)}
+    function buktiLoadImg(src){return new Promise((res,rej)=>{const im=new Image();im.crossOrigin="anonymous";im.onload=()=>res(im);im.onerror=rej;im.src=src})}
+    function buktiText(c,t,x,y,size,align="center",color="#fff"){
+      c.save();c.textAlign=align;c.textBaseline="middle";c.font=`${size}px Arial Black`;c.fillStyle=color;c.shadowColor="rgba(0,0,0,.85)";c.shadowBlur=12;c.lineWidth=Math.max(3,size/9);c.strokeStyle="rgba(0,0,0,.78)";c.strokeText(String(t||"").toUpperCase(),x,y);c.fillText(String(t||"").toUpperCase(),x,y);c.restore();
+    }
+    function buktiGoldText(c,t,x,y,size,align="center"){
+      c.save();c.textAlign=align;c.textBaseline="middle";c.font=`${size}px Arial Black`;const g=c.createLinearGradient(x,y-size/2,x,y+size/2);g.addColorStop(0,"#fff8cf");g.addColorStop(.25,"#fffef3");g.addColorStop(.5,"#ffd95a");g.addColorStop(.75,"#e7a91c");g.addColorStop(1,"#8d5200");c.fillStyle=g;c.shadowColor="rgba(0,0,0,.9)";c.shadowBlur=14;c.lineWidth=Math.max(4,size/8);c.strokeStyle="rgba(0,0,0,.85)";c.strokeText(String(t||"").toUpperCase(),x,y);c.fillText(String(t||"").toUpperCase(),x,y);c.restore();
+    }
+    async function drawBukti(){
+      if(!buktiCanvas||!buktiCtx)return;
+      const c=buktiCtx;c.clearRect(0,0,1080,1080);
+      const wallpaper=(buktiWallpaperUrl?.value||"https://i.imgur.com/3rZGGoL.jpeg").trim();
+      document.documentElement.style.setProperty("--bukti-wallpaper",`url("${wallpaper.replaceAll('"','%22')}")`);
+      try{const bg=await buktiLoadImg(wallpaper);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
+      c.fillStyle="rgba(0,0,0,.32)";c.fillRect(0,0,1080,1080);
+      c.save();c.globalAlpha=.22;c.translate(540,540);c.rotate(-.45);buktiText(c,"KERJABOSS",0,0,140,"center","#ffffff");c.restore();
+      drawRoundRect(c,110,115,860,850,38);c.fillStyle="rgba(4,16,36,.72)";c.fill();c.lineWidth=4;c.strokeStyle="rgba(105,205,255,.75)";c.stroke();
+      drawRoundRect(c,150,245,780,470,28);c.fillStyle="rgba(255,255,255,.10)";c.fill();c.lineWidth=3;c.strokeStyle="rgba(255,255,255,.32)";c.stroke();
+      if(buktiUploadedImage){try{const im=await buktiLoadImg(buktiUploadedImage);c.save();drawRoundRect(c,150,245,780,470,28);c.clip();coverDraw(c,im,150,245,780,470);c.restore()}catch(e){}}
+      else{buktiText(c,"UPLOAD FOTO BUKTI",540,480,42,"center","#dff6ff");buktiText(c,"Klik tombol upload di panel kanan",540,540,24,"center","#bdeaff")}
+      buktiGoldText(c,buktiJudul?.value||"BUKTI KEMENANGAN",540,165,58);
+      buktiText(c,buktiPasaran?.value||"PASARAN",540,218,34,"center","#dff6ff");
+      buktiGoldText(c,buktiNominal?.value||"Rp 0",540,775,62);
+      buktiText(c,buktiMember?.value||"MEMBER VIP",540,842,34,"center","#ffffff");
+      buktiText(c,buktiTanggal?.value||buktiTodayText(),540,900,28,"center","#cdeeff");
+      drawRoundRect(c,315,930,450,54,27);c.fillStyle="rgba(34,197,94,.92)";c.fill();buktiText(c,"SELAMAT KEPADA PEMENANG",540,958,24,"center","#ffffff");
+    }
+    if(buktiTanggal)buktiTanggal.value=buktiTodayText();
+    [buktiWallpaperUrl,buktiJudul,buktiPasaran,buktiMember,buktiNominal,buktiTanggal].forEach(el=>{if(el)el.addEventListener("input",drawBukti)});
+    if(uploadBuktiBtn)uploadBuktiBtn.addEventListener("click",()=>buktiImageInput.click());
+    if(buktiImageInput)buktiImageInput.addEventListener("change",function(){const file=this.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{buktiUploadedImage=e.target.result;drawBukti();showToast("Foto bukti berhasil dimasukkan")};reader.readAsDataURL(file)});
+    if(updateBuktiBtn)updateBuktiBtn.addEventListener("click",()=>{drawBukti();showToast("Preview bukti diupdate")});
+    if(resetBuktiBtn)resetBuktiBtn.addEventListener("click",()=>{buktiWallpaperUrl.value="https://i.imgur.com/3rZGGoL.jpeg";buktiJudul.value="BUKTI KEMENANGAN";buktiPasaran.value="BANGKOK";buktiMember.value="MEMBER VIP";buktiNominal.value="Rp 25.000.000";buktiTanggal.value=buktiTodayText();buktiUploadedImage="";drawBukti();showToast("Bukti kemenangan direset")});
+    if(downloadBuktiBtn)downloadBuktiBtn.addEventListener("click",()=>{drawBukti().then(()=>{const a=document.createElement("a");a.download=`bukti-kemenangan-${Date.now()}.png`;a.href=buktiCanvas.toDataURL("image/png");a.click()}).catch(()=>alert("Wallpaper dari internet belum siap. Coba klik Download lagi."))});
+    drawBukti();
     loadNotesFromFirebase();
 drawSyair();
   </script>
