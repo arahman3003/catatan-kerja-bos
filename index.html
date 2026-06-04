@@ -649,13 +649,13 @@ textPlain(
 
       const config={
         BCA:{
-          maskX:x+180,
-          maskY:y+286,
-          maskW:280,
-          maskH:32,
+          maskX:x+196,
+          maskY:y+375,
+          maskW:248,
+          maskH:28,
           textX:x+w/2,
-          textY:y+304,
-          fill:"rgba(255,255,255,.96)",
+          textY:y+389,
+          fill:"rgba(255,255,255,.98)",
           color:"#666f7c",
           font:"18px Arial"
         }
@@ -678,7 +678,7 @@ textPlain(
       c.textBaseline="middle";
       c.font=config.font;
       c.fillStyle=config.color;
-      c.shadowColor="rgba(255,255,255,.15)";
+      c.shadowColor="rgba(255,255,255,.1)";
       c.shadowBlur=1;
       c.fillText(text,config.textX,config.textY);
       c.restore();
