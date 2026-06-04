@@ -195,12 +195,16 @@
                 <div class="form-group"><label for="bankSelect">Kategori Bank</label><select id="bankSelect"></select></div>
                 <div class="form-group"><label for="buktiDateInput">Tanggal Bukti</label><input type="date" id="buktiDateInput"></div>
                 <div class="form-group"><label for="buktiTimeInput">Waktu Bukti</label><input type="time" id="buktiTimeInput" step="1"></div>
+                <div class="form-group"><label for="generatedRecipientInput">Nama Penerima</label><input type="text" id="generatedRecipientInput" readonly></div>
+                <div class="form-group"><label for="generatedRekeningInput">Rekening Tujuan</label><input type="text" id="generatedRekeningInput" readonly></div>
+                <div class="form-group"><label for="generatedNominalInput">Nominal</label><input type="text" id="generatedNominalInput" readonly></div>
+                <button type="button" class="btn btn-green" id="generateBuktiDataBtn">🎲 Generate Data</button>
                 <button type="button" class="btn btn-green" id="uploadBuktiBtn">🖼 Upload Foto Bukti</button>
                 <button type="button" class="btn btn-primary" id="updateBuktiBtn">↻ Update Preview</button>
                 <button type="button" class="btn btn-soft" id="resetBuktiBtn">Reset</button>
                 <button type="button" class="btn btn-soft" id="downloadBuktiBtn">⬇ Download PNG</button>
               </div>
-              <div class="bukti-help">Pilih background bukti, kategori bank, lalu atur tanggal dan waktu bukti dari panel ini. Dropdown bank akan mengganti template latar bukti transfer.</div>
+              <div class="bukti-help">Pilih background bukti, kategori bank, atur tanggal dan waktu, lalu klik Generate Data untuk mengacak contoh data pada bukti transfer.</div>
             </div>
           </div>
           <input type="file" id="buktiImageInput" class="hidden-file" accept="image/*">
@@ -556,7 +560,7 @@ textPlain(
     ];
     const BANK_OPTIONS=["BCA","BRI","BNI","CIMB","DANAMON","SEABANK","BANKJAGO","MAYBANK"];
     const BANK_TRANSFER_BACKGROUNDS={
-      BCA:"https://i.imgur.com/DIMq6p1.png",
+      BCA:"https://i.imgur.com/USdzJyD.png",
       BRI:"",
       BNI:"",
       CIMB:"",
@@ -568,9 +572,17 @@ textPlain(
       // BCA:"https://...gambar-bca.jpg",
       // BRI:"https://...gambar-bri.jpg"
     };
+    const BUKTI_SAMPLE_DATA={
+      BCA:[
+        {nama:"DENI AKRAM",rekening:"7483921056",nominal:"94,000,000,00"}
+      ]
+      // Nanti kalau bos mau tambah contoh lagi tinggal lanjut seperti ini:
+      // BCA:[{nama:"A",rekening:"123",nominal:"10,000,000,00"},{nama:"B",rekening:"456",nominal:"20,000,000,00"}]
+    };
     const buktiCanvas=document.getElementById("buktiCanvas"),buktiCtx=buktiCanvas?buktiCanvas.getContext("2d"):null;
-    const buktiWallpaperSelect=document.getElementById("buktiWallpaperSelect"),bankSelect=document.getElementById("bankSelect"),buktiDateInput=document.getElementById("buktiDateInput"),buktiTimeInput=document.getElementById("buktiTimeInput"),uploadBuktiBtn=document.getElementById("uploadBuktiBtn"),buktiImageInput=document.getElementById("buktiImageInput"),updateBuktiBtn=document.getElementById("updateBuktiBtn"),resetBuktiBtn=document.getElementById("resetBuktiBtn"),downloadBuktiBtn=document.getElementById("downloadBuktiBtn");
+    const buktiWallpaperSelect=document.getElementById("buktiWallpaperSelect"),bankSelect=document.getElementById("bankSelect"),buktiDateInput=document.getElementById("buktiDateInput"),buktiTimeInput=document.getElementById("buktiTimeInput"),generatedRecipientInput=document.getElementById("generatedRecipientInput"),generatedRekeningInput=document.getElementById("generatedRekeningInput"),generatedNominalInput=document.getElementById("generatedNominalInput"),generateBuktiDataBtn=document.getElementById("generateBuktiDataBtn"),uploadBuktiBtn=document.getElementById("uploadBuktiBtn"),buktiImageInput=document.getElementById("buktiImageInput"),updateBuktiBtn=document.getElementById("updateBuktiBtn"),resetBuktiBtn=document.getElementById("resetBuktiBtn"),downloadBuktiBtn=document.getElementById("downloadBuktiBtn");
     let buktiUploadedImage="";
+    let currentBuktiData={nama:"",rekening:"",nominal:""};
 
     if(buktiWallpaperSelect){
       buktiWallpaperSelect.innerHTML=BUKTI_BACKGROUNDS.map((item,i)=>`<option value="${i}">${item.nama}</option>`).join("");
@@ -591,6 +603,24 @@ textPlain(
       }
     }
     setDefaultBuktiDateTime();
+    function randomPick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+    function syncGeneratedInputs(){
+      if(generatedRecipientInput)generatedRecipientInput.value=currentBuktiData.nama||"";
+      if(generatedRekeningInput)generatedRekeningInput.value=currentBuktiData.rekening||"";
+      if(generatedNominalInput)generatedNominalInput.value=currentBuktiData.nominal||"";
+    }
+    function generateBuktiData(showMsg=true){
+      const bank=getSelectedBank();
+      const samples=BUKTI_SAMPLE_DATA[bank]||[];
+      if(samples.length){
+        currentBuktiData={...randomPick(samples)};
+      }else{
+        currentBuktiData={nama:"",rekening:"",nominal:""};
+      }
+      syncGeneratedInputs();
+      drawBukti();
+      if(showMsg)showToast("Data bukti berhasil digenerate");
+    }
 
     function drawRoundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath()}
     function coverDraw(c,img,x,y,w,h){const r=Math.max(w/img.width,h/img.height);const iw=img.width*r,ih=img.height*r;c.drawImage(img,x+(w-iw)/2,y+(h-ih)/2,iw,ih)}
@@ -649,12 +679,12 @@ textPlain(
 
       const config={
         BCA:{
-          maskX:x+196,
-          maskY:y+375,
-          maskW:248,
-          maskH:28,
+          maskX:x+198,
+          maskY:y+378,
+          maskW:244,
+          maskH:24,
           textX:x+w/2,
-          textY:y+389,
+          textY:y+390,
           fill:"rgba(255,255,255,.98)",
           color:"#666f7c",
           font:"18px Arial"
@@ -681,6 +711,55 @@ textPlain(
       c.shadowColor="rgba(255,255,255,.1)";
       c.shadowBlur=1;
       c.fillText(text,config.textX,config.textY);
+      c.restore();
+    }
+    function formatNominalTop(nominal){
+      if(!nominal) return "";
+      return `IDR ${nominal}`;
+    }
+    function formatNominalBottom(nominal){
+      if(!nominal) return "RP. -";
+      return `RP. ${nominal.replace(',00','')},-`;
+    }
+    function drawGeneratedBankData(c,bank,x,y,w,h){
+      if(!currentBuktiData) return;
+      const data=currentBuktiData;
+      if(bank==="BCA"){
+        c.save();
+        // nominal
+        c.fillStyle="rgba(255,255,255,.98)";
+        c.fillRect(x+100,y+442,440,52);
+        c.textAlign="center";
+        c.textBaseline="middle";
+        c.fillStyle="#1d478f";
+        c.font="bold 33px Arial";
+        c.fillText(formatNominalTop(data.nominal),x+w/2,y+468);
+        // nama penerima
+        c.fillStyle="rgba(255,255,255,.98)";
+        c.fillRect(x+355,y+555,220,30);
+        c.textAlign="right";
+        c.fillStyle="#4a4f59";
+        c.font="bold 18px Arial";
+        c.fillText(data.nama||"",x+w-32,y+570);
+        // rekening tujuan
+        c.fillStyle="rgba(255,255,255,.98)";
+        c.fillRect(x+350,y+645,225,30);
+        c.textAlign="right";
+        c.fillStyle="#4a4f59";
+        c.font="bold 18px Arial";
+        c.fillText(data.rekening||"",x+w-32,y+660);
+        c.restore();
+        return;
+      }
+      // fallback for other banks
+      c.save();
+      c.textAlign="right";
+      c.textBaseline="middle";
+      c.fillStyle="#2b2b2b";
+      c.font="bold 22px Arial";
+      c.fillText(data.nama||"",x+w-26,y+500);
+      c.fillText(data.rekening||"",x+w-26,y+586);
+      c.fillText(formatNominalTop(data.nominal),x+w-26,y+260);
       c.restore();
     }
     function getFallbackBankColors(bank){
@@ -803,6 +882,7 @@ textPlain(
 
       if(!buktiUploadedImage){
         drawTransferDateTime(c,selectedBank,cardX,cardY,cardW,cardH);
+        drawGeneratedBankData(c,selectedBank,cardX,cardY,cardW,cardH);
       }
 
       if(buktiUploadedImage){
@@ -826,18 +906,19 @@ textPlain(
 
       buktiText(c,"SELAMAT KEPADA PEMENANG",540,915,38,"center","#f8d27f");
       buktiText(c,"USER ID : ZYXXXXXYV",540,972,28,"center","#ff8f87");
-      buktiText(c,"RP. 93,000,000,-",540,1028,44,"center","#f5d37e");
+      buktiText(c,formatNominalBottom(currentBuktiData.nominal),540,1028,44,"center","#f5d37e");
     }
     if(buktiWallpaperSelect)buktiWallpaperSelect.addEventListener("change",drawBukti);
-    if(bankSelect)bankSelect.addEventListener("change",drawBukti);
+    if(bankSelect)bankSelect.addEventListener("change",()=>generateBuktiData(false));
     if(buktiDateInput)buktiDateInput.addEventListener("input",drawBukti);
     if(buktiTimeInput)buktiTimeInput.addEventListener("input",drawBukti);
+    if(generateBuktiDataBtn)generateBuktiDataBtn.addEventListener("click",()=>generateBuktiData(true));
     if(uploadBuktiBtn)uploadBuktiBtn.addEventListener("click",()=>buktiImageInput.click());
     if(buktiImageInput)buktiImageInput.addEventListener("change",function(){const file=this.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{buktiUploadedImage=e.target.result;drawBukti();showToast("Foto bukti berhasil dimasukkan")};reader.readAsDataURL(file)});
     if(updateBuktiBtn)updateBuktiBtn.addEventListener("click",()=>{drawBukti();showToast("Preview bukti diupdate")});
-    if(resetBuktiBtn)resetBuktiBtn.addEventListener("click",()=>{if(buktiWallpaperSelect)buktiWallpaperSelect.value="0";if(bankSelect)bankSelect.value="BCA";if(buktiDateInput)buktiDateInput.value="";if(buktiTimeInput)buktiTimeInput.value="";setDefaultBuktiDateTime();buktiUploadedImage="";drawBukti();showToast("Bukti kemenangan direset")});
+    if(resetBuktiBtn)resetBuktiBtn.addEventListener("click",()=>{if(buktiWallpaperSelect)buktiWallpaperSelect.value="0";if(bankSelect)bankSelect.value="BCA";if(buktiDateInput)buktiDateInput.value="";if(buktiTimeInput)buktiTimeInput.value="";setDefaultBuktiDateTime();buktiUploadedImage="";generateBuktiData(false);showToast("Bukti kemenangan direset")});
     if(downloadBuktiBtn)downloadBuktiBtn.addEventListener("click",()=>{drawBukti().then(()=>{const a=document.createElement("a");a.download=`bukti-kemenangan-${Date.now()}.png`;a.href=buktiCanvas.toDataURL("image/png");a.click()}).catch(()=>alert("Background bukti dari internet belum siap. Coba klik Download lagi."))});
-    drawBukti();
+    generateBuktiData(false);
     loadNotesFromFirebase();
 drawSyair();
   </script>
