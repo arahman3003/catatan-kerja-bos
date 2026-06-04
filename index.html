@@ -646,20 +646,41 @@ textPlain(
     function drawTransferDateTime(c,bank,x,y,w,h){
       const text=getBuktiDateTimeText();
       if(!text) return;
-      const isLightBank=["BCA","BRI","SEABANK"].includes(bank);
+
+      const config={
+        BCA:{
+          maskX:x+180,
+          maskY:y+286,
+          maskW:280,
+          maskH:32,
+          textX:x+w/2,
+          textY:y+304,
+          fill:"rgba(255,255,255,.96)",
+          color:"#666f7c",
+          font:"18px Arial"
+        }
+      }[bank]||{
+        maskX:x+150,
+        maskY:y+300,
+        maskW:340,
+        maskH:32,
+        textX:x+w/2,
+        textY:y+318,
+        fill:"rgba(255,255,255,.96)",
+        color:"#666f7c",
+        font:"18px Arial"
+      };
+
       c.save();
+      c.fillStyle=config.fill;
+      c.fillRect(config.maskX,config.maskY,config.maskW,config.maskH);
       c.textAlign="center";
       c.textBaseline="middle";
-      c.font="20px Arial";
-      c.fillStyle=isLightBank?"#5f6775":"rgba(255,255,255,.92)";
-      if(isLightBank){
-        c.shadowColor="rgba(255,255,255,.55)";
-        c.shadowBlur=2;
-      }else{
-        c.shadowColor="rgba(0,0,0,.55)";
-        c.shadowBlur=3;
-      }
-      c.fillText(text,x+w/2,y+335);
+      c.font=config.font;
+      c.fillStyle=config.color;
+      c.shadowColor="rgba(255,255,255,.15)";
+      c.shadowBlur=1;
+      c.fillText(text,config.textX,config.textY);
       c.restore();
     }
     function getFallbackBankColors(bank){
