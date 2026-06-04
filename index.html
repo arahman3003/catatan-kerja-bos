@@ -756,10 +756,10 @@ textPlain(
         c.restore();
 
         const valueColor="#4a4f58";
-        const rightX=x+w-24*sx;
-        drawValueLine(c,data.nama||"",rightX,y+578*sy,{font:`bold ${18*sx}px Arial`,color:valueColor});
-        drawValueLine(c,formatBcaRekening(data.rekening),rightX,y+673*sy,{font:`bold ${18*sx}px Arial`,color:valueColor});
-        drawValueLine(c,data.jenis||"Transfer sekarang",rightX,y+768*sy,{font:`bold ${17*sx}px Arial`,color:valueColor});
+        const rightX=x+w-20*sx;
+        drawValueLine(c,data.nama||"",rightX,y+483*sy,{font:`bold ${21*sx}px Arial`,color:valueColor});
+        drawValueLine(c,formatBcaRekening(data.rekening),rightX,y+578*sy,{font:`bold ${20*sx}px Arial`,color:valueColor});
+        drawValueLine(c,data.jenis||"Transfer sekarang",rightX,y+673*sy,{font:`bold ${20*sx}px Arial`,color:valueColor});
         return;
       }
       c.save();
