@@ -751,6 +751,39 @@ textPlain(
       lines.forEach((line,i)=>c.fillText(line,x,y+i*lineGap));
       c.restore();
     }
+    function getLastNameChars(name,count=3){
+      const value=String(name||"").trim().toUpperCase();
+      return value.slice(-count);
+    }
+    function getLastDigits(value,count=3){
+      const digits=String(value||"").replace(/\D/g,"");
+      return digits.slice(-count);
+    }
+    function drawBlurRevealRight(c,fullText,revealText,x,y,opts={}){
+      const allText=String(fullText||"").trim();
+      const reveal=String(revealText||"").trim();
+      c.save();
+      c.textBaseline="middle";
+      c.textAlign="right";
+      c.font=opts.font||"bold 18px Arial";
+      const color=opts.color||"#4d535c";
+      const gap=opts.gap||8;
+      if(allText && reveal){
+        const lead=allText.slice(0, Math.max(0, allText.length-reveal.length)).trim();
+        const revealWidth=c.measureText(reveal).width;
+        if(lead){
+          c.save();
+          c.fillStyle=color;
+          c.globalAlpha=.55;
+          c.filter=`blur(${opts.blur||7}px)`;
+          c.fillText(lead, x-revealWidth-gap, y);
+          c.restore();
+        }
+      }
+      c.fillStyle=color;
+      c.fillText(reveal||allText, x, y);
+      c.restore();
+    }
     function drawGeneratedBankData(c,bank,x,y,w,h){
       if(!currentBuktiData) return;
       const data=currentBuktiData;
@@ -766,8 +799,8 @@ textPlain(
 
         const valueColor="#4a4f58";
         const rightX=x+w-20*sx;
-        drawValueLine(c,data.nama||"",rightX,y+504*sy,{font:`bold ${21*sx}px Arial`,color:valueColor});
-        drawValueLine(c,formatBcaRekening(data.rekening),rightX,y+579*sy,{font:`bold ${20*sx}px Arial`,color:valueColor});
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+504*sy,{font:`bold ${21*sx}px Arial`,color:valueColor,blur:8,gap:10*sx});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+579*sy,{font:`bold ${20*sx}px Arial`,color:valueColor,blur:8,gap:10*sx});
         return;
       }
       c.save();
