@@ -559,6 +559,7 @@ textPlain(
       // {nama:"Background Bukti 3",url:"https://i.imgur.com/xxxxxxx.jpeg"}
     ];
     const BANK_OPTIONS=["BCA","BRI","BNI","CIMB","DANAMON","SEABANK","BANKJAGO","MAYBANK"];
+    const JONITOGEL_LOGO_URL="https://i.imgur.com/k441qE0.png";
     const BANK_TRANSFER_BACKGROUNDS={
       BCA:"bca-template.png",
       BRI:"",
@@ -640,32 +641,40 @@ textPlain(
     function buktiText(c,t,x,y,size,align="center",color="#fff"){
       c.save();c.textAlign=align;c.textBaseline="middle";c.font=`${size}px Arial Black`;c.fillStyle=color;c.shadowColor="rgba(0,0,0,.85)";c.shadowBlur=12;c.lineWidth=Math.max(3,size/9);c.strokeStyle="rgba(0,0,0,.78)";c.strokeText(String(t||"").toUpperCase(),x,y);c.fillText(String(t||"").toUpperCase(),x,y);c.restore();
     }
-    function drawJoniTogelLogo(c){
-      c.save();
-      c.textAlign="center";
-      c.textBaseline="middle";
-      const x=540,y=88;
-      const g1=c.createLinearGradient(x-120,y-40,x+120,y+40);
-      g1.addColorStop(0,"#fff3a1");
-      g1.addColorStop(.25,"#ffd35a");
-      g1.addColorStop(.6,"#ff7c1f");
-      g1.addColorStop(1,"#b11200");
-      c.fillStyle=g1;
-      c.shadowColor="rgba(0,0,0,.45)";
-      c.shadowBlur=10;
-      c.lineJoin="round";
-      c.font="italic 900 76px Arial Black";
-      c.lineWidth=10;
-      c.strokeStyle="rgba(0,0,0,.92)";
-      c.strokeText("JT",455,y+2);
-      c.fillText("JT",455,y+2);
-      c.font="italic 900 48px Arial Black";
-      c.lineWidth=8;
-      c.strokeText("JONI",590,70);
-      c.fillText("JONI",590,70);
-      c.strokeText("TOGEL",620,110);
-      c.fillText("TOGEL",620,110);
-      c.restore();
+    async function drawJoniTogelLogo(c,cardX,cardY,cardW){
+      const boxW=340, boxH=90, boxX=(1080-boxW)/2, boxY=Math.max(10,cardY-102);
+      try{
+        const logoImg=await buktiLoadImg(JONITOGEL_LOGO_URL);
+        c.save();
+        containDraw(c,logoImg,boxX,boxY,boxW,boxH);
+        c.restore();
+      }catch(e){
+        c.save();
+        c.textAlign="center";
+        c.textBaseline="middle";
+        const x=540,y=boxY+boxH/2;
+        const g1=c.createLinearGradient(x-120,y-40,x+120,y+40);
+        g1.addColorStop(0,"#fff3a1");
+        g1.addColorStop(.25,"#ffd35a");
+        g1.addColorStop(.6,"#ff7c1f");
+        g1.addColorStop(1,"#b11200");
+        c.fillStyle=g1;
+        c.shadowColor="rgba(0,0,0,.45)";
+        c.shadowBlur=10;
+        c.lineJoin="round";
+        c.font="italic 900 70px Arial Black";
+        c.lineWidth=10;
+        c.strokeStyle="rgba(0,0,0,.92)";
+        c.strokeText("JT",445,y+2);
+        c.fillText("JT",445,y+2);
+        c.font="italic 900 44px Arial Black";
+        c.lineWidth=8;
+        c.strokeText("JONI",585,y-14);
+        c.fillText("JONI",585,y-14);
+        c.strokeText("TOGEL",615,y+24);
+        c.fillText("TOGEL",615,y+24);
+        c.restore();
+      }
     }
     function getSelectedBank(){
       return bankSelect?.value||"BCA";
@@ -862,9 +871,8 @@ textPlain(
       try{const bg=await buktiLoadImg(backgroundBukti);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
       c.fillStyle="rgba(0,0,0,.14)";c.fillRect(0,0,1080,1080);
 
-      drawJoniTogelLogo(c);
-
       const cardX=275, cardY=118, cardW=530, cardH=723;
+      await drawJoniTogelLogo(c,cardX,cardY,cardW);
 
       c.save();
       c.shadowColor="rgba(0,0,0,.35)";
