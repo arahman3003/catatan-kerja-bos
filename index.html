@@ -193,12 +193,14 @@
               <div class="bukti-controls">
                 <div class="form-group"><label for="buktiWallpaperSelect">Background Bukti</label><select id="buktiWallpaperSelect"></select></div>
                 <div class="form-group"><label for="bankSelect">Kategori Bank</label><select id="bankSelect"></select></div>
+                <div class="form-group"><label for="buktiDateInput">Tanggal Bukti</label><input type="date" id="buktiDateInput"></div>
+                <div class="form-group"><label for="buktiTimeInput">Waktu Bukti</label><input type="time" id="buktiTimeInput" step="1"></div>
                 <button type="button" class="btn btn-green" id="uploadBuktiBtn">🖼 Upload Foto Bukti</button>
                 <button type="button" class="btn btn-primary" id="updateBuktiBtn">↻ Update Preview</button>
                 <button type="button" class="btn btn-soft" id="resetBuktiBtn">Reset</button>
                 <button type="button" class="btn btn-soft" id="downloadBuktiBtn">⬇ Download PNG</button>
               </div>
-              <div class="bukti-help">Pilih background bukti dan kategori bank dari dropdown. Foto bukti akan masuk ke tengah canvas, sedangkan dropdown bank akan mengganti latar bukti transfer.</div>
+              <div class="bukti-help">Pilih background bukti, kategori bank, lalu atur tanggal dan waktu bukti dari panel ini. Dropdown bank akan mengganti template latar bukti transfer.</div>
             </div>
           </div>
           <input type="file" id="buktiImageInput" class="hidden-file" accept="image/*">
@@ -554,7 +556,7 @@ textPlain(
     ];
     const BANK_OPTIONS=["BCA","BRI","BNI","CIMB","DANAMON","SEABANK","BANKJAGO","MAYBANK"];
     const BANK_TRANSFER_BACKGROUNDS={
-      BCA:"",
+      BCA:"https://i.imgur.com/DIMq6p1.png",
       BRI:"",
       BNI:"",
       CIMB:"",
@@ -567,7 +569,7 @@ textPlain(
       // BRI:"https://...gambar-bri.jpg"
     };
     const buktiCanvas=document.getElementById("buktiCanvas"),buktiCtx=buktiCanvas?buktiCanvas.getContext("2d"):null;
-    const buktiWallpaperSelect=document.getElementById("buktiWallpaperSelect"),bankSelect=document.getElementById("bankSelect"),uploadBuktiBtn=document.getElementById("uploadBuktiBtn"),buktiImageInput=document.getElementById("buktiImageInput"),updateBuktiBtn=document.getElementById("updateBuktiBtn"),resetBuktiBtn=document.getElementById("resetBuktiBtn"),downloadBuktiBtn=document.getElementById("downloadBuktiBtn");
+    const buktiWallpaperSelect=document.getElementById("buktiWallpaperSelect"),bankSelect=document.getElementById("bankSelect"),buktiDateInput=document.getElementById("buktiDateInput"),buktiTimeInput=document.getElementById("buktiTimeInput"),uploadBuktiBtn=document.getElementById("uploadBuktiBtn"),buktiImageInput=document.getElementById("buktiImageInput"),updateBuktiBtn=document.getElementById("updateBuktiBtn"),resetBuktiBtn=document.getElementById("resetBuktiBtn"),downloadBuktiBtn=document.getElementById("downloadBuktiBtn");
     let buktiUploadedImage="";
 
     if(buktiWallpaperSelect){
@@ -578,6 +580,17 @@ textPlain(
       bankSelect.innerHTML=BANK_OPTIONS.map(bank=>`<option value="${bank}">${bank}</option>`).join("");
       bankSelect.value="BCA";
     }
+    function pad2(n){return String(n).padStart(2,"0")}
+    function setDefaultBuktiDateTime(){
+      const now=new Date();
+      if(buktiDateInput && !buktiDateInput.value){
+        buktiDateInput.value=`${now.getFullYear()}-${pad2(now.getMonth()+1)}-${pad2(now.getDate())}`;
+      }
+      if(buktiTimeInput && !buktiTimeInput.value){
+        buktiTimeInput.value=`${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+      }
+    }
+    setDefaultBuktiDateTime();
 
     function drawRoundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath()}
     function coverDraw(c,img,x,y,w,h){const r=Math.max(w/img.width,h/img.height);const iw=img.width*r,ih=img.height*r;c.drawImage(img,x+(w-iw)/2,y+(h-ih)/2,iw,ih)}
@@ -617,6 +630,37 @@ textPlain(
     }
     function getSelectedBuktiTransferBackground(){
       return BANK_TRANSFER_BACKGROUNDS[getSelectedBank()]||"";
+    }
+    function formatTanggalBukti(value){
+      if(!value) return "";
+      const bulan=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+      const parts=value.split("-");
+      if(parts.length!==3) return value;
+      return `${Number(parts[2])} ${bulan[Number(parts[1])-1]||parts[1]} ${parts[0]}`;
+    }
+    function getBuktiDateTimeText(){
+      const tgl=formatTanggalBukti(buktiDateInput?.value||"");
+      const jam=buktiTimeInput?.value||"";
+      return [tgl,jam].filter(Boolean).join(" ").trim();
+    }
+    function drawTransferDateTime(c,bank,x,y,w,h){
+      const text=getBuktiDateTimeText();
+      if(!text) return;
+      const isLightBank=["BCA","BRI","SEABANK"].includes(bank);
+      c.save();
+      c.textAlign="center";
+      c.textBaseline="middle";
+      c.font="20px Arial";
+      c.fillStyle=isLightBank?"#5f6775":"rgba(255,255,255,.92)";
+      if(isLightBank){
+        c.shadowColor="rgba(255,255,255,.55)";
+        c.shadowBlur=2;
+      }else{
+        c.shadowColor="rgba(0,0,0,.55)";
+        c.shadowBlur=3;
+      }
+      c.fillText(text,x+w/2,y+335);
+      c.restore();
     }
     function getFallbackBankColors(bank){
       const map={
@@ -668,7 +712,7 @@ textPlain(
       c.fillText("TRANSFER BERHASIL",x+w/2,y+280);
       c.font="20px Arial";
       c.fillStyle="#616b7a";
-      c.fillText("Pilih bank untuk mengganti latar bukti transfer",x+w/2,y+318);
+      c.fillText(getBuktiDateTimeText()||"Atur tanggal & waktu bukti dari panel kanan",x+w/2,y+318);
       c.font="900 36px Arial";
       c.fillStyle=accent;
       c.fillText("UPLOAD FOTO BUKTI",x+w/2,y+385);
@@ -736,6 +780,10 @@ textPlain(
         drawTransferPlaceholder(c,selectedBank,cardX,cardY,cardW,cardH);
       }
 
+      if(!buktiUploadedImage){
+        drawTransferDateTime(c,selectedBank,cardX,cardY,cardW,cardH);
+      }
+
       if(buktiUploadedImage){
         try{
           const im=await buktiLoadImg(buktiUploadedImage);
@@ -761,10 +809,12 @@ textPlain(
     }
     if(buktiWallpaperSelect)buktiWallpaperSelect.addEventListener("change",drawBukti);
     if(bankSelect)bankSelect.addEventListener("change",drawBukti);
+    if(buktiDateInput)buktiDateInput.addEventListener("input",drawBukti);
+    if(buktiTimeInput)buktiTimeInput.addEventListener("input",drawBukti);
     if(uploadBuktiBtn)uploadBuktiBtn.addEventListener("click",()=>buktiImageInput.click());
     if(buktiImageInput)buktiImageInput.addEventListener("change",function(){const file=this.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{buktiUploadedImage=e.target.result;drawBukti();showToast("Foto bukti berhasil dimasukkan")};reader.readAsDataURL(file)});
     if(updateBuktiBtn)updateBuktiBtn.addEventListener("click",()=>{drawBukti();showToast("Preview bukti diupdate")});
-    if(resetBuktiBtn)resetBuktiBtn.addEventListener("click",()=>{if(buktiWallpaperSelect)buktiWallpaperSelect.value="0";if(bankSelect)bankSelect.value="BCA";buktiUploadedImage="";drawBukti();showToast("Bukti kemenangan direset")});
+    if(resetBuktiBtn)resetBuktiBtn.addEventListener("click",()=>{if(buktiWallpaperSelect)buktiWallpaperSelect.value="0";if(bankSelect)bankSelect.value="BCA";if(buktiDateInput)buktiDateInput.value="";if(buktiTimeInput)buktiTimeInput.value="";setDefaultBuktiDateTime();buktiUploadedImage="";drawBukti();showToast("Bukti kemenangan direset")});
     if(downloadBuktiBtn)downloadBuktiBtn.addEventListener("click",()=>{drawBukti().then(()=>{const a=document.createElement("a");a.download=`bukti-kemenangan-${Date.now()}.png`;a.href=buktiCanvas.toDataURL("image/png");a.click()}).catch(()=>alert("Background bukti dari internet belum siap. Coba klik Download lagi."))});
     drawBukti();
     loadNotesFromFirebase();
