@@ -818,7 +818,7 @@ textPlain(
         c.restore();
 
         const valueColor="#4a4f58";
-        const rightX=x+w-20*fr;
+        const rightX=x+w-34*fr;
         drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+1122*py,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
         drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+1255*py,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
         return;
