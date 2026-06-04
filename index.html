@@ -702,9 +702,9 @@ textPlain(
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
-        c.font=`${14.5*sx}px Arial`;
+        c.font=`${12.5*sx}px Arial`;
         c.fillStyle="#7b8089";
-        c.fillText(text,x+w/2,y+282*sy);
+        c.fillText(text,x+w/2,y+248*sy);
         c.restore();
         return;
       }
@@ -813,15 +813,15 @@ textPlain(
         c.textAlign="center";
         c.textBaseline="middle";
         c.fillStyle="#123f84";
-        c.font=`900 ${26*sx}px Arial`;
-        c.fillText(formatNominalTop(data.nominal),x+w/2,y+322*sy);
+        c.font=`900 ${24*sx}px Arial`;
+        c.fillText(formatNominalTop(data.nominal),x+w/2,y+283*sy);
         c.restore();
 
         const valueColor="#4a4f58";
-        const rightX=x+w-22*sx;
-        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+390*sy,{font:`bold ${18*sx}px Arial`,color:valueColor,blur:8,gap:9*sx});
-        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+452*sy,{font:`bold ${17*sx}px Arial`,color:valueColor,blur:8,gap:9*sx});
-        drawFitRight(c,data.jenis || "Transfer ke Rekening BCA", rightX, y+514*sy, {size:17*sx,minSize:13*sx,maxWidth:185*sx,color:valueColor});
+        const rightX=x+w-18*sx;
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+344*sy,{font:`bold ${16.5*sx}px Arial`,color:valueColor,blur:8,gap:8*sx});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+394*sy,{font:`bold ${16*sx}px Arial`,color:valueColor,blur:8,gap:8*sx});
+        drawFitRight(c,data.jenis || "Transfer ke Rekening BCA", rightX, y+445*sy, {size:15.5*sx,minSize:12*sx,maxWidth:165*sx,color:valueColor});
         return;
       }
       c.save();
@@ -925,7 +925,7 @@ textPlain(
       try{const bg=await buktiLoadImg(backgroundBukti);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
       c.fillStyle="rgba(0,0,0,.14)";c.fillRect(0,0,1080,1080);
 
-      const cardX=285, cardY=126, cardW=510, cardH=712;
+      const cardX=310, cardY=138, cardW=460, cardH=643;
       await drawJoniTogelLogo(c,cardX,cardY,cardW);
 
       c.save();
