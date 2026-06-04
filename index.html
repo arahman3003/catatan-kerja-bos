@@ -617,6 +617,10 @@ textPlain(
     }
     setDefaultBuktiDateTime();
     function randomPick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+    function randomNominalBukti(){
+      const juta=Math.floor(Math.random()*54)+45; // 45 sampai 98 juta
+      return `${juta.toLocaleString("en-US")},000,000,00`;
+    }
     function syncGeneratedInputs(){
       if(generatedRecipientInput)generatedRecipientInput.value=currentBuktiData.nama||"";
       if(generatedRekeningInput)generatedRekeningInput.value=currentBuktiData.rekening||"";
@@ -627,8 +631,11 @@ textPlain(
       const samples=BUKTI_SAMPLE_DATA[bank]||[];
       if(samples.length){
         currentBuktiData={...randomPick(samples)};
+        const nominalAcak=randomNominalBukti();
+        currentBuktiData.nominal=nominalAcak;
+        currentBuktiData.nominalTujuan=nominalAcak;
       }else{
-        currentBuktiData={nama:"",rekening:"",nominal:""};
+        currentBuktiData={nama:"",rekening:"",nominal:randomNominalBukti(),nominalTujuan:randomNominalBukti()};
       }
       syncGeneratedInputs();
       drawBukti();
