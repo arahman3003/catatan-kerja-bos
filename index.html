@@ -574,7 +574,18 @@ textPlain(
     };
     const BUKTI_SAMPLE_DATA={
       BCA:[
-        {nama:"DENI AKRAM",rekening:"7483921056",nominal:"94,000,000,00"}
+        {
+          nama:"DENI AKRAM",
+          rekening:"7483921056",
+          nominal:"94,000,000,00",
+          jenis:"Transfer sekarang",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        }
       ]
       // Nanti kalau bos mau tambah contoh lagi tinggal lanjut seperti ini:
       // BCA:[{nama:"A",rekening:"123",nominal:"10,000,000,00"},{nama:"B",rekening:"456",nominal:"20,000,000,00"}]
@@ -663,10 +674,10 @@ textPlain(
     }
     function formatTanggalBukti(value){
       if(!value) return "";
-      const bulan=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+      const bulan=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
       const parts=value.split("-");
       if(parts.length!==3) return value;
-      return `${Number(parts[2])} ${bulan[Number(parts[1])-1]||parts[1]} ${parts[0]}`;
+      return `${parts[2]} ${bulan[Number(parts[1])-1]||parts[1]} ${parts[0]}`;
     }
     function getBuktiDateTimeText(){
       const tgl=formatTanggalBukti(buktiDateInput?.value||"");
@@ -679,14 +690,14 @@ textPlain(
 
       const config={
         BCA:{
-          maskX:x+198,
-          maskY:y+378,
-          maskW:244,
+          maskX:x+185,
+          maskY:y+374,
+          maskW:270,
           maskH:24,
           textX:x+w/2,
-          textY:y+390,
+          textY:y+388,
           fill:"rgba(255,255,255,.98)",
-          color:"#666f7c",
+          color:"#5f6670",
           font:"18px Arial"
         }
       }[bank]||{
@@ -713,50 +724,72 @@ textPlain(
       c.fillText(text,config.textX,config.textY);
       c.restore();
     }
-    function formatNominalTop(nominal){
+    function normalizeNominalString(nominal){
       if(!nominal) return "";
-      return `IDR ${nominal}`;
+      let s=String(nominal).trim();
+      if(/^\d{1,3}(,\d{3})+,\d{2}$/.test(s)){
+        const idx=s.lastIndexOf(",");
+        s=s.slice(0,idx)+"."+s.slice(idx+1);
+      }
+      return s;
+    }
+    function formatNominalTop(nominal){
+      const s=normalizeNominalString(nominal);
+      return s?`IDR ${s}`:"";
     }
     function formatNominalBottom(nominal){
       if(!nominal) return "RP. -";
-      return `RP. ${nominal.replace(',00','')},-`;
+      const s=String(nominal).replace(/,00$/,"").replace(/\.00$/,"");
+      return `RP. ${s},-`;
+    }
+    function formatBcaRekening(rekening){
+      const digits=String(rekening||"").replace(/\D/g,"");
+      if(!digits) return "";
+      if(digits.length<=3) return digits;
+      if(digits.length<=6) return `${digits.slice(0,3)} - ${digits.slice(3)}`;
+      return `${digits.slice(0,3)} - ${digits.slice(3,6)} - ${digits.slice(6)}`;
+    }
+    function drawValueLine(c,text,x,y,opts={}){
+      c.save();
+      c.textAlign=opts.align||"right";
+      c.textBaseline="middle";
+      c.fillStyle=opts.color||"#4d535c";
+      c.font=opts.font||"bold 17px Arial";
+      const lines=String(text||"").split("\n");
+      const lineGap=opts.lineGap||28;
+      lines.forEach((line,i)=>c.fillText(line,x,y+i*lineGap));
+      c.restore();
     }
     function drawGeneratedBankData(c,bank,x,y,w,h){
       if(!currentBuktiData) return;
       const data=currentBuktiData;
       if(bank==="BCA"){
         c.save();
-        // nominal
-        c.fillStyle="rgba(255,255,255,.98)";
-        c.fillRect(x+100,y+442,440,52);
+        // nominal utama
         c.textAlign="center";
         c.textBaseline="middle";
-        c.fillStyle="#1d478f";
-        c.font="bold 33px Arial";
+        c.fillStyle="#083d88";
+        c.font="bold 35px Arial";
         c.fillText(formatNominalTop(data.nominal),x+w/2,y+468);
-        // nama penerima
-        c.fillStyle="rgba(255,255,255,.98)";
-        c.fillRect(x+355,y+555,220,30);
-        c.textAlign="right";
-        c.fillStyle="#4a4f59";
-        c.font="bold 18px Arial";
-        c.fillText(data.nama||"",x+w-32,y+570);
-        // rekening tujuan
-        c.fillStyle="rgba(255,255,255,.98)";
-        c.fillRect(x+350,y+645,225,30);
-        c.textAlign="right";
-        c.fillStyle="#4a4f59";
-        c.font="bold 18px Arial";
-        c.fillText(data.rekening||"",x+w-32,y+660);
         c.restore();
+        // values mengikuti contoh bukti asli
+        drawValueLine(c,data.nama||"",x+w-28,y+570,{font:"bold 20px Arial",color:"#4d535c"});
+        drawValueLine(c,formatBcaRekening(data.rekening),x+w-28,y+660,{font:"bold 19px Arial",color:"#4d535c"});
+        drawValueLine(c,data.jenis||"Transfer sekarang",x+w-28,y+748,{font:"bold 18px Arial",color:"#4d535c"});
+        drawValueLine(c,data.mataTujuan||"IDR - Indonesian Rupiah",x+w-28,y+838,{font:"bold 17px Arial",color:"#4d535c"});
+        drawValueLine(c,data.dariRekening||"129 - 0** - **31",x+w-28,y+930,{font:"bold 19px Arial",color:"#4d535c"});
+        drawValueLine(c,data.mataAsal||"IDR - Indonesian Rupiah",x+w-28,y+1018,{font:"bold 17px Arial",color:"#4d535c"});
+        drawValueLine(c,formatNominalTop(data.nominalTujuan||data.nominal),x+w-28,y+1109,{font:"bold 19px Arial",color:"#4d535c"});
+        drawValueLine(c,data.berita||"",x+w-28,y+1201,{font:"bold 17px Arial",color:"#4d535c"});
+        drawValueLine(c,data.referensi||"",x+w-28,y+1304,{font:"bold 18px Arial",color:"#4d535c",lineGap:32});
         return;
       }
       // fallback for other banks
       c.save();
       c.textAlign="right";
       c.textBaseline="middle";
-      c.fillStyle="#2b2b2b";
-      c.font="bold 22px Arial";
+      c.fillStyle="#4d535c";
+      c.font="bold 20px Arial";
       c.fillText(data.nama||"",x+w-26,y+500);
       c.fillText(data.rekening||"",x+w-26,y+586);
       c.fillText(formatNominalTop(data.nominal),x+w-26,y+260);
