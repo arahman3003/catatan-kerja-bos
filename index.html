@@ -813,46 +813,6 @@ textPlain(
       c.fillText(formatNominalTop(data.nominal),x+w-26,y+260);
       c.restore();
     }
-    function drawBcaLowerWatermarks(c,x,y,w,h){
-      const marks=[
-        [0.16,0.57,56],[0.64,0.58,56],
-        [0.24,0.73,60],[0.73,0.74,58],
-        [0.17,0.89,56],[0.63,0.91,58]
-      ];
-      c.save();
-      c.textAlign="left";
-      c.textBaseline="middle";
-      marks.forEach(([rx,ry,size])=>{
-        const px=x+w*rx, py=y+h*ry;
-        c.save();
-        c.translate(px,py);
-        c.rotate(-0.42);
-        c.fillStyle="rgba(132,184,232,.13)";
-        c.font=`900 ${size*(w/530)}px Arial`;
-        c.fillText("BCA",0,0);
-        c.restore();
-      });
-      c.restore();
-    }
-    function drawLihatDetail(c,x,y,w,h){
-      const cx=x+w/2;
-      const yy=y+h-18;
-      c.save();
-      c.textAlign="center";
-      c.textBaseline="middle";
-      c.fillStyle="#1e4e9b";
-      c.font=`bold ${15*(w/530)}px Arial`;
-      c.fillText("Lihat Detail",cx-8,yy);
-      c.strokeStyle="#1e4e9b";
-      c.lineWidth=2;
-      c.lineCap="round";
-      c.beginPath();
-      c.moveTo(cx+52,yy-4);
-      c.lineTo(cx+60,yy+4);
-      c.lineTo(cx+68,yy-4);
-      c.stroke();
-      c.restore();
-    }
     function getFallbackBankColors(bank){
       const map={
         BCA:["#f7fbff","#dcefff","#2c6fd6"],
@@ -968,11 +928,6 @@ textPlain(
         }
       }else{
         drawTransferPlaceholder(c,selectedBank,cardX,cardY,cardW,cardH);
-      }
-
-      if(selectedBank==="BCA" && !buktiUploadedImage){
-        drawBcaLowerWatermarks(c,cardX,cardY,cardW,cardH);
-        drawLihatDetail(c,cardX,cardY,cardW,cardH);
       }
 
       if(!buktiUploadedImage){
