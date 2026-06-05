@@ -812,11 +812,30 @@ textPlain(
       c.fillText(String(text||""),x,y);
       c.restore();
     }
+    function drawAdjustedBcaTemplate(c,img,x,y,w,h){
+      const scaleY=h/img.height;
+      const detailStartSrcY=1025;
+      const detailShiftSrcY=150;
+      c.save();
+      drawRoundRect(c,x,y,w,h,10);
+      c.clip();
+      c.drawImage(img,x,y,w,h);
+      const coverY=y+detailStartSrcY*scaleY;
+      c.fillStyle="rgba(255,255,255,.985)";
+      c.fillRect(x,coverY,w,h-(coverY-y));
+      c.drawImage(
+        img,
+        0,detailStartSrcY,img.width,img.height-detailStartSrcY,
+        x,y+(detailStartSrcY-detailShiftSrcY)*scaleY,w,(img.height-detailStartSrcY)*scaleY
+      );
+      c.restore();
+    }
     function drawGeneratedBankData(c,bank,x,y,w,h){
       if(!currentBuktiData) return;
       const data=currentBuktiData;
       if(bank==="BCA"){
         const px=w/941, py=h/1672, fr=w/460;
+        const detailShiftSrcY=150;
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
@@ -828,8 +847,8 @@ textPlain(
 
         const valueColor="#4a4f58";
         const rightX=x+w-34*fr;
-        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+1122*py,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
-        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+1255*py,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+(1122-detailShiftSrcY)*py,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+(1255-detailShiftSrcY)*py,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
         return;
       }
       c.save();
@@ -947,11 +966,15 @@ textPlain(
       if(bankBackground){
         try{
           const bankBg=await buktiLoadImg(bankBackground);
-          c.save();
-          drawRoundRect(c,cardX,cardY,cardW,cardH,10);
-          c.clip();
-          containDraw(c,bankBg,cardX,cardY,cardW,cardH);
-          c.restore();
+          if(selectedBank==="BCA"){
+            drawAdjustedBcaTemplate(c,bankBg,cardX,cardY,cardW,cardH);
+          }else{
+            c.save();
+            drawRoundRect(c,cardX,cardY,cardW,cardH,10);
+            c.clip();
+            containDraw(c,bankBg,cardX,cardY,cardW,cardH);
+            c.restore();
+          }
         }catch(e){
           drawTransferPlaceholder(c,selectedBank,cardX,cardY,cardW,cardH);
         }
