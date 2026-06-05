@@ -781,11 +781,27 @@ textPlain(
         const lead=allText.slice(0, Math.max(0, allText.length-reveal.length)).trim();
         const revealWidth=c.measureText(reveal).width;
         if(lead){
+          const leadWidth=c.measureText(lead).width;
+          const boxW=opts.boxWidth||Math.max(86,Math.min(leadWidth+26,126));
+          const boxH=opts.boxHeight||26;
+          const boxRight=x-revealWidth-gap-6;
+          const boxX=boxRight-boxW;
+
           c.save();
+          c.filter=`blur(${opts.boxBlur||6}px)`;
+          c.globalAlpha=.96;
+          c.fillStyle=opts.boxColor||"rgba(235,235,235,.98)";
+          drawRoundRect(c,boxX,y-boxH/2,boxW,boxH,2.5);
+          c.fill();
+          c.restore();
+
+          c.save();
+          drawRoundRect(c,boxX,y-boxH/2,boxW,boxH,2.5);
+          c.clip();
           c.fillStyle=color;
-          c.globalAlpha=.42;
-          c.filter=`blur(${opts.blur||10}px)`;
-          c.fillText(lead, x-revealWidth-gap, y);
+          c.globalAlpha=.16;
+          c.filter=`blur(${opts.blur||11}px)`;
+          c.fillText(lead,boxRight-8,y);
           c.restore();
         }
       }
