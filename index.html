@@ -1686,12 +1686,12 @@ textPlain(
 
       // dekorasi halus bagian atas
       c.save();
-      c.globalAlpha=.16;
+      c.globalAlpha=.12;
       c.strokeStyle="#ffffff";
-      c.lineWidth=1.2*scale;
-      for(let i=0;i<7;i++){
+      c.lineWidth=1.1*scale;
+      for(let i=0;i<6;i++){
         c.beginPath();
-        c.arc(sx(215),sy(20),sw(45+i*18),0,Math.PI*2);
+        c.arc(sx(215),sy(14),sw(42+i*18),0,Math.PI*2);
         c.stroke();
       }
       c.restore();
@@ -1699,34 +1699,34 @@ textPlain(
       // ikon centang
       c.fillStyle="#ffffff";
       c.beginPath();
-      c.arc(sx(215),sy(52),sw(31),0,Math.PI*2);
+      c.arc(sx(215),sy(60),sw(29),0,Math.PI*2);
       c.fill();
-      c.strokeStyle="rgba(255,255,255,.65)";
-      c.lineWidth=8*scale;
+      c.strokeStyle="rgba(227,235,242,.95)";
+      c.lineWidth=7*scale;
       c.beginPath();
-      c.arc(sx(215),sy(52),sw(36),0,Math.PI*2);
+      c.arc(sx(215),sy(60),sw(34),0,Math.PI*2);
       c.stroke();
       c.strokeStyle="#177ec6";
-      c.lineWidth=4.5*scale;
+      c.lineWidth=4.2*scale;
       c.lineCap="round";
       c.lineJoin="round";
       c.beginPath();
-      c.moveTo(sx(201),sy(52));
-      c.lineTo(sx(212),sy(63));
-      c.lineTo(sx(233),sy(38));
+      c.moveTo(sx(202),sy(60));
+      c.lineTo(sx(212),sy(70));
+      c.lineTo(sx(229),sy(49));
       c.stroke();
 
       // teks atas
       c.textAlign="center";
       c.textBaseline="middle";
       c.fillStyle="#ffffff";
-      c.font=`900 ${21*scale}px Arial`;
-      c.fillText("Transaksi Berhasil",sx(215),sy(96));
-      c.font=`700 ${12.5*scale}px Arial`;
-      c.fillText(getBuktiDateTimeText()+" WIB",sx(215),sy(118));
+      c.font=`900 ${20*scale}px Arial`;
+      c.fillText("Transaksi Berhasil",sx(215),sy(116));
+      c.font=`700 ${13*scale}px Arial`;
+      c.fillText(getBuktiDateTimeText()+" WIB",sx(215),sy(142));
 
       // kartu putih bukti
-      const cardX=sx(24), cardY=sy(157), cardW=sw(382), cardH=sh(450);
+      const cardX=sx(24), cardY=sy(170), cardW=sw(382), cardH=sh(450);
       c.save();
       c.shadowColor="rgba(0,0,0,.13)";
       c.shadowBlur=10*scale;
