@@ -1820,14 +1820,37 @@ textPlain(
       c.stroke();
 
       // Tombol bagian bawah
-      drawRoundRect(c,sx(24),sy(675),sw(382),sh(54),7*scale);
-      c.strokeStyle="#0b74b8";
-      c.lineWidth=2*scale;
+      const shareX=sx(24), shareY=sy(675), shareW=sw(382), shareH=sh(54), shareR=8*scale;
+      c.save();
+      drawRoundRect(c,shareX,shareY,shareW,shareH,shareR);
+      c.fillStyle="#fbfdff";
+      c.fill();
+      c.strokeStyle="#3b93d8";
+      c.lineWidth=1.8*scale;
       c.stroke();
-      c.fillStyle="#0b74b8";
-      c.font=`900 ${16*scale}px Arial`;
+      c.restore();
+
+      // ikon share serupa contoh
+      const iconCx=sx(66), iconCy=sy(701), iconR=3.3*scale;
+      c.save();
+      c.strokeStyle="#2c84ce";
+      c.fillStyle="#2c84ce";
+      c.lineWidth=2.2*scale;
+      c.beginPath();
+      c.moveTo(iconCx,iconCy);
+      c.lineTo(iconCx+sw(13),iconCy-sh(8));
+      c.lineTo(iconCx+sw(13),iconCy+sh(8));
+      c.stroke();
+      c.beginPath(); c.arc(iconCx,iconCy,iconR,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(iconCx+sw(13),iconCy-sh(8),iconR,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(iconCx+sw(13),iconCy+sh(8),iconR,0,Math.PI*2); c.fill();
+      c.restore();
+
+      c.fillStyle="#2c84ce";
+      c.font=`800 ${15.5*scale}px Arial`;
       c.textAlign="center";
-      c.fillText("↗  Bagikan Bukti Transaksi",sx(215),sy(702));
+      c.textBaseline="middle";
+      c.fillText("Bagikan Bukti Transaksi",sx(231),sy(702));
 
       drawRoundRect(c,sx(24),sy(748),sw(382),sh(55),7*scale);
       c.fillStyle="#147bd1";
