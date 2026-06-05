@@ -1843,36 +1843,47 @@ textPlain(
       c.stroke();
       c.restore();
 
-      // ikon share dibuat lebih mirip contoh
-      const leftX=sx(68), leftY=sy(704), rightTopX=sx(81), rightTopY=sy(696), rightBotX=sx(81), rightBotY=sy(712), iconR=3.1*scale;
+      // grup ikon + teks dibuat benar-benar di tengah
+      const shareLabel="Bagikan Bukti Transaksi";
       c.save();
+      c.font=`800 ${15.5*scale}px Arial`;
+      const shareTextW=c.measureText(shareLabel).width;
+      const iconGap=10*scale;
+      const iconSpan=17*scale;
+      const groupW=iconSpan+iconGap+shareTextW;
+      const groupStartX=shareX+(shareW-groupW)/2;
+      const iconCenterX=groupStartX+4*scale;
+      const iconCenterY=sy(704);
+      const iconRightX=iconCenterX+13*scale;
+
       c.strokeStyle="#2c84ce";
       c.fillStyle="#2c84ce";
       c.lineWidth=2.15*scale;
       c.lineCap="round";
       c.beginPath();
-      c.moveTo(leftX,leftY);
-      c.lineTo(rightTopX,rightTopY);
-      c.moveTo(leftX,leftY);
-      c.lineTo(rightBotX,rightBotY);
+      c.moveTo(iconCenterX,iconCenterY);
+      c.lineTo(iconRightX,iconCenterY-8*scale);
+      c.moveTo(iconCenterX,iconCenterY);
+      c.lineTo(iconRightX,iconCenterY+8*scale);
       c.stroke();
-      c.beginPath(); c.arc(leftX,leftY,iconR,0,Math.PI*2); c.fill();
-      c.beginPath(); c.arc(rightTopX,rightTopY,iconR,0,Math.PI*2); c.fill();
-      c.beginPath(); c.arc(rightBotX,rightBotY,iconR,0,Math.PI*2); c.fill();
-      c.restore();
+      c.beginPath(); c.arc(iconCenterX,iconCenterY,3.1*scale,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(iconRightX,iconCenterY-8*scale,3.1*scale,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(iconRightX,iconCenterY+8*scale,3.1*scale,0,Math.PI*2); c.fill();
 
-      c.fillStyle="#2c84ce";
-      c.font=`800 ${15.5*scale}px Arial`;
       c.textAlign="left";
       c.textBaseline="middle";
-      c.fillText("Bagikan Bukti Transaksi",sx(101),sy(702));
+      c.fillText(shareLabel,groupStartX+iconSpan+iconGap,sy(702));
+      c.restore();
 
-      drawRoundRect(c,sx(24),sy(748),sw(382),sh(55),7*scale);
+      const homeX=sx(24), homeY=sy(748), homeW=sw(382), homeH=sh(55);
+      drawRoundRect(c,homeX,homeY,homeW,homeH,7*scale);
       c.fillStyle="#147bd1";
       c.fill();
       c.fillStyle="#ffffff";
       c.font=`900 ${17*scale}px Arial`;
-      c.fillText("Halaman Utama",sx(215),sy(776));
+      c.textAlign="center";
+      c.textBaseline="middle";
+      c.fillText("Halaman Utama",homeX+homeW/2,homeY+homeH/2);
 
       // home indicator
       c.fillStyle="#111111";
