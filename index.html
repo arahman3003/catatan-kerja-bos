@@ -706,13 +706,13 @@ textPlain(
       const text=getBuktiDateTimeText();
       if(!text) return;
       if(bank==="BCA"){
-        const px=w/941, py=h/1672, fr=w/460;
+        const scale=w/941, fr=w/460;
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
         c.font=`${13.2*fr}px Arial`;
         c.fillStyle="#7b8089";
-        c.fillText(text,x+w/2,y+792*py);
+        c.fillText(text,x+w/2,y+792*scale);
         c.restore();
         return;
       }
@@ -813,20 +813,21 @@ textPlain(
       c.restore();
     }
     function drawAdjustedBcaTemplate(c,img,x,y,w,h){
-      const scaleY=h/img.height;
+      const scale=w/img.width;
+      const drawH=img.height*scale;
       const detailStartSrcY=1025;
       const detailShiftSrcY=150;
       c.save();
       drawRoundRect(c,x,y,w,h,10);
       c.clip();
-      c.drawImage(img,x,y,w,h);
-      const coverY=y+detailStartSrcY*scaleY;
+      c.drawImage(img,x,y,w,drawH);
+      const coverY=y+detailStartSrcY*scale;
       c.fillStyle="rgba(255,255,255,.985)";
       c.fillRect(x,coverY,w,h-(coverY-y));
       c.drawImage(
         img,
         0,detailStartSrcY,img.width,img.height-detailStartSrcY,
-        x,y+(detailStartSrcY-detailShiftSrcY)*scaleY,w,(img.height-detailStartSrcY)*scaleY
+        x,y+(detailStartSrcY-detailShiftSrcY)*scale,w,(img.height-detailStartSrcY)*scale
       );
       c.restore();
     }
@@ -834,7 +835,7 @@ textPlain(
       if(!currentBuktiData) return;
       const data=currentBuktiData;
       if(bank==="BCA"){
-        const px=w/941, py=h/1672, fr=w/460;
+        const scale=w/941, fr=w/460;
         const detailShiftSrcY=150;
         c.save();
         c.textAlign="center";
@@ -842,13 +843,13 @@ textPlain(
         c.fillStyle="#123f84";
         // Nominal BCA: tetap memakai IDR, ukuran lebih besar, ketebalan lebih tipis
         c.font=`500 ${30*fr}px Arial`;
-        c.fillText(formatNominalTop(data.nominal),x+w/2,y+874*py);
+        c.fillText(formatNominalTop(data.nominal),x+w/2,y+874*scale);
         c.restore();
 
         const valueColor="#4a4f58";
         const rightX=x+w-34*fr;
-        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+(1122-detailShiftSrcY)*py,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
-        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+(1255-detailShiftSrcY)*py,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+(1122-detailShiftSrcY)*scale,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+(1255-detailShiftSrcY)*scale,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
         return;
       }
       c.save();
@@ -952,7 +953,7 @@ textPlain(
       try{const bg=await buktiLoadImg(backgroundBukti);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
       c.fillStyle="rgba(0,0,0,.14)";c.fillRect(0,0,1080,1080);
 
-      const cardX=325, cardY=118, cardW=430, cardH=764;
+      const cardX=325, cardY=118, cardW=430, cardH=selectedBank==="BCA"?690:764;
       await drawJoniTogelLogo(c,cardX,cardY,cardW);
 
       c.save();
