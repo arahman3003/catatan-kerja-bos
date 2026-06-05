@@ -1818,10 +1818,30 @@ textPlain(
       drawBriSoftMask(c,sx(100),sy(535),sw(170),sh(14),{blur:4,radius:3*scale,color:"rgba(186,192,200,.96)",overlay:"rgba(207,211,217,.9)"});
 
       // Lihat detail
-      c.textAlign="center";
+      c.save();
       c.fillStyle="#0b74b8";
       c.font=`900 ${14.5*scale}px Arial`;
-      c.fillText("Lihat Detail Transaksi⌄",sx(215),sy(570));
+      c.textAlign="left";
+      c.textBaseline="middle";
+      const detailLabel="Lihat Detail Transaksi";
+      const detailTextW=c.measureText(detailLabel).width;
+      const detailGap=8*scale;
+      const chevronW=10*scale;
+      const detailGroupW=detailTextW+detailGap+chevronW;
+      const detailStartX=sx(215)-detailGroupW/2;
+      const detailY=sy(570);
+      c.fillText(detailLabel,detailStartX,detailY);
+
+      const chevX=detailStartX+detailTextW+detailGap;
+      c.strokeStyle="#0b74b8";
+      c.lineWidth=2.4*scale;
+      c.lineCap="round";
+      c.beginPath();
+      c.moveTo(chevX,detailY-3*scale);
+      c.lineTo(chevX+chevronW/2,detailY+3*scale);
+      c.lineTo(chevX+chevronW,detailY-3*scale);
+      c.stroke();
+      c.restore();
 
       // potongan bawah bergerigi
       c.strokeStyle="#e3e8ee";
