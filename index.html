@@ -702,16 +702,6 @@ textPlain(
       const jam=buktiTimeInput?.value||"";
       return [tgl,jam].filter(Boolean).join(" ").trim();
     }
-    function drawBcaSuccessTitle(c,x,y,w,h){
-      const py=h/1672, fr=w/460;
-      c.save();
-      c.textAlign="center";
-      c.textBaseline="middle";
-      c.fillStyle="#0a3f82";
-      c.font=`700 ${18.5*fr}px Arial`;
-      c.fillText("Transaksi Berhasil",x+w/2,y+735*py);
-      c.restore();
-    }
     function drawTransferDateTime(c,bank,x,y,w,h){
       const text=getBuktiDateTimeText();
       if(!text) return;
@@ -720,7 +710,7 @@ textPlain(
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
-        c.font=`${12.2*fr}px Arial`;
+        c.font=`${14.6*fr}px Arial`;
         c.fillStyle="#6f7680";
         c.fillText(text,x+w/2,y+793*py);
         c.restore();
@@ -827,7 +817,6 @@ textPlain(
       const data=currentBuktiData;
       if(bank==="BCA"){
         const px=w/941, py=h/1672, fr=w/460;
-        drawBcaSuccessTitle(c,x,y,w,h);
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
