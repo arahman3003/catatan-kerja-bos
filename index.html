@@ -849,8 +849,7 @@ textPlain(
         const rightX=x+339*s;
         drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+316*s,{font:`bold ${9.3*s}px Arial`,color:valueColor,blur:6,gap:5*s});
         drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+350*s,{font:`bold ${9.1*s}px Arial`,color:valueColor,blur:6,gap:5*s});
-        drawValueLine(c,"Transfer ke rekening
-BCA",rightX,y+381*s,{font:`bold ${8.5*s}px Arial`,color:"#3f434b",lineGap:9.5*s});
+        drawValueLine(c,"Transfer ke rekening\nBCA",rightX,y+381*s,{font:`bold ${8.5*s}px Arial`,color:"#3f434b",lineGap:9.5*s});
         return;
       }
       c.save();
