@@ -821,7 +821,8 @@ textPlain(
         c.textAlign="center";
         c.textBaseline="middle";
         c.fillStyle="#123f84";
-        c.font=`900 ${23.5*fr}px Arial`;
+        // Nominal BCA: tetap memakai IDR, ukuran lebih besar, ketebalan lebih tipis
+        c.font=`500 ${30*fr}px Arial`;
         c.fillText(formatNominalTop(data.nominal),x+w/2,y+874*py);
         c.restore();
 
