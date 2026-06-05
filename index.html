@@ -713,13 +713,15 @@ textPlain(
       const s=w/500;
       const statusText=getPhoneStatusTime();
       c.save();
-      c.fillStyle="#ffffff";
-      c.fillRect(x+34*s,y+12*s,56*s,18*s);
-      c.fillStyle="#121212";
-      c.font=`600 ${8.6*s}px Arial`;
+      // Posisi ini mengikuti area jam asli di dalam layar iPhone template,
+      // bukan di background luar.
+      c.fillStyle="rgba(255,255,255,.96)";
+      c.fillRect(x+155*s,y+38*s,58*s,22*s);
+      c.fillStyle="#111111";
+      c.font=`600 ${8.4*s}px Arial`;
       c.textAlign="center";
       c.textBaseline="middle";
-      c.fillText(statusText,x+61*s,y+21*s);
+      c.fillText(statusText,x+178*s,y+49*s);
       c.restore();
     }
     function drawTransferDateTime(c,bank,x,y,w,h){
