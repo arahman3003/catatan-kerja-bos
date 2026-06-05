@@ -1843,20 +1843,22 @@ textPlain(
       c.stroke();
       c.restore();
 
-      // ikon share serupa contoh
-      const iconCx=sx(66), iconCy=sy(701), iconR=3.3*scale;
+      // ikon share dibuat lebih mirip contoh
+      const leftX=sx(70), leftY=sy(704), rightTopX=sx(83), rightTopY=sy(696), rightBotX=sx(83), rightBotY=sy(712), iconR=3.1*scale;
       c.save();
       c.strokeStyle="#2c84ce";
       c.fillStyle="#2c84ce";
-      c.lineWidth=2.2*scale;
+      c.lineWidth=2.15*scale;
+      c.lineCap="round";
       c.beginPath();
-      c.moveTo(iconCx,iconCy);
-      c.lineTo(iconCx+sw(13),iconCy-sh(8));
-      c.lineTo(iconCx+sw(13),iconCy+sh(8));
+      c.moveTo(leftX,leftY);
+      c.lineTo(rightTopX,rightTopY);
+      c.moveTo(leftX,leftY);
+      c.lineTo(rightBotX,rightBotY);
       c.stroke();
-      c.beginPath(); c.arc(iconCx,iconCy,iconR,0,Math.PI*2); c.fill();
-      c.beginPath(); c.arc(iconCx+sw(13),iconCy-sh(8),iconR,0,Math.PI*2); c.fill();
-      c.beginPath(); c.arc(iconCx+sw(13),iconCy+sh(8),iconR,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(leftX,leftY,iconR,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(rightTopX,rightTopY,iconR,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(rightBotX,rightBotY,iconR,0,Math.PI*2); c.fill();
       c.restore();
 
       c.fillStyle="#2c84ce";
