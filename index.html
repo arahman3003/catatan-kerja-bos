@@ -562,7 +562,7 @@ textPlain(
     const BANK_OPTIONS=["BCA","BRI","BNI","CIMB","DANAMON","SEABANK","BANKJAGO","MAYBANK"];
     const JONITOGEL_LOGO_URL="https://i.imgur.com/k441qE0.png";
     const BANK_TRANSFER_BACKGROUNDS={
-      BCA:"bca-template-phone.png",
+      BCA:"bca-template.png",
       BRI:"",
       BNI:"",
       CIMB:"",
@@ -702,34 +702,17 @@ textPlain(
       const jam=buktiTimeInput?.value||"";
       return [tgl,jam].filter(Boolean).join(" ").trim();
     }
-    function getPhoneStatusTime(){
-      const jam=String(buktiTimeInput?.value||"").trim();
-      if(!jam) return "9:41";
-      const parts=jam.split(":");
-      if(parts.length>=2) return `${parts[0]}:${parts[1]}`;
-      return jam;
-    }
-    function drawPhoneStatusTime(c,x,y,w,h){
-      const s=w/500;
-      c.save();
-      // Hapus semua elemen status bar atas (jam kiri dan ikon kanan),
-      // sisakan hanya pulau/dynamic island hitam di tengah.
-      c.fillStyle="#ffffff";
-      c.fillRect(x+146*s,y+35*s,68*s,18*s);   // hapus jam kiri
-      c.fillRect(x+286*s,y+35*s,74*s,18*s);   // hapus ikon kanan
-      c.restore();
-    }
     function drawTransferDateTime(c,bank,x,y,w,h){
       const text=getBuktiDateTimeText();
       if(!text) return;
       if(bank==="BCA"){
-        const s=w/500;
+        const px=w/941, py=h/1672, fr=w/460;
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
-        c.font=`${7.4*s}px Arial`;
-        c.fillStyle="#6f7680";
-        c.fillText(text,x+w/2,y+244*s);
+        c.font=`${13.2*fr}px Arial`;
+        c.fillStyle="#7b8089";
+        c.fillText(text,x+w/2,y+792*py);
         c.restore();
         return;
       }
@@ -833,20 +816,19 @@ textPlain(
       if(!currentBuktiData) return;
       const data=currentBuktiData;
       if(bank==="BCA"){
-        const s=w/500;
+        const px=w/941, py=h/1672, fr=w/460;
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
-        c.fillStyle="#173b78";
-        c.font=`700 ${12.2*s}px Arial`;
-        c.fillText(formatNominalTop(data.nominal),x+w/2,y+272*s);
+        c.fillStyle="#123f84";
+        c.font=`900 ${23.5*fr}px Arial`;
+        c.fillText(formatNominalTop(data.nominal),x+w/2,y+874*py);
         c.restore();
 
         const valueColor="#4a4f58";
-        const rightX=x+339*s;
-        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+316*s,{font:`bold ${9.3*s}px Arial`,color:valueColor,blur:6,gap:5*s});
-        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+350*s,{font:`bold ${9.1*s}px Arial`,color:valueColor,blur:6,gap:5*s});
-        drawValueLine(c,"Transfer ke rekening\nBCA",rightX,y+381*s,{font:`bold ${8.5*s}px Arial`,color:"#3f434b",lineGap:9.5*s});
+        const rightX=x+w-34*fr;
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+1122*py,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+1255*py,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
         return;
       }
       c.save();
@@ -950,12 +932,15 @@ textPlain(
       try{const bg=await buktiLoadImg(backgroundBukti);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
       c.fillStyle="rgba(0,0,0,.14)";c.fillRect(0,0,1080,1080);
 
-      const cardX=146, cardY=88, cardW=820, cardH=820;
+      const cardX=325, cardY=118, cardW=430, cardH=764;
       await drawJoniTogelLogo(c,cardX,cardY,cardW);
 
       c.save();
       c.shadowColor="rgba(0,0,0,.35)";
       c.shadowBlur=24;
+      drawRoundRect(c,cardX,cardY,cardW,cardH,10);
+      c.fillStyle="rgba(255,255,255,.98)";
+      c.fill();
       c.restore();
 
       if(bankBackground){
@@ -974,7 +959,6 @@ textPlain(
       }
 
       if(!buktiUploadedImage){
-        if(selectedBank==="BCA") drawPhoneStatusTime(c,cardX,cardY,cardW,cardH);
         drawTransferDateTime(c,selectedBank,cardX,cardY,cardW,cardH);
         drawGeneratedBankData(c,selectedBank,cardX,cardY,cardW,cardH);
       }
@@ -992,6 +976,10 @@ textPlain(
       }
 
       c.save();
+      c.strokeStyle="rgba(0,0,0,.9)";
+      c.lineWidth=4;
+      drawRoundRect(c,cardX,cardY,cardW,cardH,10);
+      c.stroke();
       c.restore();
 
       buktiText(c,"SELAMAT KEPADA PEMENANG",540,915,38,"center","#f8d27f");
