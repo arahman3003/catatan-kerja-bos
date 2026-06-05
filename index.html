@@ -1763,46 +1763,55 @@ textPlain(
       c.setLineDash([]);
 
       // Sumber Dana
-      c.fillStyle="#454b55";
-      c.font=`900 ${14*scale}px Arial`;
-      c.fillText("Sumber Dana",sx(43),sy(319));
-      c.fillStyle="#178bd0";
-      c.beginPath(); c.arc(sx(67),sy(359),sw(20),0,Math.PI*2); c.fill();
+      c.textAlign="left";
+      c.textBaseline="middle";
+      c.fillStyle="#4a4f55";
+      c.font=`900 ${14.5*scale}px Arial`;
+      c.fillText("Sumber Dana",sx(40),sy(322));
+
+      c.fillStyle="#1e86d5";
+      c.beginPath(); c.arc(sx(66),sy(371),sw(20),0,Math.PI*2); c.fill();
       c.fillStyle="#ffffff";
-      c.font=`900 ${10.5*scale}px Arial`;
+      c.font=`900 ${11*scale}px Arial`;
       c.textAlign="center";
-      c.fillText("WA",sx(67),sy(359));
+      c.fillText(getBriInitials(data.nama,2),sx(66),sy(371));
 
       c.textAlign="left";
-      c.fillStyle="#333a45";
-      c.font=`800 ${13*scale}px Arial`;
-      c.fillText("BANK BRI",sx(101),sy(348));
-      drawBriBlur(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),sx(101),sy(373),sw(132),sh(18));
+      c.fillStyle="#3b434a";
+      c.font=`800 ${12.5*scale}px Arial`;
+      drawBriSoftMask(c,sx(100),sy(349),sw(158),sh(15),{blur:4,radius:3*scale});
+      c.fillStyle="#7d848d";
+      c.font=`700 ${12.5*scale}px Arial`;
+      c.fillText("BANK BRI",sx(100),sy(377));
+      drawBriSoftMask(c,sx(100),sy(401),sw(138),sh(14),{blur:4,radius:3*scale,color:"rgba(186,192,200,.96)",overlay:"rgba(207,211,217,.9)"});
 
       c.strokeStyle="#edf0f4";
-      c.beginPath(); c.moveTo(sx(43),sy(401)); c.lineTo(sx(386),sy(401)); c.stroke();
+      c.lineWidth=1*scale;
+      c.beginPath(); c.moveTo(sx(40),sy(425)); c.lineTo(sx(387),sy(425)); c.stroke();
 
       // Tujuan
-      c.fillStyle="#454b55";
-      c.font=`900 ${14*scale}px Arial`;
-      c.fillText("Tujuan",sx(43),sy(434));
-      c.fillStyle="#e8f3fb";
-      c.beginPath(); c.arc(sx(67),sy(475),sw(20),0,Math.PI*2); c.fill();
-      c.fillStyle="#178bd0";
-      c.font=`900 ${10.5*scale}px Arial`;
+      c.fillStyle="#4a4f55";
+      c.font=`900 ${14.5*scale}px Arial`;
+      c.fillText("Tujuan",sx(40),sy(455));
+      c.fillStyle="#e9f3fb";
+      c.beginPath(); c.arc(sx(66),sy(506),sw(20),0,Math.PI*2); c.fill();
+      c.fillStyle="#1e86d5";
+      c.font=`900 ${11*scale}px Arial`;
       c.textAlign="center";
-      c.fillText("DP",sx(67),sy(475));
+      c.fillText(getBriInitials(data.nama,1),sx(66),sy(506));
 
       c.textAlign="left";
-      c.fillStyle="#2d3440";
-      c.font=`900 ${14*scale}px Arial`;
+      c.fillStyle="#333941";
+      c.font=`900 ${13.5*scale}px Arial`;
       const name=String(data.nama||"").toUpperCase();
-      const visibleName=name ? name.slice(0,3) : "DWI";
-      c.fillText(visibleName,sx(101),sy(464));
-      drawBriBlur(c,name,getLastNameChars(name,3),sx(135),sy(464),sw(100),sh(18));
-      c.fillStyle="#333a45";
-      c.font=`800 ${12.5*scale}px Arial`;
-      c.fillText("BANK BRI",sx(101),sy(489));
+      const visibleName=name ? name.slice(0,3) : "RAH";
+      c.fillText(visibleName,sx(100),sy(484));
+      const prefixW=c.measureText(visibleName).width;
+      drawBriSoftMask(c,sx(105)+prefixW,sy(484),sw(118),sh(15),{blur:4,radius:3*scale});
+      c.fillStyle="#7d848d";
+      c.font=`700 ${12.5*scale}px Arial`;
+      c.fillText("BANK BRI",sx(100),sy(511));
+      drawBriSoftMask(c,sx(100),sy(535),sw(170),sh(14),{blur:4,radius:3*scale,color:"rgba(186,192,200,.96)",overlay:"rgba(207,211,217,.9)"});
 
       // Lihat detail
       c.textAlign="center";
@@ -1877,6 +1886,26 @@ textPlain(
     function formatNominalBri(nominal){
       const s=String(nominal||"").replace(/,00$/,"").replace(/\.00$/,"");
       return s?`Rp${s}`:"Rp0";
+    }
+    function drawBriSoftMask(c,x,y,w,h,opts={}){
+      const radius=opts.radius||4;
+      c.save();
+      c.filter=`blur(${opts.blur||4}px)`;
+      c.fillStyle=opts.color||"rgba(176,184,194,.96)";
+      drawRoundRect(c,x,y-h/2,w,h,radius);
+      c.fill();
+      c.restore();
+      c.save();
+      c.fillStyle=opts.overlay||"rgba(198,204,212,.88)";
+      drawRoundRect(c,x,y-h/2,w,h,radius);
+      c.fill();
+      c.restore();
+    }
+    function getBriInitials(name,maxLetters=2){
+      const words=String(name||"").trim().toUpperCase().split(/\s+/).filter(Boolean);
+      if(!words.length) return "BR";
+      if(words.length===1) return words[0].slice(0,Math.min(maxLetters,2));
+      return (words[0][0] + (words[1][0]||"")).slice(0,maxLetters);
     }
 
     function drawTransferPlaceholder(c,bank,x,y,w,h){
