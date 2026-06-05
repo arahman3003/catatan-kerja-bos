@@ -2023,7 +2023,9 @@ textPlain(
       try{const bg=await buktiLoadImg(backgroundBukti);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
       c.fillStyle="rgba(0,0,0,.14)";c.fillRect(0,0,1080,1080);
 
-      const cardX=325, cardY=70, cardW=430, cardH=selectedBank==="BCA"?690:(selectedBank==="BRI"?850:764);
+      const cardX=325, cardW=430;
+      const cardY=selectedBank==="BCA"?105:(selectedBank==="BRI"?100:118);
+      const cardH=selectedBank==="BCA"?690:(selectedBank==="BRI"?845:764);
       await drawJoniTogelLogo(c,cardX,cardY,cardW);
 
       c.save();
