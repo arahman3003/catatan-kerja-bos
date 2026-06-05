@@ -783,8 +783,8 @@ textPlain(
         if(lead){
           c.save();
           c.fillStyle=color;
-          c.globalAlpha=.55;
-          c.filter=`blur(${opts.blur||7}px)`;
+          c.globalAlpha=.42;
+          c.filter=`blur(${opts.blur||10}px)`;
           c.fillText(lead, x-revealWidth-gap, y);
           c.restore();
         }
@@ -842,14 +842,14 @@ textPlain(
         c.textBaseline="middle";
         c.fillStyle="#123f84";
         // Nominal BCA: tetap memakai IDR, ukuran lebih besar, ketebalan lebih tipis
-        c.font=`500 ${30*fr}px Arial`;
+        c.font=`600 ${30*fr}px Arial`;
         c.fillText(formatNominalTop(data.nominal),x+w/2,y+874*scale);
         c.restore();
 
         const valueColor="#4a4f58";
         const rightX=x+w-34*fr;
-        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+(1122-detailShiftSrcY)*scale,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
-        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+(1255-detailShiftSrcY)*scale,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+(1122-detailShiftSrcY)*scale,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:12,gap:8*fr});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+(1255-detailShiftSrcY)*scale,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:12,gap:8*fr});
         return;
       }
       c.save();
