@@ -1684,18 +1684,6 @@ textPlain(
       c.fillStyle="#177ec6";
       c.fillRect(x,y,w,205*scale);
 
-      // dekorasi halus bagian atas
-      c.save();
-      c.globalAlpha=.12;
-      c.strokeStyle="#ffffff";
-      c.lineWidth=1.1*scale;
-      for(let i=0;i<6;i++){
-        c.beginPath();
-        c.arc(sx(215),sy(14),sw(42+i*18),0,Math.PI*2);
-        c.stroke();
-      }
-      c.restore();
-
       // ikon centang
       c.fillStyle="#ffffff";
       c.beginPath();
