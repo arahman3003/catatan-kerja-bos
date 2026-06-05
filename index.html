@@ -713,15 +713,15 @@ textPlain(
       const s=w/500;
       const statusText=getPhoneStatusTime();
       c.save();
-      // Posisi ini mengikuti area jam asli di dalam layar iPhone template,
-      // bukan di background luar.
-      c.fillStyle="rgba(255,255,255,.96)";
-      c.fillRect(x+155*s,y+38*s,58*s,22*s);
+      // Ganti waktu asli pada template iPhone (mis. 9:41) dengan waktu dari panel.
+      // Tutup hanya area teks waktunya agar menyatu dengan status bar asli.
+      c.fillStyle="#ffffff";
+      c.fillRect(x+148*s,y+36*s,64*s,15*s);
       c.fillStyle="#111111";
-      c.font=`600 ${8.4*s}px Arial`;
+      c.font=`600 ${7.8*s}px Arial`;
       c.textAlign="center";
       c.textBaseline="middle";
-      c.fillText(statusText,x+178*s,y+49*s);
+      c.fillText(statusText,x+180*s,y+43.5*s);
       c.restore();
     }
     function drawTransferDateTime(c,bank,x,y,w,h){
