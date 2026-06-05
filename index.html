@@ -710,9 +710,9 @@ textPlain(
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
-        c.font=`${8.9*s}px Arial`;
+        c.font=`${8.0*s}px Arial`;
         c.fillStyle="#6f7680";
-        c.fillText(text,x+w/2,y+247*s);
+        c.fillText(text,x+w/2,y+246*s);
         c.restore();
         return;
       }
@@ -820,15 +820,20 @@ textPlain(
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
-        c.fillStyle="#0a3f82";
-        c.font=`900 ${14.9*s}px Arial`;
-        c.fillText(formatNominalTop(data.nominal),x+w/2,y+276*s);
+        c.fillStyle="#143a76";
+        c.font=`bold ${13.2*s}px Arial`;
+        c.fillText(formatNominalTop(data.nominal),x+w/2,y+274*s);
         c.restore();
 
         const valueColor="#4a4f58";
         const rightX=x+339*s;
         drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+316*s,{font:`bold ${9.3*s}px Arial`,color:valueColor,blur:6,gap:5*s});
         drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+350*s,{font:`bold ${9.1*s}px Arial`,color:valueColor,blur:6,gap:5*s});
+        c.save();
+        c.fillStyle="rgba(250,250,250,.94)";
+        c.fillRect(x+252*s,y+377*s,126*s,34*s);
+        c.restore();
+        drawValueLine(c,"Transfer ke rekening\nBCA",rightX,y+384*s,{font:`bold ${8.7*s}px Arial`,color:"#3f434b",lineGap:10*s});
         return;
       }
       c.save();
