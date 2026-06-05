@@ -562,7 +562,7 @@ textPlain(
     const BANK_OPTIONS=["BCA","BRI","BNI","CIMB","DANAMON","SEABANK","BANKJAGO","MAYBANK"];
     const JONITOGEL_LOGO_URL="https://i.imgur.com/k441qE0.png";
     const BANK_TRANSFER_BACKGROUNDS={
-      BCA:"bca-template.png",
+      BCA:"bca-template-phone.png",
       BRI:"",
       BNI:"",
       CIMB:"",
@@ -706,13 +706,13 @@ textPlain(
       const text=getBuktiDateTimeText();
       if(!text) return;
       if(bank==="BCA"){
-        const px=w/941, py=h/1672, fr=w/460;
+        const s=w/500;
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
-        c.font=`${14.6*fr}px Arial`;
+        c.font=`${10.8*s}px Arial`;
         c.fillStyle="#6f7680";
-        c.fillText(text,x+w/2,y+793*py);
+        c.fillText(text,x+w/2,y+252*s);
         c.restore();
         return;
       }
@@ -816,19 +816,19 @@ textPlain(
       if(!currentBuktiData) return;
       const data=currentBuktiData;
       if(bank==="BCA"){
-        const px=w/941, py=h/1672, fr=w/460;
+        const s=w/500;
         c.save();
         c.textAlign="center";
         c.textBaseline="middle";
         c.fillStyle="#0a3f82";
-        c.font=`900 ${25.5*fr}px Arial`;
-        c.fillText(formatNominalTop(data.nominal),x+w/2,y+872*py);
+        c.font=`900 ${17.2*s}px Arial`;
+        c.fillText(formatNominalTop(data.nominal),x+w/2,y+279*s);
         c.restore();
 
         const valueColor="#4a4f58";
-        const rightX=x+w-34*fr;
-        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+1122*py,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
-        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+1255*py,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:8,gap:8*fr});
+        const rightX=x+339*s;
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+316*s,{font:`bold ${9.3*s}px Arial`,color:valueColor,blur:6,gap:5*s});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+350*s,{font:`bold ${9.1*s}px Arial`,color:valueColor,blur:6,gap:5*s});
         return;
       }
       c.save();
@@ -932,15 +932,12 @@ textPlain(
       try{const bg=await buktiLoadImg(backgroundBukti);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
       c.fillStyle="rgba(0,0,0,.14)";c.fillRect(0,0,1080,1080);
 
-      const cardX=325, cardY=118, cardW=430, cardH=764;
+      const cardX=230, cardY=112, cardW=620, cardH=620;
       await drawJoniTogelLogo(c,cardX,cardY,cardW);
 
       c.save();
       c.shadowColor="rgba(0,0,0,.35)";
       c.shadowBlur=24;
-      drawRoundRect(c,cardX,cardY,cardW,cardH,10);
-      c.fillStyle="rgba(255,255,255,.98)";
-      c.fill();
       c.restore();
 
       if(bankBackground){
@@ -976,10 +973,6 @@ textPlain(
       }
 
       c.save();
-      c.strokeStyle="rgba(0,0,0,.9)";
-      c.lineWidth=4;
-      drawRoundRect(c,cardX,cardY,cardW,cardH,10);
-      c.stroke();
       c.restore();
 
       buktiText(c,"SELAMAT KEPADA PEMENANG",540,915,38,"center","#f8d27f");
