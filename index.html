@@ -1978,7 +1978,7 @@ textPlain(
         drawTransferPlaceholder(c,selectedBank,cardX,cardY,cardW,cardH);
       }
 
-      if(!buktiUploadedImage){
+      if(!buktiUploadedImage && selectedBank!=="BRI"){
         drawTransferDateTime(c,selectedBank,cardX,cardY,cardW,cardH);
         drawGeneratedBankData(c,selectedBank,cardX,cardY,cardW,cardH);
       }
