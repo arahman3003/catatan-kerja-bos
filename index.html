@@ -286,7 +286,155 @@
     #page-notepad .empty-note{background:rgba(3,8,17,.55);border-color:rgba(148,163,184,.22);color:#94a3b8}
     #page-notepad .note-card{box-shadow:0 14px 32px rgba(0,0,0,.32)}
 
-  </style>
+  
+    /* CHECKER NAWALA / LINK DOMAIN */
+    .nawala-shell{
+      display:grid;
+      grid-template-columns:320px minmax(0,1fr);
+      min-height:calc(100vh - 56px);
+      margin:-28px;
+      background:#0b0d13;
+      color:#f8fafc;
+      border-top:1px solid rgba(255,255,255,.06)
+    }
+    .nawala-topbar{
+      grid-column:1/-1;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:18px 24px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:#0d1017
+    }
+    .nawala-logo{
+      width:56px;height:56px;border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid rgba(91,167,255,.28);
+      background:#101522;font-size:25px
+    }
+    .nawala-topbar h2{font-size:21px;margin-bottom:5px;color:#fff}
+    .nawala-topbar p{font-size:13px;color:#91a0b7}
+    .nawala-side{
+      border-right:1px solid rgba(255,255,255,.08);
+      background:#0d1017;
+      display:flex;flex-direction:column;
+      min-height:720px
+    }
+    .nawala-side-head{padding:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .nawala-side-title{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:900;margin-bottom:16px}
+    .nawala-side-title span{
+      width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+      border:1px solid rgba(91,167,255,.26);background:#111725
+    }
+    .nawala-search{
+      display:flex;align-items:center;gap:10px;
+      background:#090d15;border:1px solid #222b3a;border-radius:13px;padding:0 13px;margin-bottom:12px
+    }
+    .nawala-search input{
+      border:none!important;background:transparent!important;color:#dfe8f5!important;
+      padding:12px 0!important;box-shadow:none!important
+    }
+    .nawala-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .nawala-btn{
+      border:1px solid #293344;background:#111722;color:#f8fafc;border-radius:13px;
+      padding:12px 14px;font-weight:900;cursor:pointer
+    }
+    .nawala-btn:hover{border-color:#3b82f6;background:#151d2b}
+    .nawala-domain-list{padding:14px;display:flex;flex-direction:column;gap:12px;overflow:auto;max-height:505px}
+    .nawala-domain-card{
+      border:1px solid rgba(34,197,94,.24);
+      border-radius:17px;padding:16px;background:#0d121a
+    }
+    .nawala-domain-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .nawala-domain-name{font-size:16px;font-weight:900;word-break:break-all}
+    .nawala-domain-date{font-size:12px;color:#74849d;margin-top:7px}
+    .nawala-more{
+      width:34px;height:34px;border-radius:12px;border:1px solid #283345;background:#111825;color:#dce8f7;cursor:pointer
+    }
+    .nawala-domain-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}
+    .status-pill{
+      display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;
+      font-size:12px;font-weight:900
+    }
+    .status-aman{color:#28e59a;border:1px solid rgba(40,229,154,.35);background:rgba(40,229,154,.06)}
+    .status-blocked{color:#ff5d7a;border:1px solid rgba(255,93,122,.35);background:rgba(255,93,122,.06)}
+    .status-wait{color:#f6c453;border:1px solid rgba(246,196,83,.35);background:rgba(246,196,83,.06)}
+    .nawala-last{font-size:12px;color:#7587a3}
+    .nawala-side-foot{
+      margin-top:auto;padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);
+      display:flex;justify-content:space-between;align-items:center;font-weight:900
+    }
+    .nawala-main{min-width:0;background:#0b0d13}
+    .nawala-main-head{
+      display:flex;justify-content:space-between;align-items:center;gap:16px;
+      padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08)
+    }
+    .nawala-main-title{display:flex;align-items:center;gap:14px}
+    .nawala-main-title span{
+      width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+      color:#f6c453;border:1px solid rgba(246,196,83,.25);background:#15130d
+    }
+    .nawala-main-title small{display:block;color:#7d8798;letter-spacing:1.5px;font-weight:900;margin-bottom:3px}
+    .nawala-main-title h3{font-size:22px}
+    .nawala-safe-all{
+      display:inline-flex;align-items:center;gap:9px;padding:9px 14px;border-radius:999px;
+      border:1px solid rgba(40,229,154,.25);color:#dce9f8;font-size:13px;font-weight:900
+    }
+    .nawala-summary{padding:18px 22px}
+    .nawala-summary-top{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:14px}
+    .nawala-summary-box{
+      min-height:58px;border:1px solid #273041;border-radius:15px;background:#11151d;
+      display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-weight:900
+    }
+    .nawala-summary-box.safe{border-color:rgba(40,229,154,.25);color:#29e69a}
+    .nawala-monitor-note{
+      margin-top:16px;border:1px solid rgba(255,255,255,.07);border-radius:17px;
+      padding:17px 18px;background:#0d1016;color:#aebbd0;font-size:13px
+    }
+    .nawala-stat-grid{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:0 22px 22px
+    }
+    .nawala-stat-card{
+      min-height:185px;border:1px solid #263047;border-radius:21px;background:#0d1016;padding:20px;
+      display:flex;flex-direction:column;justify-content:space-between
+    }
+    .nawala-stat-card.green{border-color:rgba(40,229,154,.25)}
+    .nawala-stat-card.red{border-color:rgba(255,93,122,.25)}
+    .nawala-stat-card.gold{border-color:rgba(246,196,83,.25)}
+    .nawala-stat-icon{
+      width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+      border:1px solid #2b3851;background:#101725;font-size:22px
+    }
+    .nawala-stat-number{font-size:48px;font-weight:900;line-height:1;margin-top:22px}
+    .nawala-stat-label{font-size:15px;color:#9db2d5;font-weight:900;margin-top:8px}
+    .nawala-stat-badge{
+      align-self:flex-end;margin-top:-50px;padding:5px 10px;border-radius:999px;
+      border:1px solid #344157;font-size:12px;font-weight:900
+    }
+    .domain-modal{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+      background:rgba(2,6,12,.72);backdrop-filter:blur(8px);z-index:1200;padding:20px
+    }
+    .domain-modal.show{display:flex}
+    .domain-modal-box{
+      width:min(520px,100%);background:#0d1421;border:1px solid rgba(246,196,83,.22);
+      border-radius:22px;padding:22px;box-shadow:0 24px 70px rgba(0,0,0,.45)
+    }
+    .domain-modal-box h3{color:#fff;margin-bottom:16px}
+    .domain-modal-box input{background:#09101b;color:#fff;border-color:#26344a}
+    .domain-modal-actions{display:flex;gap:10px;margin-top:14px}
+    @media(max-width:1050px){
+      .nawala-shell{grid-template-columns:1fr;margin:-18px}
+      .nawala-side{min-height:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+      .nawala-domain-list{max-height:340px}
+    }
+    @media(max-width:700px){
+      .nawala-summary-top,.nawala-stat-grid{grid-template-columns:1fr}
+      .nawala-topbar,.nawala-main-head{align-items:flex-start}
+      .nawala-main-head{flex-direction:column}
+    }
+
+</style>
 </head>
 <body class="dark-workspace">
   <div class="app">
@@ -401,7 +549,83 @@
         </section>
       </div>
       <div class="page" id="page-prediksi"><section class="hero"><div><div class="pill">🔮 Ruang Prediksi</div><h1>Prediksi</h1><p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Prediksi.</b><br>Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.</div></section></div>
-      <div class="page" id="page-link-domain"><section class="hero"><div><div class="pill">🔗 Ruang Domain</div><h1>Link Domain</h1><p>Ruang khusus untuk mengatur daftar link dan domain.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Link Domain.</b><br>Nanti bisa dibuat daftar domain, status aktif, link cadangan, tombol copy, edit, dan hapus.</div></section></div>
+      <div class="page" id="page-link-domain">
+        <section class="nawala-shell">
+          <header class="nawala-topbar">
+            <div class="nawala-logo">🛡️</div>
+            <div>
+              <h2>Checker Nawala</h2>
+              <p>Pantau domain dan status blokir Internet Positif dari satu halaman.</p>
+            </div>
+          </header>
+
+          <aside class="nawala-side">
+            <div class="nawala-side-head">
+              <div class="nawala-side-title"><span>🌐</span> Domain</div>
+              <div class="nawala-search"><span>⌕</span><input id="domainSearchInput" type="text" placeholder="Cari domain..."></div>
+              <div class="nawala-actions">
+                <button class="nawala-btn" id="addDomainBtn">＋ Tambah</button>
+                <button class="nawala-btn" id="domainFilterBtn">⚑ Semua</button>
+              </div>
+            </div>
+            <div class="nawala-domain-list" id="domainList"></div>
+            <div class="nawala-side-foot"><span id="domainCountFoot">0/0</span><span>‹　›</span></div>
+          </aside>
+
+          <main class="nawala-main">
+            <div class="nawala-main-head">
+              <div class="nawala-main-title">
+                <span>◔</span>
+                <div><small>RINGKASAN MONITOR</small><h3>STATUS CHECKER</h3></div>
+              </div>
+              <div class="nawala-safe-all"><span style="color:#29e69a">●</span><span id="allDomainStatus">Semua domain aman</span></div>
+            </div>
+
+            <div class="nawala-summary">
+              <div class="nawala-summary-top">
+                <div class="nawala-summary-box safe"><span>◉　Domain Terblokir</span><strong id="blockedTopCount">0</strong></div>
+                <button class="nawala-summary-box" id="pushDomainBtn">Aktifkan Push</button>
+                <button class="nawala-summary-box" id="manualCheckBtn">Cek Manual</button>
+              </div>
+              <div class="nawala-monitor-note" id="monitorNote">Monitoring aktif — belum ada domain yang diperiksa.</div>
+            </div>
+
+            <div class="nawala-stat-grid">
+              <div class="nawala-stat-card">
+                <div class="nawala-stat-icon">📄</div>
+                <div class="nawala-stat-badge">Aktif</div>
+                <div><div class="nawala-stat-number" id="totalDomainStat">0</div><div class="nawala-stat-label">Total Domain</div></div>
+              </div>
+              <div class="nawala-stat-card green">
+                <div class="nawala-stat-icon">📊</div>
+                <div class="nawala-stat-badge" id="safePercentBadge">0%</div>
+                <div><div class="nawala-stat-number" id="safeDomainStat">0</div><div class="nawala-stat-label">Aman</div></div>
+              </div>
+              <div class="nawala-stat-card red">
+                <div class="nawala-stat-icon">🛡</div>
+                <div class="nawala-stat-badge" id="blockedPercentBadge">0%</div>
+                <div><div class="nawala-stat-number" id="blockedDomainStat">0</div><div class="nawala-stat-label">Terblokir</div></div>
+              </div>
+              <div class="nawala-stat-card gold">
+                <div class="nawala-stat-icon">🕒</div>
+                <div class="nawala-stat-badge">5m</div>
+                <div><div class="nawala-stat-number" id="lastCheckStat">--:--</div><div class="nawala-stat-label">Last Check</div></div>
+              </div>
+            </div>
+          </main>
+        </section>
+
+        <div class="domain-modal" id="domainModal">
+          <div class="domain-modal-box">
+            <h3>Tambah Domain</h3>
+            <input type="text" id="newDomainInput" placeholder="contoh: domain.com">
+            <div class="domain-modal-actions">
+              <button class="btn btn-green" id="saveDomainBtn">Simpan Domain</button>
+              <button class="btn btn-soft" id="closeDomainModalBtn">Batal</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="page" id="page-selisih"><section class="hero"><div><div class="pill">⇄ Ruang Selisih</div><h1>Selisih</h1><p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Selisih.</b><br>Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div></section></div>
     </main>
   </div>
@@ -2355,6 +2579,126 @@ textPlain(
     if(updateBuktiBtn)updateBuktiBtn.addEventListener("click",()=>{drawBukti();showToast("Preview bukti diupdate")});
     if(resetBuktiBtn)resetBuktiBtn.addEventListener("click",()=>{if(buktiWallpaperSelect)buktiWallpaperSelect.value="0";if(bankSelect)bankSelect.value="BCA";if(buktiDateInput)buktiDateInput.value="";if(buktiTimeInput)buktiTimeInput.value="";setDefaultBuktiDateTime();buktiUploadedImage="";generateBuktiData(false);showToast("Bukti kemenangan direset")});
     if(downloadBuktiBtn)downloadBuktiBtn.addEventListener("click",()=>{drawBukti().then(()=>{const a=document.createElement("a");a.download=`bukti-kemenangan-${Date.now()}.png`;a.href=buktiCanvas.toDataURL("image/png");a.click()}).catch(()=>alert("Background bukti dari internet belum siap. Coba klik Download lagi."))});
+
+    // LINK DOMAIN / CHECKER NAWALA
+    const domainListEl=document.getElementById("domainList");
+    const domainSearchInput=document.getElementById("domainSearchInput");
+    const addDomainBtn=document.getElementById("addDomainBtn");
+    const domainFilterBtn=document.getElementById("domainFilterBtn");
+    const domainModal=document.getElementById("domainModal");
+    const newDomainInput=document.getElementById("newDomainInput");
+    const saveDomainBtn=document.getElementById("saveDomainBtn");
+    const closeDomainModalBtn=document.getElementById("closeDomainModalBtn");
+    const manualCheckBtn=document.getElementById("manualCheckBtn");
+    const pushDomainBtn=document.getElementById("pushDomainBtn");
+
+    let domainFilterMode="all";
+    let domainData=[];
+    try{
+      domainData=JSON.parse(localStorage.getItem("kerjaBossDomains")||"[]");
+    }catch(e){domainData=[]}
+    if(!domainData.length){
+      domainData=[
+        {id:"d1",domain:"apkstore.vip",status:"aman",updatedAt:Date.now()-60000},
+        {id:"d2",domain:"bentang.jonitogel788.life",status:"aman",updatedAt:Date.now()-60000},
+        {id:"d3",domain:"dkwl.b-cdn.net",status:"aman",updatedAt:Date.now()-60000}
+      ];
+    }
+
+    function saveDomainData(){
+      localStorage.setItem("kerjaBossDomains",JSON.stringify(domainData));
+    }
+    function normalizeDomain(value){
+      return String(value||"").trim().toLowerCase()
+        .replace(/^https?:\/\//,"").replace(/^www\./,"").replace(/\/+$/,"");
+    }
+    function domainStatusLabel(status){
+      if(status==="blocked") return ["Terblokir","status-blocked"];
+      if(status==="aman") return ["Aman","status-aman"];
+      return ["Belum Dicek","status-wait"];
+    }
+    function formatDomainUpdate(ts){
+      return new Date(ts||Date.now()).toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"});
+    }
+    function renderDomainChecker(){
+      if(!domainListEl) return;
+      const keyword=String(domainSearchInput?.value||"").toLowerCase();
+      let rows=domainData.filter(item=>item.domain.toLowerCase().includes(keyword));
+      if(domainFilterMode==="aman") rows=rows.filter(item=>item.status==="aman");
+      if(domainFilterMode==="blocked") rows=rows.filter(item=>item.status==="blocked");
+
+      domainListEl.innerHTML=rows.length?rows.map(item=>{
+        const [label,cls]=domainStatusLabel(item.status);
+        return `<div class="nawala-domain-card">
+          <div class="nawala-domain-row">
+            <div><div class="nawala-domain-name">${cleanText(item.domain)}</div><div class="nawala-domain-date">Terakhir diupdate: ${formatDomainUpdate(item.updatedAt)}</div></div>
+            <button class="nawala-more" onclick="removeDomain('${item.id}')" title="Hapus domain">⋮</button>
+          </div>
+          <div class="nawala-domain-bottom">
+            <span class="status-pill ${cls}">● ${label}</span>
+            <span class="nawala-last">Dicek: ${item.status==="wait"?"belum": "1 menit lalu"}</span>
+          </div>
+        </div>`;
+      }).join(""):'<div class="empty-note">Belum ada domain.</div>';
+
+      const total=domainData.length;
+      const aman=domainData.filter(x=>x.status==="aman").length;
+      const blocked=domainData.filter(x=>x.status==="blocked").length;
+      const safePct=total?Math.round(aman/total*100):0;
+      const blockedPct=total?Math.round(blocked/total*100):0;
+
+      const setText=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val};
+      setText("domainCountFoot",`${rows.length}/${total}`);
+      setText("totalDomainStat",total);
+      setText("safeDomainStat",aman);
+      setText("blockedDomainStat",blocked);
+      setText("blockedTopCount",blocked);
+      setText("safePercentBadge",`${safePct}%`);
+      setText("blockedPercentBadge",`${blockedPct}%`);
+      setText("allDomainStatus",blocked?"Ada domain terblokir":"Semua domain aman");
+      setText("monitorNote",total?`Monitoring aktif — ${aman} aman, ${blocked} terblokir, ${total-aman-blocked} belum dicek.`:"Monitoring aktif — belum ada domain yang diperiksa.");
+    }
+    function openDomainModal(){
+      if(!domainModal)return;
+      domainModal.classList.add("show");
+      newDomainInput.value="";
+      setTimeout(()=>newDomainInput.focus(),50);
+    }
+    function closeDomainModal(){
+      domainModal?.classList.remove("show");
+    }
+    function addNewDomain(){
+      const domain=normalizeDomain(newDomainInput?.value);
+      if(!domain){showToast("Masukkan domain terlebih dahulu");return}
+      if(domainData.some(x=>x.domain===domain)){showToast("Domain sudah ada");return}
+      domainData.unshift({id:"d"+Date.now(),domain,status:"wait",updatedAt:Date.now()});
+      saveDomainData();renderDomainChecker();closeDomainModal();showToast("Domain berhasil ditambahkan");
+    }
+    window.removeDomain=function(id){
+      if(!confirm("Hapus domain ini?"))return;
+      domainData=domainData.filter(x=>x.id!==id);
+      saveDomainData();renderDomainChecker();showToast("Domain dihapus");
+    }
+    if(addDomainBtn)addDomainBtn.addEventListener("click",openDomainModal);
+    if(closeDomainModalBtn)closeDomainModalBtn.addEventListener("click",closeDomainModal);
+    if(saveDomainBtn)saveDomainBtn.addEventListener("click",addNewDomain);
+    if(domainModal)domainModal.addEventListener("click",e=>{if(e.target===domainModal)closeDomainModal()});
+    if(newDomainInput)newDomainInput.addEventListener("keydown",e=>{if(e.key==="Enter")addNewDomain()});
+    if(domainSearchInput)domainSearchInput.addEventListener("input",renderDomainChecker);
+    if(domainFilterBtn)domainFilterBtn.addEventListener("click",()=>{
+      domainFilterMode=domainFilterMode==="all"?"aman":domainFilterMode==="aman"?"blocked":"all";
+      domainFilterBtn.textContent=domainFilterMode==="all"?"⚑ Semua":domainFilterMode==="aman"?"⚑ Aman":"⚑ Terblokir";
+      renderDomainChecker();
+    });
+    if(manualCheckBtn)manualCheckBtn.addEventListener("click",()=>{
+      const now=new Date();
+      const el=document.getElementById("lastCheckStat");
+      if(el)el.textContent=`${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+      showToast("Tampilan checker siap. Koneksi TrustPositif belum dipasang.");
+    });
+    if(pushDomainBtn)pushDomainBtn.addEventListener("click",()=>showToast("Push notification belum diaktifkan"));
+    renderDomainChecker();
+
     generateBuktiData(false);
     loadNotesFromFirebase();
 drawSyair();
