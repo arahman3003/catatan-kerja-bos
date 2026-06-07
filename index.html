@@ -466,6 +466,46 @@
       .nawala-main-head{flex-direction:column}
     }
 
+
+
+    /* MENU PK CS QUICK COPY */
+    #page-pk-cs{min-height:calc(100vh - 56px);color:#f8fafc}
+    .pkcs-shell{
+      min-height:calc(100vh - 56px);margin:-28px;padding:18px;
+      background:
+        radial-gradient(circle at 18% 0%,rgba(91,33,182,.30),transparent 34%),
+        radial-gradient(circle at 88% 18%,rgba(14,165,233,.18),transparent 30%),
+        linear-gradient(rgba(4,8,22,.76),rgba(4,8,22,.88)),
+        url("https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1800&q=80") center/cover fixed;
+      border-top:1px solid rgba(255,255,255,.08)
+    }
+    .pkcs-topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:14px}
+    .pkcs-brand{display:flex;align-items:center;gap:13px}
+    .pkcs-brand-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:23px;background:linear-gradient(145deg,#22d3ee,#7c3aed);box-shadow:0 0 24px rgba(34,211,238,.26)}
+    .pkcs-kicker{font-size:10px;color:#67e8f9;font-weight:900;letter-spacing:1.6px;margin-bottom:3px}
+    .pkcs-brand h2{font-size:18px;color:#fff;letter-spacing:.2px}
+    .pkcs-clock{min-width:210px;text-align:center;padding:11px 18px;border-radius:15px;background:linear-gradient(135deg,#4cc9f0 0%,#b44cff 55%,#4776ff 100%);border:1px solid rgba(255,255,255,.38);box-shadow:0 10px 28px rgba(60,50,255,.22)}
+    .pkcs-clock-label{font-size:12px;font-weight:900}.pkcs-clock-time{font-size:22px;font-weight:900;margin:2px 0}.pkcs-clock-date{font-size:11px;font-weight:800}
+    .pkcs-grid{display:grid;grid-template-columns:390px minmax(0,1fr);gap:20px;align-items:start}
+    .pkcs-panel{background:linear-gradient(180deg,rgba(12,23,47,.92),rgba(8,17,36,.94));border:1px solid rgba(120,151,213,.22);border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.30);backdrop-filter:blur(10px)}
+    .pkcs-left{padding:16px;min-height:610px;display:flex;flex-direction:column}
+    .pkcs-label-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.pkcs-label-row strong{font-size:13px}.pkcs-mini-badge{font-size:9px;font-weight:900;padding:5px 9px;border:1px solid rgba(34,211,238,.35);border-radius:999px;color:#67e8f9;background:rgba(8,145,178,.16)}
+    .pkcs-search{display:flex;align-items:center;gap:10px;background:#08142b;border:1px solid rgba(34,211,238,.28);border-radius:13px;padding:0 12px;box-shadow:0 0 0 3px rgba(34,211,238,.03)}
+    .pkcs-search input{border:none!important;background:transparent!important;color:#fff!important;padding:12px 0!important;box-shadow:none!important;font-size:13px}
+    .pkcs-search input::placeholder{color:#7f91ad}.pkcs-list{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-height:470px;overflow:auto;padding-right:4px}.pkcs-list::-webkit-scrollbar{width:6px}.pkcs-list::-webkit-scrollbar-thumb{background:#263755;border-radius:99px}
+    .pkcs-item{position:relative;width:100%;text-align:left;border:1px solid rgba(99,126,174,.25);background:rgba(19,32,57,.74);color:#fff;border-radius:14px;padding:14px 43px 14px 29px;font-weight:900;font-size:12px;cursor:pointer;transition:.18s}
+    .pkcs-item::before{content:"";position:absolute;left:11px;top:9px;bottom:9px;width:6px;border-radius:9px;background:linear-gradient(#22d3ee,#8b5cf6)}
+    .pkcs-item::after{content:"›";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:#22d3ee;font-size:22px}.pkcs-item:hover,.pkcs-item.active{transform:translateX(2px);border-color:rgba(139,92,246,.62);background:linear-gradient(90deg,rgba(37,99,235,.26),rgba(124,58,237,.25));box-shadow:0 8px 22px rgba(0,0,0,.18)}
+    .pkcs-add-btn{margin-top:12px;width:100%;border:none;border-radius:13px;padding:13px;font-weight:900;color:white;cursor:pointer;background:linear-gradient(135deg,#06b6d4,#7c3aed);box-shadow:0 8px 20px rgba(124,58,237,.24)}
+    .pkcs-right{padding:16px;min-height:610px}.pkcs-result-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.pkcs-result-head h3{font-size:13px}.pkcs-ready{font-size:9px;font-weight:900;padding:5px 10px;border:1px solid rgba(34,211,238,.35);border-radius:999px;color:#67e8f9;background:rgba(8,145,178,.16)}
+    .pkcs-result-box{min-height:235px;border:1px solid rgba(255,255,255,.42);border-radius:18px;padding:28px 34px;color:#101525;background:linear-gradient(115deg,#ef86bf 0%,#d6a2ed 42%,#70bdea 100%);display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.85;font-size:14px;font-weight:900;white-space:pre-wrap;word-break:break-word;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+    .pkcs-result-empty{color:rgba(15,23,42,.62)}
+    .pkcs-result-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:13px}.pkcs-note{font-size:10px;color:#94a3b8}.pkcs-actions{display:flex;gap:9px;flex-wrap:wrap}.pkcs-copy,.pkcs-edit,.pkcs-delete{border:none;border-radius:11px;padding:11px 17px;color:white;font-weight:900;cursor:pointer}.pkcs-copy{background:linear-gradient(180deg,#168cff,#1649e8);border:1px solid #58c7ff;box-shadow:0 0 18px rgba(37,99,235,.30)}.pkcs-edit{background:#263956}.pkcs-delete{background:#7f1d32}
+    .pkcs-empty{padding:30px 14px;text-align:center;color:#8090aa;border:1px dashed rgba(128,144,170,.28);border-radius:14px;font-size:12px}
+    .pkcs-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,6,23,.72);backdrop-filter:blur(8px);z-index:1500}.pkcs-modal.show{display:flex}.pkcs-modal-box{width:min(650px,100%);background:#0b1426;border:1px solid rgba(124,58,237,.45);border-radius:22px;padding:22px;box-shadow:0 25px 80px rgba(0,0,0,.5)}.pkcs-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.pkcs-modal-head h3{color:#fff}.pkcs-close{width:38px;height:38px;border:none;border-radius:11px;background:#17243b;color:white;font-size:18px;cursor:pointer}.pkcs-modal label{font-size:12px;font-weight:900;color:#cbd5e1}.pkcs-modal textarea{min-height:210px;background:#071020;color:white;border-color:#273754}.pkcs-modal input{background:#071020;color:white;border-color:#273754}.pkcs-modal-actions{display:flex;gap:10px;margin-top:14px}
+    @media(max-width:980px){.pkcs-grid{grid-template-columns:1fr}.pkcs-left,.pkcs-right{min-height:auto}.pkcs-list{max-height:330px}}
+    @media(max-width:640px){.pkcs-shell{margin:-18px;padding:12px}.pkcs-topbar{align-items:flex-start;flex-direction:column}.pkcs-clock{width:100%}.pkcs-result-box{padding:22px 18px;min-height:220px}.pkcs-result-foot{align-items:flex-start;flex-direction:column}.pkcs-actions{width:100%}.pkcs-copy,.pkcs-edit,.pkcs-delete{flex:1}}
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -483,7 +523,7 @@
           <button class="nav-btn" data-page="bukti-kemenangan">🏆 <span class="menu-label">Bukti Kemenangan</span></button>
           <button class="nav-btn" data-page="prediksi">🔮 <span class="menu-label">Prediksi</span></button>
         </div>
-        <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button><button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
+        <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button><button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button><button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
       </nav>
       <div class="sidebar-footer"><b>Status:</b> Sidebar bisa dibuka/tutup. Menu postingan tetap di dropdown.</div>
     </aside>
@@ -700,6 +740,28 @@ https://domain3.com"></textarea>
           </div>
         </div>
       </div>
+      <div class="page" id="page-pk-cs">
+        <section class="pkcs-shell">
+          <div class="pkcs-topbar">
+            <div class="pkcs-brand"><div class="pkcs-brand-icon">📋</div><div><div class="pkcs-kicker">PK CS QUICK COPY</div><h2>BACA DULU SEBELUM DI COPY</h2></div></div>
+            <div class="pkcs-clock"><div class="pkcs-clock-label">WAKTU INDONESIA</div><div class="pkcs-clock-time" id="pkcsClockTime">--:--:--</div><div class="pkcs-clock-date" id="pkcsClockDate">-</div></div>
+          </div>
+          <div class="pkcs-grid">
+            <div class="pkcs-panel pkcs-left">
+              <div class="pkcs-label-row"><strong>Cari Template</strong><span class="pkcs-mini-badge">SEARCH</span></div>
+              <div class="pkcs-search"><span>⌕</span><input type="text" id="pkcsSearchInput" placeholder="Masukkan kata kunci PK..."></div>
+              <div class="pkcs-list" id="pkcsList"></div>
+              <button type="button" class="pkcs-add-btn" id="pkcsAddBtn">＋ INPUT PK BARU</button>
+            </div>
+            <div class="pkcs-panel pkcs-right">
+              <div class="pkcs-result-head"><h3>Hasil / Isi</h3><span class="pkcs-ready">READY TO COPY</span></div>
+              <div class="pkcs-result-box"><div id="pkcsResult" class="pkcs-result-empty">Pilih kata kunci PK di sebelah kiri untuk menampilkan isinya.</div></div>
+              <div class="pkcs-result-foot"><span class="pkcs-note">Pastikan isi sudah benar sebelum dicopy.</span><div class="pkcs-actions"><button class="pkcs-edit" id="pkcsEditBtn" type="button">Edit</button><button class="pkcs-delete" id="pkcsDeleteBtn" type="button">Hapus</button><button class="pkcs-copy" id="pkcsCopyBtn" type="button">Copy Sekarang</button></div></div>
+            </div>
+          </div>
+        </section>
+        <div class="pkcs-modal" id="pkcsModal"><div class="pkcs-modal-box"><div class="pkcs-modal-head"><h3 id="pkcsModalTitle">Input PK Baru</h3><button type="button" class="pkcs-close" id="pkcsCloseBtn">✕</button></div><input type="hidden" id="pkcsEditId"><div class="form-group"><label for="pkcsKeywordInput">Kata Kunci / Judul PK</label><input type="text" id="pkcsKeywordInput" placeholder="Contoh: MANDIRI KE QRIS"></div><div class="form-group"><label for="pkcsContentInput">Isi PK</label><textarea id="pkcsContentInput" placeholder="Masukkan isi lengkap PK di sini..."></textarea></div><div class="pkcs-modal-actions"><button class="btn btn-green" id="pkcsSaveBtn" type="button">Simpan PK</button><button class="btn btn-soft" id="pkcsCancelBtn" type="button">Batal</button></div></div></div>
+      </div>
       <div class="page" id="page-selisih"><section class="hero"><div><div class="pill">⇄ Ruang Selisih</div><h1>Selisih</h1><p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Selisih.</b><br>Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div></section></div>
     </main>
   </div>
@@ -734,7 +796,7 @@ let selectedImageNoteId = null;
       const t=document.getElementById(`page-${n}`);
       if(t)t.classList.add("active");
       sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));
-      document.body.classList.toggle("dark-workspace",["dashboard","notepad","link-domain","selisih"].includes(n));
+      document.body.classList.toggle("dark-workspace",["dashboard","notepad","link-domain","pk-cs","selisih"].includes(n));
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
@@ -2855,6 +2917,32 @@ textPlain(
     generateBuktiData(false);
     loadNotesFromFirebase();
 drawSyair();
-  </script>
+  
+
+    /* PK CS QUICK COPY */
+    const PKCS_STORAGE_KEY="kerjaboss_pkcs_v1";
+    const pkcsSearchInput=document.getElementById("pkcsSearchInput"),pkcsList=document.getElementById("pkcsList"),pkcsResult=document.getElementById("pkcsResult"),pkcsAddBtn=document.getElementById("pkcsAddBtn"),pkcsEditBtn=document.getElementById("pkcsEditBtn"),pkcsDeleteBtn=document.getElementById("pkcsDeleteBtn"),pkcsCopyBtn=document.getElementById("pkcsCopyBtn"),pkcsModal=document.getElementById("pkcsModal"),pkcsModalTitle=document.getElementById("pkcsModalTitle"),pkcsEditId=document.getElementById("pkcsEditId"),pkcsKeywordInput=document.getElementById("pkcsKeywordInput"),pkcsContentInput=document.getElementById("pkcsContentInput"),pkcsSaveBtn=document.getElementById("pkcsSaveBtn"),pkcsCloseBtn=document.getElementById("pkcsCloseBtn"),pkcsCancelBtn=document.getElementById("pkcsCancelBtn");
+    let pkcsData=[],pkcsSelectedId=null;
+    const pkcsDefaults=[
+      {id:"pk1",keyword:"MANDIRI KE QRIS",content:"Yth, Member Setia. Untuk sementara Deposit via MANDIRI sedang terkendala sehingga untuk sementara kami alihkan ke QRIS dynamic terlebih dahulu.\n\nKami sarankan silakan deposit ke QRIS kami atau memilih rekening antar bank kami yang lain dalam status online dan normal ya bosku."},
+      {id:"pk2",keyword:"CARA MAIN BBFS",content:"Silakan masukkan isi PK CARA MAIN BBFS melalui tombol Edit."},
+      {id:"pk3",keyword:"BBFS ADALAH",content:"Silakan masukkan isi PK BBFS ADALAH melalui tombol Edit."}
+    ];
+    function pkcsLoad(){try{const saved=JSON.parse(localStorage.getItem(PKCS_STORAGE_KEY)||"null");pkcsData=Array.isArray(saved)?saved:pkcsDefaults;localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}catch(e){pkcsData=[...pkcsDefaults]}pkcsSelectedId=pkcsData[0]?.id||null;pkcsRender()}
+    function pkcsPersist(){localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}
+    function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+    function pkcsRender(){if(!pkcsList)return;const q=(pkcsSearchInput?.value||"").trim().toLowerCase();const shown=pkcsData.filter(x=>x.keyword.toLowerCase().includes(q)||x.content.toLowerCase().includes(q));pkcsList.innerHTML=shown.length?shown.map(x=>`<button type="button" class="pkcs-item ${x.id===pkcsSelectedId?'active':''}" data-id="${x.id}">${pkcsEscape(x.keyword)}</button>`).join(""):`<div class="pkcs-empty">PK tidak ditemukan.<br>Tekan INPUT PK BARU untuk menambahkan.</div>`;const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(active){pkcsResult.textContent=active.content;pkcsResult.classList.remove("pkcs-result-empty")}else{pkcsResult.textContent="Pilih kata kunci PK di sebelah kiri untuk menampilkan isinya.";pkcsResult.classList.add("pkcs-result-empty")}}
+    function pkcsOpen(edit=false){const active=pkcsData.find(x=>x.id===pkcsSelectedId);pkcsEditId.value=edit&&active?active.id:"";pkcsKeywordInput.value=edit&&active?active.keyword:"";pkcsContentInput.value=edit&&active?active.content:"";pkcsModalTitle.textContent=edit?"Edit PK":"Input PK Baru";pkcsModal.classList.add("show");setTimeout(()=>pkcsKeywordInput.focus(),60)}
+    function pkcsClose(){pkcsModal.classList.remove("show")}
+    pkcsSearchInput?.addEventListener("input",pkcsRender);
+    pkcsList?.addEventListener("click",e=>{const b=e.target.closest(".pkcs-item");if(!b)return;pkcsSelectedId=b.dataset.id;pkcsRender()});
+    pkcsAddBtn?.addEventListener("click",()=>pkcsOpen(false));pkcsEditBtn?.addEventListener("click",()=>{if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");pkcsOpen(true)});
+    pkcsSaveBtn?.addEventListener("click",()=>{const keyword=pkcsKeywordInput.value.trim(),content=pkcsContentInput.value.trim();if(!keyword||!content)return showToast("Kata kunci dan isi PK wajib diisi");const id=pkcsEditId.value;if(id){const idx=pkcsData.findIndex(x=>x.id===id);if(idx>=0)pkcsData[idx]={...pkcsData[idx],keyword,content,updatedAt:Date.now()};pkcsSelectedId=id}else{const newId="pk_"+Date.now();pkcsData.unshift({id:newId,keyword,content,updatedAt:Date.now()});pkcsSelectedId=newId}pkcsPersist();pkcsRender();pkcsClose();showToast(id?"PK berhasil diperbarui":"PK baru berhasil ditambahkan")});
+    pkcsDeleteBtn?.addEventListener("click",()=>{if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(!active||!confirm(`Hapus PK “${active.keyword}”?`))return;pkcsData=pkcsData.filter(x=>x.id!==pkcsSelectedId);pkcsSelectedId=pkcsData[0]?.id||null;pkcsPersist();pkcsRender();showToast("PK berhasil dihapus")});
+    pkcsCopyBtn?.addEventListener("click",async()=>{const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(!active)return showToast("Pilih PK terlebih dahulu");try{await navigator.clipboard.writeText(active.content);showToast("Isi PK berhasil dicopy")}catch(e){const ta=document.createElement("textarea");ta.value=active.content;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();showToast("Isi PK berhasil dicopy")}});
+    pkcsCloseBtn?.addEventListener("click",pkcsClose);pkcsCancelBtn?.addEventListener("click",pkcsClose);pkcsModal?.addEventListener("click",e=>{if(e.target===pkcsModal)pkcsClose()});
+    function pkcsUpdateClock(){const d=new Date();const time=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(d);const date=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",weekday:"long",day:"2-digit",month:"long",year:"numeric"}).format(d);const t=document.getElementById("pkcsClockTime"),dt=document.getElementById("pkcsClockDate");if(t)t.textContent=time.replace(/\./g,":");if(dt)dt.textContent=date}setInterval(pkcsUpdateClock,1000);pkcsUpdateClock();pkcsLoad();
+
+</script>
 </body>
 </html>
