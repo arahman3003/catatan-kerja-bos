@@ -2928,8 +2928,61 @@ drawSyair();
       {id:"pk2",keyword:"CARA MAIN BBFS",content:"Silakan masukkan isi PK CARA MAIN BBFS melalui tombol Edit."},
       {id:"pk3",keyword:"BBFS ADALAH",content:"Silakan masukkan isi PK BBFS ADALAH melalui tombol Edit."}
     ];
-    function pkcsLoad(){try{const saved=JSON.parse(localStorage.getItem(PKCS_STORAGE_KEY)||"null");pkcsData=Array.isArray(saved)?saved:pkcsDefaults;localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}catch(e){pkcsData=[...pkcsDefaults]}pkcsSelectedId=null;pkcsRender(false)}
-    function pkcsPersist(){localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}
+    const pkCsDb=firebase.database().ref("pkCsKerjaBoss");
+    let pkcsMigrating=false;
+    function pkcsLocalBackup(){
+      try{localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}catch(e){console.warn("Backup lokal PK gagal",e)}
+    }
+    function pkcsReadLocal(){
+      try{
+        const saved=JSON.parse(localStorage.getItem(PKCS_STORAGE_KEY)||"null");
+        return Array.isArray(saved)&&saved.length?saved:null;
+      }catch(e){return null}
+    }
+    function pkcsLoad(){
+      pkCsDb.on("value",async snapshot=>{
+        const data=snapshot.val()||{};
+        const firebaseItems=Object.values(data);
+        if(!firebaseItems.length&&!pkcsMigrating){
+          pkcsMigrating=true;
+          const source=pkcsReadLocal()||pkcsDefaults;
+          const updates={};
+          source.forEach((item,index)=>{
+            const id=String(item.id||(`pk_${Date.now()}_${index}`));
+            updates[id]={...item,id,updatedAt:item.updatedAt||Date.now()-index};
+          });
+          try{
+            await pkCsDb.update(updates);
+            showToast(pkcsReadLocal()?"Data PK lama dipindahkan ke Firebase":"Data awal PK disimpan ke Firebase");
+          }catch(error){
+            console.error(error);
+            pkcsData=source;
+            pkcsSelectedId=null;
+            pkcsRender(false);
+            showToast("Gagal menghubungkan PK CS ke Firebase");
+          }finally{pkcsMigrating=false}
+          return;
+        }
+        pkcsData=firebaseItems.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+        pkcsLocalBackup();
+        if(pkcsSelectedId&&!pkcsData.some(x=>x.id===pkcsSelectedId))pkcsSelectedId=null;
+        pkcsRender(false);
+      },error=>{
+        console.error(error);
+        pkcsData=pkcsReadLocal()||[...pkcsDefaults];
+        pkcsSelectedId=null;
+        pkcsRender(false);
+        showToast("Gagal memuat PK dari Firebase");
+      });
+    }
+    async function pkcsSaveFirebase(item){
+      try{await pkCsDb.child(item.id).set(item);return true}
+      catch(error){console.error(error);showToast("Gagal menyimpan PK ke Firebase");return false}
+    }
+    async function pkcsDeleteFirebase(id){
+      try{await pkCsDb.child(id).remove();return true}
+      catch(error){console.error(error);showToast("Gagal menghapus PK dari Firebase");return false}
+    }
     function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
     function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
     function pkcsGetMatches(query){
@@ -2978,8 +3031,35 @@ drawSyair();
     pkcsSearchInput?.addEventListener("input",()=>pkcsRender(true));
     pkcsList?.addEventListener("click",e=>{const b=e.target.closest(".pkcs-item");if(!b)return;pkcsSelectedId=b.dataset.id;pkcsRender(false)});
     pkcsAddBtn?.addEventListener("click",()=>pkcsOpen(false));pkcsEditBtn?.addEventListener("click",()=>{if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");pkcsOpen(true)});
-    pkcsSaveBtn?.addEventListener("click",()=>{const keyword=pkcsKeywordInput.value.trim(),content=pkcsContentInput.value.trim();if(!keyword||!content)return showToast("Kata kunci dan isi PK wajib diisi");const id=pkcsEditId.value;if(id){const idx=pkcsData.findIndex(x=>x.id===id);if(idx>=0)pkcsData[idx]={...pkcsData[idx],keyword,content,updatedAt:Date.now()};pkcsSelectedId=id}else{const newId="pk_"+Date.now();pkcsData.unshift({id:newId,keyword,content,updatedAt:Date.now()});pkcsSelectedId=newId}pkcsPersist();pkcsRender();pkcsClose();showToast(id?"PK berhasil diperbarui":"PK baru berhasil ditambahkan")});
-    pkcsDeleteBtn?.addEventListener("click",()=>{if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(!active||!confirm(`Hapus PK “${active.keyword}”?`))return;pkcsData=pkcsData.filter(x=>x.id!==pkcsSelectedId);pkcsSelectedId=pkcsData[0]?.id||null;pkcsPersist();pkcsRender();showToast("PK berhasil dihapus")});
+    pkcsSaveBtn?.addEventListener("click",async()=>{
+      const keyword=pkcsKeywordInput.value.trim(),content=pkcsContentInput.value.trim();
+      if(!keyword||!content)return showToast("Kata kunci dan isi PK wajib diisi");
+      const oldId=pkcsEditId.value;
+      const item=oldId
+        ? {...(pkcsData.find(x=>x.id===oldId)||{}),id:oldId,keyword,content,updatedAt:Date.now()}
+        : {id:"pk_"+Date.now(),keyword,content,updatedAt:Date.now()};
+      pkcsSaveBtn.disabled=true;
+      pkcsSaveBtn.textContent="Menyimpan...";
+      const ok=await pkcsSaveFirebase(item);
+      pkcsSaveBtn.disabled=false;
+      pkcsSaveBtn.textContent="Simpan PK";
+      if(!ok)return;
+      pkcsSelectedId=item.id;
+      pkcsClose();
+      showToast(oldId?"PK berhasil diperbarui di Firebase":"PK baru berhasil disimpan ke Firebase");
+    });
+    pkcsDeleteBtn?.addEventListener("click",async()=>{
+      if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");
+      const active=pkcsData.find(x=>x.id===pkcsSelectedId);
+      if(!active||!confirm(`Hapus PK “${active.keyword}”?`))return;
+      const deletedId=pkcsSelectedId;
+      pkcsDeleteBtn.disabled=true;
+      const ok=await pkcsDeleteFirebase(deletedId);
+      pkcsDeleteBtn.disabled=false;
+      if(!ok)return;
+      pkcsSelectedId=null;
+      showToast("PK berhasil dihapus dari Firebase");
+    });
     pkcsCopyBtn?.addEventListener("click",async()=>{const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(!active)return showToast("Pilih PK terlebih dahulu");try{await navigator.clipboard.writeText(active.content);showToast("Isi PK berhasil dicopy")}catch(e){const ta=document.createElement("textarea");ta.value=active.content;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();showToast("Isi PK berhasil dicopy")}});
     pkcsCloseBtn?.addEventListener("click",pkcsClose);pkcsCancelBtn?.addEventListener("click",pkcsClose);pkcsModal?.addEventListener("click",e=>{if(e.target===pkcsModal)pkcsClose()});
     function pkcsUpdateClock(){const d=new Date();const time=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(d);const date=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",weekday:"long",day:"2-digit",month:"long",year:"numeric"}).format(d);const t=document.getElementById("pkcsClockTime"),dt=document.getElementById("pkcsClockDate");if(t)t.textContent=time.replace(/\./g,":");if(dt)dt.textContent=date}setInterval(pkcsUpdateClock,1000);pkcsUpdateClock();pkcsLoad();
