@@ -644,7 +644,7 @@
                 Aktifkan Push
               </button>
               <button class="nawala-action-btn" id="manualCheckBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6v6h-6"/><path d="M4 18v-6h6"/><path d="M7 9a8 8 0 0 1 13-3l0 0"/><path d="M17 15a8 8 0 0 1-13 3l0 0"/></svg>
+                <span style="font-size:18px;line-height:1">💻</span>
                 Cek Manual
               </button>
             </div>
@@ -654,18 +654,14 @@
             <div class="nawala-stat-grid">
               <div class="nawala-stat-card">
                 <div class="nawala-stat-top">
-                  <div class="nawala-stat-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#9eb8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>
-                  </div>
+                  <div class="nawala-stat-icon" style="font-size:24px">🗂</div>
                   <div class="nawala-stat-badge">Aktif</div>
                 </div>
                 <div><div class="nawala-stat-number" id="totalDomainStat">0</div><div class="nawala-stat-label">Total Domain</div></div>
               </div>
               <div class="nawala-stat-card green">
                 <div class="nawala-stat-top">
-                  <div class="nawala-stat-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#31e9a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M7 16V9"/><path d="M12 16V5"/><path d="M17 16v-3"/></svg>
-                  </div>
+                  <div class="nawala-stat-icon" style="font-size:24px">✅</div>
                   <div class="nawala-stat-badge" id="safePercentBadge">0%</div>
                 </div>
                 <div><div class="nawala-stat-number" id="safeDomainStat">0</div><div class="nawala-stat-label">Aman</div></div>
@@ -679,9 +675,7 @@
               </div>
               <div class="nawala-stat-card gold">
                 <div class="nawala-stat-top">
-                  <div class="nawala-stat-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#f6c453" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
-                  </div>
+                  <div class="nawala-stat-icon" style="font-size:24px">🕒</div>
                   <div class="nawala-stat-badge">5m</div>
                 </div>
                 <div><div class="nawala-stat-number" id="lastCheckStat">--:--</div><div class="nawala-stat-label">Last Check</div></div>
@@ -2824,7 +2818,7 @@ textPlain(
     async function runManualDomainCheck(){
       if(!domainData.length){showToast("Belum ada domain untuk dicek");return}
       manualCheckBtn.disabled=true;
-      manualCheckBtn.textContent="Sedang Mengecek...";
+      manualCheckBtn.textContent="💻 Sedang Mengecek...";
       if(monitorNote)monitorNote.textContent=`Memeriksa ${domainData.length} domain ke database Nawala...`;
 
       try{
@@ -2851,7 +2845,7 @@ textPlain(
         if(monitorNote)monitorNote.textContent="Pengecekan gagal. Coba lagi beberapa saat.";
       }finally{
         manualCheckBtn.disabled=false;
-        manualCheckBtn.textContent="Cek Manual";
+        manualCheckBtn.textContent="💻 Cek Manual";
       }
     }
     if(manualCheckBtn)manualCheckBtn.addEventListener("click",runManualDomainCheck);
