@@ -495,7 +495,7 @@
     .pkcs-search input::placeholder{color:#7f91ad}.pkcs-list{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-height:470px;overflow:auto;padding-right:4px}.pkcs-list::-webkit-scrollbar{width:6px}.pkcs-list::-webkit-scrollbar-thumb{background:#263755;border-radius:99px}
     .pkcs-item{position:relative;width:100%;text-align:center;border:1px solid rgba(99,126,174,.25);background:rgba(19,32,57,.74);color:#fff;border-radius:14px;padding:14px 43px 14px 29px;font-weight:900;font-size:12px;cursor:pointer;transition:.18s}
     .pkcs-item::before{content:"";position:absolute;left:11px;top:9px;bottom:9px;width:6px;border-radius:9px;background:linear-gradient(#22d3ee,#8b5cf6)}
-    .pkcs-item::after{content:"›";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:#22d3ee;font-size:22px}.pkcs-item:hover,.pkcs-item.active,.pkcs-item.locked{transform:translateX(2px);border-color:rgba(139,92,246,.62);background:linear-gradient(90deg,rgba(37,99,235,.26),rgba(124,58,237,.25));box-shadow:0 8px 22px rgba(0,0,0,.18)}.pkcs-item.locked::after{content:"🔒";font-size:16px;right:14px}
+    .pkcs-item::after{content:"›";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:#22d3ee;font-size:22px}.pkcs-item:hover,.pkcs-item.active{transform:translateX(2px);border-color:rgba(139,92,246,.62);background:linear-gradient(90deg,rgba(37,99,235,.26),rgba(124,58,237,.25));box-shadow:0 8px 22px rgba(0,0,0,.18)}
     .pkcs-add-btn{margin-top:12px;width:100%;border:none;border-radius:13px;padding:13px;font-weight:900;color:white;cursor:pointer;background:linear-gradient(135deg,#06b6d4,#7c3aed);box-shadow:0 8px 20px rgba(124,58,237,.24)}
     .pkcs-right{padding:16px;min-height:610px}.pkcs-result-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.pkcs-result-head h3{font-size:13px}.pkcs-ready{font-size:9px;font-weight:900;padding:5px 10px;border:1px solid rgba(34,211,238,.35);border-radius:999px;color:#67e8f9;background:rgba(8,145,178,.16)}
     .pkcs-result-box{min-height:235px;border:1px solid rgba(255,255,255,.42);border-radius:18px;padding:28px 34px;color:#101525;background:linear-gradient(115deg,#ef86bf 0%,#d6a2ed 42%,#70bdea 100%);display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.85;font-size:14px;font-weight:900;white-space:pre-wrap;word-break:break-word;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
@@ -3008,7 +3008,7 @@ drawSyair();
     }
     function pkcsUpdateReadyBadge(){
       if(!pkcsReadyBadge)return;
-      pkcsReadyBadge.textContent=pkcsLockedId?"PK TERKUNCI":"READY TO COPY";
+      pkcsReadyBadge.textContent="READY TO COPY";
     }
     function pkcsRender(autoSelectTop=false){
       if(!pkcsList)return;
@@ -3022,25 +3022,27 @@ drawSyair();
         pkcsUpdateReadyBadge();
         return;
       }
-      const shown=pkcsGetMatches(q);
-      let active=null;
-      const lockedItem=pkcsLockedId?pkcsData.find(x=>x.id===pkcsLockedId):null;
-      if(pkcsLockedId&&!lockedItem)pkcsLockedId=null;
-      if(pkcsLockedId&&lockedItem){
-        pkcsSelectedId=pkcsLockedId;
-        active=lockedItem;
-      }else{
-        if(autoSelectTop||!shown.some(x=>x.id===pkcsSelectedId))pkcsSelectedId=shown[0]?.id||null;
-        active=shown.find(x=>x.id===pkcsSelectedId)||shown[0]||null;
-        if(active)pkcsSelectedId=active.id;
+
+      const selected=pkcsLockedId?pkcsData.find(x=>x.id===pkcsLockedId):null;
+      if(selected){
+        pkcsSelectedId=selected.id;
+        pkcsList.innerHTML="";
+        pkcsResult.textContent=selected.content;
+        pkcsResult.classList.remove("pkcs-result-empty");
+        pkcsUpdateReadyBadge();
+        return;
       }
-      pkcsList.innerHTML=shown.length?shown.map(x=>`<button type="button" class="pkcs-item ${x.id===pkcsSelectedId?'active':''} ${x.id===pkcsLockedId?'locked':''}" data-id="${x.id}">${pkcsEscape(x.keyword)}</button>`).join(""):`<div class="pkcs-empty">PK tidak ditemukan.<br>Tekan INPUT PK BARU untuk menambahkan.</div>`;
+
+      const shown=pkcsGetMatches(q);
+      if(autoSelectTop||!shown.some(x=>x.id===pkcsSelectedId))pkcsSelectedId=shown[0]?.id||null;
+      pkcsList.innerHTML=shown.length?shown.map(x=>`<button type="button" class="pkcs-item ${x.id===pkcsSelectedId?'active':''}" data-id="${x.id}">${pkcsEscape(x.keyword)}</button>`).join(""):`<div class="pkcs-empty">PK tidak ditemukan.<br>Tekan INPUT PK BARU untuk menambahkan.</div>`;
+      const active=shown.find(x=>x.id===pkcsSelectedId)||shown[0];
       if(active){
+        pkcsSelectedId=active.id;
         pkcsResult.textContent=active.content;
         pkcsResult.classList.remove("pkcs-result-empty");
       }else{
         pkcsSelectedId=null;
-        pkcsLockedId=null;
         pkcsResult.textContent="PK tidak ditemukan untuk kata kunci tersebut.";
         pkcsResult.classList.add("pkcs-result-empty");
       }
@@ -3048,8 +3050,8 @@ drawSyair();
     }
     function pkcsOpen(edit=false){const active=pkcsData.find(x=>x.id===pkcsSelectedId);pkcsEditId.value=edit&&active?active.id:"";pkcsKeywordInput.value=edit&&active?active.keyword:"";pkcsContentInput.value=edit&&active?active.content:"";pkcsModalTitle.textContent=edit?"Edit PK":"Input PK Baru";pkcsModal.classList.add("show");setTimeout(()=>pkcsKeywordInput.focus(),60)}
     function pkcsClose(){pkcsModal.classList.remove("show")}
-    pkcsSearchInput?.addEventListener("input",()=>pkcsRender(!pkcsLockedId));
-    pkcsList?.addEventListener("click",e=>{const b=e.target.closest(".pkcs-item");if(!b)return;pkcsSelectedId=b.dataset.id;pkcsLockedId=b.dataset.id;pkcsRender(false);showToast("PK dikunci. Klik template lain untuk mengganti.")});
+    pkcsSearchInput?.addEventListener("input",()=>{pkcsLockedId=null;pkcsRender(true)});
+    pkcsList?.addEventListener("click",e=>{const b=e.target.closest(".pkcs-item");if(!b)return;const active=pkcsData.find(x=>x.id===b.dataset.id);if(!active)return;pkcsSelectedId=active.id;pkcsLockedId=active.id;pkcsSearchInput.value=active.keyword;pkcsRender(false)});
     pkcsAddBtn?.addEventListener("click",()=>pkcsOpen(false));pkcsEditBtn?.addEventListener("click",()=>{if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");pkcsOpen(true)});
     pkcsSaveBtn?.addEventListener("click",async()=>{
       const keyword=pkcsKeywordInput.value.trim(),content=pkcsContentInput.value.trim();
