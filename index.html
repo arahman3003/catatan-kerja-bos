@@ -31,7 +31,27 @@
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
     body{background:var(--bg);color:var(--text);min-height:100vh}
     .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-    .sidebar{background:var(--sidebar);color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh}
+    .sidebar{background:var(--sidebar);color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh;transition:.25s ease;width:280px;overflow:hidden}
+    .sidebar-toggle{width:46px;height:46px;border:none;border-radius:16px;background:linear-gradient(180deg,#f7d87d 0%,#c88d24 100%);color:#1b1304;font-size:22px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+    .sidebar-toggle:hover{transform:translateY(-1px)}
+    body.sidebar-collapsed .app{grid-template-columns:86px 1fr}
+    body.sidebar-collapsed .sidebar{width:86px;padding:18px 12px}
+    body.sidebar-collapsed .brand-box,body.sidebar-collapsed .menu-title,body.sidebar-collapsed .sidebar-footer{display:none}
+    body.sidebar-collapsed .menu{gap:12px;align-items:center}
+    body.sidebar-collapsed .menu button,body.sidebar-collapsed .submenu button{width:52px;height:52px;border-radius:16px;padding:0;justify-content:center;text-align:center;font-size:0;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(245,211,126,.35);box-shadow:inset 0 0 18px rgba(245,211,126,.08)}
+    body.sidebar-collapsed .menu button:hover,body.sidebar-collapsed .menu button.active,body.sidebar-collapsed .submenu button:hover,body.sidebar-collapsed .submenu button.active{background:linear-gradient(180deg,#f7d87d 0%,#c98d2b 100%);color:#111827}
+    body.sidebar-collapsed .menu button::before,body.sidebar-collapsed .submenu button::before{font-size:22px;line-height:1}
+    body.sidebar-collapsed .nav-btn[data-page="dashboard"]::before{content:"▣"}
+    body.sidebar-collapsed .nav-btn[data-page="notepad"]::before{content:"📝"}
+    body.sidebar-collapsed #postinganDropdownBtn::before{content:"🏆"}
+    body.sidebar-collapsed .nav-btn[data-page="syair-togel"]::before{content:"📜"}
+    body.sidebar-collapsed .nav-btn[data-page="bukti-kemenangan"]::before{content:"🏆"}
+    body.sidebar-collapsed .nav-btn[data-page="prediksi"]::before{content:"🔮"}
+    body.sidebar-collapsed .nav-btn[data-page="link-domain"]::before{content:"🔗"}
+    body.sidebar-collapsed .nav-btn[data-page="selisih"]::before{content:"⚡"}
+    body.sidebar-collapsed .dropdown-btn span{display:none}
+    body.sidebar-collapsed .submenu{display:flex;margin:0;padding:0;border-left:none;gap:12px}
+    body.sidebar-collapsed .submenu.show{display:flex}
     .brand-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:18px;margin-bottom:24px}
     .brand{font-size:26px;font-weight:900;margin-bottom:8px;letter-spacing:-.5px}.brand span{color:var(--green)}
     .subtitle{font-size:13px;color:#aab4c4;line-height:1.5}.menu-title{font-size:12px;color:#64748b;text-transform:uppercase;font-weight:800;letter-spacing:1px;margin:18px 12px 10px}
@@ -133,12 +153,13 @@
     .bukti-panel{background:linear-gradient(180deg,#071832 0%,#041024 100%);border:2px solid rgba(84,184,255,.55);border-radius:24px;box-shadow:0 12px 30px rgba(0,0,0,.25);padding:18px;position:sticky;top:18px;z-index:5;color:#eaf6ff}
     .bukti-panel-title{font-size:18px;font-weight:900;color:#bfe9ff;text-align:center;line-height:1.35;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
     .bukti-controls{display:flex;flex-direction:column;gap:11px;margin:0}.bukti-controls .form-group{margin-bottom:0;gap:6px}.bukti-controls label{color:#bfe9ff;font-size:12px;text-transform:uppercase;letter-spacing:.5px}.bukti-controls input,.bukti-controls select{background:#f8fcff;border:1px solid rgba(84,184,255,.45);font-weight:800;color:#0f172a}.bukti-controls .btn{width:100%;justify-content:center;background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%)!important;color:#fff!important;border:1px solid rgba(255,255,255,.18)!important;box-shadow:0 8px 18px rgba(34,197,94,.22)!important;border-radius:14px;font-weight:900}.bukti-controls .btn:hover{background:linear-gradient(180deg,#2fe06d 0%,#17b152 100%)!important;transform:translateY(-1px)}.bukti-help{font-size:12px;color:#cdeeff;line-height:1.6;text-align:center;margin-top:12px;opacity:.92}
-    @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid-menu{grid-template-columns:repeat(2,1fr)}.syair-shell,.bukti-shell{grid-template-columns:1fr}.syair-panel,.bukti-panel{position:static;transform:none}}@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.sidebar-footer{position:static;margin-top:18px}.menu{display:grid;grid-template-columns:repeat(2,1fr)}.submenu{grid-column:1/-1}.hero,.notepad-header,.section-head{flex-direction:column;align-items:flex-start}}@media(max-width:640px){.main{padding:18px}.sidebar{padding:18px}.cards,.grid-menu{grid-template-columns:1fr}.hero,.section,.notepad-panel{border-radius:20px;padding:20px}.hero-actions,.btn,.notepad-header button,.form-actions button,.syair-select{width:100%;max-width:100%}.note-grid{grid-template-columns:1fr}.syair-clean{padding:0!important}.syair-panel{padding:16px}.syair-stage{padding:0;border-radius:0}}
+    @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid-menu{grid-template-columns:repeat(2,1fr)}.syair-shell,.bukti-shell{grid-template-columns:1fr}.syair-panel,.bukti-panel{position:static;transform:none}}@media(max-width:900px){.app,body.sidebar-collapsed .app{grid-template-columns:1fr}.sidebar,body.sidebar-collapsed .sidebar{position:relative;height:auto;width:auto}.sidebar-footer{position:static;margin-top:18px}.menu{display:grid;grid-template-columns:repeat(2,1fr)}body.sidebar-collapsed .menu{display:flex}.submenu{grid-column:1/-1}.hero,.notepad-header,.section-head{flex-direction:column;align-items:flex-start}}@media(max-width:640px){.main{padding:18px}.sidebar{padding:18px}.cards,.grid-menu{grid-template-columns:1fr}.hero,.section,.notepad-panel{border-radius:20px;padding:20px}.hero-actions,.btn,.notepad-header button,.form-actions button,.syair-select{width:100%;max-width:100%}.note-grid{grid-template-columns:1fr}.syair-clean{padding:0!important}.syair-panel{padding:16px}.syair-stage{padding:0;border-radius:0}}
   </style>
 </head>
 <body>
   <div class="app">
     <aside class="sidebar">
+      <button type="button" class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu">☰</button>
       <div class="brand-box"><div class="brand">Kerja<span>Boss</span></div><div class="subtitle">Dashboard kerja untuk notepad, postingan, domain, dan selisih.</div></div>
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
@@ -221,7 +242,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 
   <script>
-    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn");
+    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
@@ -241,6 +262,7 @@ let notepadData = [];
 let selectedImageNoteId = null;
     function showToast(t){toast.textContent=t;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}
     function openPage(n){pages.forEach(p=>p.classList.remove("active"));const t=document.getElementById(`page-${n}`);if(t)t.classList.add("active");sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));window.scrollTo({top:0,behavior:"smooth"})}
+    if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
     navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
