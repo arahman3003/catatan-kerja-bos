@@ -493,7 +493,7 @@
     .pkcs-search{display:flex;align-items:center;gap:10px;background:#08142b;border:1px solid rgba(34,211,238,.28);border-radius:13px;padding:0 12px;box-shadow:0 0 0 3px rgba(34,211,238,.03)}
     .pkcs-search input{border:none!important;background:transparent!important;color:#fff!important;padding:12px 0!important;box-shadow:none!important;font-size:13px}
     .pkcs-search input::placeholder{color:#7f91ad}.pkcs-list{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-height:470px;overflow:auto;padding-right:4px}.pkcs-list::-webkit-scrollbar{width:6px}.pkcs-list::-webkit-scrollbar-thumb{background:#263755;border-radius:99px}
-    .pkcs-item{position:relative;width:100%;text-align:left;border:1px solid rgba(99,126,174,.25);background:rgba(19,32,57,.74);color:#fff;border-radius:14px;padding:14px 43px 14px 29px;font-weight:900;font-size:12px;cursor:pointer;transition:.18s}
+    .pkcs-item{position:relative;width:100%;text-align:center;border:1px solid rgba(99,126,174,.25);background:rgba(19,32,57,.74);color:#fff;border-radius:14px;padding:14px 43px 14px 29px;font-weight:900;font-size:12px;cursor:pointer;transition:.18s}
     .pkcs-item::before{content:"";position:absolute;left:11px;top:9px;bottom:9px;width:6px;border-radius:9px;background:linear-gradient(#22d3ee,#8b5cf6)}
     .pkcs-item::after{content:"›";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:#22d3ee;font-size:22px}.pkcs-item:hover,.pkcs-item.active{transform:translateX(2px);border-color:rgba(139,92,246,.62);background:linear-gradient(90deg,rgba(37,99,235,.26),rgba(124,58,237,.25));box-shadow:0 8px 22px rgba(0,0,0,.18)}
     .pkcs-add-btn{margin-top:12px;width:100%;border:none;border-radius:13px;padding:13px;font-weight:900;color:white;cursor:pointer;background:linear-gradient(135deg,#06b6d4,#7c3aed);box-shadow:0 8px 20px rgba(124,58,237,.24)}
@@ -3062,7 +3062,32 @@ drawSyair();
       pkcsSelectedId=null;
       showToast("PK berhasil dihapus dari Firebase");
     });
-    pkcsCopyBtn?.addEventListener("click",async()=>{const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(!active)return showToast("Pilih PK terlebih dahulu");try{await navigator.clipboard.writeText(active.content);showToast("Isi PK berhasil dicopy")}catch(e){const ta=document.createElement("textarea");ta.value=active.content;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();showToast("Isi PK berhasil dicopy")}});
+    async function pkcsCopyActive(){
+      const active=pkcsData.find(x=>x.id===pkcsSelectedId);
+      if(!active)return showToast("Pilih PK terlebih dahulu");
+      try{
+        await navigator.clipboard.writeText(active.content);
+        showToast("Isi PK berhasil dicopy");
+      }catch(e){
+        const ta=document.createElement("textarea");
+        ta.value=active.content;
+        ta.style.position="fixed";
+        ta.style.opacity="0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast("Isi PK berhasil dicopy");
+      }
+    }
+    pkcsCopyBtn?.addEventListener("click",pkcsCopyActive);
+    document.addEventListener("keydown",e=>{
+      if(!(e.altKey&&e.key.toLowerCase()==="c"))return;
+      const pkcsPage=document.getElementById("page-pk-cs");
+      if(!pkcsPage?.classList.contains("active")||pkcsModal?.classList.contains("show"))return;
+      e.preventDefault();
+      pkcsCopyActive();
+    });
     pkcsCloseBtn?.addEventListener("click",pkcsClose);pkcsCancelBtn?.addEventListener("click",pkcsClose);pkcsModal?.addEventListener("click",e=>{if(e.target===pkcsModal)pkcsClose()});
     const PKCS_SHEET_CSV_URL="https://docs.google.com/spreadsheets/d/1_EcGXsjxv_iMbk4Vyg8YimzQyj-ymayWe6nNS1ezHc8/gviz/tq?tqx=out:csv&gid=1081718576";
     function pkcsParseCsv(text){
