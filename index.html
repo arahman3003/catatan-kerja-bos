@@ -752,6 +752,8 @@ https://domain3.com"></textarea>
               <div class="pkcs-search"><span>⌕</span><input type="text" id="pkcsSearchInput" placeholder="Masukkan kata kunci PK..."></div>
               <div class="pkcs-list" id="pkcsList"></div>
               <button type="button" class="pkcs-add-btn" id="pkcsAddBtn">＋ INPUT PK BARU</button>
+              <button type="button" class="pkcs-add-btn" id="pkcsImportSheetBtn">⇩ IMPORT GOOGLE SHEET</button>
+              <div id="pkcsImportStatus" style="margin-top:8px;font-size:12px;color:#a8b7ca;text-align:center"></div>
             </div>
             <div class="pkcs-panel pkcs-right">
               <div class="pkcs-result-head"><h3>Hasil / Isi</h3><span class="pkcs-ready">READY TO COPY</span></div>
@@ -2921,7 +2923,7 @@ drawSyair();
 
     /* PK CS QUICK COPY */
     const PKCS_STORAGE_KEY="kerjaboss_pkcs_v1";
-    const pkcsSearchInput=document.getElementById("pkcsSearchInput"),pkcsList=document.getElementById("pkcsList"),pkcsResult=document.getElementById("pkcsResult"),pkcsAddBtn=document.getElementById("pkcsAddBtn"),pkcsEditBtn=document.getElementById("pkcsEditBtn"),pkcsDeleteBtn=document.getElementById("pkcsDeleteBtn"),pkcsCopyBtn=document.getElementById("pkcsCopyBtn"),pkcsModal=document.getElementById("pkcsModal"),pkcsModalTitle=document.getElementById("pkcsModalTitle"),pkcsEditId=document.getElementById("pkcsEditId"),pkcsKeywordInput=document.getElementById("pkcsKeywordInput"),pkcsContentInput=document.getElementById("pkcsContentInput"),pkcsSaveBtn=document.getElementById("pkcsSaveBtn"),pkcsCloseBtn=document.getElementById("pkcsCloseBtn"),pkcsCancelBtn=document.getElementById("pkcsCancelBtn");
+    const pkcsSearchInput=document.getElementById("pkcsSearchInput"),pkcsList=document.getElementById("pkcsList"),pkcsResult=document.getElementById("pkcsResult"),pkcsAddBtn=document.getElementById("pkcsAddBtn"),pkcsEditBtn=document.getElementById("pkcsEditBtn"),pkcsDeleteBtn=document.getElementById("pkcsDeleteBtn"),pkcsCopyBtn=document.getElementById("pkcsCopyBtn"),pkcsModal=document.getElementById("pkcsModal"),pkcsModalTitle=document.getElementById("pkcsModalTitle"),pkcsEditId=document.getElementById("pkcsEditId"),pkcsKeywordInput=document.getElementById("pkcsKeywordInput"),pkcsContentInput=document.getElementById("pkcsContentInput"),pkcsSaveBtn=document.getElementById("pkcsSaveBtn"),pkcsCloseBtn=document.getElementById("pkcsCloseBtn"),pkcsCancelBtn=document.getElementById("pkcsCancelBtn"),pkcsImportSheetBtn=document.getElementById("pkcsImportSheetBtn"),pkcsImportStatus=document.getElementById("pkcsImportStatus");
     let pkcsData=[],pkcsSelectedId=null;
     const pkcsDefaults=[
       {id:"pk1",keyword:"MANDIRI KE QRIS",content:"Yth, Member Setia. Untuk sementara Deposit via MANDIRI sedang terkendala sehingga untuk sementara kami alihkan ke QRIS dynamic terlebih dahulu.\n\nKami sarankan silakan deposit ke QRIS kami atau memilih rekening antar bank kami yang lain dalam status online dan normal ya bosku."},
@@ -3062,6 +3064,66 @@ drawSyair();
     });
     pkcsCopyBtn?.addEventListener("click",async()=>{const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(!active)return showToast("Pilih PK terlebih dahulu");try{await navigator.clipboard.writeText(active.content);showToast("Isi PK berhasil dicopy")}catch(e){const ta=document.createElement("textarea");ta.value=active.content;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();showToast("Isi PK berhasil dicopy")}});
     pkcsCloseBtn?.addEventListener("click",pkcsClose);pkcsCancelBtn?.addEventListener("click",pkcsClose);pkcsModal?.addEventListener("click",e=>{if(e.target===pkcsModal)pkcsClose()});
+    const PKCS_SHEET_CSV_URL="https://docs.google.com/spreadsheets/d/1_EcGXsjxv_iMbk4Vyg8YimzQyj-ymayWe6nNS1ezHc8/gviz/tq?tqx=out:csv&gid=1081718576";
+    function pkcsParseCsv(text){
+      const rows=[];let row=[],cell="",quoted=false;
+      for(let i=0;i<text.length;i++){
+        const ch=text[i],next=text[i+1];
+        if(ch==='"'&&quoted&&next==='"'){cell+='"';i++;continue}
+        if(ch==='"'){quoted=!quoted;continue}
+        if(ch===','&&!quoted){row.push(cell);cell="";continue}
+        if((ch==='\n'||ch==='\r')&&!quoted){
+          if(ch==='\r'&&next==='\n')i++;
+          row.push(cell);cell="";
+          if(row.some(v=>String(v).trim()!==""))rows.push(row);
+          row=[];continue;
+        }
+        cell+=ch;
+      }
+      row.push(cell);if(row.some(v=>String(v).trim()!==""))rows.push(row);
+      return rows;
+    }
+    async function pkcsImportGoogleSheet(){
+      if(!pkcsImportSheetBtn)return;
+      pkcsImportSheetBtn.disabled=true;
+      pkcsImportSheetBtn.textContent="MENGAMBIL DATA...";
+      if(pkcsImportStatus)pkcsImportStatus.textContent="Membaca kolom A dan B dari Google Sheet...";
+      try{
+        const response=await fetch(PKCS_SHEET_CSV_URL,{cache:"no-store"});
+        if(!response.ok)throw new Error("HTTP "+response.status);
+        const text=await response.text();
+        const rows=pkcsParseCsv(text);
+        const existingByKeyword=new Map(pkcsData.map(x=>[pkcsNormalize(x.keyword),x]));
+        const updates={};let added=0,updated=0,skipped=0;
+        rows.forEach((row,index)=>{
+          const keyword=String(row[0]||"").trim();
+          const content=String(row[1]||"").trim();
+          if(!keyword||!content){skipped++;return}
+          const normalized=pkcsNormalize(keyword);
+          if(index===0&&(/kata.?kunci|keyword|judul/i.test(keyword))&&(/isi|content|pk/i.test(content))){skipped++;return}
+          const old=existingByKeyword.get(normalized);
+          const id=old?.id||("pk_sheet_"+Date.now()+"_"+index);
+          updates[id]={id,keyword,content,updatedAt:Date.now()+index};
+          if(old)updated++;else added++;
+        });
+        if(!Object.keys(updates).length)throw new Error("Tidak ada data valid pada kolom A dan B");
+        await pkCsDb.update(updates);
+        const msg=`Import selesai: ${added} baru, ${updated} diperbarui, ${skipped} dilewati.`;
+        if(pkcsImportStatus)pkcsImportStatus.textContent=msg;
+        showToast(msg);
+      }catch(error){
+        console.error(error);
+        const msg="Import gagal. Pastikan Google Sheet dapat dilihat oleh siapa saja yang memiliki link dan tab PK memakai gid 1081718576.";
+        if(pkcsImportStatus)pkcsImportStatus.textContent=msg;
+        showToast("Gagal import Google Sheet");
+      }finally{
+        pkcsImportSheetBtn.disabled=false;
+        pkcsImportSheetBtn.textContent="⇩ IMPORT GOOGLE SHEET";
+      }
+    }
+    pkcsImportSheetBtn?.addEventListener("click",()=>{
+      if(confirm("Import semua data kolom A sebagai kata kunci dan kolom B sebagai isi PK ke Firebase? Data dengan kata kunci sama akan diperbarui."))pkcsImportGoogleSheet();
+    });
     function pkcsUpdateClock(){const d=new Date();const time=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(d);const date=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",weekday:"long",day:"2-digit",month:"long",year:"numeric"}).format(d);const t=document.getElementById("pkcsClockTime"),dt=document.getElementById("pkcsClockDate");if(t)t.textContent=time.replace(/\./g,":");if(dt)dt.textContent=date}setInterval(pkcsUpdateClock,1000);pkcsUpdateClock();pkcsLoad();
 
 </script>
