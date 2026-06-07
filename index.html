@@ -169,9 +169,68 @@
     .bukti-panel-title{font-size:18px;font-weight:900;color:#bfe9ff;text-align:center;line-height:1.35;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
     .bukti-controls{display:flex;flex-direction:column;gap:11px;margin:0}.bukti-controls .form-group{margin-bottom:0;gap:6px}.bukti-controls label{color:#bfe9ff;font-size:12px;text-transform:uppercase;letter-spacing:.5px}.bukti-controls input,.bukti-controls select{background:#f8fcff;border:1px solid rgba(84,184,255,.45);font-weight:800;color:#0f172a}.bukti-controls .btn{width:100%;justify-content:center;background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%)!important;color:#fff!important;border:1px solid rgba(255,255,255,.18)!important;box-shadow:0 8px 18px rgba(34,197,94,.22)!important;border-radius:14px;font-weight:900}.bukti-controls .btn:hover{background:linear-gradient(180deg,#2fe06d 0%,#17b152 100%)!important;transform:translateY(-1px)}.bukti-help{font-size:12px;color:#cdeeff;line-height:1.6;text-align:center;margin-top:12px;opacity:.92}
     @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.grid-menu{grid-template-columns:repeat(2,1fr)}.syair-shell,.bukti-shell{grid-template-columns:1fr}.syair-panel,.bukti-panel{position:static;transform:none}}@media(max-width:900px){.app,body.sidebar-collapsed .app{grid-template-columns:1fr}.sidebar,body.sidebar-collapsed .sidebar{position:relative;height:auto;width:auto}.sidebar-footer{position:static;margin-top:18px}.menu{display:grid;grid-template-columns:repeat(2,1fr)}body.sidebar-collapsed .menu{display:flex}.submenu{grid-column:1/-1}.hero,.notepad-header,.section-head{flex-direction:column;align-items:flex-start}}@media(max-width:640px){.main{padding:18px}.sidebar{padding:18px}.cards,.grid-menu{grid-template-columns:1fr}.hero,.section,.notepad-panel{border-radius:20px;padding:20px}.hero-actions,.btn,.notepad-header button,.form-actions button,.syair-select{width:100%;max-width:100%}.note-grid{grid-template-columns:1fr}.syair-clean{padding:0!important}.syair-panel{padding:16px}.syair-stage{padding:0;border-radius:0}}
+  
+
+    /* TEMA GELAP MODERN: DASHBOARD, NOTEPAD, LINK DOMAIN, SELISIH */
+    body.dark-workspace{background:#050914}
+    body.dark-workspace .main{background:
+      radial-gradient(circle at 12% 8%,rgba(34,197,94,.10),transparent 30%),
+      radial-gradient(circle at 88% 12%,rgba(246,196,83,.08),transparent 28%),
+      linear-gradient(145deg,#070d19 0%,#0b1322 55%,#060b14 100%);
+      min-height:100vh}
+
+    #page-dashboard,#page-notepad,#page-link-domain,#page-selisih{
+      color:#e5edf8;
+      min-height:calc(100vh - 56px)
+    }
+    #page-dashboard .hero,#page-dashboard .section,#page-dashboard .card,#page-dashboard .feature-card,
+    #page-notepad .hero,#page-notepad .notepad-panel,#page-notepad .notes-area,
+    #page-link-domain .hero,#page-link-domain .section,
+    #page-selisih .hero,#page-selisih .section{
+      background:linear-gradient(180deg,rgba(15,24,40,.96) 0%,rgba(8,15,27,.96) 100%);
+      border:1px solid rgba(148,163,184,.15);
+      box-shadow:0 18px 45px rgba(0,0,0,.28);
+      color:#e8eef8
+    }
+    #page-dashboard .hero,#page-notepad .hero,#page-link-domain .hero,#page-selisih .hero{
+      background:
+        radial-gradient(circle at 88% 10%,rgba(34,197,94,.13),transparent 28%),
+        linear-gradient(135deg,#101b2d 0%,#09111e 100%)
+    }
+    #page-dashboard .hero h1,#page-dashboard .section-title,#page-dashboard .feature-card h3,
+    #page-notepad .hero h1,#page-notepad .notepad-header h2,
+    #page-link-domain .hero h1,#page-link-domain .section-title,
+    #page-selisih .hero h1,#page-selisih .section-title{
+      color:#f8fafc
+    }
+    #page-dashboard .hero p,#page-dashboard .section-desc,#page-dashboard .feature-card p,#page-dashboard .card .label,#page-dashboard .card .mini,
+    #page-notepad .hero p,#page-notepad .notepad-header p,
+    #page-link-domain .hero p,#page-link-domain .section-desc,
+    #page-selisih .hero p,#page-selisih .section-desc{
+      color:#93a4ba
+    }
+    #page-dashboard .card .number{color:#f6c453}
+    #page-dashboard .feature-card{transition:.22s ease}
+    #page-dashboard .feature-card:hover{transform:translateY(-3px);border-color:rgba(34,197,94,.38);box-shadow:0 16px 34px rgba(0,0,0,.32)}
+    #page-dashboard .pill,#page-notepad .pill,#page-link-domain .pill,#page-selisih .pill{
+      background:rgba(34,197,94,.13);color:#86efac;border-color:rgba(34,197,94,.30)
+    }
+    #page-dashboard .btn-primary,#page-notepad .btn-primary,#page-link-domain .btn-primary,#page-selisih .btn-primary{
+      background:linear-gradient(180deg,#1f2d43 0%,#111c2e 100%);border:1px solid rgba(148,163,184,.18)
+    }
+    #page-dashboard .btn-green,#page-notepad .btn-green,#page-link-domain .btn-green,#page-selisih .btn-green{
+      background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%)
+    }
+    #page-link-domain .placeholder-box,#page-selisih .placeholder-box{
+      background:rgba(3,8,17,.48);border-color:rgba(148,163,184,.22);color:#cbd5e1
+    }
+    #page-notepad .note-toolbar h3{color:#f8fafc}
+    #page-notepad .empty-note{background:rgba(3,8,17,.55);border-color:rgba(148,163,184,.22);color:#94a3b8}
+    #page-notepad .note-card{box-shadow:0 14px 32px rgba(0,0,0,.32)}
+
   </style>
 </head>
-<body>
+<body class="dark-workspace">
   <div class="app">
     <aside class="sidebar">
       <button type="button" class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu">☰</button>
@@ -276,7 +335,14 @@ const notesDb = firebase.database().ref("notepadKerjaBoss");
 let notepadData = [];
 let selectedImageNoteId = null;
     function showToast(t){toast.textContent=t;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}
-    function openPage(n){pages.forEach(p=>p.classList.remove("active"));const t=document.getElementById(`page-${n}`);if(t)t.classList.add("active");sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));window.scrollTo({top:0,behavior:"smooth"})}
+    function openPage(n){
+      pages.forEach(p=>p.classList.remove("active"));
+      const t=document.getElementById(`page-${n}`);
+      if(t)t.classList.add("active");
+      sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));
+      document.body.classList.toggle("dark-workspace",["dashboard","notepad","link-domain","selisih"].includes(n));
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
     navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
