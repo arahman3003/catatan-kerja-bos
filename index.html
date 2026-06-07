@@ -342,11 +342,13 @@ let selectedImageNoteId = null;
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
-    navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
+    navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
+    if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
+    if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
     modalColors.addEventListener("click",e=>{if(e.target.dataset.color)setModalColor(e.target.dataset.color)});function resetNoteForm(){noteForm.reset();noteEditId.value="";noteFormTitle.textContent="Tambah Catatan";noteSaveBtn.textContent="Simpan Catatan";setModalColor("yellow")}function saveNotepad(){
-  noteTotalStat.textContent = notepadData.length;
+  if(noteTotalStat) noteTotalStat.textContent = notepadData.length;
 }
 
 function loadNotesFromFirebase(){
@@ -388,7 +390,7 @@ async function deleteNoteFromFirebase(id){
     function cleanText(t){return String(t||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
     function formatDate(ts){return new Date(ts).toLocaleString("id-ID",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})}
     function renderColorPopover(note){const c=["yellow","green","blue","pink","purple","orange","cyan","rose"];return `<div class="color-popover" id="color-popover-${note.id}">${c.map(x=>`<button class="color-dot dot-${x} ${note.color===x?"active":""}" onclick="changeNoteColor('${note.id}','${x}')"></button>`).join("")}</div>`}
-    function renderNotes(){noteTotalStat.textContent=notepadData.length;if(!notepadData.length){noteList.innerHTML='<div class="empty-note">Belum ada catatan.</div>';return}noteList.innerHTML=notepadData.map(note=>`<div class="note-card color-${note.color||"yellow"}">${renderColorPopover(note)}<div class="note-main" onclick="editNote('${note.id}')"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")}
+    function renderNotes(){if(noteTotalStat)noteTotalStat.textContent=notepadData.length;if(!notepadData.length){noteList.innerHTML='<div class="empty-note">Belum ada catatan.</div>';return}noteList.innerHTML=notepadData.map(note=>`<div class="note-card color-${note.color||"yellow"}">${renderColorPopover(note)}<div class="note-main" onclick="editNote('${note.id}')"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")}
     openNoteModalBtn.addEventListener("click",()=>{resetNoteForm();openNoteModal()});closeNoteModalBtn.addEventListener("click",closeNoteModal);noteModal.addEventListener("click",e=>{if(e.target===noteModal)closeNoteModal()});noteResetBtn.addEventListener("click",()=>{resetNoteForm();showToast("Form dibersihkan")});
     noteForm.addEventListener("submit", async e => {
   e.preventDefault();
