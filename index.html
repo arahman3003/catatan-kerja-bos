@@ -34,23 +34,37 @@
     .sidebar{background:var(--sidebar);color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh;transition:.25s ease;width:280px;overflow:hidden}
     .sidebar-toggle{width:46px;height:46px;border:none;border-radius:16px;background:linear-gradient(180deg,#f7d87d 0%,#c88d24 100%);color:#1b1304;font-size:22px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
     .sidebar-toggle:hover{transform:translateY(-1px)}
-    body.sidebar-collapsed .app{grid-template-columns:86px 1fr}
-    body.sidebar-collapsed .sidebar{width:86px;padding:18px 12px}
+    body.sidebar-collapsed .app{grid-template-columns:82px 1fr}
+    body.sidebar-collapsed .sidebar{width:82px;padding:18px 10px}
     body.sidebar-collapsed .brand-box,body.sidebar-collapsed .menu-title,body.sidebar-collapsed .sidebar-footer{display:none}
-    body.sidebar-collapsed .menu{gap:12px;align-items:center}
-    body.sidebar-collapsed .menu button,body.sidebar-collapsed .submenu button{width:52px;height:52px;border-radius:16px;padding:0;justify-content:center;text-align:center;font-size:0;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(245,211,126,.35);box-shadow:inset 0 0 18px rgba(245,211,126,.08)}
-    body.sidebar-collapsed .menu button:hover,body.sidebar-collapsed .menu button.active,body.sidebar-collapsed .submenu button:hover,body.sidebar-collapsed .submenu button.active{background:linear-gradient(180deg,#f7d87d 0%,#c98d2b 100%);color:#111827}
-    body.sidebar-collapsed .menu button::before,body.sidebar-collapsed .submenu button::before{font-size:22px;line-height:1}
-    body.sidebar-collapsed .nav-btn[data-page="dashboard"]::before{content:"▣"}
-    body.sidebar-collapsed .nav-btn[data-page="notepad"]::before{content:"📝"}
-    body.sidebar-collapsed #postinganDropdownBtn::before{content:"🏆"}
-    body.sidebar-collapsed .nav-btn[data-page="syair-togel"]::before{content:"📜"}
-    body.sidebar-collapsed .nav-btn[data-page="bukti-kemenangan"]::before{content:"🏆"}
-    body.sidebar-collapsed .nav-btn[data-page="prediksi"]::before{content:"🔮"}
-    body.sidebar-collapsed .nav-btn[data-page="link-domain"]::before{content:"🔗"}
-    body.sidebar-collapsed .nav-btn[data-page="selisih"]::before{content:"⚡"}
-    body.sidebar-collapsed .dropdown-btn span{display:none}
-    body.sidebar-collapsed .submenu{display:flex;margin:0;padding:0;border-left:none;gap:12px}
+    body.sidebar-collapsed .sidebar-toggle{width:46px;height:46px;margin:0 auto 16px}
+    body.sidebar-collapsed .menu{gap:8px;align-items:center}
+    body.sidebar-collapsed .menu button,body.sidebar-collapsed .submenu button{
+      width:52px;
+      height:46px;
+      border-radius:14px;
+      padding:0;
+      justify-content:center;
+      text-align:center;
+      overflow:hidden;
+      color:#d1d5db;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      font-size:22px;
+      line-height:1;
+    }
+    body.sidebar-collapsed .menu button:hover,
+    body.sidebar-collapsed .menu button.active,
+    body.sidebar-collapsed .submenu button:hover,
+    body.sidebar-collapsed .submenu button.active{
+      background:var(--green);
+      color:#fff;
+      box-shadow:none;
+    }
+    body.sidebar-collapsed .menu-label{display:none}
+    body.sidebar-collapsed .dropdown-btn #dropdownIcon{display:none}
+    body.sidebar-collapsed .submenu{display:flex;margin:0;padding:0;border-left:none;gap:8px;align-items:center}
     body.sidebar-collapsed .submenu.show{display:flex}
     .brand-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:18px;margin-bottom:24px}
     .brand{font-size:26px;font-weight:900;margin-bottom:8px;letter-spacing:-.5px}.brand span{color:var(--green)}
@@ -163,15 +177,15 @@
       <div class="brand-box"><div class="brand">Kerja<span>Boss</span></div><div class="subtitle">Dashboard kerja untuk notepad, postingan, domain, dan selisih.</div></div>
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
-        <button class="nav-btn active" data-page="dashboard">▣ Dashboard</button>
-        <button class="nav-btn" data-page="notepad">📝 Notepad</button>
-        <button class="dropdown-btn" id="postinganDropdownBtn">▤ Postingan <span id="dropdownIcon">▾</span></button>
+        <button class="nav-btn active" data-page="dashboard">▣ <span class="menu-label">Dashboard</span></button>
+        <button class="nav-btn" data-page="notepad">📝 <span class="menu-label">Notepad</span></button>
+        <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
-          <button class="nav-btn" data-page="syair-togel">• Syair Togel</button>
-          <button class="nav-btn" data-page="bukti-kemenangan">• Bukti Kemenangan</button>
-          <button class="nav-btn" data-page="prediksi">• Prediksi</button>
+          <button class="nav-btn" data-page="syair-togel">📜 <span class="menu-label">Syair Togel</span></button>
+          <button class="nav-btn" data-page="bukti-kemenangan">🏆 <span class="menu-label">Bukti Kemenangan</span></button>
+          <button class="nav-btn" data-page="prediksi">🔮 <span class="menu-label">Prediksi</span></button>
         </div>
-        <button class="nav-btn" data-page="link-domain">🔗 Link Domain</button><button class="nav-btn" data-page="selisih">⇄ Selisih</button>
+        <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button><button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
       </nav>
       <div class="sidebar-footer"><b>Status:</b> Setiap menu punya ruang sendiri. Postingan hanya dropdown.</div>
     </aside>
