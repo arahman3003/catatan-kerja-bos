@@ -2928,14 +2928,55 @@ drawSyair();
       {id:"pk2",keyword:"CARA MAIN BBFS",content:"Silakan masukkan isi PK CARA MAIN BBFS melalui tombol Edit."},
       {id:"pk3",keyword:"BBFS ADALAH",content:"Silakan masukkan isi PK BBFS ADALAH melalui tombol Edit."}
     ];
-    function pkcsLoad(){try{const saved=JSON.parse(localStorage.getItem(PKCS_STORAGE_KEY)||"null");pkcsData=Array.isArray(saved)?saved:pkcsDefaults;localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}catch(e){pkcsData=[...pkcsDefaults]}pkcsSelectedId=pkcsData[0]?.id||null;pkcsRender()}
+    function pkcsLoad(){try{const saved=JSON.parse(localStorage.getItem(PKCS_STORAGE_KEY)||"null");pkcsData=Array.isArray(saved)?saved:pkcsDefaults;localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}catch(e){pkcsData=[...pkcsDefaults]}pkcsSelectedId=null;pkcsRender(false)}
     function pkcsPersist(){localStorage.setItem(PKCS_STORAGE_KEY,JSON.stringify(pkcsData))}
     function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
-    function pkcsRender(){if(!pkcsList)return;const q=(pkcsSearchInput?.value||"").trim().toLowerCase();const shown=pkcsData.filter(x=>x.keyword.toLowerCase().includes(q)||x.content.toLowerCase().includes(q));pkcsList.innerHTML=shown.length?shown.map(x=>`<button type="button" class="pkcs-item ${x.id===pkcsSelectedId?'active':''}" data-id="${x.id}">${pkcsEscape(x.keyword)}</button>`).join(""):`<div class="pkcs-empty">PK tidak ditemukan.<br>Tekan INPUT PK BARU untuk menambahkan.</div>`;const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(active){pkcsResult.textContent=active.content;pkcsResult.classList.remove("pkcs-result-empty")}else{pkcsResult.textContent="Pilih kata kunci PK di sebelah kiri untuk menampilkan isinya.";pkcsResult.classList.add("pkcs-result-empty")}}
+    function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
+    function pkcsGetMatches(query){
+      const terms=pkcsNormalize(query).split(/\s+/).filter(Boolean);
+      if(!terms.length)return [];
+      return pkcsData.filter(item=>{
+        const keyword=pkcsNormalize(item.keyword);
+        const content=pkcsNormalize(item.content);
+        const searchable=keyword+" "+content;
+        return terms.every(term=>searchable.includes(term));
+      }).sort((a,b)=>{
+        const ak=pkcsNormalize(a.keyword),bk=pkcsNormalize(b.keyword);
+        const aq=pkcsNormalize(query);
+        const aStart=ak.startsWith(aq)?0:1;
+        const bStart=bk.startsWith(aq)?0:1;
+        if(aStart!==bStart)return aStart-bStart;
+        return ak.localeCompare(bk,"id");
+      });
+    }
+    function pkcsRender(autoSelectTop=false){
+      if(!pkcsList)return;
+      const q=(pkcsSearchInput?.value||"").trim();
+      if(!q){
+        pkcsSelectedId=null;
+        pkcsList.innerHTML="";
+        pkcsResult.textContent="Ketik kata kunci PK di kolom pencarian untuk menampilkan hasil.";
+        pkcsResult.classList.add("pkcs-result-empty");
+        return;
+      }
+      const shown=pkcsGetMatches(q);
+      if(autoSelectTop||!shown.some(x=>x.id===pkcsSelectedId))pkcsSelectedId=shown[0]?.id||null;
+      pkcsList.innerHTML=shown.length?shown.map(x=>`<button type="button" class="pkcs-item ${x.id===pkcsSelectedId?'active':''}" data-id="${x.id}">${pkcsEscape(x.keyword)}</button>`).join(""):`<div class="pkcs-empty">PK tidak ditemukan.<br>Tekan INPUT PK BARU untuk menambahkan.</div>`;
+      const active=shown.find(x=>x.id===pkcsSelectedId)||shown[0];
+      if(active){
+        pkcsSelectedId=active.id;
+        pkcsResult.textContent=active.content;
+        pkcsResult.classList.remove("pkcs-result-empty");
+      }else{
+        pkcsSelectedId=null;
+        pkcsResult.textContent="PK tidak ditemukan untuk kata kunci tersebut.";
+        pkcsResult.classList.add("pkcs-result-empty");
+      }
+    }
     function pkcsOpen(edit=false){const active=pkcsData.find(x=>x.id===pkcsSelectedId);pkcsEditId.value=edit&&active?active.id:"";pkcsKeywordInput.value=edit&&active?active.keyword:"";pkcsContentInput.value=edit&&active?active.content:"";pkcsModalTitle.textContent=edit?"Edit PK":"Input PK Baru";pkcsModal.classList.add("show");setTimeout(()=>pkcsKeywordInput.focus(),60)}
     function pkcsClose(){pkcsModal.classList.remove("show")}
-    pkcsSearchInput?.addEventListener("input",pkcsRender);
-    pkcsList?.addEventListener("click",e=>{const b=e.target.closest(".pkcs-item");if(!b)return;pkcsSelectedId=b.dataset.id;pkcsRender()});
+    pkcsSearchInput?.addEventListener("input",()=>pkcsRender(true));
+    pkcsList?.addEventListener("click",e=>{const b=e.target.closest(".pkcs-item");if(!b)return;pkcsSelectedId=b.dataset.id;pkcsRender(false)});
     pkcsAddBtn?.addEventListener("click",()=>pkcsOpen(false));pkcsEditBtn?.addEventListener("click",()=>{if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");pkcsOpen(true)});
     pkcsSaveBtn?.addEventListener("click",()=>{const keyword=pkcsKeywordInput.value.trim(),content=pkcsContentInput.value.trim();if(!keyword||!content)return showToast("Kata kunci dan isi PK wajib diisi");const id=pkcsEditId.value;if(id){const idx=pkcsData.findIndex(x=>x.id===id);if(idx>=0)pkcsData[idx]={...pkcsData[idx],keyword,content,updatedAt:Date.now()};pkcsSelectedId=id}else{const newId="pk_"+Date.now();pkcsData.unshift({id:newId,keyword,content,updatedAt:Date.now()});pkcsSelectedId=newId}pkcsPersist();pkcsRender();pkcsClose();showToast(id?"PK berhasil diperbarui":"PK baru berhasil ditambahkan")});
     pkcsDeleteBtn?.addEventListener("click",()=>{if(!pkcsSelectedId)return showToast("Pilih PK terlebih dahulu");const active=pkcsData.find(x=>x.id===pkcsSelectedId);if(!active||!confirm(`Hapus PK “${active.keyword}”?`))return;pkcsData=pkcsData.filter(x=>x.id!==pkcsSelectedId);pkcsSelectedId=pkcsData[0]?.id||null;pkcsPersist();pkcsRender();showToast("PK berhasil dihapus")});
