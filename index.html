@@ -693,9 +693,14 @@
         <div class="domain-modal" id="domainModal">
           <div class="domain-modal-box">
             <h3>Tambah Domain</h3>
-            <input type="text" id="newDomainInput" placeholder="contoh: domain.com">
+            <textarea id="newDomainInput" rows="8" placeholder="Masukkan banyak domain, satu domain per baris.
+
+Contoh:
+domain1.com
+domain2.com
+https://domain3.com"></textarea>
             <div class="domain-modal-actions">
-              <button class="btn btn-green" id="saveDomainBtn">Simpan Domain</button>
+              <button class="btn btn-green" id="saveDomainBtn">Simpan Semua Domain</button>
               <button class="btn btn-soft" id="closeDomainModalBtn">Batal</button>
             </div>
           </div>
@@ -2743,11 +2748,43 @@ textPlain(
       domainModal?.classList.remove("show");
     }
     function addNewDomain(){
-      const domain=normalizeDomain(newDomainInput?.value);
-      if(!domain){showToast("Masukkan domain terlebih dahulu");return}
-      if(domainData.some(x=>x.domain===domain)){showToast("Domain sudah ada");return}
-      domainData.unshift({id:"d"+Date.now(),domain,status:"wait",updatedAt:Date.now()});
-      saveDomainData();renderDomainChecker();closeDomainModal();showToast("Domain berhasil ditambahkan");
+      const rawValue=String(newDomainInput?.value||"");
+      const inputDomains=[...new Set(
+        rawValue
+          .split(/[\n,;\t ]+/)
+          .map(normalizeDomain)
+          .filter(Boolean)
+      )];
+
+      if(!inputDomains.length){
+        showToast("Masukkan domain terlebih dahulu");
+        return;
+      }
+
+      const existingDomains=new Set(domainData.map(item=>item.domain));
+      const newDomains=inputDomains.filter(domain=>!existingDomains.has(domain));
+      const duplicateCount=inputDomains.length-newDomains.length;
+
+      if(!newDomains.length){
+        showToast("Semua domain sudah ada");
+        return;
+      }
+
+      const now=Date.now();
+      const newItems=newDomains.map((domain,index)=>({
+        id:`d${now}_${index}`,
+        domain,
+        status:"wait",
+        updatedAt:now
+      }));
+
+      domainData=[...newItems,...domainData];
+      saveDomainData();
+      renderDomainChecker();
+      closeDomainModal();
+
+      const duplicateText=duplicateCount?` (${duplicateCount} duplikat dilewati)`:"";
+      showToast(`${newDomains.length} domain berhasil ditambahkan${duplicateText}`);
     }
     window.removeDomain=function(id){
       if(!confirm("Hapus domain ini?"))return;
@@ -2758,7 +2795,7 @@ textPlain(
     if(closeDomainModalBtn)closeDomainModalBtn.addEventListener("click",closeDomainModal);
     if(saveDomainBtn)saveDomainBtn.addEventListener("click",addNewDomain);
     if(domainModal)domainModal.addEventListener("click",e=>{if(e.target===domainModal)closeDomainModal()});
-    if(newDomainInput)newDomainInput.addEventListener("keydown",e=>{if(e.key==="Enter")addNewDomain()});
+    if(newDomainInput)newDomainInput.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter")addNewDomain()});
     if(domainSearchInput)domainSearchInput.addEventListener("input",renderDomainChecker);
     if(domainFilterBtn)domainFilterBtn.addEventListener("click",()=>{
       domainFilterMode=domainFilterMode==="all"?"aman":domainFilterMode==="aman"?"blocked":"all";
