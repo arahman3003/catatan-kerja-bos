@@ -490,10 +490,9 @@
     .pkcs-panel{background:linear-gradient(180deg,rgba(12,23,47,.92),rgba(8,17,36,.94));border:1px solid rgba(120,151,213,.22);border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.30);backdrop-filter:blur(10px)}
     .pkcs-left{padding:16px;min-height:610px;display:flex;flex-direction:column}
     .pkcs-label-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.pkcs-label-row strong{font-size:13px}.pkcs-mini-badge{font-size:9px;font-weight:900;padding:5px 9px;border:1px solid rgba(34,211,238,.35);border-radius:999px;color:#67e8f9;background:rgba(8,145,178,.16)}
-    .pkcs-search{display:flex;align-items:center;gap:12px;background:#08142b;border:1px solid rgba(34,211,238,.28);border-radius:15px;padding:0 14px;min-height:56px;box-shadow:0 0 0 3px rgba(34,211,238,.03)}
-    .pkcs-search span{font-size:16px;color:#67e8f9;display:flex;align-items:center;justify-content:center}
-    .pkcs-search input{border:none!important;background:transparent!important;color:#fff!important;padding:15px 0!important;box-shadow:none!important;font-size:15px;font-weight:800;letter-spacing:.2px}
-    .pkcs-search input::placeholder{color:#7f91ad;font-weight:700}.pkcs-list{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-height:470px;overflow:auto;padding-right:4px}.pkcs-list::-webkit-scrollbar{width:6px}.pkcs-list::-webkit-scrollbar-thumb{background:#263755;border-radius:99px}
+    .pkcs-search{display:flex;align-items:center;gap:10px;background:#08142b;border:1px solid rgba(34,211,238,.28);border-radius:13px;padding:0 12px;box-shadow:0 0 0 3px rgba(34,211,238,.03)}
+    .pkcs-search input{border:none!important;background:transparent!important;color:#fff!important;padding:12px 0!important;box-shadow:none!important;font-size:13px}
+    .pkcs-search input::placeholder{color:#7f91ad}.pkcs-list{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-height:470px;overflow:auto;padding-right:4px}.pkcs-list::-webkit-scrollbar{width:6px}.pkcs-list::-webkit-scrollbar-thumb{background:#263755;border-radius:99px}
     .pkcs-item{position:relative;width:100%;text-align:center;border:1px solid rgba(99,126,174,.25);background:rgba(19,32,57,.74);color:#fff;border-radius:14px;padding:14px 43px 14px 29px;font-weight:900;font-size:12px;cursor:pointer;transition:.18s}
     .pkcs-item::before{content:"";position:absolute;left:11px;top:9px;bottom:9px;width:6px;border-radius:9px;background:linear-gradient(#22d3ee,#8b5cf6)}
     .pkcs-item::after{content:"›";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:#22d3ee;font-size:22px}.pkcs-item:hover,.pkcs-item.active{transform:translateX(2px);border-color:rgba(139,92,246,.62);background:linear-gradient(90deg,rgba(37,99,235,.26),rgba(124,58,237,.25));box-shadow:0 8px 22px rgba(0,0,0,.18)}
@@ -506,6 +505,82 @@
     .pkcs-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,6,23,.72);backdrop-filter:blur(8px);z-index:1500}.pkcs-modal.show{display:flex}.pkcs-modal-box{width:min(650px,100%);background:#0b1426;border:1px solid rgba(124,58,237,.45);border-radius:22px;padding:22px;box-shadow:0 25px 80px rgba(0,0,0,.5)}.pkcs-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.pkcs-modal-head h3{color:#fff}.pkcs-close{width:38px;height:38px;border:none;border-radius:11px;background:#17243b;color:white;font-size:18px;cursor:pointer}.pkcs-modal label{font-size:12px;font-weight:900;color:#cbd5e1}.pkcs-modal textarea{min-height:210px;background:#071020;color:white;border-color:#273754}.pkcs-modal input{background:#071020;color:white;border-color:#273754}.pkcs-modal-actions{display:flex;gap:10px;margin-top:14px}
     @media(max-width:980px){.pkcs-grid{grid-template-columns:1fr}.pkcs-left,.pkcs-right{min-height:auto}.pkcs-list{max-height:330px}}
     @media(max-width:640px){.pkcs-shell{margin:-18px;padding:12px}.pkcs-topbar{align-items:flex-start;flex-direction:column}.pkcs-clock{width:100%}.pkcs-result-box{padding:22px 18px;min-height:220px}.pkcs-result-foot{align-items:flex-start;flex-direction:column}.pkcs-actions{width:100%}.pkcs-copy,.pkcs-edit,.pkcs-delete{flex:1}}
+
+
+
+    /* NOTEPAD BOARD STYLE BARU */
+    #page-notepad{min-height:calc(100vh - 56px);color:#f8fafc}
+    #page-notepad .hero,#page-notepad .notepad-panel{display:none}
+    #page-notepad .notes-area{background:transparent;border:none;box-shadow:none;padding:0;margin:0}
+    .notehub-shell{
+      min-height:calc(100vh - 56px);margin:-28px;padding:14px 18px 24px;
+      background:
+        radial-gradient(circle at 10% 0%,rgba(247,198,73,.10),transparent 24%),
+        radial-gradient(circle at 88% 12%,rgba(255,120,180,.10),transparent 22%),
+        linear-gradient(180deg,#120a07 0%,#1b120d 100%);
+      border-top:1px solid rgba(246,196,83,.18)
+    }
+    .notehub-topbar{
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+      padding:10px 14px;border-radius:22px;
+      background:linear-gradient(180deg,#1f140e 0%,#130d09 100%);
+      border:1px solid rgba(246,196,83,.30);box-shadow:0 14px 40px rgba(0,0,0,.28)
+    }
+    .notehub-brand{display:flex;align-items:center;gap:12px;min-width:190px;padding-right:8px}
+    .notehub-brand-icon{
+      width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(180deg,#f6d56b 0%,#d6a52b 100%);color:#221507;font-size:21px;font-weight:900;
+      box-shadow:0 8px 20px rgba(246,196,83,.18)
+    }
+    .notehub-brand-text strong{display:block;color:#f7d46b;font-size:16px;line-height:1}
+    .notehub-brand-text span{display:block;color:#b9a57d;font-size:10px;font-weight:800;letter-spacing:.8px;margin-top:3px;text-transform:uppercase}
+    .notehub-search-wrap{flex:1;min-width:260px;display:flex;align-items:center}
+    .notehub-search-wrap input{
+      width:100%;height:42px;border-radius:14px!important;border:1px solid rgba(255,255,255,.20)!important;
+      background:#f8f5ef!important;color:#23180d!important;padding:0 14px!important;font-size:14px;font-weight:700!important;box-shadow:none!important
+    }
+    .notehub-search-wrap input::placeholder{color:#756b5f}
+    .notehub-btn{
+      height:42px;border-radius:14px;border:1px solid rgba(246,196,83,.35);padding:0 14px;
+      background:#2a2118;color:#f8df8d;font-weight:900;font-size:12px;cursor:pointer;transition:.2s;white-space:nowrap
+    }
+    .notehub-btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+    .notehub-btn.primary{background:linear-gradient(180deg,#f6d56b 0%,#dba42b 100%);color:#2d1b08}
+    .notehub-board-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 2px 14px}
+    .notehub-board-title{color:#f6d56b;font-size:18px;font-weight:900;letter-spacing:.8px}
+    .notehub-board-meta{display:flex;gap:10px;flex-wrap:wrap}
+    .notehub-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:1px solid rgba(246,196,83,.25);background:rgba(255,255,255,.04);color:#eedeb7;font-size:12px;font-weight:800}
+    .notehub-board{padding:0}
+    #page-notepad .note-grid{column-count:4;column-gap:16px;display:block}
+    #page-notepad .note-card{
+      display:inline-block;width:100%;break-inside:avoid;margin:0 0 16px;min-height:0;border:none;border-radius:26px;
+      padding:14px 14px 12px;color:#151515;position:relative;box-shadow:0 18px 34px rgba(0,0,0,.28);overflow:hidden
+    }
+    #page-notepad .note-card::before{content:"";position:absolute;right:-18px;top:-18px;width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,.18)}
+    #page-notepad .note-card::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.25);border-radius:26px;pointer-events:none}
+    #page-notepad .note-card.color-yellow{background:linear-gradient(180deg,#efd96b 0%,#e9d15b 100%)}
+    #page-notepad .note-card.color-green{background:linear-gradient(180deg,#b8ef9f 0%,#97df8d 100%)}
+    #page-notepad .note-card.color-blue{background:linear-gradient(180deg,#c6ecfb 0%,#a9daef 100%)}
+    #page-notepad .note-card.color-pink{background:linear-gradient(180deg,#f0bad7 0%,#e39ac1 100%)}
+    #page-notepad .note-card.color-purple{background:linear-gradient(180deg,#dfc3f6 0%,#cfabef 100%)}
+    #page-notepad .note-card.color-orange{background:linear-gradient(180deg,#ffd7ab 0%,#f6be7c 100%)}
+    #page-notepad .note-card.color-cyan{background:linear-gradient(180deg,#b8ecf2 0%,#9fdae4 100%)}
+    #page-notepad .note-card.color-rose{background:linear-gradient(180deg,#f7c6dc 0%,#eca8c9 100%)}
+    #page-notepad .note-main{cursor:pointer;padding-right:6px}
+    #page-notepad .note-title{font-size:14px;font-weight:900;color:#1a140f;line-height:1.25;text-transform:uppercase;letter-spacing:.2px;padding-right:14px}
+    #page-notepad .note-content{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(70,51,23,.24);font-size:14px;line-height:1.52;color:#221a12;white-space:pre-wrap;word-break:break-word}
+    #page-notepad .note-image{height:auto;max-height:240px;margin:12px 0 10px;border-radius:16px;border:1px solid rgba(0,0,0,.08)}
+    #page-notepad .note-bottom{margin-top:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+    #page-notepad .note-date{font-size:12px;font-weight:800;color:rgba(21,24,39,.62)}
+    #page-notepad .note-date::before{content:"Saved ✓";display:block;font-size:11px;color:#22a55a;font-weight:900;margin-bottom:4px}
+    #page-notepad .note-actions{display:flex;gap:8px;align-items:center;border-top:none;padding-top:0}
+    #page-notepad .icon-btn{width:28px;height:28px;border-radius:9px;background:rgba(255,255,255,.22);border:1px solid rgba(0,0,0,.08);font-size:13px;backdrop-filter:blur(2px)}
+    #page-notepad .icon-btn:hover{background:rgba(255,255,255,.42)}
+    #page-notepad .color-popover{left:12px;bottom:48px;background:rgba(20,16,13,.96);border:1px solid rgba(246,196,83,.20)}
+    #page-notepad .empty-note{column-span:all;background:rgba(255,255,255,.04);border:1px dashed rgba(246,196,83,.24);color:#c7b896;padding:32px 18px;border-radius:20px}
+    @media(max-width:1200px){#page-notepad .note-grid{column-count:3}}
+    @media(max-width:900px){#page-notepad .note-grid{column-count:2}.notehub-shell{margin:-18px;padding:14px}}
+    @media(max-width:640px){#page-notepad .note-grid{column-count:1}.notehub-search-wrap{min-width:100%}.notehub-topbar{padding:12px}.notehub-btn{width:100%}.notehub-brand{min-width:100%}}
 
 </style>
 </head>
@@ -573,9 +648,25 @@
         </section>
       </div>
       <div class="page" id="page-notepad">
-        <section class="hero"><div><div class="pill">📝 Ruang Notepad</div><h1>Notepad</h1><p>Ruang khusus untuk catatan cepat, teks kerja, dan data harian.</p></div></section>
-        <section class="notepad-panel"><div class="notepad-header"><div><h2>Isi Notepad</h2><p>Tambah catatan, pilih warna sticky note, dan tambahkan gambar bila perlu.</p></div><button type="button" class="btn btn-primary" id="openNoteModalBtn">+ Input Data</button></div></section>
-        <section class="notes-area"><div class="note-toolbar"><h3>Daftar Catatan</h3></div><div class="note-grid" id="noteList"></div></section>
+        <section class="notehub-shell">
+          <div class="notehub-topbar">
+            <div class="notehub-brand">
+              <div class="notehub-brand-icon">📝</div>
+              <div class="notehub-brand-text"><strong>KERJABOSS NOTE</strong><span>catatan kerja tersimpan</span></div>
+            </div>
+            <div class="notehub-search-wrap"><input type="text" id="noteSearchInput" placeholder="Cari judul note..."></div>
+            <button type="button" class="notehub-btn" id="noteSearchResetBtn">RESET</button>
+            <button type="button" class="notehub-btn primary" id="openNoteModalBtn">+ NOTE</button>
+          </div>
+          <div class="notehub-board-head">
+            <div class="notehub-board-title">BOARD NOTEPAD</div>
+            <div class="notehub-board-meta">
+              <span class="notehub-pill" id="noteCountBadge">0 NOTE</span>
+              <span class="notehub-pill">Firebase Sync</span>
+            </div>
+          </div>
+          <section class="notes-area notehub-board"><div class="note-grid" id="noteList"></div></section>
+        </section>
       </div>
       <div class="page" id="page-syair-togel">
         <section class="syair-clean">
@@ -776,7 +867,7 @@ https://domain3.com"></textarea>
 
   <script>
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
-    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat");
+    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
   authDomain: "kaizokugaridashboard.firebaseapp.com",
@@ -851,8 +942,18 @@ async function deleteNoteFromFirebase(id){
     function cleanText(t){return String(t||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
     function formatDate(ts){return new Date(ts).toLocaleString("id-ID",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})}
     function renderColorPopover(note){const c=["yellow","green","blue","pink","purple","orange","cyan","rose"];return `<div class="color-popover" id="color-popover-${note.id}">${c.map(x=>`<button class="color-dot dot-${x} ${note.color===x?"active":""}" onclick="changeNoteColor('${note.id}','${x}')"></button>`).join("")}</div>`}
-    function renderNotes(){if(noteTotalStat)noteTotalStat.textContent=notepadData.length;if(!notepadData.length){noteList.innerHTML='<div class="empty-note">Belum ada catatan.</div>';return}noteList.innerHTML=notepadData.map(note=>`<div class="note-card color-${note.color||"yellow"}">${renderColorPopover(note)}<div class="note-main" onclick="editNote('${note.id}')"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")}
-    openNoteModalBtn.addEventListener("click",()=>{resetNoteForm();openNoteModal()});closeNoteModalBtn.addEventListener("click",closeNoteModal);noteModal.addEventListener("click",e=>{if(e.target===noteModal)closeNoteModal()});noteResetBtn.addEventListener("click",()=>{resetNoteForm();showToast("Form dibersihkan")});
+    function renderNotes(){
+      if(noteTotalStat)noteTotalStat.textContent=notepadData.length;
+      const term=(noteSearchInput?.value||"").trim().toLowerCase();
+      const filtered=term?notepadData.filter(note=>`${note.title||""} ${note.content||""}`.toLowerCase().includes(term)):notepadData;
+      if(noteCountBadge)noteCountBadge.textContent=`${filtered.length} NOTE`;
+      if(!filtered.length){
+        noteList.innerHTML=`<div class="empty-note">${term?"Tidak ada note yang cocok dengan pencarian.":"Belum ada catatan."}</div>`;
+        return;
+      }
+      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}">${renderColorPopover(note)}<div class="note-main" onclick="editNote('${note.id}')"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
+    }
+    openNoteModalBtn.addEventListener("click",()=>{resetNoteForm();openNoteModal()});closeNoteModalBtn.addEventListener("click",closeNoteModal);noteModal.addEventListener("click",e=>{if(e.target===noteModal)closeNoteModal()});noteResetBtn.addEventListener("click",()=>{resetNoteForm();showToast("Form dibersihkan")});noteSearchInput?.addEventListener("input",renderNotes);noteSearchResetBtn?.addEventListener("click",()=>{if(noteSearchInput){noteSearchInput.value="";renderNotes();noteSearchInput.focus()}});
     noteForm.addEventListener("submit", async e => {
   e.preventDefault();
 
