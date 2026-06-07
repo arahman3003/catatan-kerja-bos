@@ -254,7 +254,22 @@
       display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
     }
     .welcome-footer strong{color:#f6c453;letter-spacing:.5px}
-    @media(max-width:850px){.welcome-info-grid{grid-template-columns:1fr}.welcome-dashboard{padding:22px}}
+    .welcome-menu-title{margin-top:24px;padding-top:22px;border-top:1px solid rgba(246,196,83,.18)}
+    .welcome-menu-title h2{font-size:22px;color:#fff;margin-bottom:6px}
+    .welcome-menu-title p{font-size:13px;color:#b9c5d5}
+    .welcome-menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+    .welcome-menu-grid .feature-card{
+      background:rgba(255,255,255,.025);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:none;
+      color:#fff
+    }
+    .welcome-menu-grid .feature-card h3{color:#fff}
+    .welcome-menu-grid .feature-card p{color:#9fb0c4}
+    @media(max-width:850px){
+      .welcome-info-grid,.welcome-menu-grid{grid-template-columns:1fr}
+      .welcome-dashboard{padding:22px}
+    }
     #page-dashboard .pill,#page-notepad .pill,#page-link-domain .pill,#page-selisih .pill{
       background:rgba(34,197,94,.13);color:#86efac;border-color:rgba(34,197,94,.30)
     }
@@ -322,9 +337,19 @@
             <strong>KLIK MENU UNTUK MEMBUKA HALAMAN KERJA</strong>
             <span class="welcome-status">● Sistem Online</span>
           </div>
+          <div class="welcome-menu-title">
+            <h2>Ringkasan Menu</h2>
+            <p>Pilih menu di samping untuk masuk ke ruang masing-masing.</p>
+          </div>
+          <div class="welcome-menu-grid">
+            <div class="feature-card"><h3>📝 Notepad</h3><p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p></div>
+            <div class="feature-card"><h3>▤ Syair Togel</h3><p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p></div>
+            <div class="feature-card"><h3>🏆 Bukti Kemenangan</h3><p>Bagian untuk data atau konten bukti kemenangan.</p></div>
+            <div class="feature-card"><h3>🔮 Prediksi</h3><p>Bagian untuk menyimpan atau membuat data prediksi.</p></div>
+            <div class="feature-card"><h3>🔗 Link Domain</h3><p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p></div>
+            <div class="feature-card"><h3>⇄ Selisih</h3><p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p></div>
+          </div>
         </section>
-
-        <section class="section"><div class="section-head"><div><h2 class="section-title">Ringkasan Menu</h2><p class="section-desc">Pilih menu di samping untuk masuk ke ruang masing-masing.</p></div></div><div class="grid-menu"><div class="feature-card"><h3>📝 Notepad</h3><p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p></div><div class="feature-card"><h3>▤ Syair Togel</h3><p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p></div><div class="feature-card"><h3>🏆 Bukti Kemenangan</h3><p>Bagian untuk data atau konten bukti kemenangan.</p></div><div class="feature-card"><h3>🔮 Prediksi</h3><p>Bagian untuk menyimpan atau membuat data prediksi.</p></div><div class="feature-card"><h3>🔗 Link Domain</h3><p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p></div><div class="feature-card"><h3>⇄ Selisih</h3><p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p></div></div></section>
       </div>
       <div class="page" id="page-notepad">
         <section class="hero"><div><div class="pill">📝 Ruang Notepad</div><h1>Notepad</h1><p>Ruang khusus untuk catatan cepat, teks kerja, dan data harian.</p></div></section>
