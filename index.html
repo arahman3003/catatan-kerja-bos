@@ -6,8 +6,9 @@
   <title>Dashboard KerjaBoss</title>
   <style>
 :root{
-  --bg:#f3f6fb;--sidebar:#0f172a;--card:#fff;--text:#111827;--muted:#6b7280;
+  --bg:#f3f6fb;--sidebar:#06101f;--card:#fff;--text:#111827;--muted:#6b7280;
   --green:#22c55e;--green-dark:#16a34a;--shadow:0 12px 30px rgba(15,23,42,.08);
+  --side-accent:#f6c453;--side-accent-2:#22c55e;--side-line:rgba(246,196,83,.28);
 
   --syair-panel-x:-260px;
   --syair-panel-y:15px;
@@ -31,49 +32,49 @@
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
     body{background:var(--bg);color:var(--text);min-height:100vh}
     .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-    .sidebar{background:var(--sidebar);color:#fff;padding:24px 18px;position:sticky;top:0;height:100vh;transition:.25s ease;width:280px;overflow:hidden}
-    .sidebar-toggle{width:46px;height:46px;border:none;border-radius:16px;background:linear-gradient(180deg,#f7d87d 0%,#c88d24 100%);color:#1b1304;font-size:22px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
-    .sidebar-toggle:hover{transform:translateY(-1px)}
+    .sidebar{
+      background:
+        radial-gradient(circle at 20% 0%,rgba(246,196,83,.18),transparent 34%),
+        linear-gradient(180deg,#091629 0%,#050b15 100%);
+      color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh;transition:.25s ease;width:280px;overflow:hidden;border-right:1px solid var(--side-line)
+    }
+    .sidebar-toggle{width:46px;height:46px;border:none;border-radius:16px;background:linear-gradient(180deg,#f8d879 0%,#c78a24 100%);color:#1b1304;font-size:22px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 0 16px auto;box-shadow:0 8px 20px rgba(0,0,0,.28)}
+    .sidebar-toggle:hover{transform:translateY(-1px);filter:brightness(1.05)}
     body.sidebar-collapsed .app{grid-template-columns:82px 1fr}
     body.sidebar-collapsed .sidebar{width:82px;padding:18px 10px}
     body.sidebar-collapsed .brand-box,body.sidebar-collapsed .menu-title,body.sidebar-collapsed .sidebar-footer{display:none}
     body.sidebar-collapsed .sidebar-toggle{width:46px;height:46px;margin:0 auto 16px}
-    body.sidebar-collapsed .menu{gap:8px;align-items:center}
+    body.sidebar-collapsed .menu{gap:9px;align-items:center}
     body.sidebar-collapsed .menu button,body.sidebar-collapsed .submenu button{
-      width:52px;
-      height:46px;
-      border-radius:14px;
-      padding:0;
-      justify-content:center;
-      text-align:center;
-      overflow:hidden;
-      color:#d1d5db;
-      background:transparent;
-      border:none;
-      box-shadow:none;
-      font-size:22px;
-      line-height:1;
+      width:52px;height:48px;border-radius:16px;padding:0;justify-content:center;text-align:center;overflow:hidden;
+      color:#f8fafc;background:rgba(255,255,255,.045);border:1px solid rgba(246,196,83,.18);box-shadow:inset 0 0 18px rgba(246,196,83,.04);font-size:22px;line-height:1;
     }
     body.sidebar-collapsed .menu button:hover,
     body.sidebar-collapsed .menu button.active,
     body.sidebar-collapsed .submenu button:hover,
     body.sidebar-collapsed .submenu button.active{
-      background:var(--green);
-      color:#fff;
-      box-shadow:none;
+      background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%);color:#fff;border-color:rgba(255,255,255,.18);box-shadow:0 8px 18px rgba(34,197,94,.18)
     }
     body.sidebar-collapsed .menu-label{display:none}
     body.sidebar-collapsed .dropdown-btn #dropdownIcon{display:none}
-    body.sidebar-collapsed .submenu{display:flex;margin:0;padding:0;border-left:none;gap:8px;align-items:center}
+    body.sidebar-collapsed .submenu{display:flex;margin:0;padding:0;border-left:none;gap:9px;align-items:center}
     body.sidebar-collapsed .submenu.show{display:flex}
-    .brand-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:18px;margin-bottom:24px}
-    .brand{font-size:26px;font-weight:900;margin-bottom:8px;letter-spacing:-.5px}.brand span{color:var(--green)}
-    .subtitle{font-size:13px;color:#aab4c4;line-height:1.5}.menu-title{font-size:12px;color:#64748b;text-transform:uppercase;font-weight:800;letter-spacing:1px;margin:18px 12px 10px}
-    .menu{display:flex;flex-direction:column;gap:8px}
-    .menu button,.submenu button{width:100%;border:none;color:#d1d5db;background:transparent;padding:13px 14px;border-radius:14px;font-size:15px;display:flex;align-items:center;gap:10px;transition:.2s;cursor:pointer;text-align:left;font-weight:700}
-    .menu button:hover,.menu button.active,.submenu button:hover,.submenu button.active{background:var(--green);color:#fff}
-    .dropdown-btn span{margin-left:auto}.submenu{display:none;flex-direction:column;gap:6px;margin-left:14px;margin-top:4px;margin-bottom:6px;padding-left:10px;border-left:1px solid rgba(255,255,255,.12)}.submenu.show{display:flex}.submenu button{padding:10px 12px;font-size:14px;color:#b8c2d2}
-    .sidebar-footer{position:absolute;left:18px;right:18px;bottom:22px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:#dcfce7;padding:14px;border-radius:16px;font-size:13px;line-height:1.5}
+    .brand-box{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid rgba(246,196,83,.22);border-radius:22px;padding:18px;margin-bottom:22px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+    .brand{font-size:26px;font-weight:900;margin-bottom:8px;letter-spacing:-.5px}.brand span{color:var(--side-accent)}
+    .subtitle{font-size:13px;color:#b9c5d5;line-height:1.5}.menu-title{font-size:11px;color:#f1c96d;text-transform:uppercase;font-weight:900;letter-spacing:1.1px;margin:18px 12px 10px}
+    .menu{display:flex;flex-direction:column;gap:9px}
+    .menu button,.submenu button{
+      width:100%;border:1px solid transparent;color:#dbe6f4;background:transparent;padding:13px 14px;border-radius:15px;
+      font-size:15px;display:flex;align-items:center;gap:10px;transition:.2s;cursor:pointer;text-align:left;font-weight:800
+    }
+    .menu button:hover,.menu button.active{
+      background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%);color:#fff;border-color:rgba(255,255,255,.15);box-shadow:0 10px 20px rgba(34,197,94,.18)
+    }
+    .dropdown-btn{background:rgba(246,196,83,.07)!important;border-color:rgba(246,196,83,.18)!important}
+    .dropdown-btn:hover{background:rgba(246,196,83,.13)!important;color:#fff!important}
+    .dropdown-btn span{margin-left:auto}.submenu{display:none;flex-direction:column;gap:7px;margin-left:14px;margin-top:6px;margin-bottom:8px;padding-left:10px;border-left:1px solid rgba(246,196,83,.25)}.submenu.show{display:flex}.submenu button{padding:10px 12px;font-size:14px;color:#c4d0df;background:rgba(255,255,255,.025)}
+    .submenu button:hover,.submenu button.active{background:rgba(34,197,94,.22);color:#fff;border-color:rgba(34,197,94,.25)}
+    .sidebar-footer{position:absolute;left:16px;right:16px;bottom:22px;background:rgba(246,196,83,.10);border:1px solid rgba(246,196,83,.25);color:#fde9ad;padding:14px;border-radius:16px;font-size:13px;line-height:1.5}
     .main{padding:28px;width:100%;max-width:none;min-width:0}.page{display:none}.page.active{display:block}
     .hero,.section,.notepad-panel{background:var(--card);border:1px solid #e9eef5;border-radius:24px;box-shadow:var(--shadow);padding:24px;margin-bottom:24px;width:100%}
     .hero{display:flex;justify-content:space-between;align-items:center;gap:20px;background:linear-gradient(135deg,#fff 0%,#f8fafc 100%)}
@@ -174,7 +175,7 @@
   <div class="app">
     <aside class="sidebar">
       <button type="button" class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu">☰</button>
-      <div class="brand-box"><div class="brand">Kerja<span>Boss</span></div><div class="subtitle">Dashboard kerja untuk notepad, postingan, domain, dan selisih.</div></div>
+      <div class="brand-box"><div class="brand">Kerja<span>Boss</span></div><div class="subtitle">Panel kerja utama untuk catatan, postingan, link, dan perhitungan.</div></div>
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
         <button class="nav-btn active" data-page="dashboard">▣ <span class="menu-label">Dashboard</span></button>
@@ -187,7 +188,7 @@
         </div>
         <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button><button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
       </nav>
-      <div class="sidebar-footer"><b>Status:</b> Setiap menu punya ruang sendiri. Postingan hanya dropdown.</div>
+      <div class="sidebar-footer"><b>Status:</b> Sidebar bisa dibuka/tutup. Menu postingan tetap di dropdown.</div>
     </aside>
     <main class="main">
       <div class="page active" id="page-dashboard">
