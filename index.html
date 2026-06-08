@@ -568,7 +568,27 @@
     #page-notepad .note-card.color-rose{background:linear-gradient(180deg,#f7c6dc 0%,#eca8c9 100%)}
     #page-notepad .note-main{cursor:pointer;padding-right:6px}
     #page-notepad .note-title{font-size:14px;font-weight:900;color:#1a140f;line-height:1.25;text-transform:uppercase;letter-spacing:.2px;padding-right:14px}
-    #page-notepad .note-content{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(70,51,23,.24);font-size:14px;line-height:1.52;color:#221a12;white-space:pre-wrap;word-break:break-word}
+    #page-notepad .note-content{
+      margin-top:10px;
+      padding-top:10px;
+      padding-right:8px;
+      border-top:1px dashed rgba(70,51,23,.24);
+      font-size:14px;
+      line-height:1.52;
+      color:#221a12;
+      white-space:pre-wrap;
+      word-break:break-word;
+      max-height:420px;
+      overflow-y:auto;
+      scrollbar-width:thin;
+      scrollbar-color:rgba(70,51,23,.35) transparent
+    }
+    #page-notepad .note-content::-webkit-scrollbar{width:7px}
+    #page-notepad .note-content::-webkit-scrollbar-track{background:transparent}
+    #page-notepad .note-content::-webkit-scrollbar-thumb{background:rgba(70,51,23,.28);border-radius:999px}
+    #page-notepad .note-content::-webkit-scrollbar-thumb:hover{background:rgba(70,51,23,.45)}
+    #page-notepad .note-card{max-height:560px}
+    #page-notepad .note-main{max-height:500px;overflow:hidden}
     #page-notepad .note-image{height:auto;max-height:240px;margin:12px 0 10px;border-radius:16px;border:1px solid rgba(0,0,0,.08)}
     #page-notepad .note-bottom{margin-top:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
     #page-notepad .note-date{font-size:12px;font-weight:800;color:rgba(21,24,39,.62)}
