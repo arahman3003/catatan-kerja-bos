@@ -773,6 +773,126 @@
       margin:0 auto;
     }
 
+
+    /* DASHBOARD VIDEO BACKGROUND + GREEN THEME */
+    :root{
+      --side-accent:#22c55e;
+      --side-accent-2:#16a34a;
+      --side-line:rgba(34,197,94,.28);
+    }
+
+    #page-dashboard{
+      position:relative;
+      overflow:hidden;
+      min-height:calc(100vh - 56px);
+      isolation:isolate;
+    }
+    #page-dashboard .dashboard-bg-video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-3;
+      pointer-events:none;
+    }
+    #page-dashboard .dashboard-bg-overlay{
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:
+        radial-gradient(circle at 50% 40%,rgba(0,0,0,.08),rgba(0,0,0,.44) 75%),
+        linear-gradient(180deg,rgba(2,8,18,.18),rgba(2,8,18,.50));
+      pointer-events:none;
+    }
+    #page-dashboard.active{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    #page-dashboard .welcome-dashboard{
+      position:relative;
+      z-index:2;
+      width:min(1180px,100%);
+      margin:0 auto;
+      border-color:rgba(34,197,94,.42);
+      background:
+        radial-gradient(circle at 86% 12%,rgba(34,197,94,.14),transparent 30%),
+        radial-gradient(circle at 12% 0%,rgba(16,185,129,.10),transparent 35%),
+        linear-gradient(180deg,rgba(10,24,35,.88),rgba(5,15,25,.90));
+      box-shadow:0 20px 55px rgba(0,0,0,.36);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .welcome-dashboard h1,
+    .welcome-dashboard strong,
+    .welcome-menu-title h2,
+    .welcome-info-card h3{
+      color:#4ade80!important;
+    }
+    .welcome-badge{
+      color:#86efac!important;
+      background:rgba(34,197,94,.10)!important;
+      border-color:rgba(34,197,94,.32)!important;
+    }
+    .welcome-status{
+      color:#4ade80!important;
+      background:rgba(34,197,94,.10)!important;
+      border-color:rgba(34,197,94,.38)!important;
+    }
+
+    /* Sidebar: all previous yellow/gold accents become green */
+    .sidebar{
+      border-right-color:rgba(34,197,94,.25)!important;
+      background:
+        radial-gradient(circle at 20% 0%,rgba(34,197,94,.16),transparent 34%),
+        linear-gradient(180deg,#071827 0%,#041019 100%)!important;
+    }
+    .sidebar-toggle{
+      background:linear-gradient(180deg,#4ade80 0%,#16a34a 100%)!important;
+      color:#04130a!important;
+      box-shadow:0 8px 20px rgba(34,197,94,.24)!important;
+    }
+    .brand-box{
+      border-color:rgba(34,197,94,.30)!important;
+      background:linear-gradient(180deg,rgba(34,197,94,.08),rgba(255,255,255,.025))!important;
+    }
+    .brand span,
+    .menu-title{
+      color:#4ade80!important;
+    }
+    .dropdown-btn{
+      background:rgba(34,197,94,.07)!important;
+      border-color:rgba(34,197,94,.20)!important;
+    }
+    .dropdown-btn:hover{
+      background:rgba(34,197,94,.13)!important;
+    }
+    .submenu{
+      border-left-color:rgba(34,197,94,.25)!important;
+    }
+    .sidebar-footer{
+      color:#bbf7d0!important;
+      background:rgba(34,197,94,.08)!important;
+      border-color:rgba(34,197,94,.25)!important;
+    }
+    .auth-user-box{
+      background:rgba(34,197,94,.09)!important;
+      border-color:rgba(34,197,94,.22)!important;
+      color:#bbf7d0!important;
+    }
+
+    body.sidebar-collapsed .menu button,
+    body.sidebar-collapsed .submenu button{
+      border-color:rgba(34,197,94,.18)!important;
+      box-shadow:inset 0 0 18px rgba(34,197,94,.04)!important;
+    }
+
+    @media(max-width:900px){
+      #page-dashboard{min-height:70vh}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -846,6 +966,10 @@
     </aside>
     <main class="main">
       <div class="page active" id="page-dashboard">
+        <video class="dashboard-bg-video" autoplay muted loop playsinline preload="auto">
+          <source src="https://files.catbox.moe/idr0wa.mp4" type="video/mp4">
+        </video>
+        <div class="dashboard-bg-overlay"></div>
         <section class="welcome-dashboard welcome-dashboard-simple">
           <div class="welcome-top">
             <span class="welcome-badge">⚡ KerjaBoss System Ready</span>
