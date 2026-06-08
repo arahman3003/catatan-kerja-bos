@@ -237,6 +237,14 @@
       margin:26px 0 10px;font-size:clamp(34px,5vw,58px);line-height:1;
       letter-spacing:1px;color:#f6c453;text-transform:uppercase
     }
+    .welcome-dashboard-simple{
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .welcome-dashboard-simple .welcome-top{margin-bottom:12px}
+    .welcome-dashboard-simple h1{margin:18px 0 0}
     .welcome-dashboard>p{max-width:820px;color:#d8e2ef;font-size:15px;line-height:1.8}
     .welcome-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
     .welcome-info-card{
@@ -824,46 +832,12 @@
     </aside>
     <main class="main">
       <div class="page active" id="page-dashboard">
-        <section class="welcome-dashboard">
+        <section class="welcome-dashboard welcome-dashboard-simple">
           <div class="welcome-top">
             <span class="welcome-badge">⚡ KerjaBoss System Ready</span>
             <span class="welcome-status">● Dashboard Aktif</span>
           </div>
-          <h1>Welcome Bos</h1>
-          <p>Selamat datang di Dashboard KerjaBoss. Gunakan sidebar untuk membuka Notepad, Postingan, Link Domain, dan Selisih. Menu Syair Togel, Bukti Kemenangan, dan Prediksi tetap memakai tampilan khusus masing-masing.</p>
-          <div class="welcome-info-grid">
-            <div class="welcome-info-card">
-              <div class="welcome-info-icon">☰</div>
-              <h3>Pilih Menu</h3>
-              <p>Buka atau kecilkan sidebar, lalu pilih ruang kerja yang ingin digunakan.</p>
-            </div>
-            <div class="welcome-info-card">
-              <div class="welcome-info-icon">📝</div>
-              <h3>Catatan Tersimpan</h3>
-              <p>Notepad terhubung ke Firebase agar catatan tetap tersimpan saat browser ditutup.</p>
-            </div>
-            <div class="welcome-info-card">
-              <div class="welcome-info-icon">⚙</div>
-              <h3>Generator Siap</h3>
-              <p>Generator Syair dan Bukti Kemenangan siap digunakan melalui menu Postingan.</p>
-            </div>
-          </div>
-          <div class="welcome-footer">
-            <strong>KLIK MENU UNTUK MEMBUKA HALAMAN KERJA</strong>
-            <span class="welcome-status">● Sistem Online</span>
-          </div>
-          <div class="welcome-menu-title">
-            <h2>Ringkasan Menu</h2>
-            <p>Pilih menu di samping untuk masuk ke ruang masing-masing.</p>
-          </div>
-          <div class="welcome-menu-grid">
-            <div class="feature-card"><h3>📝 Notepad</h3><p>Tempat menyimpan catatan cepat, teks kerja, dan data harian.</p></div>
-            <div class="feature-card"><h3>▤ Syair Togel</h3><p>Bagian khusus untuk membuat atau menyimpan konten syair togel.</p></div>
-            <div class="feature-card"><h3>🏆 Bukti Kemenangan</h3><p>Bagian untuk data atau konten bukti kemenangan.</p></div>
-            <div class="feature-card"><h3>🔮 Prediksi</h3><p>Bagian untuk menyimpan atau membuat data prediksi.</p></div>
-            <div class="feature-card"><h3>🔗 Link Domain</h3><p>Tempat menyimpan daftar domain, link utama, link cadangan, atau catatan link.</p></div>
-            <div class="feature-card"><h3>⇄ Selisih</h3><p>Bagian untuk hitung, catat, atau bandingkan selisih data.</p></div>
-          </div>
+          <h1 id="dashboardWelcomeName">WELCOME</h1>
         </section>
       </div>
       <div class="page" id="page-notepad">
@@ -1165,7 +1139,8 @@ authMessage=document.getElementById("authMessage"),
 logoutBtn=document.getElementById("logoutBtn"),
 sidebarUserBox=document.getElementById("sidebarUserBox"),
 ownerUsersList=document.getElementById("ownerUsersList"),
-refreshUsersBtn=document.getElementById("refreshUsersBtn");
+refreshUsersBtn=document.getElementById("refreshUsersBtn"),
+dashboardWelcomeName=document.getElementById("dashboardWelcomeName");
 
 function setAuthMessage(message="",success=false){
   if(!authMessage)return;
@@ -1343,6 +1318,10 @@ auth.onAuthStateChanged(async user=>{
     authGate?.classList.add("hidden");
     authGate?.classList.remove("checking");
     document.querySelector(".app").style.display="grid";
+    if(dashboardWelcomeName){
+      const displayName=(currentUserProfile.name||currentAuthUser?.displayName||"BOS").trim();
+      dashboardWelcomeName.textContent=`WELCOME ${displayName}`;
+    }
     updateAccessUI();
     openPage("dashboard");
     if(currentUserProfile.role==="owner")loadOwnerUsers();
