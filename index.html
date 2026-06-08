@@ -1029,6 +1029,11 @@ const OWNER_EMAIL = "asephardian2002@gmail.com";
 const usersDb = firebase.database().ref("usersKerjaBoss");
 const auth = firebase.auth();
 
+/* Auth khusus registrasi agar akun baru tidak otomatis masuk ke dashboard */
+const registerApp = firebase.initializeApp(firebaseConfig, "registerApp");
+const registerAuth = registerApp.auth();
+const registerDb = registerApp.database().ref("usersKerjaBoss");
+
 const DEFAULT_STAFF_PERMISSIONS = {
   dashboard:true,
   notepad:true,
@@ -1099,43 +1104,64 @@ loginForm?.addEventListener("submit",async e=>{
 
 registerForm?.addEventListener("submit",async e=>{
   e.preventDefault();
+
   const name=document.getElementById("registerName").value.trim();
   const email=document.getElementById("registerEmail").value.trim().toLowerCase();
   const password=document.getElementById("registerPassword").value;
   const confirmPassword=document.getElementById("registerPasswordConfirm").value;
-  if(password!==confirmPassword)return setAuthMessage("Konfirmasi password tidak sama.");
+
+  if(password!==confirmPassword){
+    return setAuthMessage("Konfirmasi password tidak sama.");
+  }
+
   setAuthMessage("Mendaftarkan akun...");
+
   try{
-    const credential=await auth.createUserWithEmailAndPassword(email,password);
+    const credential=await registerAuth.createUserWithEmailAndPassword(email,password);
     const isOwner=email===OWNER_EMAIL;
+
     const profile={
       uid:credential.user.uid,
       name,
       email,
       role:isOwner?"owner":"staff",
       status:"active",
-      permissions:isOwner?Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true])):{...DEFAULT_STAFF_PERMISSIONS},
+      permissions:isOwner
+        ? Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true]))
+        : {...DEFAULT_STAFF_PERMISSIONS},
       createdAt:firebase.database.ServerValue.TIMESTAMP,
       updatedAt:firebase.database.ServerValue.TIMESTAMP
     };
-    await usersDb.child(credential.user.uid).set(profile);
+
+    await registerDb.child(credential.user.uid).set(profile);
     await credential.user.updateProfile({displayName:name});
-    await auth.signOut();
+
+    /* Logout hanya pada auth registrasi sekunder, bukan auth utama */
+    await registerAuth.signOut();
 
     registerForm.reset();
+
     document.querySelectorAll(".auth-tab").forEach(x=>{
       x.classList.toggle("active",x.dataset.authTab==="login");
     });
+
     loginForm.classList.add("active");
     registerForm.classList.remove("active");
+
     document.getElementById("loginEmail").value=email;
     document.getElementById("loginPassword").value="";
-    setAuthMessage(isOwner
-      ?"Akun Owner berhasil dibuat. Silakan login."
-      :"Akun Staff berhasil dibuat. Silakan login.",true
+
+    setAuthMessage(
+      isOwner
+        ? "Akun Owner berhasil dibuat. Silakan login."
+        : "Akun Staff berhasil dibuat. Silakan login.",
+      true
     );
+
     setTimeout(()=>document.getElementById("loginPassword")?.focus(),100);
-  }catch(error){setAuthMessage(authErrorText(error))}
+  }catch(error){
+    setAuthMessage(authErrorText(error));
+  }
 });
 
 logoutBtn?.addEventListener("click",()=>auth.signOut());
