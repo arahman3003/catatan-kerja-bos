@@ -614,6 +614,7 @@
       padding:22px;overflow:hidden;background:#050914
     }
     .auth-gate.hidden{display:none}
+    .auth-gate.checking .auth-card{opacity:0;pointer-events:none}
     .auth-bg-video{
       position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
       z-index:0;pointer-events:none
@@ -754,7 +755,7 @@
 </head>
 <body class="dark-workspace">
 
-  <div class="auth-gate" id="authGate">
+  <div class="auth-gate checking" id="authGate">
     <video class="auth-bg-video" autoplay muted loop playsinline preload="auto">
       <source src="https://files.catbox.moe/idr0wa.mp4" type="video/mp4">
     </video>
@@ -1130,6 +1131,12 @@ const registerApp = firebase.initializeApp(firebaseConfig, "registerApp");
 const registerAuth = registerApp.auth();
 const registerDb = registerApp.database().ref("usersKerjaBoss");
 
+/* Simpan sesi login utama agar refresh tidak kembali ke halaman login */
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(console.error);
+
+/* Registrasi pakai auth sekunder tanpa menyimpan sesi */
+registerAuth.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(console.error);
+
 const DEFAULT_STAFF_PERMISSIONS = {
   dashboard:true,
   notepad:true,
@@ -1190,6 +1197,7 @@ loginForm?.addEventListener("submit",async e=>{
   e.preventDefault();
   setAuthMessage("Memeriksa akun...");
   try{
+    await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     await auth.signInWithEmailAndPassword(
       document.getElementById("loginEmail").value.trim(),
       document.getElementById("loginPassword").value
@@ -1321,6 +1329,7 @@ auth.onAuthStateChanged(async user=>{
   if(!user){
     currentUserProfile=null;
     authGate?.classList.remove("hidden");
+    authGate?.classList.remove("checking");
     document.querySelector(".app").style.display="none";
     return;
   }
@@ -1332,12 +1341,15 @@ auth.onAuthStateChanged(async user=>{
       return;
     }
     authGate?.classList.add("hidden");
+    authGate?.classList.remove("checking");
     document.querySelector(".app").style.display="grid";
     updateAccessUI();
     openPage("dashboard");
     if(currentUserProfile.role==="owner")loadOwnerUsers();
   }catch(error){
     console.error(error);
+    authGate?.classList.remove("hidden");
+    authGate?.classList.remove("checking");
     setAuthMessage("Gagal memuat profil pengguna.");
     await auth.signOut();
   }
