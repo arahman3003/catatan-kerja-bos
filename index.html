@@ -576,6 +576,11 @@
     #page-notepad .note-actions{display:flex;gap:8px;align-items:center;border-top:none;padding-top:0}
     #page-notepad .icon-btn{width:28px;height:28px;border-radius:9px;background:rgba(255,255,255,.22);border:1px solid rgba(0,0,0,.08);font-size:13px;backdrop-filter:blur(2px)}
     #page-notepad .icon-btn:hover{background:rgba(255,255,255,.42)}
+    #page-notepad .note-grid.move-mode .note-card{cursor:grab;outline:2px dashed rgba(246,196,83,.45);outline-offset:3px}
+    #page-notepad .note-grid.move-mode .note-card:active{cursor:grabbing}
+    #page-notepad .note-card.dragging{opacity:.48;transform:scale(.98)}
+    #page-notepad .note-card.drop-target{outline:3px solid rgba(34,211,238,.75);outline-offset:4px}
+    .notehub-btn.move-active{background:linear-gradient(180deg,#22d3ee 0%,#2563eb 100%);color:#fff;border-color:rgba(125,211,252,.8);box-shadow:0 0 20px rgba(34,211,238,.24)}
     #page-notepad .color-popover{left:12px;bottom:48px;background:rgba(20,16,13,.96);border:1px solid rgba(246,196,83,.20)}
     #page-notepad .empty-note{column-span:all;background:rgba(255,255,255,.04);border:1px dashed rgba(246,196,83,.24);color:#c7b896;padding:32px 18px;border-radius:20px}
     @media(max-width:1200px){#page-notepad .note-grid{column-count:3}}
@@ -656,6 +661,7 @@
             </div>
             <div class="notehub-search-wrap"><input type="text" id="noteSearchInput" placeholder="Cari judul note..."></div>
             <button type="button" class="notehub-btn" id="noteSearchResetBtn">RESET</button>
+            <button type="button" class="notehub-btn" id="noteMoveBtn">MOVE TABLE</button>
             <button type="button" class="notehub-btn primary" id="openNoteModalBtn">+ NOTE</button>
           </div>
           <div class="notehub-board-head">
@@ -867,7 +873,7 @@ https://domain3.com"></textarea>
 
   <script>
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
-    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteCountBadge=document.getElementById("noteCountBadge");
+    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
   authDomain: "kaizokugaridashboard.firebaseapp.com",
@@ -884,6 +890,8 @@ const notesDb = firebase.database().ref("notepadKerjaBoss");
 
 let notepadData = [];
 let selectedImageNoteId = null;
+let noteMoveMode = false;
+let draggedNoteId = null;
     function showToast(t){toast.textContent=t;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}
     function openPage(n){
       pages.forEach(p=>p.classList.remove("active"));
@@ -908,6 +916,11 @@ function loadNotesFromFirebase(){
     const data = snapshot.val() || {};
 
     notepadData = Object.values(data).sort((a, b) => {
+      const ao = Number.isFinite(Number(a.order)) ? Number(a.order) : null;
+      const bo = Number.isFinite(Number(b.order)) ? Number(b.order) : null;
+      if(ao !== null && bo !== null) return ao - bo;
+      if(ao !== null) return -1;
+      if(bo !== null) return 1;
       return (b.updatedAt || 0) - (a.updatedAt || 0);
     });
 
@@ -947,13 +960,42 @@ async function deleteNoteFromFirebase(id){
       const term=(noteSearchInput?.value||"").trim().toLowerCase();
       const filtered=term?notepadData.filter(note=>`${note.title||""} ${note.content||""}`.toLowerCase().includes(term)):notepadData;
       if(noteCountBadge)noteCountBadge.textContent=`${filtered.length} NOTE`;
+      if(noteList)noteList.classList.toggle("move-mode", noteMoveMode);
+      if(noteMoveBtn){
+        noteMoveBtn.classList.toggle("move-active", noteMoveMode);
+        noteMoveBtn.textContent=noteMoveMode?"SAVE MOVE":"MOVE TABLE";
+      }
       if(!filtered.length){
         noteList.innerHTML=`<div class="empty-note">${term?"Tidak ada note yang cocok dengan pencarian.":"Belum ada catatan."}</div>`;
         return;
       }
-      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}">${renderColorPopover(note)}<div class="note-main" onclick="editNote('${note.id}')"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
+      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main" onclick="if(!noteMoveMode)editNote('${note.id}')"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
     }
-    openNoteModalBtn.addEventListener("click",()=>{resetNoteForm();openNoteModal()});closeNoteModalBtn.addEventListener("click",closeNoteModal);noteModal.addEventListener("click",e=>{if(e.target===noteModal)closeNoteModal()});noteResetBtn.addEventListener("click",()=>{resetNoteForm();showToast("Form dibersihkan")});noteSearchInput?.addEventListener("input",renderNotes);noteSearchResetBtn?.addEventListener("click",()=>{if(noteSearchInput){noteSearchInput.value="";renderNotes();noteSearchInput.focus()}});
+    async function saveNoteOrderToFirebase(){
+      const updates={};
+      notepadData.forEach((note,index)=>{
+        note.order=index;
+        updates[`${note.id}/order`]=index;
+      });
+      try{
+        await notesDb.update(updates);
+        showToast("Posisi notepad berhasil disimpan");
+      }catch(error){
+        console.error(error);
+        showToast("Gagal menyimpan posisi notepad");
+      }
+    }
+    function toggleNoteMoveMode(){
+      noteMoveMode=!noteMoveMode;
+      if(noteMoveMode && noteSearchInput) noteSearchInput.value="";
+      renderNotes();
+      showToast(noteMoveMode?"Mode pindah aktif: tarik note untuk memindahkan posisi":"Mode pindah dimatikan");
+      if(!noteMoveMode)saveNoteOrderToFirebase();
+    }
+    openNoteModalBtn.addEventListener("click",()=>{resetNoteForm();openNoteModal()});closeNoteModalBtn.addEventListener("click",closeNoteModal);noteModal.addEventListener("click",e=>{if(e.target===noteModal)closeNoteModal()});noteResetBtn.addEventListener("click",()=>{resetNoteForm();showToast("Form dibersihkan")});noteSearchInput?.addEventListener("input",()=>{
+      if(noteMoveMode) noteMoveMode=false;
+      renderNotes();
+    });noteSearchResetBtn?.addEventListener("click",()=>{if(noteSearchInput){noteSearchInput.value="";renderNotes();noteSearchInput.focus()}});noteMoveBtn?.addEventListener("click",toggleNoteMoveMode);
     noteForm.addEventListener("submit", async e => {
   e.preventDefault();
 
@@ -966,7 +1008,8 @@ async function deleteNoteFromFirebase(id){
     content: noteContent.value.trim(),
     color: noteColor.value || "yellow",
     image: old ? old.image : "",
-    updatedAt: now
+    updatedAt: now,
+    order: old && Number.isFinite(Number(old.order)) ? Number(old.order) : notepadData.length
   };
 
   const ok = await saveNoteToFirebase(note);
@@ -1027,6 +1070,44 @@ async function deleteNoteFromFirebase(id){
   reader.readAsDataURL(file);
 });
     document.addEventListener("click",e=>{if(!e.target.classList.contains("color-dot")&&!e.target.classList.contains("icon-btn"))document.querySelectorAll(".color-popover").forEach(p=>p.classList.remove("show"))});
+    noteList?.addEventListener("dragstart",e=>{
+      if(!noteMoveMode)return;
+      const card=e.target.closest(".note-card");
+      if(!card)return;
+      draggedNoteId=card.dataset.id;
+      card.classList.add("dragging");
+      e.dataTransfer.effectAllowed="move";
+      e.dataTransfer.setData("text/plain",draggedNoteId);
+    });
+    noteList?.addEventListener("dragover",e=>{
+      if(!noteMoveMode||!draggedNoteId)return;
+      const target=e.target.closest(".note-card");
+      if(!target||target.dataset.id===draggedNoteId)return;
+      e.preventDefault();
+      target.classList.add("drop-target");
+    });
+    noteList?.addEventListener("dragleave",e=>{
+      const target=e.target.closest(".note-card");
+      if(target)target.classList.remove("drop-target");
+    });
+    noteList?.addEventListener("drop",e=>{
+      if(!noteMoveMode||!draggedNoteId)return;
+      const target=e.target.closest(".note-card");
+      document.querySelectorAll(".note-card.drop-target").forEach(c=>c.classList.remove("drop-target"));
+      if(!target||target.dataset.id===draggedNoteId)return;
+      e.preventDefault();
+      const fromIndex=notepadData.findIndex(n=>n.id===draggedNoteId);
+      const toIndex=notepadData.findIndex(n=>n.id===target.dataset.id);
+      if(fromIndex<0||toIndex<0)return;
+      const [moved]=notepadData.splice(fromIndex,1);
+      notepadData.splice(toIndex,0,moved);
+      notepadData.forEach((n,i)=>n.order=i);
+      renderNotes();
+    });
+    noteList?.addEventListener("dragend",()=>{
+      document.querySelectorAll(".note-card.dragging,.note-card.drop-target").forEach(c=>c.classList.remove("dragging","drop-target"));
+      draggedNoteId=null;
+    });
 
     const SHIO_LOGOS={kerbau:"https://i.imgur.com/eA5lF9e.jpeg",ular:"https://i.imgur.com/1uw80aJ.jpeg",monyet:"https://i.imgur.com/MyF3SOq.jpeg",kuda:"https://i.imgur.com/L5EF06J.jpeg",anjing:"https://i.imgur.com/lLXEVKo.jpeg",ayam:"https://i.imgur.com/VFDoAkd.jpeg",harimau:"https://i.imgur.com/t5Rci6U.jpeg",naga:"https://i.imgur.com/DASGzjq.jpeg",babi:"https://i.imgur.com/EfC2xTI.jpeg",kelinci:"https://i.imgur.com/CWH6fqC.jpeg",tikus:"https://i.imgur.com/RINeQAz.jpeg",kambing:"https://i.imgur.com/yYwi83a.jpeg"};
     const PASARAN_LOGOS={BANGKOK:"https://i.imgur.com/HAtzQR1.png",BRUNEI:"https://i.imgur.com/02h0XAy.png",CHELSEA:"https://i.imgur.com/JWNoLlq.png",HUAHIN:"https://i.imgur.com/5pX7Etm.png",POIPET:"https://i.imgur.com/mfxnAms.png",NEVADA:"https://i.imgur.com/8ueARHz.gif"};
