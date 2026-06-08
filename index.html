@@ -607,9 +607,102 @@
     @media(max-width:900px){#page-notepad .note-grid{column-count:2}.notehub-shell{margin:-18px;padding:14px}}
     @media(max-width:640px){#page-notepad .note-grid{column-count:1}.notehub-search-wrap{min-width:100%}.notehub-topbar{padding:12px}.notehub-btn{width:100%}.notehub-brand{min-width:100%}}
 
+
+    /* LOGIN, REGISTER, OWNER & STAFF ACCESS */
+    .auth-gate{
+      position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;
+      padding:22px;background:
+        radial-gradient(circle at 12% 8%,rgba(34,197,94,.13),transparent 30%),
+        radial-gradient(circle at 88% 12%,rgba(246,196,83,.10),transparent 28%),
+        linear-gradient(145deg,#050914 0%,#0b1322 55%,#060b14 100%)
+    }
+    .auth-gate.hidden{display:none}
+    .auth-card{
+      width:min(460px,100%);padding:28px;border-radius:26px;
+      background:linear-gradient(180deg,rgba(16,27,45,.98),rgba(7,14,25,.98));
+      border:1px solid rgba(246,196,83,.28);box-shadow:0 28px 80px rgba(0,0,0,.48);color:#f8fafc
+    }
+    .auth-logo{
+      width:58px;height:58px;margin:0 auto 14px;border-radius:18px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(180deg,#f8d879,#c78a24);color:#201504;font-size:27px;font-weight:900
+    }
+    .auth-card h1{text-align:center;color:#f6c453;font-size:28px;margin-bottom:7px}
+    .auth-card>p{text-align:center;color:#93a4ba;font-size:13px;line-height:1.6;margin-bottom:20px}
+    .auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+    .auth-tab{
+      border:1px solid rgba(148,163,184,.18);background:#111c2e;color:#aebcd0;padding:11px;border-radius:13px;
+      font-weight:900;cursor:pointer
+    }
+    .auth-tab.active{background:linear-gradient(180deg,#22c55e,#16a34a);color:#fff;border-color:rgba(255,255,255,.18)}
+    .auth-form{display:none}.auth-form.active{display:block}
+    .auth-form .form-group label{color:#cbd5e1}
+    .auth-form input{background:#071020;color:#fff;border-color:#273754}
+    .auth-submit{width:100%;margin-top:5px}
+    .auth-message{min-height:20px;margin-top:12px;text-align:center;font-size:13px;font-weight:800;color:#fca5a5}
+    .auth-message.success{color:#86efac}
+    .auth-user-box{
+      margin-top:13px;padding:11px 12px;border-radius:14px;background:rgba(246,196,83,.08);
+      border:1px solid rgba(246,196,83,.20);font-size:12px;color:#fde9ad;line-height:1.5
+    }
+    .auth-user-box strong{display:block;color:#fff;word-break:break-word}
+    .sidebar-logout{
+      width:100%;margin-top:10px;border:none;border-radius:12px;padding:10px 12px;cursor:pointer;
+      background:#7f1d32;color:#fff;font-weight:900
+    }
+    body.sidebar-collapsed .auth-user-box,body.sidebar-collapsed .sidebar-logout{display:none}
+    .owner-shell{max-width:1250px;margin:0 auto}
+    .owner-users{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;margin-top:18px}
+    .owner-user-card{
+      background:linear-gradient(180deg,#101a2b,#09111e);border:1px solid rgba(148,163,184,.16);
+      border-radius:20px;padding:18px;color:#e5edf8;box-shadow:0 14px 34px rgba(0,0,0,.24)
+    }
+    .owner-user-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .owner-user-name{font-size:17px;font-weight:900;color:#fff;word-break:break-word}
+    .owner-user-email{font-size:12px;color:#93a4ba;margin-top:5px;word-break:break-word}
+    .role-badge{padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase}
+    .role-owner{background:rgba(246,196,83,.12);color:#f6c453;border:1px solid rgba(246,196,83,.30)}
+    .role-staff{background:rgba(34,197,94,.10);color:#86efac;border:1px solid rgba(34,197,94,.25)}
+    .owner-user-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+    .owner-user-controls select{background:#071020;color:#fff;border-color:#273754}
+    .permission-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+    .permission-item{
+      display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:11px;
+      background:rgba(255,255,255,.035);border:1px solid rgba(148,163,184,.12);font-size:12px;font-weight:800
+    }
+    .permission-item input{width:auto;accent-color:#22c55e}
+    .owner-save-user{width:100%;margin-top:14px}
+    .owner-empty{padding:35px;text-align:center;border:1px dashed rgba(148,163,184,.25);border-radius:18px;color:#93a4ba}
+    @media(max-width:640px){.permission-grid,.owner-user-controls{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body class="dark-workspace">
+
+  <div class="auth-gate" id="authGate">
+    <div class="auth-card">
+      <div class="auth-logo">K</div>
+      <h1>KerjaBoss Login</h1>
+      <p>Masuk untuk membuka dashboard. Pengguna baru otomatis terdaftar sebagai Staff.</p>
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-auth-tab="login">LOGIN</button>
+        <button type="button" class="auth-tab" data-auth-tab="register">DAFTAR</button>
+      </div>
+      <form class="auth-form active" id="loginForm">
+        <div class="form-group"><label for="loginEmail">Email</label><input type="email" id="loginEmail" autocomplete="email" required></div>
+        <div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" autocomplete="current-password" minlength="6" required></div>
+        <button type="submit" class="btn btn-green auth-submit">Masuk Dashboard</button>
+      </form>
+      <form class="auth-form" id="registerForm">
+        <div class="form-group"><label for="registerName">Nama</label><input type="text" id="registerName" required></div>
+        <div class="form-group"><label for="registerEmail">Email</label><input type="email" id="registerEmail" autocomplete="email" required></div>
+        <div class="form-group"><label for="registerPassword">Password</label><input type="password" id="registerPassword" autocomplete="new-password" minlength="6" required></div>
+        <div class="form-group"><label for="registerPasswordConfirm">Ulangi Password</label><input type="password" id="registerPasswordConfirm" autocomplete="new-password" minlength="6" required></div>
+        <button type="submit" class="btn btn-green auth-submit">Daftar Akun Staff</button>
+      </form>
+      <div class="auth-message" id="authMessage"></div>
+    </div>
+  </div>
+
   <div class="app">
     <aside class="sidebar">
       <button type="button" class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu">☰</button>
@@ -624,9 +717,13 @@
           <button class="nav-btn" data-page="bukti-kemenangan">🏆 <span class="menu-label">Bukti Kemenangan</span></button>
           <button class="nav-btn" data-page="prediksi">🔮 <span class="menu-label">Prediksi</span></button>
         </div>
-        <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button><button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button><button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
+        <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button><button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button><button class="nav-btn owner-only" data-page="user-management" style="display:none">👑 <span class="menu-label">Manajemen User</span></button><button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
       </nav>
-      <div class="sidebar-footer"><b>Status:</b> Sidebar bisa dibuka/tutup. Menu postingan tetap di dropdown.</div>
+      <div class="sidebar-footer">
+        <b>Status:</b> Sidebar bisa dibuka/tutup. Menu postingan tetap di dropdown.
+        <div class="auth-user-box" id="sidebarUserBox"><span>Belum login</span></div>
+        <button type="button" class="sidebar-logout" id="logoutBtn">Logout</button>
+      </div>
     </aside>
     <main class="main">
       <div class="page active" id="page-dashboard">
@@ -882,6 +979,25 @@ https://domain3.com"></textarea>
         </section>
         <div class="pkcs-modal" id="pkcsModal"><div class="pkcs-modal-box"><div class="pkcs-modal-head"><h3 id="pkcsModalTitle">Input PK Baru</h3><button type="button" class="pkcs-close" id="pkcsCloseBtn">✕</button></div><input type="hidden" id="pkcsEditId"><div class="form-group"><label for="pkcsKeywordInput">Kata Kunci / Judul PK</label><input type="text" id="pkcsKeywordInput" placeholder="Contoh: MANDIRI KE QRIS"></div><div class="form-group"><label for="pkcsContentInput">Isi PK</label><textarea id="pkcsContentInput" placeholder="Masukkan isi lengkap PK di sini..."></textarea></div><div class="pkcs-modal-actions"><button class="btn btn-green" id="pkcsSaveBtn" type="button">Simpan PK</button><button class="btn btn-soft" id="pkcsCancelBtn" type="button">Batal</button></div></div></div>
       </div>
+
+      <div class="page" id="page-user-management">
+        <section class="owner-shell">
+          <section class="hero">
+            <div>
+              <div class="pill">👑 Khusus Owner</div>
+              <h1>Manajemen User</h1>
+              <p>Atur role, status akun, dan menu yang dapat dibuka oleh setiap Staff.</p>
+            </div>
+          </section>
+          <section class="section">
+            <div class="section-head">
+              <div><h2 class="section-title">Daftar Pengguna</h2><p class="section-desc">Perubahan akses langsung disimpan ke Firebase.</p></div>
+              <button type="button" class="btn btn-soft" id="refreshUsersBtn">↻ Refresh</button>
+            </div>
+            <div class="owner-users" id="ownerUsersList"></div>
+          </section>
+        </section>
+      </div>
       <div class="page" id="page-selisih"><section class="hero"><div><div class="pill">⇄ Ruang Selisih</div><h1>Selisih</h1><p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Selisih.</b><br>Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div></section></div>
     </main>
   </div>
@@ -890,6 +1006,7 @@ https://domain3.com"></textarea>
   <input type="file" id="noteImageInput" class="hidden-file" accept="image/*"><div class="toast" id="toast">Berhasil</div>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 
   <script>
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
@@ -908,12 +1025,276 @@ https://domain3.com"></textarea>
 firebase.initializeApp(firebaseConfig);
 const notesDb = firebase.database().ref("notepadKerjaBoss");
 
+const OWNER_EMAIL = "asephardian2002@gmail.com";
+const usersDb = firebase.database().ref("usersKerjaBoss");
+const auth = firebase.auth();
+
+const DEFAULT_STAFF_PERMISSIONS = {
+  dashboard:true,
+  notepad:true,
+  "syair-togel":false,
+  "bukti-kemenangan":false,
+  prediksi:false,
+  "link-domain":false,
+  "pk-cs":true,
+  selisih:false,
+  "user-management":false
+};
+const ALL_MENU_KEYS = ["dashboard","notepad","syair-togel","bukti-kemenangan","prediksi","link-domain","pk-cs","selisih"];
+const MENU_LABELS = {
+  dashboard:"Dashboard",notepad:"Notepad","syair-togel":"Syair Togel",
+  "bukti-kemenangan":"Bukti Kemenangan",prediksi:"Prediksi",
+  "link-domain":"Link Domain","pk-cs":"PK CS",selisih:"Selisih"
+};
+
+let currentAuthUser = null;
+let currentUserProfile = null;
+
+const authGate=document.getElementById("authGate"),
+loginForm=document.getElementById("loginForm"),
+registerForm=document.getElementById("registerForm"),
+authMessage=document.getElementById("authMessage"),
+logoutBtn=document.getElementById("logoutBtn"),
+sidebarUserBox=document.getElementById("sidebarUserBox"),
+ownerUsersList=document.getElementById("ownerUsersList"),
+refreshUsersBtn=document.getElementById("refreshUsersBtn");
+
+function setAuthMessage(message="",success=false){
+  if(!authMessage)return;
+  authMessage.textContent=message;
+  authMessage.classList.toggle("success",success);
+}
+function authErrorText(error){
+  const code=error?.code||"";
+  const map={
+    "auth/invalid-credential":"Email atau password salah.",
+    "auth/user-not-found":"Akun tidak ditemukan.",
+    "auth/wrong-password":"Password salah.",
+    "auth/email-already-in-use":"Email sudah terdaftar.",
+    "auth/weak-password":"Password minimal 6 karakter.",
+    "auth/invalid-email":"Format email tidak valid.",
+    "auth/too-many-requests":"Terlalu banyak percobaan. Coba lagi beberapa saat."
+  };
+  return map[code]||error?.message||"Terjadi kesalahan autentikasi.";
+}
+document.querySelectorAll(".auth-tab").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".auth-tab").forEach(x=>x.classList.toggle("active",x===btn));
+  const tab=btn.dataset.authTab;
+  loginForm.classList.toggle("active",tab==="login");
+  registerForm.classList.toggle("active",tab==="register");
+  setAuthMessage("");
+}));
+
+loginForm?.addEventListener("submit",async e=>{
+  e.preventDefault();
+  setAuthMessage("Memeriksa akun...");
+  try{
+    await auth.signInWithEmailAndPassword(
+      document.getElementById("loginEmail").value.trim(),
+      document.getElementById("loginPassword").value
+    );
+    setAuthMessage("Login berhasil.",true);
+  }catch(error){setAuthMessage(authErrorText(error))}
+});
+
+registerForm?.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const name=document.getElementById("registerName").value.trim();
+  const email=document.getElementById("registerEmail").value.trim().toLowerCase();
+  const password=document.getElementById("registerPassword").value;
+  const confirmPassword=document.getElementById("registerPasswordConfirm").value;
+  if(password!==confirmPassword)return setAuthMessage("Konfirmasi password tidak sama.");
+  setAuthMessage("Mendaftarkan akun...");
+  try{
+    const credential=await auth.createUserWithEmailAndPassword(email,password);
+    const isOwner=email===OWNER_EMAIL;
+    const profile={
+      uid:credential.user.uid,
+      name,
+      email,
+      role:isOwner?"owner":"staff",
+      status:"active",
+      permissions:isOwner?Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true])):{...DEFAULT_STAFF_PERMISSIONS},
+      createdAt:firebase.database.ServerValue.TIMESTAMP,
+      updatedAt:firebase.database.ServerValue.TIMESTAMP
+    };
+    await usersDb.child(credential.user.uid).set(profile);
+    await credential.user.updateProfile({displayName:name});
+    setAuthMessage(isOwner?"Akun Owner berhasil dibuat.":"Akun Staff berhasil dibuat.",true);
+    registerForm.reset();
+  }catch(error){setAuthMessage(authErrorText(error))}
+});
+
+logoutBtn?.addEventListener("click",()=>auth.signOut());
+
+window.canOpenKerjaBossPage=function(page){
+  if(!currentUserProfile)return false;
+  if(currentUserProfile.status==="disabled")return false;
+  if(currentUserProfile.role==="owner")return true;
+  if(page==="user-management")return false;
+  return currentUserProfile.permissions?.[page]===true;
+};
+
+function updateAccessUI(){
+  const isOwner=currentUserProfile?.role==="owner";
+  document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isOwner?"flex":"none");
+  document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
+    const page=btn.dataset.page;
+    if(page==="user-management"){
+      btn.style.display=isOwner?"flex":"none";
+      return;
+    }
+    const allowed=isOwner||currentUserProfile?.permissions?.[page]===true;
+    btn.style.display=allowed?"flex":"none";
+  });
+  document.querySelectorAll(".submenu").forEach(sub=>{
+    const visible=[...sub.querySelectorAll(".nav-btn")].some(x=>x.style.display!=="none");
+    if(!visible)sub.classList.remove("show");
+  });
+  if(sidebarUserBox&&currentUserProfile){
+    sidebarUserBox.innerHTML=`<span>${currentUserProfile.role==="owner"?"👑 Owner":"👤 Staff"}</span><strong>${cleanText(currentUserProfile.name||currentUserProfile.email)}</strong>`;
+  }
+}
+
+async function ensureUserProfile(user){
+  const snap=await usersDb.child(user.uid).once("value");
+  let profile=snap.val();
+  const email=(user.email||"").toLowerCase();
+  const isOwner=email===OWNER_EMAIL;
+  if(!profile){
+    profile={
+      uid:user.uid,name:user.displayName||email.split("@")[0],email,
+      role:isOwner?"owner":"staff",status:"active",
+      permissions:isOwner?Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true])):{...DEFAULT_STAFF_PERMISSIONS},
+      createdAt:firebase.database.ServerValue.TIMESTAMP,
+      updatedAt:firebase.database.ServerValue.TIMESTAMP
+    };
+    await usersDb.child(user.uid).set(profile);
+  }else if(isOwner&&profile.role!=="owner"){
+    await usersDb.child(user.uid).update({
+      role:"owner",status:"active",
+      permissions:Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true])),
+      updatedAt:firebase.database.ServerValue.TIMESTAMP
+    });
+    profile={...profile,role:"owner",status:"active",permissions:Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true]))};
+  }
+  return profile;
+}
+
+auth.onAuthStateChanged(async user=>{
+  currentAuthUser=user||null;
+  if(!user){
+    currentUserProfile=null;
+    authGate?.classList.remove("hidden");
+    document.querySelector(".app").style.display="none";
+    return;
+  }
+  try{
+    currentUserProfile=await ensureUserProfile(user);
+    if(currentUserProfile.status==="disabled"){
+      setAuthMessage("Akun ini telah dinonaktifkan oleh Owner.");
+      await auth.signOut();
+      return;
+    }
+    authGate?.classList.add("hidden");
+    document.querySelector(".app").style.display="grid";
+    updateAccessUI();
+    openPage("dashboard");
+    if(currentUserProfile.role==="owner")loadOwnerUsers();
+  }catch(error){
+    console.error(error);
+    setAuthMessage("Gagal memuat profil pengguna.");
+    await auth.signOut();
+  }
+});
+
+function renderOwnerUsers(users){
+  if(!ownerUsersList)return;
+  const list=Object.values(users||{}).sort((a,b)=>(a.role==="owner"?-1:1)-(b.role==="owner"?-1:1));
+  if(!list.length){
+    ownerUsersList.innerHTML='<div class="owner-empty">Belum ada pengguna.</div>';
+    return;
+  }
+  ownerUsersList.innerHTML=list.map(user=>{
+    const owner=user.role==="owner";
+    const permissions=user.permissions||{};
+    return `<div class="owner-user-card" data-uid="${user.uid}">
+      <div class="owner-user-head">
+        <div><div class="owner-user-name">${cleanText(user.name||"Tanpa Nama")}</div><div class="owner-user-email">${cleanText(user.email||"")}</div></div>
+        <span class="role-badge ${owner?"role-owner":"role-staff"}">${owner?"Owner":"Staff"}</span>
+      </div>
+      <div class="owner-user-controls">
+        <select class="manage-role" ${user.email===OWNER_EMAIL?"disabled":""}>
+          <option value="staff" ${user.role==="staff"?"selected":""}>Staff</option>
+          <option value="owner" ${user.role==="owner"?"selected":""}>Owner</option>
+        </select>
+        <select class="manage-status" ${user.email===OWNER_EMAIL?"disabled":""}>
+          <option value="active" ${user.status!=="disabled"?"selected":""}>Aktif</option>
+          <option value="disabled" ${user.status==="disabled"?"selected":""}>Nonaktif</option>
+        </select>
+      </div>
+      <div class="permission-grid">
+        ${ALL_MENU_KEYS.map(key=>`<label class="permission-item">
+          <input type="checkbox" data-permission="${key}" ${owner||permissions[key]===true?"checked":""} ${owner?"disabled":""}>
+          ${MENU_LABELS[key]}
+        </label>`).join("")}
+      </div>
+      <button type="button" class="btn btn-green owner-save-user" ${user.email===OWNER_EMAIL?"disabled":""}>Simpan Akses</button>
+    </div>`;
+  }).join("");
+}
+
+function loadOwnerUsers(){
+  if(currentUserProfile?.role!=="owner")return;
+  usersDb.on("value",snap=>renderOwnerUsers(snap.val()||{}));
+}
+refreshUsersBtn?.addEventListener("click",loadOwnerUsers);
+
+ownerUsersList?.addEventListener("change",e=>{
+  const card=e.target.closest(".owner-user-card");
+  if(!card)return;
+  if(e.target.classList.contains("manage-role")){
+    const owner=e.target.value==="owner";
+    card.querySelectorAll("[data-permission]").forEach(cb=>{
+      cb.checked=owner?true:cb.checked;
+      cb.disabled=owner;
+    });
+  }
+});
+ownerUsersList?.addEventListener("click",async e=>{
+  const saveBtn=e.target.closest(".owner-save-user");
+  if(!saveBtn||currentUserProfile?.role!=="owner")return;
+  const card=saveBtn.closest(".owner-user-card");
+  const uid=card.dataset.uid;
+  const role=card.querySelector(".manage-role").value;
+  const status=card.querySelector(".manage-status").value;
+  const permissions={};
+  card.querySelectorAll("[data-permission]").forEach(cb=>permissions[cb.dataset.permission]=role==="owner"?true:cb.checked);
+  saveBtn.disabled=true;
+  saveBtn.textContent="Menyimpan...";
+  try{
+    await usersDb.child(uid).update({role,status,permissions,updatedAt:firebase.database.ServerValue.TIMESTAMP});
+    showToast("Akses pengguna berhasil diperbarui");
+  }catch(error){
+    console.error(error);
+    showToast("Gagal menyimpan akses pengguna");
+  }finally{
+    saveBtn.disabled=false;
+    saveBtn.textContent="Simpan Akses";
+  }
+});
+
+
 let notepadData = [];
 let selectedImageNoteId = null;
 let noteMoveMode = false;
 let draggedNoteId = null;
     function showToast(t){toast.textContent=t;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}
     function openPage(n){
+      if(window.canOpenKerjaBossPage && !window.canOpenKerjaBossPage(n)){
+        showToast("Akses menu ini belum diberikan Owner");
+        return;
+      }
       pages.forEach(p=>p.classList.remove("active"));
       const t=document.getElementById(`page-${n}`);
       if(t)t.classList.add("active");
