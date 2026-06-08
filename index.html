@@ -1120,8 +1120,21 @@ registerForm?.addEventListener("submit",async e=>{
     };
     await usersDb.child(credential.user.uid).set(profile);
     await credential.user.updateProfile({displayName:name});
-    setAuthMessage(isOwner?"Akun Owner berhasil dibuat.":"Akun Staff berhasil dibuat.",true);
+    await auth.signOut();
+
     registerForm.reset();
+    document.querySelectorAll(".auth-tab").forEach(x=>{
+      x.classList.toggle("active",x.dataset.authTab==="login");
+    });
+    loginForm.classList.add("active");
+    registerForm.classList.remove("active");
+    document.getElementById("loginEmail").value=email;
+    document.getElementById("loginPassword").value="";
+    setAuthMessage(isOwner
+      ?"Akun Owner berhasil dibuat. Silakan login."
+      :"Akun Staff berhasil dibuat. Silakan login.",true
+    );
+    setTimeout(()=>document.getElementById("loginPassword")?.focus(),100);
   }catch(error){setAuthMessage(authErrorText(error))}
 });
 
