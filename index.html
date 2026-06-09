@@ -1407,6 +1407,20 @@
       border-color:#1f5a49!important;
     }
 
+
+    /* POPUP PREVIEW GAMBAR NOTEPAD */
+    #page-notepad .note-image-preview{cursor:zoom-in;transition:transform .2s ease,filter .2s ease,box-shadow .2s ease}
+    #page-notepad .note-image-preview:hover{transform:scale(1.01);filter:brightness(1.04);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+    .note-image-modal{position:fixed;inset:0;z-index:6000;display:none;align-items:center;justify-content:center;padding:28px}
+    .note-image-modal.show{display:flex}
+    .note-image-modal-backdrop{position:absolute;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .note-image-modal-box{position:relative;z-index:1;width:min(1000px,92vw);max-height:88vh;display:flex;align-items:center;justify-content:center;border-radius:22px;padding:14px;background:linear-gradient(180deg,rgba(8,20,18,.96),rgba(3,12,14,.98));border:1px solid rgba(34,197,94,.34);box-shadow:0 30px 90px rgba(0,0,0,.60),0 0 32px rgba(34,197,94,.10)}
+    .note-image-modal-box img{display:block;max-width:100%;max-height:82vh;object-fit:contain;border-radius:16px;user-select:none;-webkit-user-drag:none}
+    .note-image-modal-close{position:absolute;top:-14px;right:-14px;width:42px;height:42px;border:none;border-radius:50%;background:linear-gradient(180deg,#4ade80,#16a34a);color:#04130a;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.32)}
+    .note-image-modal-close:hover{filter:brightness(1.08)}
+    body.note-image-modal-open{overflow:hidden}
+    @media(max-width:640px){.note-image-modal{padding:16px}.note-image-modal-box{width:96vw;padding:10px}.note-image-modal-close{top:8px;right:8px}}
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -1767,7 +1781,30 @@ https://domain3.com"></textarea>
 
   <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button type="button" class="modal-close" id="closeNoteModalBtn">✕</button></div><form id="noteForm"><input type="hidden" id="noteEditId"><input type="hidden" id="noteColor" value="yellow"><div class="form-group"><label for="noteTitle">Judul Catatan</label><input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button><button type="button" class="modal-color-dot dot-green" data-color="green"></button><button type="button" class="modal-color-dot dot-blue" data-color="blue"></button><button type="button" class="modal-color-dot dot-pink" data-color="pink"></button><button type="button" class="modal-color-dot dot-purple" data-color="purple"></button><button type="button" class="modal-color-dot dot-orange" data-color="orange"></button><button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button><button type="button" class="modal-color-dot dot-rose" data-color="rose"></button></div></div><div class="form-actions"><button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button><button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button></div></form></div></div>
   <input type="file" id="noteImageInput" class="hidden-file" accept="image/*"><div class="toast" id="toast">Berhasil</div>
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js">
+    function openNoteImagePopup(event,src){
+      event.stopPropagation();
+      const modal=document.getElementById("noteImageModal");
+      const preview=document.getElementById("noteImageModalPreview");
+      if(!modal||!preview||!src)return;
+      preview.src=src;
+      modal.classList.add("show");
+      document.body.classList.add("note-image-modal-open");
+    }
+    function closeNoteImagePopup(){
+      const modal=document.getElementById("noteImageModal");
+      const preview=document.getElementById("noteImageModalPreview");
+      modal?.classList.remove("show");
+      document.body.classList.remove("note-image-modal-open");
+      if(preview)preview.src="";
+    }
+    document.getElementById("noteImageModalCloseBtn")?.addEventListener("click",closeNoteImagePopup);
+    document.getElementById("noteImageModalBackdrop")?.addEventListener("click",closeNoteImagePopup);
+    document.addEventListener("keydown",event=>{
+      if(event.key==="Escape"&&document.getElementById("noteImageModal")?.classList.contains("show"))closeNoteImagePopup();
+    });
+
+</script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 
@@ -2191,7 +2228,7 @@ async function deleteNoteFromFirebase(id){
         noteList.innerHTML=`<div class="empty-note">${term?"Tidak ada note yang cocok dengan pencarian.":"Belum ada catatan."}</div>`;
         return;
       }
-      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn edit-icon" title="Edit catatan" onclick="editNoteButton(event,'${note.id}')">✏️</button><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
+      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image note-image-preview" src="${note.image}" alt="Gambar catatan" onclick="openNoteImagePopup(event,this.src)">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn edit-icon" title="Edit catatan" onclick="editNoteButton(event,'${note.id}')">✏️</button><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
     }
     async function saveNoteOrderToFirebase(){
       const updates={};
@@ -4611,5 +4648,14 @@ drawSyair();
     function pkcsUpdateClock(){const d=new Date();const time=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(d);const date=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",weekday:"long",day:"2-digit",month:"long",year:"numeric"}).format(d);const t=document.getElementById("pkcsClockTime"),dt=document.getElementById("pkcsClockDate");if(t)t.textContent=time.replace(/\./g,":");if(dt)dt.textContent=date}setInterval(pkcsUpdateClock,1000);pkcsUpdateClock();pkcsLoad();
 
 </script>
+
+  <div class="note-image-modal" id="noteImageModal">
+    <div class="note-image-modal-backdrop" id="noteImageModalBackdrop"></div>
+    <div class="note-image-modal-box">
+      <button type="button" class="note-image-modal-close" id="noteImageModalCloseBtn" title="Tutup">✕</button>
+      <img id="noteImageModalPreview" src="" alt="Preview gambar catatan">
+    </div>
+  </div>
+
 </body>
 </html>
