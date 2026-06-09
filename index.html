@@ -1615,6 +1615,255 @@
       }
     }
 
+
+    /* FITUR GAMBAR */
+    #page-gambar{
+      min-height:calc(100vh - 56px);
+      color:#e5edf8;
+    }
+    .gambar-shell{
+      min-height:calc(100vh - 56px);
+      margin:-28px;
+      padding:28px;
+      background:
+        radial-gradient(circle at 12% 5%,rgba(34,197,94,.10),transparent 30%),
+        radial-gradient(circle at 88% 10%,rgba(16,185,129,.08),transparent 28%),
+        linear-gradient(145deg,#07121d 0%,#081622 55%,#050d15 100%);
+    }
+    .gambar-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      padding:22px;
+      border-radius:22px;
+      background:linear-gradient(180deg,rgba(15,32,40,.96),rgba(6,20,25,.96));
+      border:1px solid rgba(34,197,94,.24);
+      box-shadow:0 16px 42px rgba(0,0,0,.28);
+    }
+    .gambar-head h1{
+      margin:10px 0 6px;
+      color:#4ade80;
+      font-size:34px;
+    }
+    .gambar-head p{color:#9fb1c4}
+    .gambar-toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin:18px 0;
+    }
+    .gambar-search{
+      flex:1;
+      max-width:620px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:0 14px;
+      border-radius:14px;
+      background:#061b18;
+      border:1px solid rgba(34,197,94,.30);
+    }
+    .gambar-search span{color:#4ade80}
+    .gambar-search input{
+      border:none!important;
+      background:transparent!important;
+      color:#fff!important;
+      box-shadow:none!important;
+      padding:13px 0!important;
+    }
+    .gambar-count{
+      padding:9px 13px;
+      border-radius:999px;
+      color:#bbf7d0;
+      background:rgba(34,197,94,.09);
+      border:1px solid rgba(34,197,94,.28);
+      font-size:12px;
+      font-weight:900;
+    }
+    .gambar-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+      gap:16px;
+    }
+    .gambar-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:19px;
+      background:linear-gradient(180deg,#0f1d29,#07121c);
+      border:1px solid rgba(34,197,94,.18);
+      box-shadow:0 14px 34px rgba(0,0,0,.28);
+    }
+    .gambar-card-image{
+      width:100%;
+      height:210px;
+      object-fit:cover;
+      display:block;
+      cursor:zoom-in;
+      background:#02070c;
+    }
+    .gambar-card-body{padding:13px}
+    .gambar-card-title{
+      color:#f8fafc;
+      font-size:14px;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .gambar-card-date{
+      margin-top:5px;
+      color:#8293a8;
+      font-size:11px;
+    }
+    .gambar-card-actions{
+      display:flex;
+      gap:8px;
+      margin-top:12px;
+    }
+    .gambar-card-actions button{
+      flex:1;
+      border:none;
+      border-radius:10px;
+      padding:9px 10px;
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .gambar-edit-btn{background:#164e3a}
+    .gambar-delete-btn{background:#7f1d32}
+    .gambar-empty{
+      grid-column:1/-1;
+      padding:42px 18px;
+      text-align:center;
+      border:1px dashed rgba(34,197,94,.22);
+      border-radius:18px;
+      color:#8fa1b5;
+      background:rgba(3,10,16,.48);
+    }
+    .gambar-modal,.gambar-viewer{
+      position:fixed;
+      inset:0;
+      z-index:6200;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      background:rgba(2,6,23,.72);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+    .gambar-modal.show,.gambar-viewer.show{display:flex}
+    .gambar-modal-box{
+      width:min(650px,100%);
+      max-height:92vh;
+      overflow:auto;
+      padding:22px;
+      border-radius:22px;
+      background:linear-gradient(180deg,#0b1d1a,#051310);
+      border:1px solid rgba(34,197,94,.36);
+      box-shadow:0 28px 85px rgba(0,0,0,.55);
+    }
+    .gambar-modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:16px;
+    }
+    .gambar-modal-head h3{color:#fff}
+    .gambar-close{
+      width:38px;height:38px;border:none;border-radius:11px;
+      background:#123b31;color:#fff;cursor:pointer;font-size:17px;
+    }
+    .gambar-modal input{
+      background:#031412!important;
+      color:#fff!important;
+      border-color:#245747!important;
+    }
+    .gambar-modal small{
+      display:block;
+      margin-top:7px;
+      color:#8fa1b5;
+    }
+    .gambar-divider{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:15px 0;
+      color:#86efac;
+      font-size:11px;
+      font-weight:900;
+    }
+    .gambar-divider::before,.gambar-divider::after{
+      content:"";
+      flex:1;
+      height:1px;
+      background:rgba(34,197,94,.22);
+    }
+    .gambar-preview-box{
+      min-height:180px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      margin-top:14px;
+      border-radius:16px;
+      border:1px dashed rgba(34,197,94,.30);
+      background:#020b0a;
+      color:#73859a;
+    }
+    .gambar-preview-box img{
+      display:none;
+      width:100%;
+      max-height:330px;
+      object-fit:contain;
+    }
+    .gambar-preview-box.has-image span{display:none}
+    .gambar-preview-box.has-image img{display:block}
+    .gambar-modal-actions{display:flex;gap:10px;margin-top:16px}
+    .gambar-viewer{z-index:6300}
+    .gambar-viewer-backdrop{position:absolute;inset:0}
+    .gambar-viewer-box{
+      position:relative;
+      z-index:1;
+      width:min(1100px,94vw);
+      max-height:90vh;
+      padding:14px;
+      border-radius:22px;
+      background:#030b0d;
+      border:1px solid rgba(34,197,94,.34);
+      box-shadow:0 30px 95px rgba(0,0,0,.65);
+    }
+    .gambar-viewer-box img{
+      display:block;
+      width:100%;
+      max-height:80vh;
+      object-fit:contain;
+      border-radius:15px;
+    }
+    .gambar-viewer-title{
+      padding:12px 8px 2px;
+      text-align:center;
+      color:#fff;
+      font-weight:900;
+    }
+    .gambar-viewer-close{
+      position:absolute;
+      top:-14px;right:-14px;
+      width:42px;height:42px;border:none;border-radius:50%;
+      background:linear-gradient(180deg,#4ade80,#16a34a);
+      color:#04130a;font-weight:900;cursor:pointer;
+    }
+    @media(max-width:640px){
+      .gambar-shell{margin:-18px;padding:18px}
+      .gambar-head{align-items:flex-start;flex-direction:column}
+      .gambar-head .btn{width:100%}
+      .gambar-toolbar{align-items:stretch;flex-direction:column}
+      .gambar-search{max-width:none}
+      .gambar-grid{grid-template-columns:1fr}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -1777,19 +2026,74 @@
         </section>
       </div>
       <div class="page" id="page-gambar">
-        <section class="hero">
-          <div>
-            <div class="pill">🖼️ Ruang Gambar</div>
-            <h1>Gambar</h1>
-            <p>Ruang khusus untuk mengelola, menyimpan, atau membuat kebutuhan gambar.</p>
+        <section class="gambar-shell">
+          <div class="gambar-head">
+            <div>
+              <div class="pill">🖼️ KOLEKSI GAMBAR</div>
+              <h1>Gambar</h1>
+              <p>Simpan gambar menggunakan link Screenshot, Imgur, atau pilih file langsung dari perangkat.</p>
+            </div>
+            <button type="button" class="btn btn-green" id="openGambarModalBtn">＋ INPUT GAMBAR</button>
           </div>
-        </section>
-        <section class="section">
-          <div class="placeholder-box">
-            <b>Menu Gambar sudah ditambahkan.</b><br>
-            Fitur upload, koleksi, generator, atau editor gambar dapat kita pasang di bagian ini.
+
+          <div class="gambar-toolbar">
+            <div class="gambar-search">
+              <span>⌕</span>
+              <input type="text" id="gambarSearchInput" placeholder="Cari judul gambar...">
+            </div>
+            <span class="gambar-count" id="gambarCount">0 GAMBAR</span>
           </div>
+
+          <div class="gambar-grid" id="gambarGrid"></div>
         </section>
+
+        <div class="gambar-modal" id="gambarModal">
+          <div class="gambar-modal-box">
+            <div class="gambar-modal-head">
+              <h3 id="gambarModalTitle">Input Gambar Baru</h3>
+              <button type="button" class="gambar-close" id="closeGambarModalBtn">✕</button>
+            </div>
+
+            <input type="hidden" id="gambarEditId">
+
+            <div class="form-group">
+              <label for="gambarTitleInput">Judul Gambar</label>
+              <input type="text" id="gambarTitleInput" placeholder="Contoh: Bukti Transfer BCA">
+            </div>
+
+            <div class="form-group">
+              <label for="gambarLinkInput">Link Gambar Screenshot / Imgur</label>
+              <input type="url" id="gambarLinkInput" placeholder="https://i.imgur.com/contoh.jpg">
+            </div>
+
+            <div class="gambar-divider"><span>ATAU</span></div>
+
+            <div class="form-group">
+              <label for="gambarFileInput">Pilih Gambar dari File</label>
+              <input type="file" id="gambarFileInput" accept="image/*">
+              <small>File akan diperkecil otomatis agar lebih ringan disimpan.</small>
+            </div>
+
+            <div class="gambar-preview-box" id="gambarPreviewBox">
+              <span>Preview gambar akan tampil di sini</span>
+              <img id="gambarPreview" alt="Preview gambar">
+            </div>
+
+            <div class="gambar-modal-actions">
+              <button type="button" class="btn btn-green" id="saveGambarBtn">Simpan Gambar</button>
+              <button type="button" class="btn btn-soft" id="cancelGambarBtn">Batal</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gambar-viewer" id="gambarViewer">
+          <div class="gambar-viewer-backdrop" id="gambarViewerBackdrop"></div>
+          <div class="gambar-viewer-box">
+            <button type="button" class="gambar-viewer-close" id="gambarViewerCloseBtn">✕</button>
+            <img id="gambarViewerImage" alt="Preview besar">
+            <div class="gambar-viewer-title" id="gambarViewerTitle"></div>
+          </div>
+        </div>
       </div>
       <div class="page" id="page-prediksi-togel">
         <section class="hero">
@@ -1998,6 +2302,7 @@ https://domain3.com"></textarea>
 
 firebase.initializeApp(firebaseConfig);
 const notesDb = firebase.database().ref("notepadKerjaBoss");
+const gambarDb = firebase.database().ref("gambarKerjaBoss");
 
 const OWNER_EMAIL = "asephardian2002@gmail.com";
 const usersDb = firebase.database().ref("usersKerjaBoss");
@@ -4568,6 +4873,264 @@ textPlain(
     loadNotesFromFirebase();
 drawSyair();
   
+
+
+    /* FITUR GAMBAR */
+    const gambarGrid=document.getElementById("gambarGrid"),
+      gambarCount=document.getElementById("gambarCount"),
+      gambarSearchInput=document.getElementById("gambarSearchInput"),
+      openGambarModalBtn=document.getElementById("openGambarModalBtn"),
+      gambarModal=document.getElementById("gambarModal"),
+      gambarModalTitle=document.getElementById("gambarModalTitle"),
+      closeGambarModalBtn=document.getElementById("closeGambarModalBtn"),
+      cancelGambarBtn=document.getElementById("cancelGambarBtn"),
+      saveGambarBtn=document.getElementById("saveGambarBtn"),
+      gambarEditId=document.getElementById("gambarEditId"),
+      gambarTitleInput=document.getElementById("gambarTitleInput"),
+      gambarLinkInput=document.getElementById("gambarLinkInput"),
+      gambarFileInput=document.getElementById("gambarFileInput"),
+      gambarPreviewBox=document.getElementById("gambarPreviewBox"),
+      gambarPreview=document.getElementById("gambarPreview"),
+      gambarViewer=document.getElementById("gambarViewer"),
+      gambarViewerBackdrop=document.getElementById("gambarViewerBackdrop"),
+      gambarViewerCloseBtn=document.getElementById("gambarViewerCloseBtn"),
+      gambarViewerImage=document.getElementById("gambarViewerImage"),
+      gambarViewerTitle=document.getElementById("gambarViewerTitle");
+
+    let gambarData=[],gambarFileData="";
+
+    function escapeGambarText(value){
+      return String(value||"").replace(/[&<>"']/g,char=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[char]));
+    }
+
+    function renderGambar(){
+      if(!gambarGrid)return;
+      const query=(gambarSearchInput?.value||"").trim().toLowerCase();
+      const shown=query
+        ? gambarData.filter(item=>(item.title||"").toLowerCase().includes(query))
+        : gambarData;
+
+      if(gambarCount)gambarCount.textContent=`${shown.length} GAMBAR`;
+
+      if(!shown.length){
+        gambarGrid.innerHTML='<div class="gambar-empty">Belum ada gambar yang tersimpan.</div>';
+        return;
+      }
+
+      gambarGrid.innerHTML=shown.map(item=>`
+        <article class="gambar-card">
+          <img class="gambar-card-image" src="${escapeGambarText(item.src)}" alt="${escapeGambarText(item.title)}" data-view-id="${item.id}">
+          <div class="gambar-card-body">
+            <div class="gambar-card-title" title="${escapeGambarText(item.title)}">${escapeGambarText(item.title)}</div>
+            <div class="gambar-card-date">${new Date(item.updatedAt||Date.now()).toLocaleString("id-ID")}</div>
+            <div class="gambar-card-actions">
+              <button type="button" class="gambar-edit-btn" data-edit-id="${item.id}">Edit</button>
+              <button type="button" class="gambar-delete-btn" data-delete-id="${item.id}">Hapus</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    gambarDb.orderByChild("updatedAt").on("value",snapshot=>{
+      const data=snapshot.val()||{};
+      gambarData=Object.values(data).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+      renderGambar();
+    },error=>{
+      console.error(error);
+      showToast("Gagal memuat gambar Firebase");
+    });
+
+    function resetGambarForm(){
+      gambarEditId.value="";
+      gambarTitleInput.value="";
+      gambarLinkInput.value="";
+      gambarFileInput.value="";
+      gambarFileData="";
+      gambarPreview.src="";
+      gambarPreviewBox.classList.remove("has-image");
+      gambarModalTitle.textContent="Input Gambar Baru";
+      saveGambarBtn.textContent="Simpan Gambar";
+    }
+
+    function openGambarModal(editItem=null){
+      resetGambarForm();
+      if(editItem){
+        gambarEditId.value=editItem.id;
+        gambarTitleInput.value=editItem.title||"";
+        gambarLinkInput.value=editItem.sourceType==="link" ? editItem.src : "";
+        gambarFileData=editItem.sourceType==="file" ? editItem.src : "";
+        gambarPreview.src=editItem.src;
+        gambarPreviewBox.classList.add("has-image");
+        gambarModalTitle.textContent="Edit Gambar";
+        saveGambarBtn.textContent="Update Gambar";
+      }
+      gambarModal.classList.add("show");
+      setTimeout(()=>gambarTitleInput.focus(),80);
+    }
+
+    function closeGambarModal(){
+      gambarModal.classList.remove("show");
+    }
+
+    function updateGambarPreview(src){
+      if(!src){
+        gambarPreview.src="";
+        gambarPreviewBox.classList.remove("has-image");
+        return;
+      }
+      gambarPreview.src=src;
+      gambarPreviewBox.classList.add("has-image");
+    }
+
+    function compressImageFile(file){
+      return new Promise((resolve,reject)=>{
+        const reader=new FileReader();
+        reader.onerror=reject;
+        reader.onload=()=>{
+          const image=new Image();
+          image.onerror=reject;
+          image.onload=()=>{
+            const maxDimension=1600;
+            let width=image.width,height=image.height;
+            if(width>maxDimension||height>maxDimension){
+              const ratio=Math.min(maxDimension/width,maxDimension/height);
+              width=Math.round(width*ratio);
+              height=Math.round(height*ratio);
+            }
+            const canvas=document.createElement("canvas");
+            canvas.width=width;
+            canvas.height=height;
+            const context=canvas.getContext("2d");
+            context.drawImage(image,0,0,width,height);
+            resolve(canvas.toDataURL("image/jpeg",0.80));
+          };
+          image.src=reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    openGambarModalBtn?.addEventListener("click",()=>openGambarModal());
+    closeGambarModalBtn?.addEventListener("click",closeGambarModal);
+    cancelGambarBtn?.addEventListener("click",closeGambarModal);
+    gambarModal?.addEventListener("click",event=>{
+      if(event.target===gambarModal)closeGambarModal();
+    });
+
+    gambarLinkInput?.addEventListener("input",()=>{
+      const link=gambarLinkInput.value.trim();
+      if(link){
+        gambarFileInput.value="";
+        gambarFileData="";
+        updateGambarPreview(link);
+      }else{
+        updateGambarPreview(gambarFileData);
+      }
+    });
+
+    gambarFileInput?.addEventListener("change",async()=>{
+      const file=gambarFileInput.files?.[0];
+      if(!file)return;
+      if(!file.type.startsWith("image/")){
+        gambarFileInput.value="";
+        return showToast("File harus berupa gambar");
+      }
+      if(file.size>8*1024*1024){
+        gambarFileInput.value="";
+        return showToast("Ukuran file maksimal 8 MB");
+      }
+      try{
+        gambarFileData=await compressImageFile(file);
+        gambarLinkInput.value="";
+        updateGambarPreview(gambarFileData);
+      }catch(error){
+        console.error(error);
+        showToast("Gagal membaca file gambar");
+      }
+    });
+
+    saveGambarBtn?.addEventListener("click",async()=>{
+      const title=gambarTitleInput.value.trim();
+      const link=gambarLinkInput.value.trim();
+      const src=link||gambarFileData;
+      if(!title)return showToast("Judul gambar wajib diisi");
+      if(!src)return showToast("Masukkan link atau pilih file gambar");
+
+      const id=gambarEditId.value||("gambar_"+Date.now());
+      const item={
+        id,
+        title,
+        src,
+        sourceType:link?"link":"file",
+        updatedAt:Date.now(),
+        createdBy:currentAuthUser?.uid||""
+      };
+
+      saveGambarBtn.disabled=true;
+      saveGambarBtn.textContent="Menyimpan...";
+      try{
+        await gambarDb.child(id).set(item);
+        closeGambarModal();
+        resetGambarForm();
+        showToast(gambarEditId.value?"Gambar diperbarui":"Gambar berhasil disimpan");
+      }catch(error){
+        console.error(error);
+        showToast("Gagal menyimpan gambar");
+      }finally{
+        saveGambarBtn.disabled=false;
+        saveGambarBtn.textContent="Simpan Gambar";
+      }
+    });
+
+    gambarSearchInput?.addEventListener("input",renderGambar);
+
+    gambarGrid?.addEventListener("click",async event=>{
+      const image=event.target.closest("[data-view-id]");
+      if(image){
+        const item=gambarData.find(x=>x.id===image.dataset.viewId);
+        if(!item)return;
+        gambarViewerImage.src=item.src;
+        gambarViewerTitle.textContent=item.title;
+        gambarViewer.classList.add("show");
+        document.body.style.overflow="hidden";
+        return;
+      }
+
+      const editButton=event.target.closest("[data-edit-id]");
+      if(editButton){
+        const item=gambarData.find(x=>x.id===editButton.dataset.editId);
+        if(item)openGambarModal(item);
+        return;
+      }
+
+      const deleteButton=event.target.closest("[data-delete-id]");
+      if(deleteButton){
+        const item=gambarData.find(x=>x.id===deleteButton.dataset.deleteId);
+        if(!item||!confirm(`Hapus gambar "${item.title}"?`))return;
+        try{
+          await gambarDb.child(item.id).remove();
+          showToast("Gambar berhasil dihapus");
+        }catch(error){
+          console.error(error);
+          showToast("Gagal menghapus gambar");
+        }
+      }
+    });
+
+    function closeGambarViewer(){
+      gambarViewer.classList.remove("show");
+      gambarViewerImage.src="";
+      document.body.style.overflow="";
+    }
+    gambarViewerCloseBtn?.addEventListener("click",closeGambarViewer);
+    gambarViewerBackdrop?.addEventListener("click",closeGambarViewer);
+    document.addEventListener("keydown",event=>{
+      if(event.key==="Escape"&&gambarViewer?.classList.contains("show"))closeGambarViewer();
+    });
+
 
     /* PK CS QUICK COPY */
     const PKCS_STORAGE_KEY="kerjaboss_pkcs_v1";
