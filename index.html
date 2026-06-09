@@ -920,6 +920,44 @@
       margin:0;
     }
 
+
+    /* PERBAIKAN WALLPAPER DASHBOARD AGAR PENUH */
+    #page-dashboard{
+      margin:-28px;
+      width:calc(100% + 56px);
+      min-height:100vh;
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+    #page-dashboard.active{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    #page-dashboard .dashboard-bg-image{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      background-size:cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+    }
+    #page-dashboard .dashboard-bg-overlay{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+    }
+    @media(max-width:640px){
+      #page-dashboard{
+        margin:-18px;
+        width:calc(100% + 36px);
+        padding:18px;
+      }
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
