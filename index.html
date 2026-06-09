@@ -1781,30 +1781,7 @@ https://domain3.com"></textarea>
 
   <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button type="button" class="modal-close" id="closeNoteModalBtn">✕</button></div><form id="noteForm"><input type="hidden" id="noteEditId"><input type="hidden" id="noteColor" value="yellow"><div class="form-group"><label for="noteTitle">Judul Catatan</label><input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button><button type="button" class="modal-color-dot dot-green" data-color="green"></button><button type="button" class="modal-color-dot dot-blue" data-color="blue"></button><button type="button" class="modal-color-dot dot-pink" data-color="pink"></button><button type="button" class="modal-color-dot dot-purple" data-color="purple"></button><button type="button" class="modal-color-dot dot-orange" data-color="orange"></button><button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button><button type="button" class="modal-color-dot dot-rose" data-color="rose"></button></div></div><div class="form-actions"><button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button><button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button></div></form></div></div>
   <input type="file" id="noteImageInput" class="hidden-file" accept="image/*"><div class="toast" id="toast">Berhasil</div>
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js">
-    function openNoteImagePopup(event,src){
-      event.stopPropagation();
-      const modal=document.getElementById("noteImageModal");
-      const preview=document.getElementById("noteImageModalPreview");
-      if(!modal||!preview||!src)return;
-      preview.src=src;
-      modal.classList.add("show");
-      document.body.classList.add("note-image-modal-open");
-    }
-    function closeNoteImagePopup(){
-      const modal=document.getElementById("noteImageModal");
-      const preview=document.getElementById("noteImageModalPreview");
-      modal?.classList.remove("show");
-      document.body.classList.remove("note-image-modal-open");
-      if(preview)preview.src="";
-    }
-    document.getElementById("noteImageModalCloseBtn")?.addEventListener("click",closeNoteImagePopup);
-    document.getElementById("noteImageModalBackdrop")?.addEventListener("click",closeNoteImagePopup);
-    document.addEventListener("keydown",event=>{
-      if(event.key==="Escape"&&document.getElementById("noteImageModal")?.classList.contains("show"))closeNoteImagePopup();
-    });
-
-</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 
@@ -4656,6 +4633,47 @@ drawSyair();
       <img id="noteImageModalPreview" src="" alt="Preview gambar catatan">
     </div>
   </div>
+
+
+  <script>
+    window.openNoteImagePopup = function(event, src){
+      if(event) event.stopPropagation();
+
+      const modal = document.getElementById("noteImageModal");
+      const preview = document.getElementById("noteImageModalPreview");
+
+      if(!modal || !preview || !src) return;
+
+      preview.src = src;
+      modal.classList.add("show");
+      document.body.classList.add("note-image-modal-open");
+    };
+
+    window.closeNoteImagePopup = function(){
+      const modal = document.getElementById("noteImageModal");
+      const preview = document.getElementById("noteImageModalPreview");
+
+      if(modal) modal.classList.remove("show");
+      document.body.classList.remove("note-image-modal-open");
+
+      if(preview) preview.src = "";
+    };
+
+    document.getElementById("noteImageModalCloseBtn")
+      ?.addEventListener("click", window.closeNoteImagePopup);
+
+    document.getElementById("noteImageModalBackdrop")
+      ?.addEventListener("click", window.closeNoteImagePopup);
+
+    document.addEventListener("keydown", event => {
+      if(
+        event.key === "Escape" &&
+        document.getElementById("noteImageModal")?.classList.contains("show")
+      ){
+        window.closeNoteImagePopup();
+      }
+    });
+  </script>
 
 </body>
 </html>
