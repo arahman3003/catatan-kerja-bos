@@ -1496,6 +1496,46 @@
       box-shadow:none!important;
     }
 
+
+    /* EFEK BERHASIL COPY PK CS */
+    #page-pk-cs .pkcs-result-box{
+      position:relative;
+      overflow:hidden;
+    }
+    #page-pk-cs .pkcs-copy-success{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-size:34px;
+      font-weight:900;
+      color:#047857;
+      background:linear-gradient(115deg,rgba(236,253,245,.96),rgba(209,250,229,.95),rgba(167,243,208,.95));
+      opacity:0;
+      pointer-events:none;
+      transform:scale(.96);
+      transition:opacity .18s ease,transform .18s ease;
+      z-index:5;
+    }
+    #page-pk-cs .pkcs-copy-success.show{
+      opacity:1;
+      transform:scale(1);
+    }
+    #page-pk-cs .pkcs-copy-success span{
+      animation:pkcsCheckPop .45s ease both;
+    }
+    @keyframes pkcsCheckPop{
+      0%{transform:scale(.4);opacity:0}
+      60%{transform:scale(1.16);opacity:1}
+      100%{transform:scale(1);opacity:1}
+    }
+    #page-pk-cs .pkcs-copy.success{
+      background:linear-gradient(180deg,#22c55e,#15803d)!important;
+      border-color:#86efac!important;
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -1824,7 +1864,10 @@ https://domain3.com"></textarea>
             </div>
             <div class="pkcs-panel pkcs-right">
               <div class="pkcs-result-head"><h3>Hasil / Isi</h3><span class="pkcs-ready" id="pkcsReadyBadge">READY TO COPY</span></div>
-              <div class="pkcs-result-box"><div id="pkcsResult" class="pkcs-result-empty">Pilih kata kunci PK di sebelah kiri untuk menampilkan isinya.</div></div>
+              <div class="pkcs-result-box">
+                <div id="pkcsResult" class="pkcs-result-empty">Pilih kata kunci PK di sebelah kiri untuk menampilkan isinya.</div>
+                <div class="pkcs-copy-success" id="pkcsCopySuccess"><span>✓ ✓ ✓</span></div>
+              </div>
               <div class="pkcs-result-foot"><span class="pkcs-note">Pastikan isi sudah benar sebelum dicopy.</span><div class="pkcs-actions"><button class="pkcs-edit" id="pkcsEditBtn" type="button">Edit</button><button class="pkcs-delete" id="pkcsDeleteBtn" type="button">Hapus</button><button class="pkcs-copy" id="pkcsCopyBtn" type="button">Copy Sekarang</button></div></div>
             </div>
           </div>
@@ -4449,7 +4492,7 @@ drawSyair();
 
     /* PK CS QUICK COPY */
     const PKCS_STORAGE_KEY="kerjaboss_pkcs_v1";
-    const pkcsSearchInput=document.getElementById("pkcsSearchInput"),pkcsList=document.getElementById("pkcsList"),pkcsResult=document.getElementById("pkcsResult"),pkcsAddBtn=document.getElementById("pkcsAddBtn"),pkcsEditBtn=document.getElementById("pkcsEditBtn"),pkcsDeleteBtn=document.getElementById("pkcsDeleteBtn"),pkcsCopyBtn=document.getElementById("pkcsCopyBtn"),pkcsModal=document.getElementById("pkcsModal"),pkcsModalTitle=document.getElementById("pkcsModalTitle"),pkcsEditId=document.getElementById("pkcsEditId"),pkcsKeywordInput=document.getElementById("pkcsKeywordInput"),pkcsContentInput=document.getElementById("pkcsContentInput"),pkcsSaveBtn=document.getElementById("pkcsSaveBtn"),pkcsCloseBtn=document.getElementById("pkcsCloseBtn"),pkcsCancelBtn=document.getElementById("pkcsCancelBtn"),pkcsImportSheetBtn=document.getElementById("pkcsImportSheetBtn"),pkcsImportStatus=document.getElementById("pkcsImportStatus"),pkcsReadyBadge=document.getElementById("pkcsReadyBadge");
+    const pkcsSearchInput=document.getElementById("pkcsSearchInput"),pkcsList=document.getElementById("pkcsList"),pkcsResult=document.getElementById("pkcsResult"),pkcsAddBtn=document.getElementById("pkcsAddBtn"),pkcsEditBtn=document.getElementById("pkcsEditBtn"),pkcsDeleteBtn=document.getElementById("pkcsDeleteBtn"),pkcsCopyBtn=document.getElementById("pkcsCopyBtn"),pkcsCopySuccess=document.getElementById("pkcsCopySuccess"),pkcsModal=document.getElementById("pkcsModal"),pkcsModalTitle=document.getElementById("pkcsModalTitle"),pkcsEditId=document.getElementById("pkcsEditId"),pkcsKeywordInput=document.getElementById("pkcsKeywordInput"),pkcsContentInput=document.getElementById("pkcsContentInput"),pkcsSaveBtn=document.getElementById("pkcsSaveBtn"),pkcsCloseBtn=document.getElementById("pkcsCloseBtn"),pkcsCancelBtn=document.getElementById("pkcsCancelBtn"),pkcsImportSheetBtn=document.getElementById("pkcsImportSheetBtn"),pkcsImportStatus=document.getElementById("pkcsImportStatus"),pkcsReadyBadge=document.getElementById("pkcsReadyBadge");
     let pkcsData=[],pkcsSelectedId=null,pkcsLockedId=null;
     const pkcsDefaults=[
       {id:"pk1",keyword:"MANDIRI KE QRIS",content:"Yth, Member Setia. Untuk sementara Deposit via MANDIRI sedang terkendala sehingga untuk sementara kami alihkan ke QRIS dynamic terlebih dahulu.\n\nKami sarankan silakan deposit ke QRIS kami atau memilih rekening antar bank kami yang lain dalam status online dan normal ya bosku."},
@@ -4610,11 +4653,31 @@ drawSyair();
       pkcsLockedId=null;
       showToast("PK berhasil dihapus dari Firebase");
     });
+    function showPkcsCopySuccess(){
+      if(pkcsCopySuccess){
+        pkcsCopySuccess.classList.remove("show");
+        void pkcsCopySuccess.offsetWidth;
+        pkcsCopySuccess.classList.add("show");
+        setTimeout(()=>pkcsCopySuccess.classList.remove("show"),900);
+      }
+      if(pkcsCopyBtn){
+        const originalText=pkcsCopyBtn.dataset.originalText||pkcsCopyBtn.textContent;
+        pkcsCopyBtn.dataset.originalText=originalText;
+        pkcsCopyBtn.classList.add("success");
+        pkcsCopyBtn.textContent="Berhasil Dicopy";
+        setTimeout(()=>{
+          pkcsCopyBtn.classList.remove("success");
+          pkcsCopyBtn.textContent=originalText;
+        },1100);
+      }
+    }
+
     async function pkcsCopyActive(){
       const active=pkcsData.find(x=>x.id===pkcsSelectedId);
       if(!active)return showToast("Pilih PK terlebih dahulu");
       try{
         await navigator.clipboard.writeText(active.content);
+        showPkcsCopySuccess();
         showToast("Isi PK berhasil dicopy");
       }catch(e){
         const ta=document.createElement("textarea");
@@ -4625,6 +4688,7 @@ drawSyair();
         ta.select();
         document.execCommand("copy");
         ta.remove();
+        showPkcsCopySuccess();
         showToast("Isi PK berhasil dicopy");
       }
     }
