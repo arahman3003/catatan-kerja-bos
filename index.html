@@ -958,6 +958,36 @@
       }
     }
 
+
+    #page-gambar{
+      color:#e5edf8;
+      min-height:calc(100vh - 56px)
+    }
+    #page-gambar .hero,
+    #page-gambar .section{
+      background:linear-gradient(180deg,rgba(15,24,40,.96) 0%,rgba(8,15,27,.96) 100%);
+      border:1px solid rgba(148,163,184,.15);
+      box-shadow:0 18px 45px rgba(0,0,0,.28);
+      color:#e8eef8
+    }
+    #page-gambar .hero{
+      background:
+        radial-gradient(circle at 88% 10%,rgba(34,197,94,.13),transparent 28%),
+        linear-gradient(135deg,#101b2d 0%,#09111e 100%)
+    }
+    #page-gambar .hero h1{color:#f8fafc}
+    #page-gambar .hero p{color:#93a4ba}
+    #page-gambar .pill{
+      background:rgba(34,197,94,.13);
+      color:#86efac;
+      border-color:rgba(34,197,94,.30)
+    }
+    #page-gambar .placeholder-box{
+      background:rgba(3,8,17,.48);
+      border-color:rgba(148,163,184,.22);
+      color:#cbd5e1
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -1014,14 +1044,19 @@
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
         <button class="nav-btn active" data-page="dashboard">▣ <span class="menu-label">Dashboard</span></button>
-        <button class="nav-btn" data-page="notepad">📝 <span class="menu-label">Notepad</span></button>
+        <button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button>
+        <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
+        <button class="nav-btn" data-page="prediksi">🔮 <span class="menu-label">Prediksi</span></button>
+
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
           <button class="nav-btn" data-page="syair-togel">📜 <span class="menu-label">Syair Togel</span></button>
           <button class="nav-btn" data-page="bukti-kemenangan">🏆 <span class="menu-label">Bukti Kemenangan</span></button>
-          <button class="nav-btn" data-page="prediksi">🔮 <span class="menu-label">Prediksi</span></button>
         </div>
-        <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button><button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button><button class="nav-btn owner-only" data-page="user-management" style="display:none">👑 <span class="menu-label">Manajemen User</span></button><button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
+
+        <button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
+        <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button>
+        <button class="nav-btn owner-only" data-page="user-management" style="display:none">👑 <span class="menu-label">Manajemen User</span></button>
       </nav>
       <div class="sidebar-footer">
         <b>Status:</b> Sidebar bisa dibuka/tutup. Menu postingan tetap di dropdown.
@@ -1104,6 +1139,21 @@
             </div>
           </div>
           <input type="file" id="buktiImageInput" class="hidden-file" accept="image/*">
+        </section>
+      </div>
+      <div class="page" id="page-gambar">
+        <section class="hero">
+          <div>
+            <div class="pill">🖼️ Ruang Gambar</div>
+            <h1>Gambar</h1>
+            <p>Ruang khusus untuk mengelola, menyimpan, atau membuat kebutuhan gambar.</p>
+          </div>
+        </section>
+        <section class="section">
+          <div class="placeholder-box">
+            <b>Menu Gambar sudah ditambahkan.</b><br>
+            Fitur upload, koleksi, generator, atau editor gambar dapat kita pasang di bagian ini.
+          </div>
         </section>
       </div>
       <div class="page" id="page-prediksi"><section class="hero"><div><div class="pill">🔮 Ruang Prediksi</div><h1>Prediksi</h1><p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Prediksi.</b><br>Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.</div></section></div>
@@ -1313,6 +1363,7 @@ registerAuth.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(console.e
 
 const DEFAULT_STAFF_PERMISSIONS = {
   dashboard:true,
+  gambar:false,
   notepad:true,
   "syair-togel":false,
   "bukti-kemenangan":false,
@@ -1322,10 +1373,10 @@ const DEFAULT_STAFF_PERMISSIONS = {
   selisih:false,
   "user-management":false
 };
-const ALL_MENU_KEYS = ["dashboard","notepad","syair-togel","bukti-kemenangan","prediksi","link-domain","pk-cs","selisih"];
+const ALL_MENU_KEYS = ["dashboard","pk-cs","gambar","prediksi","syair-togel","bukti-kemenangan","selisih","link-domain","notepad"];
 const MENU_LABELS = {
-  dashboard:"Dashboard",notepad:"Notepad","syair-togel":"Syair Togel",
-  "bukti-kemenangan":"Bukti Kemenangan",prediksi:"Prediksi",
+  dashboard:"Dashboard","pk-cs":"PK CS",gambar:"Gambar",prediksi:"Prediksi",
+  "syair-togel":"Syair Togel","bukti-kemenangan":"Bukti Kemenangan",
   "link-domain":"Link Domain","pk-cs":"PK CS",selisih:"Selisih"
 };
 
@@ -1625,7 +1676,7 @@ let draggedNoteId = null;
       const t=document.getElementById(`page-${n}`);
       if(t)t.classList.add("active");
       sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));
-      document.body.classList.toggle("dark-workspace",["dashboard","notepad","link-domain","pk-cs","selisih"].includes(n));
+      document.body.classList.toggle("dark-workspace",["dashboard","notepad","gambar","link-domain","pk-cs","selisih"].includes(n));
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
