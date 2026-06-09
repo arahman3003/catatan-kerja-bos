@@ -1864,6 +1864,71 @@
       .gambar-grid{grid-template-columns:1fr}
     }
 
+
+    /* RAPIIKAN JUDUL GAMBAR + EFEK LAMPU BERJALAN */
+    .gambar-card-body{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .gambar-card-title{
+      position:relative;
+      display:block;
+      white-space:normal!important;
+      overflow:visible!important;
+      text-overflow:unset!important;
+      line-height:1.45!important;
+      min-height:44px;
+      padding:2px 0 4px;
+      text-align:center;
+      font-size:15px!important;
+      font-weight:1000!important;
+      letter-spacing:.25px;
+      text-transform:uppercase;
+      background:linear-gradient(
+        90deg,
+        #22c55e 0%,
+        #bbf7d0 18%,
+        #f0fdf4 30%,
+        #22c55e 42%,
+        #16a34a 100%
+      );
+      background-size:240% 100%;
+      background-position:0% 50%;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent!important;
+      animation:gambarTitleShine 3.2s linear infinite;
+      word-break:break-word;
+    }
+    .gambar-card-title::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-3px;
+      width:100%;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(187,247,208,.9),transparent);
+      opacity:.9;
+    }
+    .gambar-card-date{
+      margin-top:0!important;
+      text-align:center;
+      font-size:11px!important;
+      color:#9fb1c4!important;
+    }
+    .gambar-card-actions{
+      margin-top:8px!important;
+    }
+    .gambar-card-actions button{
+      font-size:12px;
+      letter-spacing:.2px;
+    }
+    @keyframes gambarTitleShine{
+      0%{background-position:200% 50%}
+      100%{background-position:-40% 50%}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
