@@ -1929,6 +1929,36 @@
       100%{background-position:-40% 50%}
     }
 
+
+    /* JUDUL CARD GAMBAR DI BAGIAN ATAS */
+    .gambar-card{
+      display:flex;
+      flex-direction:column;
+    }
+    .gambar-card-head{
+      padding:12px 13px 6px;
+      border-bottom:1px solid rgba(34,197,94,.10);
+    }
+    .gambar-card-image{
+      order:2;
+      margin:0 13px;
+      width:calc(100% - 26px);
+      border-radius:14px;
+      height:220px;
+    }
+    .gambar-card-body{
+      order:3;
+      padding-top:10px!important;
+    }
+    .gambar-card-title{
+      min-height:auto!important;
+      padding:0 2px 6px!important;
+      margin:0!important;
+    }
+    .gambar-card-title::after{
+      bottom:-1px!important;
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -4986,9 +5016,11 @@ drawSyair();
 
       gambarGrid.innerHTML=shown.map(item=>`
         <article class="gambar-card">
+          <div class="gambar-card-head">
+            <div class="gambar-card-title" title="${escapeGambarText(item.title)}">${escapeGambarText(item.title)}</div>
+          </div>
           <img class="gambar-card-image" src="${escapeGambarText(item.src)}" alt="${escapeGambarText(item.title)}" data-view-id="${item.id}">
           <div class="gambar-card-body">
-            <div class="gambar-card-title" title="${escapeGambarText(item.title)}">${escapeGambarText(item.title)}</div>
             <div class="gambar-card-date">${new Date(item.updatedAt||Date.now()).toLocaleString("id-ID")}</div>
             <div class="gambar-card-actions">
               <button type="button" class="gambar-edit-btn" data-edit-id="${item.id}">Edit</button>
