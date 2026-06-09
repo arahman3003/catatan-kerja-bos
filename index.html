@@ -574,9 +574,9 @@
     #page-notepad .note-card.color-orange{background:linear-gradient(180deg,#ffd7ab 0%,#f6be7c 100%)}
     #page-notepad .note-card.color-cyan{background:linear-gradient(180deg,#b8ecf2 0%,#9fdae4 100%)}
     #page-notepad .note-card.color-rose{background:linear-gradient(180deg,#f7c6dc 0%,#eca8c9 100%)}
-    #page-notepad .note-main{cursor:pointer;padding-right:6px}
-    #page-notepad .note-title{font-size:14px;font-weight:900;color:#1a140f;line-height:1.25;text-transform:uppercase;letter-spacing:.2px;padding-right:14px}
-    #page-notepad .note-content{
+    #page-notepad .note-main{cursor:text;padding-right:6px;user-select:text;-webkit-user-select:text}
+    #page-notepad .note-title{user-select:text;-webkit-user-select:text;font-size:14px;font-weight:900;color:#1a140f;line-height:1.25;text-transform:uppercase;letter-spacing:.2px;padding-right:14px}
+    #page-notepad .note-content{user-select:text;-webkit-user-select:text;
       margin-top:10px;
       padding-top:10px;
       padding-right:8px;
@@ -604,6 +604,12 @@
     #page-notepad .note-actions{display:flex;gap:8px;align-items:center;border-top:none;padding-top:0}
     #page-notepad .icon-btn{width:28px;height:28px;border-radius:9px;background:rgba(255,255,255,.22);border:1px solid rgba(0,0,0,.08);font-size:13px;backdrop-filter:blur(2px)}
     #page-notepad .icon-btn:hover{background:rgba(255,255,255,.42)}
+    #page-notepad .icon-btn.edit-icon:hover{background:rgba(34,197,94,.25)}
+    #page-notepad .note-grid.move-mode .note-main{
+      cursor:grab;
+      user-select:none;
+      -webkit-user-select:none
+    }
     #page-notepad .note-grid.move-mode .note-card{cursor:grab;outline:2px dashed rgba(246,196,83,.45);outline-offset:3px}
     #page-notepad .note-grid.move-mode .note-card:active{cursor:grabbing}
     #page-notepad .note-card.dragging{opacity:.48;transform:scale(.98)}
@@ -1985,7 +1991,7 @@ async function deleteNoteFromFirebase(id){
         noteList.innerHTML=`<div class="empty-note">${term?"Tidak ada note yang cocok dengan pencarian.":"Belum ada catatan."}</div>`;
         return;
       }
-      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main" onclick="if(!noteMoveMode)editNote('${note.id}')"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
+      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image" src="${note.image}" alt="Gambar catatan">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn edit-icon" title="Edit catatan" onclick="editNoteButton(event,'${note.id}')">✏️</button><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
     }
     async function saveNoteOrderToFirebase(){
       const updates={};
@@ -2064,7 +2070,15 @@ async function deleteNoteFromFirebase(id){
   resetNoteForm();
   closeNoteModal();
 });
-    function editNote(id){const n=notepadData.find(i=>i.id===id);if(!n)return;noteEditId.value=n.id;noteTitle.value=n.title;noteContent.value=n.content;setModalColor(n.color||"yellow");noteFormTitle.textContent="Edit Catatan";noteSaveBtn.textContent="Update Catatan";openPage("notepad");openNoteModal()}async function deleteNote(e,id){
+    function editNote(id){const n=notepadData.find(i=>i.id===id);if(!n)return;noteEditId.value=n.id;noteTitle.value=n.title;noteContent.value=n.content;setModalColor(n.color||"yellow");noteFormTitle.textContent="Edit Catatan";noteSaveBtn.textContent="Update Catatan";openPage("notepad");openNoteModal()}
+    function editNoteButton(event,id){
+      event.stopPropagation();
+      if(noteMoveMode){
+        showToast("Matikan mode MOVE terlebih dahulu");
+        return;
+      }
+      editNote(id);
+    }async function deleteNote(e,id){
   e.stopPropagation();
 
   if(!confirm("Yakin mau hapus catatan ini?")) return;
