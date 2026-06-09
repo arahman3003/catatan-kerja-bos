@@ -1207,6 +1207,80 @@
     #page-user-management .owner-empty{background:rgba(3,8,17,.50)!important;border-color:rgba(34,197,94,.20)!important;color:#94a3b8!important}
     @media(max-width:640px){#page-user-management{padding:18px;margin:-18px;width:calc(100% + 36px)}}
 
+
+    /* PERAPIAN POSISI TULISAN DAN FOOTER NOTE */
+    #page-notepad .note-card{
+      display:inline-grid!important;
+      grid-template-rows:minmax(0,1fr) auto;
+      align-content:stretch;
+      padding:16px 16px 13px!important;
+    }
+    #page-notepad .note-main{
+      width:100%;
+      min-width:0;
+      padding:0!important;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+    }
+    #page-notepad .note-title{
+      width:100%;
+      margin:0!important;
+      padding:0 28px 10px 0!important;
+      border-bottom:1px dashed rgba(70,51,23,.25);
+      line-height:1.35!important;
+      min-height:30px;
+      display:flex;
+      align-items:flex-start;
+    }
+    #page-notepad .note-content{
+      width:100%;
+      margin:10px 0 0!important;
+      padding:0 8px 0 0!important;
+      border-top:none!important;
+      line-height:1.62!important;
+      text-align:left;
+      overflow-wrap:anywhere;
+      flex:1 1 auto;
+    }
+    #page-notepad .note-bottom{
+      width:100%;
+      margin-top:14px!important;
+      padding-top:10px;
+      border-top:1px solid rgba(70,51,23,.14);
+      display:grid!important;
+      grid-template-columns:1fr auto;
+      align-items:end!important;
+      gap:10px!important;
+    }
+    #page-notepad .note-date{
+      text-align:right;
+      line-height:1.35;
+      justify-self:end;
+      order:2;
+    }
+    #page-notepad .note-actions{
+      justify-self:start;
+      order:1;
+      gap:7px!important;
+    }
+    #page-notepad .note-date::before{
+      text-align:right;
+    }
+    #page-notepad .note-image{
+      width:100%;
+      margin:12px 0 0!important;
+    }
+    @media(max-width:640px){
+      #page-notepad .note-bottom{
+        grid-template-columns:1fr;
+      }
+      #page-notepad .note-date,
+      #page-notepad .note-actions{
+        justify-self:end;
+      }
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
