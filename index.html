@@ -1018,6 +1018,114 @@
       color:#cbd5e1
     }
 
+
+    .sidebar-top-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:16px;
+    }
+    .sidebar-top-row .sidebar-toggle{
+      flex:0 0 auto;
+      margin:0;
+    }
+    .auth-user-top{
+      flex:1;
+      margin:0;
+      min-height:46px;
+      padding:8px 10px!important;
+      border-radius:14px!important;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      line-height:1.25;
+    }
+    .auth-user-top span{
+      font-size:10px;
+      font-weight:900;
+      color:#86efac;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+    }
+    .auth-user-top strong{
+      font-size:12px;
+      margin-top:2px;
+      color:#fff;
+    }
+    body.sidebar-collapsed .sidebar-top-row{
+      justify-content:center;
+    }
+    body.sidebar-collapsed .auth-user-top{
+      display:none!important;
+    }
+    body.sidebar-collapsed .sidebar-top-row .sidebar-toggle{
+      margin:0 auto;
+    }
+
+
+    /* SEARCH NOTEPAD BUKA / TUTUP */
+    .notehub-topbar{
+      flex-wrap:nowrap;
+    }
+    .notehub-search-wrap{
+      flex:0 1 720px;
+      max-width:720px;
+      min-width:280px;
+      position:relative;
+      overflow:hidden;
+      transition:max-width .28s ease,opacity .22s ease,transform .28s ease,margin .28s ease;
+    }
+    .notehub-search-wrap input{
+      padding-right:42px!important;
+    }
+    .notehub-search-close{
+      position:absolute;
+      right:8px;
+      top:50%;
+      transform:translateY(-50%);
+      width:28px;
+      height:28px;
+      border:none;
+      border-radius:9px;
+      background:#1f2937;
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .notehub-search-close:hover{background:#374151}
+    .notehub-search-wrap.search-collapsed{
+      max-width:0;
+      min-width:0;
+      opacity:0;
+      transform:scaleX(.92);
+      margin:0;
+      pointer-events:none;
+    }
+    .notehub-search-toggle{
+      flex:0 0 auto;
+    }
+    .notehub-search-toggle.search-open{
+      display:none;
+    }
+    @media(max-width:1100px){
+      .notehub-topbar{flex-wrap:wrap}
+      .notehub-search-wrap{
+        order:10;
+        flex:1 1 100%;
+        max-width:100%;
+        min-width:100%;
+      }
+      .notehub-search-wrap.search-collapsed{
+        max-width:0;
+        min-width:0;
+        flex-basis:0;
+      }
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -1069,7 +1177,10 @@
 
   <div class="app">
     <aside class="sidebar">
-      <button type="button" class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu">☰</button>
+      <div class="sidebar-top-row">
+        <div class="auth-user-box auth-user-top" id="sidebarUserBox"><span>Belum login</span></div>
+        <button type="button" class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu">☰</button>
+      </div>
       <div class="brand-box"><div class="brand">Kerja<span>Boss</span></div><div class="subtitle">Panel kerja utama untuk catatan, postingan, link, dan perhitungan.</div></div>
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
@@ -1092,7 +1203,6 @@
       </nav>
       <div class="sidebar-footer">
         <b>Status:</b> Sidebar bisa dibuka/tutup. Menu postingan tetap di dropdown.
-        <div class="auth-user-box" id="sidebarUserBox"><span>Belum login</span></div>
         <button type="button" class="sidebar-logout" id="logoutBtn">Logout</button>
       </div>
     </aside>
@@ -1114,7 +1224,11 @@
               <div class="notehub-brand-icon">📝</div>
               <div class="notehub-brand-text"><strong>KERJABOSS NOTE</strong><span>catatan kerja tersimpan</span></div>
             </div>
-            <div class="notehub-search-wrap"><input type="text" id="noteSearchInput" placeholder="Cari judul note..."></div>
+            <button type="button" class="notehub-btn notehub-search-toggle" id="noteSearchToggleBtn">BUKA SEARCH</button>
+            <div class="notehub-search-wrap search-collapsed" id="noteSearchWrap">
+              <input type="text" id="noteSearchInput" placeholder="Cari judul note...">
+              <button type="button" class="notehub-search-close" id="noteSearchCloseBtn" title="Tutup pencarian">✕</button>
+            </div>
             <button type="button" class="notehub-btn" id="noteSearchResetBtn">RESET</button>
             <button type="button" class="notehub-btn" id="noteMoveBtn">MOVE TABLE</button>
             <button type="button" class="notehub-btn primary" id="openNoteModalBtn">+ NOTE</button>
@@ -1378,7 +1492,7 @@ https://domain3.com"></textarea>
 
   <script>
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
-    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
+    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
   authDomain: "kaizokugaridashboard.firebaseapp.com",
@@ -1819,10 +1933,34 @@ async function deleteNoteFromFirebase(id){
       showToast(noteMoveMode?"Mode pindah aktif: tarik note untuk memindahkan posisi":"Mode pindah dimatikan");
       if(!noteMoveMode)saveNoteOrderToFirebase();
     }
-    openNoteModalBtn.addEventListener("click",()=>{resetNoteForm();openNoteModal()});closeNoteModalBtn.addEventListener("click",closeNoteModal);noteModal.addEventListener("click",e=>{if(e.target===noteModal)closeNoteModal()});noteResetBtn.addEventListener("click",()=>{resetNoteForm();showToast("Form dibersihkan")});noteSearchInput?.addEventListener("input",()=>{
+    openNoteModalBtn.addEventListener("click",()=>{resetNoteForm();openNoteModal()});closeNoteModalBtn.addEventListener("click",closeNoteModal);noteModal.addEventListener("click",e=>{if(e.target===noteModal)closeNoteModal()});noteResetBtn.addEventListener("click",()=>{resetNoteForm();showToast("Form dibersihkan")});function openNoteSearch(){
+      noteSearchWrap?.classList.remove("search-collapsed");
+      noteSearchToggleBtn?.classList.add("search-open");
+      setTimeout(()=>noteSearchInput?.focus(),120);
+    }
+    function closeNoteSearch(){
+      noteSearchWrap?.classList.add("search-collapsed");
+      noteSearchToggleBtn?.classList.remove("search-open");
+      if(noteSearchInput){
+        noteSearchInput.value="";
+        renderNotes();
+      }
+    }
+    noteSearchToggleBtn?.addEventListener("click",openNoteSearch);
+    noteSearchCloseBtn?.addEventListener("click",closeNoteSearch);
+    noteSearchInput?.addEventListener("input",()=>{
       if(noteMoveMode) noteMoveMode=false;
       renderNotes();
-    });noteSearchResetBtn?.addEventListener("click",()=>{if(noteSearchInput){noteSearchInput.value="";renderNotes();noteSearchInput.focus()}});noteMoveBtn?.addEventListener("click",toggleNoteMoveMode);
+    });
+    noteSearchResetBtn?.addEventListener("click",()=>{
+      if(noteSearchInput){
+        noteSearchInput.value="";
+        renderNotes();
+        if(noteSearchWrap?.classList.contains("search-collapsed")) openNoteSearch();
+        else noteSearchInput.focus();
+      }
+    });
+    noteMoveBtn?.addEventListener("click",toggleNoteMoveMode);
     noteForm.addEventListener("submit", async e => {
   e.preventDefault();
 
