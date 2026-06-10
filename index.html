@@ -640,10 +640,10 @@
         linear-gradient(180deg,rgba(3,7,18,.18),rgba(3,7,18,.42))
     }
     .auth-card.auth-book{
-      position:relative;z-index:2;width:min(920px,96vw);min-height:780px;padding:0;border-radius:30px;
+      position:relative;z-index:2;width:min(760px,92vw);min-height:475px;padding:0;border-radius:22px;
       overflow:hidden;display:grid;grid-template-columns:1fr 1fr;
       background:#050505;border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 38px 110px rgba(0,0,0,.66);color:#f8fafc
+      box-shadow:0 28px 80px rgba(0,0,0,.62);color:#f8fafc
     }
     .auth-book-left,.auth-book-right{position:relative;min-width:0}
     .auth-book-left{
@@ -660,7 +660,7 @@
     }
     .auth-book-left-content{
       position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-      padding:46px;text-align:center
+      padding:28px;text-align:center
     }
     .auth-book-symbol{font-size:42px;color:#f6c453;text-shadow:0 8px 24px rgba(0,0,0,.45)}
     .auth-book-jp{font-size:26px;font-weight:900;color:#fff;margin-top:8px;letter-spacing:1px}
@@ -675,7 +675,7 @@
       background:linear-gradient(90deg,rgba(255,255,255,.06),transparent);
       pointer-events:none
     }
-    .auth-card-content{position:relative;z-index:2;width:100%;padding:46px 42px}
+    .auth-card-content{position:relative;z-index:2;width:100%;padding:28px 26px}
     .auth-book::after{
       content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-1px);
       background:linear-gradient(180deg,transparent,rgba(255,255,255,.12),transparent);
@@ -1957,6 +1957,48 @@
     }
     .gambar-card-title::after{
       bottom:-1px!important;
+    }
+
+
+    /* UKURAN CARD LOGIN SESUAI REFERENSI */
+    .auth-book-right h1{
+      font-size:24px!important;
+      margin-bottom:8px!important;
+    }
+    .auth-book-right .auth-card-content>p{
+      font-size:12px!important;
+      line-height:1.35!important;
+      margin-bottom:14px!important;
+    }
+    .auth-book-right .auth-tabs{margin-bottom:12px!important}
+    .auth-book-right .auth-tab{
+      padding:9px!important;
+      font-size:11px!important;
+    }
+    .auth-book-right .form-group{margin-bottom:11px!important}
+    .auth-book-right .form-group label{
+      font-size:11px!important;
+      margin-bottom:5px!important;
+    }
+    .auth-book-right input{
+      height:38px!important;
+      padding:0 12px!important;
+      font-size:12px!important;
+    }
+    .auth-book-right .auth-submit{
+      padding:10px 14px!important;
+      font-size:12px!important;
+      margin-top:3px!important;
+    }
+    .auth-book-symbol{font-size:30px!important}
+    .auth-book-jp{font-size:20px!important}
+    .auth-book-sub{font-size:9px!important}
+    @media(max-width:760px){
+      .auth-card.auth-book{
+        width:min(430px,94vw)!important;
+        min-height:auto!important;
+      }
+      .auth-book-left{min-height:210px!important}
     }
 
 </style>
