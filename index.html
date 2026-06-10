@@ -3362,6 +3362,100 @@ CATATAN:
       }
     }
 
+
+    /* PREDIKSI TOGEL — TEMA HIJAU DASHBOARD */
+    #page-prediksi-togel{
+      background:
+        radial-gradient(circle at 15% 8%,rgba(34,197,94,.10),transparent 24%),
+        radial-gradient(circle at 85% 12%,rgba(74,222,128,.08),transparent 22%),
+        linear-gradient(rgba(2,18,14,.74),rgba(2,10,16,.90)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat!important;
+    }
+
+    #page-prediksi-togel .prediksi-shell{
+      background:
+        linear-gradient(180deg,rgba(5,28,23,.90),rgba(3,17,17,.94))!important;
+      border:1px solid rgba(34,197,94,.24)!important;
+      box-shadow:0 24px 70px rgba(0,0,0,.36),0 0 28px rgba(34,197,94,.06)!important;
+    }
+
+    #page-prediksi-togel .prediksi-search-wrap,
+    #page-prediksi-togel .prediksi-filter,
+    #page-prediksi-togel .prediksi-market-list-panel,
+    #page-prediksi-togel .prediksi-result-panel{
+      background:linear-gradient(180deg,#071f1b,#051713)!important;
+      border-color:rgba(34,197,94,.22)!important;
+    }
+
+    #page-prediksi-togel .prediksi-market-card{
+      background:linear-gradient(180deg,#0b2d26,#08231e)!important;
+      border-color:rgba(34,197,94,.22)!important;
+      box-shadow:0 10px 24px rgba(0,0,0,.20)!important;
+    }
+
+    #page-prediksi-togel .prediksi-market-card:hover,
+    #page-prediksi-togel .prediksi-market-card.active{
+      background:linear-gradient(180deg,#0f3b30,#0a2b24)!important;
+      border-color:rgba(74,222,128,.52)!important;
+      box-shadow:0 12px 28px rgba(0,0,0,.26),0 0 18px rgba(34,197,94,.08)!important;
+    }
+
+    #page-prediksi-togel .prediksi-result-box{
+      background:linear-gradient(135deg,#071d19 0%,#0a251f 52%,#071714 100%)!important;
+      border-color:rgba(34,197,94,.28)!important;
+      box-shadow:inset 0 0 30px rgba(34,197,94,.025)!important;
+    }
+
+    #page-prediksi-togel .prediksi-title,
+    #page-prediksi-togel .prediksi-panel-title,
+    #page-prediksi-togel .prediksi-market-name{
+      color:#ecfdf5!important;
+    }
+
+    #page-prediksi-togel .prediksi-market-meta,
+    #page-prediksi-togel .prediksi-source,
+    #page-prediksi-togel .prediksi-muted{
+      color:#9fd6c3!important;
+    }
+
+    #page-prediksi-togel .prediksi-search-wrap span{
+      color:#4ade80!important;
+    }
+
+    #page-prediksi-togel .prediksi-search-wrap input{
+      color:#f0fdf4!important;
+    }
+
+    #page-prediksi-togel .prediksi-search-wrap input::placeholder{
+      color:#79a996!important;
+    }
+
+    #page-prediksi-togel .prediksi-filter select{
+      background:#071f1b!important;
+      color:#ecfdf5!important;
+      border-color:rgba(34,197,94,.25)!important;
+    }
+
+    #page-prediksi-togel .prediksi-copy-btn,
+    #page-prediksi-togel .prediksi-refresh-btn,
+    #page-prediksi-togel .primary{
+      background:linear-gradient(180deg,#22c55e,#16a34a)!important;
+      border-color:rgba(134,239,172,.30)!important;
+      color:#fff!important;
+      box-shadow:0 8px 20px rgba(34,197,94,.18)!important;
+    }
+
+    #page-prediksi-togel .prediksi-copy-btn:hover,
+    #page-prediksi-togel .prediksi-refresh-btn:hover,
+    #page-prediksi-togel .primary:hover{
+      background:linear-gradient(180deg,#4ade80,#22c55e)!important;
+    }
+
+    /* Hilangkan style visual shortcut karena Alt+X tidak ditampilkan lagi */
+    .prediksi-shortcut{
+      display:none!important;
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -3759,7 +3853,7 @@ CATATAN:
                 </div>
                 <div class="prediksi-result-actions">
                   <button type="button" id="prediksiRefreshBtn">↻ Refresh Sheet</button>
-                  <button type="button" class="primary" id="prediksiCopyBtn">Copy Sekarang <span class="prediksi-shortcut">Alt + X</span></button>
+                  <button type="button" class="primary" id="prediksiCopyBtn">Copy Sekarang</button>
                 </div>
               </div>
               <div class="prediksi-result-content" id="prediksiResultContent">
