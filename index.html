@@ -3626,6 +3626,14 @@ CATATAN:
       box-shadow:0 12px 28px rgba(0,0,0,.24),0 0 18px rgba(34,197,94,.08)!important;
     }
 
+
+    /* WARNA ROLE BARU */
+    .role-badge[data-role="kasir"]{background:rgba(148,163,184,.12);color:#cbd5e1;border:1px solid rgba(148,163,184,.25)}
+    .role-badge[data-role="kapten-kasir"]{background:rgba(251,191,36,.10);color:#fde68a;border:1px solid rgba(251,191,36,.25)}
+    .role-badge[data-role="cs-livechat"]{background:rgba(34,197,94,.10);color:#86efac;border:1px solid rgba(34,197,94,.25)}
+    .role-badge[data-role="cs-line"]{background:rgba(14,165,233,.10);color:#7dd3fc;border:1px solid rgba(14,165,233,.25)}
+    .role-badge[data-role="leader"]{background:rgba(168,85,247,.12);color:#d8b4fe;border:1px solid rgba(168,85,247,.28)}
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -3653,7 +3661,7 @@ CATATAN:
       <div class="auth-book-right">
         <div class="auth-card-content">
       <h1>ロロノア・ゾロ</h1>
-      <p>Masuk untuk membuka dashboard. Pengguna baru otomatis terdaftar sebagai Staff.</p>
+      <p>Masuk untuk membuka dashboard. Pengguna baru otomatis terdaftar sebagai CS Livechat.</p>
       <div class="auth-tabs">
         <button type="button" class="auth-tab active" data-auth-tab="login">LOGIN</button>
         <button type="button" class="auth-tab" data-auth-tab="register">DAFTAR</button>
@@ -3668,7 +3676,7 @@ CATATAN:
         <div class="form-group"><label for="registerEmail">Email</label><input type="email" id="registerEmail" autocomplete="email" required></div>
         <div class="form-group"><label for="registerPassword">Password</label><input type="password" id="registerPassword" autocomplete="new-password" minlength="6" required></div>
         <div class="form-group"><label for="registerPasswordConfirm">Ulangi Password</label><input type="password" id="registerPasswordConfirm" autocomplete="new-password" minlength="6" required></div>
-        <button type="submit" class="btn btn-green auth-submit">Daftar Akun Staff</button>
+        <button type="submit" class="btn btn-green auth-submit">Daftar Akun CS Livechat</button>
       </form>
       <div class="auth-message" id="authMessage"></div>
         </div>
@@ -4181,7 +4189,7 @@ https://domain3.com"></textarea>
             <div>
               <div class="pill">👑 Khusus Owner</div>
               <h1>Manajemen User</h1>
-              <p>Atur role, status akun, dan menu yang dapat dibuka oleh setiap Staff.</p>
+              <p>Atur role dan status akun. Akses menu otomatis mengikuti role yang dipilih.</p>
             </div>
           </section>
           <section class="section">
@@ -4260,7 +4268,7 @@ https://domain3.com"></textarea>
     }
 
     function openJadwalEditModal(id){
-      if(currentUserProfile?.role!=="owner"){
+      if(!isFullAccessRole(currentUserProfile?.role)){
         showToast("Hanya Owner yang dapat mengubah jadwal");
         return;
       }
@@ -4281,7 +4289,7 @@ https://domain3.com"></textarea>
     }
 
     jadwalEditModeBtn?.addEventListener("click",()=>{
-      if(currentUserProfile?.role!=="owner"){
+      if(!isFullAccessRole(currentUserProfile?.role)){
         return showToast("Hanya Owner yang dapat mengaktifkan mode edit");
       }
 
@@ -4301,7 +4309,7 @@ https://domain3.com"></textarea>
     jadwalEditBackdrop?.addEventListener("click",closeJadwalEditModal);
 
     jadwalEditSaveBtn?.addEventListener("click",async()=>{
-      if(currentUserProfile?.role!=="owner"){
+      if(!isFullAccessRole(currentUserProfile?.role)){
         return showToast("Hanya Owner yang dapat menyimpan perubahan");
       }
 
@@ -4425,27 +4433,96 @@ auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(console.error);
 /* Registrasi pakai auth sekunder tanpa menyimpan sesi */
 registerAuth.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(console.error);
 
-const DEFAULT_STAFF_PERMISSIONS = {
-  dashboard:true,
-  gambar:false,
-  "prediksi-togel":false,
-  "jadwal-togel":false,
-  notepad:true,
-  "syair-togel":false,
-  "bukti-kemenangan":false,
-  prediksi:false,
-  "link-domain":false,
-  "pk-cs":true,
-  selisih:false,
-  "user-management":false
-};
-const ALL_MENU_KEYS = ["dashboard","pk-cs","notepad","gambar","prediksi-togel","jadwal-togel","prediksi","syair-togel","bukti-kemenangan","selisih","link-domain"];
+const ALL_MENU_KEYS = [
+  "dashboard","pk-cs","notepad","gambar",
+  "prediksi-togel","jadwal-togel",
+  "prediksi","syair-togel","bukti-kemenangan",
+  "selisih","link-domain","user-management"
+];
+
 const MENU_LABELS = {
-  dashboard:"Dashboard","pk-cs":"PK CS",notepad:"Notepad",gambar:"Gambar",
-  "prediksi-togel":"Prediksi Togel","jadwal-togel":"Jadwal Togel",prediksi:"Prediksi",
-  "syair-togel":"Syair Togel","bukti-kemenangan":"Bukti Kemenangan",
-  "link-domain":"Link Domain","pk-cs":"PK CS",selisih:"Selisih"
+  dashboard:"Dashboard",
+  "pk-cs":"PK CS",
+  notepad:"Notepad",
+  gambar:"Gambar",
+  "prediksi-togel":"Prediksi Togel",
+  "jadwal-togel":"Jadwal Togel",
+  prediksi:"Prediksi",
+  "syair-togel":"Syair Togel",
+  "bukti-kemenangan":"Bukti Kemenangan",
+  selisih:"Selisih",
+  "link-domain":"Link Domain",
+  "user-management":"Manajemen User"
 };
+
+const ROLE_LABELS = {
+  kasir:"Kasir",
+  "kapten-kasir":"Kapten Kasir",
+  "cs-livechat":"CS Livechat",
+  "cs-line":"CS Line",
+  leader:"Leader",
+  owner:"Owner"
+};
+
+const ROLE_ICONS = {
+  kasir:"💵",
+  "kapten-kasir":"🧾",
+  "cs-livechat":"💬",
+  "cs-line":"📱",
+  leader:"⭐",
+  owner:"👑"
+};
+
+function makePermissions(enabledKeys=[]){
+  const enabled=new Set(enabledKeys);
+  return Object.fromEntries(ALL_MENU_KEYS.map(key=>[key,enabled.has(key)]));
+}
+
+const ROLE_PERMISSION_PRESETS = {
+  kasir:makePermissions([]),
+  "kapten-kasir":makePermissions([]),
+
+  "cs-livechat":makePermissions([
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad"
+  ]),
+
+  "cs-line":makePermissions([
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad",
+    "prediksi","syair-togel","bukti-kemenangan","link-domain"
+  ]),
+
+  leader:makePermissions(ALL_MENU_KEYS),
+  owner:makePermissions(ALL_MENU_KEYS)
+};
+
+function normalizeRole(role){
+  const value=String(role||"").toLowerCase().trim();
+  const legacyMap={
+    staff:"cs-livechat",
+    cs:"cs-livechat",
+    livechat:"cs-livechat",
+    kasir:"kasir",
+    "kapten kasir":"kapten-kasir",
+    "kapten-kasir":"kapten-kasir",
+    "cs livechat":"cs-livechat",
+    "cs-livechat":"cs-livechat",
+    "cs line":"cs-line",
+    "cs-line":"cs-line",
+    leader:"leader",
+    owner:"owner"
+  };
+  return legacyMap[value]||"cs-livechat";
+}
+
+function isFullAccessRole(role){
+  const normalized=normalizeRole(role);
+  return normalized==="owner"||normalized==="leader";
+}
+
+function permissionsForRole(role){
+  const normalized=normalizeRole(role);
+  return {...(ROLE_PERMISSION_PRESETS[normalized]||ROLE_PERMISSION_PRESETS["cs-livechat"])};
+}
 
 let currentAuthUser = null;
 let currentUserProfile = null;
@@ -4521,11 +4598,11 @@ registerForm?.addEventListener("submit",async e=>{
       uid:credential.user.uid,
       name,
       email,
-      role:isOwner?"owner":"staff",
+      role:isOwner?"owner":"cs-livechat",
       status:"active",
       permissions:isOwner
         ? Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true]))
-        : {...DEFAULT_STAFF_PERMISSIONS},
+        : permissionsForRole("cs-livechat"),
       createdAt:firebase.database.ServerValue.TIMESTAMP,
       updatedAt:firebase.database.ServerValue.TIMESTAMP
     };
@@ -4551,7 +4628,7 @@ registerForm?.addEventListener("submit",async e=>{
     setAuthMessage(
       isOwner
         ? "Akun Owner berhasil dibuat. Silakan login."
-        : "Akun Staff berhasil dibuat. Silakan login.",
+        : "Akun CS Livechat berhasil dibuat. Silakan login.",
       true
     );
 
@@ -4587,29 +4664,39 @@ logoutBtn?.addEventListener("click",async()=>{
 window.canOpenKerjaBossPage=function(page){
   if(!currentUserProfile)return false;
   if(currentUserProfile.status==="disabled")return false;
-  if(currentUserProfile.role==="owner")return true;
+  if(isFullAccessRole(currentUserProfile.role))return true;
   if(page==="user-management")return false;
   return currentUserProfile.permissions?.[page]===true;
 };
 
 function updateAccessUI(){
   const isOwner=currentUserProfile?.role==="owner";
-  document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isOwner?"flex":"none");
+  const isFullAccess=isFullAccessRole(currentUserProfile?.role);
+  document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isFullAccess?"flex":"none");
   document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
     const page=btn.dataset.page;
     if(page==="user-management"){
-      btn.style.display=isOwner?"flex":"none";
+      btn.style.display=isFullAccess?"flex":"none";
       return;
     }
-    const allowed=isOwner||currentUserProfile?.permissions?.[page]===true;
+    const allowed=isFullAccess||currentUserProfile?.permissions?.[page]===true;
     btn.style.display=allowed?"flex":"none";
   });
   document.querySelectorAll(".submenu").forEach(sub=>{
     const visible=[...sub.querySelectorAll(".nav-btn")].some(x=>x.style.display!=="none");
     if(!visible)sub.classList.remove("show");
+
+    if(sub.id==="togelSubmenu" && typeof togelDropdownBtn!=="undefined" && togelDropdownBtn){
+      togelDropdownBtn.style.display=visible?"flex":"none";
+    }
+
+    if(sub.id==="postinganSubmenu" && typeof postinganDropdownBtn!=="undefined" && postinganDropdownBtn){
+      postinganDropdownBtn.style.display=visible?"flex":"none";
+    }
   });
   if(sidebarUserBox&&currentUserProfile){
-    sidebarUserBox.innerHTML=`<span>${currentUserProfile.role==="owner"?"👑 Owner":"👤 Staff"}</span><strong>${cleanText(currentUserProfile.name||currentUserProfile.email)}</strong>`;
+    const role=normalizeRole(currentUserProfile.role);
+    sidebarUserBox.innerHTML=`<span>${ROLE_ICONS[role]||"👤"} ${ROLE_LABELS[role]||role}</span><strong>${cleanText(currentUserProfile.name||currentUserProfile.email)}</strong>`;
   }
 }
 
@@ -4621,8 +4708,8 @@ async function ensureUserProfile(user){
   if(!profile){
     profile={
       uid:user.uid,name:user.displayName||email.split("@")[0],email,
-      role:isOwner?"owner":"staff",status:"active",
-      permissions:isOwner?Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true])):{...DEFAULT_STAFF_PERMISSIONS},
+      role:isOwner?"owner":"cs-livechat",status:"active",
+      permissions:isOwner?permissionsForRole("owner"):permissionsForRole("cs-livechat"),
       createdAt:firebase.database.ServerValue.TIMESTAMP,
       updatedAt:firebase.database.ServerValue.TIMESTAMP
     };
@@ -4630,11 +4717,26 @@ async function ensureUserProfile(user){
   }else if(isOwner&&profile.role!=="owner"){
     await usersDb.child(user.uid).update({
       role:"owner",status:"active",
-      permissions:Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true])),
+      permissions:permissionsForRole("owner"),
       updatedAt:firebase.database.ServerValue.TIMESTAMP
     });
-    profile={...profile,role:"owner",status:"active",permissions:Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true]))};
+    profile={...profile,role:"owner",status:"active",permissions:permissionsForRole("owner")};
   }
+
+  const normalizedRole=isOwner?"owner":normalizeRole(profile.role);
+  const roleChanged=profile.role!==normalizedRole;
+  const needsPreset=!profile.permissions || roleChanged || profile.role==="staff";
+
+  if(roleChanged || needsPreset){
+    const updatedPermissions=permissionsForRole(normalizedRole);
+    await usersDb.child(user.uid).update({
+      role:normalizedRole,
+      permissions:updatedPermissions,
+      updatedAt:firebase.database.ServerValue.TIMESTAMP
+    });
+    profile={...profile,role:normalizedRole,permissions:updatedPermissions};
+  }
+
   return profile;
 }
 
@@ -4675,15 +4777,15 @@ auth.onAuthStateChanged(async user=>{
       dashboardWelcomeName.textContent=`WELCOME ${displayName}`;
     }
     updateAccessUI();
-    document.body.classList.toggle("jadwal-owner-mode",currentUserProfile.role==="owner");
-    if(currentUserProfile.role!=="owner"){
+    document.body.classList.toggle("jadwal-owner-mode",isFullAccessRole(currentUserProfile.role));
+    if(!isFullAccessRole(currentUserProfile.role)){
       document.body.classList.remove("jadwal-editing");
       jadwalEditModeBtn?.classList.remove("active");
     }
     startGambarListener();
     startJadwalListener();
     openPage("dashboard");
-    if(currentUserProfile.role==="owner")loadOwnerUsers();
+    if(isFullAccessRole(currentUserProfile.role))loadOwnerUsers();
   }catch(error){
     console.error(error);
     authGate?.classList.remove("hidden");
@@ -4695,42 +4797,51 @@ auth.onAuthStateChanged(async user=>{
 
 function renderOwnerUsers(users){
   if(!ownerUsersList)return;
-  const list=Object.values(users||{}).sort((a,b)=>(a.role==="owner"?-1:1)-(b.role==="owner"?-1:1));
+  const roleWeight={owner:0,leader:1,"kapten-kasir":2,kasir:3,"cs-line":4,"cs-livechat":5};
+  const list=Object.values(users||{}).sort((a,b)=>
+    (roleWeight[normalizeRole(a.role)]??99)-(roleWeight[normalizeRole(b.role)]??99)
+  );
   if(!list.length){
     ownerUsersList.innerHTML='<div class="owner-empty">Belum ada pengguna.</div>';
     return;
   }
   ownerUsersList.innerHTML=list.map(user=>{
-    const owner=user.role==="owner";
-    const permissions=user.permissions||{};
+    const role=normalizeRole(user.role);
+    const fullAccess=isFullAccessRole(role);
+    const permissions=user.permissions||permissionsForRole(role);
+    const lockedOwner=user.email===OWNER_EMAIL;
     return `<div class="owner-user-card" data-uid="${user.uid}">
       <div class="owner-user-head">
         <div><div class="owner-user-name">${cleanText(user.name||"Tanpa Nama")}</div><div class="owner-user-email">${cleanText(user.email||"")}</div></div>
-        <span class="role-badge ${owner?"role-owner":"role-staff"}">${owner?"Owner":"Staff"}</span>
+        <span class="role-badge ${role==="owner"?"role-owner":"role-staff"}" data-role="${role}">${ROLE_ICONS[role]||"👤"} ${ROLE_LABELS[role]||role}</span>
       </div>
       <div class="owner-user-controls">
-        <select class="manage-role" ${user.email===OWNER_EMAIL?"disabled":""}>
-          <option value="staff" ${user.role==="staff"?"selected":""}>Staff</option>
-          <option value="owner" ${user.role==="owner"?"selected":""}>Owner</option>
+        <select class="manage-role" ${lockedOwner?"disabled":""}>
+          <option value="kasir" ${role==="kasir"?"selected":""}>Kasir</option>
+          <option value="kapten-kasir" ${role==="kapten-kasir"?"selected":""}>Kapten Kasir</option>
+          <option value="cs-livechat" ${role==="cs-livechat"?"selected":""}>CS Livechat</option>
+          <option value="cs-line" ${role==="cs-line"?"selected":""}>CS Line</option>
+          <option value="leader" ${role==="leader"?"selected":""}>Leader</option>
+          <option value="owner" ${role==="owner"?"selected":""}>Owner</option>
         </select>
-        <select class="manage-status" ${user.email===OWNER_EMAIL?"disabled":""}>
+        <select class="manage-status" ${lockedOwner?"disabled":""}>
           <option value="active" ${user.status!=="disabled"?"selected":""}>Aktif</option>
           <option value="disabled" ${user.status==="disabled"?"selected":""}>Nonaktif</option>
         </select>
       </div>
       <div class="permission-grid">
         ${ALL_MENU_KEYS.map(key=>`<label class="permission-item">
-          <input type="checkbox" data-permission="${key}" ${owner||permissions[key]===true?"checked":""} ${owner?"disabled":""}>
+          <input type="checkbox" data-permission="${key}" ${fullAccess||permissions[key]===true?"checked":""} ${fullAccess?"disabled":""}>
           ${MENU_LABELS[key]}
         </label>`).join("")}
       </div>
-      <button type="button" class="btn btn-green owner-save-user" ${user.email===OWNER_EMAIL?"disabled":""}>Simpan Akses</button>
+      <button type="button" class="btn btn-green owner-save-user" ${lockedOwner?"disabled":""}>Simpan Akses</button>
     </div>`;
   }).join("");
 }
 
 function loadOwnerUsers(){
-  if(currentUserProfile?.role!=="owner")return;
+  if(!isFullAccessRole(currentUserProfile?.role))return;
   usersDb.on("value",snap=>renderOwnerUsers(snap.val()||{}));
 }
 refreshUsersBtn?.addEventListener("click",loadOwnerUsers);
@@ -4739,26 +4850,36 @@ ownerUsersList?.addEventListener("change",e=>{
   const card=e.target.closest(".owner-user-card");
   if(!card)return;
   if(e.target.classList.contains("manage-role")){
-    const owner=e.target.value==="owner";
+    const role=normalizeRole(e.target.value);
+    const fullAccess=isFullAccessRole(role);
+    const preset=permissionsForRole(role);
+
     card.querySelectorAll("[data-permission]").forEach(cb=>{
-      cb.checked=owner?true:cb.checked;
-      cb.disabled=owner;
+      cb.checked=fullAccess?true:preset[cb.dataset.permission]===true;
+      cb.disabled=fullAccess;
     });
+
+    const badge=card.querySelector(".role-badge");
+    if(badge){
+      badge.className=`role-badge ${role==="owner"?"role-owner":"role-staff"}`;
+      badge.dataset.role=role;
+      badge.textContent=`${ROLE_ICONS[role]||"👤"} ${ROLE_LABELS[role]||role}`;
+    }
   }
 });
 ownerUsersList?.addEventListener("click",async e=>{
   const saveBtn=e.target.closest(".owner-save-user");
-  if(!saveBtn||currentUserProfile?.role!=="owner")return;
+  if(!saveBtn||!isFullAccessRole(currentUserProfile?.role))return;
   const card=saveBtn.closest(".owner-user-card");
   const uid=card.dataset.uid;
   const role=card.querySelector(".manage-role").value;
   const status=card.querySelector(".manage-status").value;
-  const permissions={};
-  card.querySelectorAll("[data-permission]").forEach(cb=>permissions[cb.dataset.permission]=role==="owner"?true:cb.checked);
+  const normalizedRole=normalizeRole(role);
+  const permissions=permissionsForRole(normalizedRole);
   saveBtn.disabled=true;
   saveBtn.textContent="Menyimpan...";
   try{
-    await usersDb.child(uid).update({role,status,permissions,updatedAt:firebase.database.ServerValue.TIMESTAMP});
+    await usersDb.child(uid).update({role:normalizedRole,status,permissions,updatedAt:firebase.database.ServerValue.TIMESTAMP});
     showToast("Akses pengguna berhasil diperbarui");
   }catch(error){
     console.error(error);
