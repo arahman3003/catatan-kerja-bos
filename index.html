@@ -2159,6 +2159,39 @@ CATATAN:
       display:none!important;
     }
 
+
+    /* BRAND SIDEBAR BENAR-BENAR TANPA KOTAK */
+    .brand-text-only{
+      display:block;
+      width:100%;
+      margin:4px 0 18px;
+      padding:0;
+      background:none!important;
+      border:0!important;
+      border-radius:0!important;
+      box-shadow:none!important;
+      outline:0!important;
+      text-align:center;
+    }
+    .brand-text-only .brand{
+      margin:0!important;
+      padding:0!important;
+      background:none!important;
+      border:0!important;
+      border-radius:0!important;
+      box-shadow:none!important;
+      outline:0!important;
+      font-size:22px!important;
+      line-height:1.08!important;
+      font-weight:900!important;
+    }
+    .brand-text-only .brand span{
+      color:#86efac!important;
+    }
+    body.sidebar-collapsed .brand-text-only{
+      display:none!important;
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -2217,9 +2250,8 @@ CATATAN:
         <div class="auth-user-box auth-user-top" id="sidebarUserBox"><span>Belum login</span></div>
         <button type="button" class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu">☰</button>
       </div>
-      <div class="brand-box">
+      <div class="brand-text-only">
         <div class="brand">Dashboard <span>Kaizokugari</span></div>
-        <div class="subtitle">Panel kerja utama untuk catatan, postingan, link, dan perhitungan.</div>
       </div>
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
