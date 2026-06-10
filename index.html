@@ -3126,16 +3126,30 @@ CATATAN:
       letter-spacing:1px;
     }
     .prediksi-clock-card{
-      min-width:210px;
-      padding:14px 18px;
+      min-width:230px;
+      padding:15px 20px;
       border-radius:18px;
       text-align:center;
-      background:linear-gradient(115deg,rgba(139,92,246,.92),rgba(14,165,233,.92));
-      border:1px solid rgba(255,255,255,.24);
-      box-shadow:0 14px 28px rgba(0,0,0,.25);
+      background:
+        radial-gradient(circle at 20% 20%,rgba(134,239,172,.18),transparent 34%),
+        linear-gradient(115deg,rgba(34,197,94,.96),rgba(5,150,105,.94));
+      border:1px solid rgba(134,239,172,.42);
+      box-shadow:0 14px 30px rgba(0,0,0,.25),0 0 24px rgba(34,197,94,.14);
     }
-    .prediksi-clock-card strong{display:block;font-size:26px;line-height:1;color:#fff}
-    .prediksi-clock-card span{display:block;margin-top:7px;font-size:10px;font-weight:900;color:#e9d5ff}
+    .prediksi-clock-card strong{
+      display:block;
+      font-size:27px;
+      line-height:1;
+      color:#f0fdf4;
+      text-shadow:0 2px 10px rgba(0,0,0,.24);
+    }
+    .prediksi-clock-card span{
+      display:block;
+      margin-top:7px;
+      font-size:10px;
+      font-weight:900;
+      color:#d1fae5;
+    }
     .prediksi-controls{
       display:grid;
       grid-template-columns:minmax(0,1fr) 180px;
@@ -3189,7 +3203,7 @@ CATATAN:
     .prediksi-summary.closed{background:linear-gradient(180deg,rgba(251,113,133,.90),rgba(84,20,34,.90))}
     .prediksi-workspace{
       display:grid;
-      grid-template-columns:255px minmax(0,1fr);
+      grid-template-columns:330px minmax(0,1fr);
       gap:12px;
       min-height:580px;
     }
@@ -3272,7 +3286,7 @@ CATATAN:
     }
     .prediksi-result-text{
       width:min(900px,100%);margin:auto;white-space:pre-wrap;text-align:center;
-      font-size:16px;line-height:1.55;font-weight:900;color:#f8fafc;
+      font-size:14px;line-height:1.6;font-weight:900;color:#f8fafc;
     }
     .prediksi-empty-state{margin:auto;text-align:center;color:#94a3b8}
     .prediksi-empty-state span{display:block;font-size:40px;margin-bottom:10px}
@@ -3311,6 +3325,41 @@ CATATAN:
       .prediksi-result-actions button{flex:1}
       .prediksi-result-content{padding:18px;min-height:380px}
       .prediksi-result-text{font-size:14px}
+    }
+
+
+    /* PENYESUAIAN LAYOUT PREDIKSI */
+    .prediksi-market-list-panel{
+      min-width:0;
+    }
+    .prediksi-market-list{
+      padding-right:11px;
+    }
+    .prediksi-market-name{
+      font-size:12px!important;
+    }
+    .prediksi-shortcut{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-left:6px;
+      padding:2px 6px;
+      border-radius:6px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      font-size:8px;
+      line-height:1;
+      color:#ecfdf5;
+    }
+    @media(max-width:1100px){
+      .prediksi-workspace{
+        grid-template-columns:300px minmax(0,1fr);
+      }
+    }
+    @media(max-width:900px){
+      .prediksi-workspace{
+        grid-template-columns:1fr;
+      }
     }
 
 </style>
@@ -3710,7 +3759,7 @@ CATATAN:
                 </div>
                 <div class="prediksi-result-actions">
                   <button type="button" id="prediksiRefreshBtn">↻ Refresh Sheet</button>
-                  <button type="button" class="primary" id="prediksiCopyBtn">Copy Sekarang</button>
+                  <button type="button" class="primary" id="prediksiCopyBtn">Copy Sekarang <span class="prediksi-shortcut">Alt + X</span></button>
                 </div>
               </div>
               <div class="prediksi-result-content" id="prediksiResultContent">
@@ -7566,11 +7615,35 @@ drawSyair();
     prediksiMarketSearch?.addEventListener("input",prediksiRender);
     prediksiStatusFilter?.addEventListener("change",prediksiRender);
     prediksiRefreshBtn?.addEventListener("click",()=>prediksiLoadSheet(true));
-    prediksiCopyBtn?.addEventListener("click",async()=>{
+    async function prediksiCopyActive(){
       const item=prediksiMarketData.find(x=>x.id===prediksiSelectedId);
       if(!item)return showToast("Pilih pasaran terlebih dahulu");
-      try{await navigator.clipboard.writeText(item.content);showToast("Prediksi berhasil dicopy")}
-      catch{const ta=document.createElement("textarea");ta.value=item.content;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();showToast("Prediksi berhasil dicopy")}
+
+      try{
+        await navigator.clipboard.writeText(item.content);
+        showToast("Prediksi berhasil dicopy");
+      }catch{
+        const ta=document.createElement("textarea");
+        ta.value=item.content;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast("Prediksi berhasil dicopy");
+      }
+    }
+
+    prediksiCopyBtn?.addEventListener("click",prediksiCopyActive);
+
+    document.addEventListener("keydown",event=>{
+      if(
+        event.altKey &&
+        event.key.toLowerCase()==="x" &&
+        document.getElementById("page-prediksi-togel")?.classList.contains("active")
+      ){
+        event.preventDefault();
+        prediksiCopyActive();
+      }
     });
     function prediksiUpdateClock(){
       if(!prediksiClockTime)return;
