@@ -55,10 +55,9 @@ CATATAN:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Kaizokugari</title>
-  <link rel="icon" href="./favicon.ico?v=3" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-zoro.png?v=3">
-  <link rel="shortcut icon" href="./favicon.ico?v=3">
-  <link rel="apple-touch-icon" href="./favicon-zoro.png?v=3">
+  <link rel="icon" type="image/png" href="assets/favicon-zoro.png">
+  <link rel="shortcut icon" type="image/png" href="assets/favicon-zoro.png">
+  <link rel="apple-touch-icon" href="assets/favicon-zoro.png">
   <style>
 /* ===== CSS UTAMA — BOLEH DIEDIT MANUAL ===== */
 :root{
@@ -1103,19 +1102,17 @@ CATATAN:
       justify-content:center;
       line-height:1.25;
     }
-    .auth-user-top span {
-        font-size: 12px;
-        font-weight: 900;
-        text-align: center;
-        color: #86efac;
-        text-transform: uppercase;
-        letter-spacing: .5px;
+    .auth-user-top span{
+      font-size:10px;
+      font-weight:900;
+      color:#86efac;
+      text-transform:uppercase;
+      letter-spacing:.5px;
     }
-    .auth-user-top strong {
-        font-size: 14px;
-        margin-top: 2px;
-        color: #fff;
-        text-align: center;
+    .auth-user-top strong{
+      font-size:12px;
+      margin-top:2px;
+      color:#fff;
     }
     body.sidebar-collapsed .sidebar-top-row{
       justify-content:center;
@@ -2144,6 +2141,24 @@ CATATAN:
       }
     }
 
+
+    /* BRAND SIDEBAR TANPA CARD / TABEL */
+    .brand-box{
+      background:transparent!important;
+      border:none!important;
+      border-radius:0!important;
+      box-shadow:none!important;
+      padding:4px 6px 10px!important;
+      margin-bottom:12px!important;
+    }
+    .brand-box .brand{
+      margin:0!important;
+      text-align:center;
+    }
+    .brand-box .subtitle{
+      display:none!important;
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -2171,7 +2186,7 @@ CATATAN:
       <div class="auth-book-right">
         <div class="auth-card-content">
       <h1>ロロノア・ゾロ</h1>
-      <p> Jika kau tidak mencoba, maka kau tidak akan tahu hasilnya. Lagipula, kita akan mati nanti. </p>
+      <p>Masuk untuk membuka dashboard. Pengguna baru otomatis terdaftar sebagai Staff.</p>
       <div class="auth-tabs">
         <button type="button" class="auth-tab active" data-auth-tab="login">LOGIN</button>
         <button type="button" class="auth-tab" data-auth-tab="register">DAFTAR</button>
@@ -2204,7 +2219,7 @@ CATATAN:
       </div>
       <div class="brand-box">
         <div class="brand">Dashboard <span>Kaizokugari</span></div>
-        <div class="subtitle"></div>
+        <div class="subtitle">Panel kerja utama untuk catatan, postingan, link, dan perhitungan.</div>
       </div>
       <div class="menu-title">Menu Dashboard</div>
       <nav class="menu">
