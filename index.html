@@ -7368,19 +7368,34 @@ drawSyair();
     function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
     function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
     function pkcsGetMatches(query){
-      const terms=pkcsNormalize(query).split(/\s+/).filter(Boolean);
+      const normalizedQuery=pkcsNormalize(query);
+      const terms=normalizedQuery.split(/\s+/).filter(Boolean);
       if(!terms.length)return [];
+
+      /*
+        Pencarian hanya membaca JUDUL / KATA KUNCI.
+        Isi template tidak ikut dicari agar hasil tidak menampilkan
+        template lain yang kebetulan memiliki kata serupa di dalam isi.
+      */
       return pkcsData.filter(item=>{
         const keyword=pkcsNormalize(item.keyword);
-        const content=pkcsNormalize(item.content);
-        const searchable=keyword+" "+content;
-        return terms.every(term=>searchable.includes(term));
+        return terms.every(term=>keyword.includes(term));
       }).sort((a,b)=>{
-        const ak=pkcsNormalize(a.keyword),bk=pkcsNormalize(b.keyword);
-        const aq=pkcsNormalize(query);
-        const aStart=ak.startsWith(aq)?0:1;
-        const bStart=bk.startsWith(aq)?0:1;
+        const ak=pkcsNormalize(a.keyword);
+        const bk=pkcsNormalize(b.keyword);
+
+        const aExact=ak===normalizedQuery?0:1;
+        const bExact=bk===normalizedQuery?0:1;
+        if(aExact!==bExact)return aExact-bExact;
+
+        const aStart=ak.startsWith(normalizedQuery)?0:1;
+        const bStart=bk.startsWith(normalizedQuery)?0:1;
         if(aStart!==bStart)return aStart-bStart;
+
+        const aIndex=ak.indexOf(normalizedQuery);
+        const bIndex=bk.indexOf(normalizedQuery);
+        if(aIndex!==bIndex)return aIndex-bIndex;
+
         return ak.localeCompare(bk,"id");
       });
     }
