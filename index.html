@@ -2192,6 +2192,101 @@ CATATAN:
       display:none!important;
     }
 
+
+    /* LOGOUT TANPA SUBTITLE DAN TANPA KOTAK HIJAU */
+    .sidebar-footer.sidebar-footer-logout-only{
+      position:absolute!important;
+      left:16px!important;
+      right:16px!important;
+      bottom:22px!important;
+      margin:0!important;
+      padding:0!important;
+      background:transparent!important;
+      border:none!important;
+      border-radius:0!important;
+      box-shadow:none!important;
+      color:inherit!important;
+    }
+
+    @keyframes logoutLampBlink{
+      0%,100%{
+        background:#ef4444;
+        color:#ffffff;
+        opacity:1;
+        filter:brightness(1.12);
+      }
+      50%{
+        background:#991b1b;
+        color:#fecaca;
+        opacity:.72;
+        filter:brightness(.78);
+      }
+    }
+
+    .sidebar-logout.logout-light{
+      width:100%!important;
+      min-height:44px;
+      margin:0!important;
+      padding:11px 16px!important;
+      border:none!important;
+      border-radius:13px!important;
+      display:flex!important;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      font-weight:900!important;
+      font-size:14px;
+      cursor:pointer;
+      animation:logoutLampBlink 1.15s steps(2,end) infinite;
+      text-shadow:none!important;
+      box-shadow:none!important;
+    }
+
+    .sidebar-logout .logout-icon{
+      font-size:19px;
+      line-height:1;
+      font-weight:1000;
+    }
+
+    .sidebar-logout .logout-text{
+      line-height:1;
+    }
+
+    /* SAAT SIDEBAR DITUTUP, HANYA LOGO ➜ YANG MUNCUL */
+    body.sidebar-collapsed .sidebar-footer.sidebar-footer-logout-only{
+      display:block!important;
+      left:14px!important;
+      right:14px!important;
+      bottom:18px!important;
+    }
+
+    body.sidebar-collapsed .sidebar-logout.logout-light{
+      display:flex!important;
+      width:52px!important;
+      height:48px!important;
+      min-height:48px!important;
+      margin:0 auto!important;
+      padding:0!important;
+      border-radius:16px!important;
+      justify-content:center!important;
+    }
+
+    body.sidebar-collapsed .sidebar-logout .logout-text{
+      display:none!important;
+    }
+
+    body.sidebar-collapsed .sidebar-logout .logout-icon{
+      display:block!important;
+      font-size:24px!important;
+    }
+
+    @media(max-width:900px){
+      .sidebar-footer.sidebar-footer-logout-only{
+        position:static!important;
+        margin-top:18px!important;
+      }
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -2272,9 +2367,11 @@ CATATAN:
         <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button>
         <button class="nav-btn owner-only" data-page="user-management" style="display:none">👑 <span class="menu-label">Manajemen User</span></button>
       </nav>
-      <div class="sidebar-footer">
-        <b>Status:</b> Sidebar bisa dibuka/tutup. Menu postingan tetap di dropdown.
-        <button type="button" class="sidebar-logout" id="logoutBtn">Logout</button>
+      <div class="sidebar-footer sidebar-footer-logout-only">
+        <button type="button" class="sidebar-logout logout-light" id="logoutBtn">
+          <span class="logout-icon">➜</span>
+          <span class="logout-text">Logout</span>
+        </button>
       </div>
     </aside>
     <!-- ===== ISI HALAMAN ===== -->
