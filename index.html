@@ -3706,7 +3706,7 @@ CATATAN:
               <div class="prediksi-result-head">
                 <div>
                   <span>Hasil Prediksi</span>
-                  <small id="prediksiSourceStatus">Google Sheet F2:F78</small>
+                  <small id="prediksiSourceStatus">Nama E2:E78 • Prediksi F2:F78</small>
                 </div>
                 <div class="prediksi-result-actions">
                   <button type="button" id="prediksiRefreshBtn">↻ Refresh Sheet</button>
@@ -3717,7 +3717,7 @@ CATATAN:
                 <div class="prediksi-empty-state">
                   <span>🔮</span>
                   <strong>Pilih pasaran</strong>
-                  <p>Prediksi dari kolom F Google Sheet akan tampil di sini.</p>
+                  <p>Nama pasaran dari kolom E dan isi prediksi dari kolom F akan tampil di sini.</p>
                 </div>
               </div>
             </main>
@@ -7309,8 +7309,8 @@ drawSyair();
       }
     });
   
-    /* PREDIKSI TOGEL — DATA GOOGLE SHEET F2:F78 */
-    const PREDIKSI_SHEET_URL="https://docs.google.com/spreadsheets/d/1_EcGXsjxv_iMbk4Vyg8YimzQyj-ymayWe6nNS1ezHc8/gviz/tq?tqx=out:csv&gid=1081718576&range=F2:F78";
+    /* PREDIKSI TOGEL — NAMA DARI E2:E78, ISI DARI F2:F78 */
+    const PREDIKSI_SHEET_URL="https://docs.google.com/spreadsheets/d/1_EcGXsjxv_iMbk4Vyg8YimzQyj-ymayWe6nNS1ezHc8/gviz/tq?tqx=out:csv&gid=1081718576&range=E2:F78";
     const prediksiMarketList=document.getElementById("prediksiMarketList");
     const prediksiMarketSearch=document.getElementById("prediksiMarketSearch");
     const prediksiStatusFilter=document.getElementById("prediksiStatusFilter");
@@ -7387,7 +7387,7 @@ drawSyair();
     }
     function prediksiDecorate(items){
       return items.map((item,index)=>{
-        const name=prediksiExtractName(item.content,index);
+        const name=String(item.name||"").trim()||prediksiExtractName(item.content,index);
         const schedule=prediksiFindSchedule(name);
         return {...item,name,schedule,status:prediksiStatus(schedule)};
       });
@@ -7425,7 +7425,7 @@ drawSyair();
     }
     async function prediksiLoadSheet(force=false){
       if(!prediksiMarketList)return;
-      prediksiMarketList.innerHTML='<div class="prediksi-loading">Mengambil kolom F2:F78 dari Google Sheet...</div>';
+      prediksiMarketList.innerHTML='<div class="prediksi-loading">Mengambil nama dari E2:E78 dan prediksi dari F2:F78...</div>';
       prediksiSourceStatus.textContent="Menghubungkan ke Google Sheet...";
       prediksiRefreshBtn.disabled=true;
       try{
@@ -7433,11 +7433,17 @@ drawSyair();
         if(!response.ok)throw new Error("HTTP "+response.status);
         const csv=await response.text();
         const rows=prediksiParseCsv(csv);
-        const cells=rows.map(row=>String(row[0]||"").trim()).filter(value=>value&&/PREDIKSI/i.test(value));
-        if(!cells.length)throw new Error("Kolom F2:F78 kosong atau format tidak sesuai");
-        prediksiMarketData=cells.map((content,index)=>({id:`sheet_f_${index+2}`,content}));
+        const data=rows.map((row,index)=>({
+          id:`sheet_ef_${index+2}`,
+          name:String(row[0]||"").trim(),
+          content:String(row[1]||"").trim()
+        })).filter(item=>item.name&&item.content);
+
+        if(!data.length)throw new Error("Kolom E2:F78 kosong atau format tidak sesuai");
+
+        prediksiMarketData=data;
         localStorage.setItem("prediksiTogelSheetCache",JSON.stringify({savedAt:Date.now(),data:prediksiMarketData}));
-        prediksiSourceStatus.textContent=`Google Sheet F2:F78 • ${prediksiMarketData.length} data`;
+        prediksiSourceStatus.textContent=`Google Sheet E2:F78 • ${prediksiMarketData.length} data`;
         prediksiRender();
         const first=prediksiMarketData[0];if(first)prediksiSelect(first.id);
       }catch(error){
