@@ -2884,6 +2884,116 @@ CATATAN:
     }
 
 
+
+    /* EDIT JADWAL TOGEL + FIREBASE */
+    .jadwal-card-edit{
+      position:absolute;
+      right:12px;
+      top:10px;
+      z-index:3;
+      width:34px;
+      height:34px;
+      border:none;
+      border-radius:10px;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      background:linear-gradient(180deg,#4ade80,#16a34a);
+      color:#042f1d;
+      font-size:16px;
+      font-weight:900;
+      box-shadow:0 8px 18px rgba(0,0,0,.24);
+      transition:transform .18s ease,filter .18s ease;
+    }
+    .jadwal-card-edit:hover{
+      transform:translateY(-1px) scale(1.04);
+      filter:brightness(1.08);
+    }
+    body.jadwal-owner-mode .jadwal-card-edit{display:flex}
+    body.jadwal-owner-mode .jadwal-card-title{padding-right:40px}
+
+    .jadwal-edit-modal{
+      position:fixed;
+      inset:0;
+      z-index:7200;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+    }
+    .jadwal-edit-modal.show{display:flex}
+    .jadwal-edit-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(2,6,23,.76);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+    .jadwal-edit-box{
+      position:relative;
+      z-index:1;
+      width:min(560px,100%);
+      padding:22px;
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 90% 0%,rgba(34,197,94,.12),transparent 30%),
+        linear-gradient(180deg,#0b211b,#051510);
+      border:1px solid rgba(74,222,128,.34);
+      box-shadow:0 30px 90px rgba(0,0,0,.58);
+      color:#f8fafc;
+    }
+    .jadwal-edit-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .jadwal-edit-head span{
+      color:#86efac;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+    .jadwal-edit-head h3{
+      margin-top:5px;
+      font-size:23px;
+      color:#fff;
+    }
+    .jadwal-edit-close{
+      width:40px;
+      height:40px;
+      border:none;
+      border-radius:12px;
+      background:#123b31;
+      color:#fff;
+      cursor:pointer;
+      font-size:17px;
+      font-weight:900;
+    }
+    .jadwal-edit-box label{color:#d1fae5!important}
+    .jadwal-edit-box input{
+      background:#031511!important;
+      color:#fff!important;
+      border-color:#245747!important;
+    }
+    .jadwal-edit-time-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .jadwal-edit-actions{
+      display:flex;
+      gap:10px;
+      margin-top:8px;
+    }
+    .jadwal-edit-actions .btn{flex:1}
+    @media(max-width:560px){
+      .jadwal-edit-time-grid{grid-template-columns:1fr}
+      .jadwal-edit-actions{flex-direction:column}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -3172,6 +3282,47 @@ CATATAN:
           <div class="jadwal-top-line"></div>
           <div class="jadwal-grid" id="jadwalGrid"></div>
         </section>
+
+        <div class="jadwal-edit-modal" id="jadwalEditModal">
+          <div class="jadwal-edit-backdrop" id="jadwalEditBackdrop"></div>
+          <div class="jadwal-edit-box">
+            <div class="jadwal-edit-head">
+              <div>
+                <span>✏️ EDIT JADWAL</span>
+                <h3 id="jadwalEditTitle">Ubah Jadwal Togel</h3>
+              </div>
+              <button type="button" class="jadwal-edit-close" id="jadwalEditCloseBtn">✕</button>
+            </div>
+
+            <input type="hidden" id="jadwalEditId">
+
+            <div class="form-group">
+              <label for="jadwalEditName">Nama Pasaran</label>
+              <input type="text" id="jadwalEditName" required>
+            </div>
+
+            <div class="form-group">
+              <label for="jadwalEditDay">Hari</label>
+              <input type="text" id="jadwalEditDay" placeholder="Contoh: Senin s/d Minggu" required>
+            </div>
+
+            <div class="jadwal-edit-time-grid">
+              <div class="form-group">
+                <label for="jadwalEditClose">Tutup</label>
+                <input type="text" id="jadwalEditClose" placeholder="00:00 WIB" required>
+              </div>
+              <div class="form-group">
+                <label for="jadwalEditOpen">Buka</label>
+                <input type="text" id="jadwalEditOpen" placeholder="00:15 WIB" required>
+              </div>
+            </div>
+
+            <div class="jadwal-edit-actions">
+              <button type="button" class="btn btn-green" id="jadwalEditSaveBtn">Simpan Perubahan</button>
+              <button type="button" class="btn btn-soft" id="jadwalEditCancelBtn">Batal</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="page" id="page-prediksi-togel">
@@ -3357,9 +3508,20 @@ https://domain3.com"></textarea>
 
   <script>
     /* DATA JADWAL TOGEL */
-    const jadwalTogelData = [{"name": "HOKIDRAW", "day": "Senin s/d Minggu", "close": "RESULT 24X", "open": "1 JAM SEKALI"}, {"name": "TOTO MACAU PAGI", "day": "Senin s/d Minggu", "close": "00:00 WIB", "open": "00:15 WIB"}, {"name": "KENTUCKY MIDDAY", "day": "Senin s/d Minggu", "close": "00:05 WIB", "open": "00:20 WIB"}, {"name": "FLORIDA MIDDAY", "day": "Senin s/d Minggu", "close": "00:20 WIB", "open": "00:30 WIB"}, {"name": "HUAHIN 0100", "day": "Senin s/d Minggu", "close": "00:45 WIB", "open": "01:00 WIB"}, {"name": "BANGKOK 0130", "day": "Senin s/d Minggu", "close": "01:15 WIB", "open": "01:30 WIB"}, {"name": "NEWYORK MIDDAY", "day": "Senin s/d Minggu", "close": "01:15 WIB", "open": "01:25 WIB"}, {"name": "CAROLINA DAY", "day": "Senin s/d Minggu", "close": "01:45 WIB", "open": "02:00 WIB"}, {"name": "BRUNEI 02", "day": "Senin s/d Minggu", "close": "02:30 WIB", "open": "02:45 WIB"}, {"name": "OREGON 03", "day": "Senin s/d Minggu", "close": "02:50 WIB", "open": "03:00 WIB"}, {"name": "OREGON 06", "day": "Senin s/d Minggu", "close": "05:50 WIB", "open": "06:00 WIB"}, {"name": "CALIFORNIA", "day": "Senin s/d Minggu", "close": "08:25 WIB", "open": "08:30 WIB"}, {"name": "FLORIDA EVENING", "day": "Senin s/d Minggu", "close": "08:35 WIB", "open": "08:45 WIB"}, {"name": "OREGON 09", "day": "Senin s/d Minggu", "close": "08:50 WIB", "open": "09:00 WIB"}, {"name": "BANGKOK 0930", "day": "Senin s/d Minggu", "close": "09:15 WIB", "open": "09:30 WIB"}, {"name": "NEWYORK EVENING", "day": "Senin s/d Minggu", "close": "09:25 WIB", "open": "09:35 WIB"}, {"name": "TOTOCAMBODIA", "day": "Senin s/d Minggu", "close": "10:45 WIB", "open": "11:00 WIB"}, {"name": "KENTUCKY EVENING", "day": "Senin s/d Minggu", "close": "09:45 WIB", "open": "10:00 WIB"}, {"name": "CAROLINA EVENING", "day": "Senin s/d Minggu", "close": "10:17 WIB", "open": "10:22 WIB"}, {"name": "CHELSEA 11", "day": "Senin s/d Minggu", "close": "11:00 WIB", "open": "11:15 WIB"}, {"name": "OREGON 12", "day": "Senin s/d Minggu", "close": "11:50 WIB", "open": "12:00 WIB"}, {"name": "POIPET12", "day": "Senin s/d Minggu", "close": "12:15 WIB", "open": "12:30 WIB"}, {"name": "BULLSEYE", "day": "Senin s/d Minggu", "close": "13:00 WIB", "open": "13:15 WIB"}, {"name": "TOTOMACAU SIANG", "day": "Senin s/d Minggu", "close": "13:00 WIB", "open": "13:15 WIB"}, {"name": "SYDNEY", "day": "Senin s/d Minggu", "close": "13:49 WIB", "open": "14:05 WIB"}, {"name": "JAKARTA 1400", "day": "Senin s/d Minggu", "close": "13:55 WIB", "open": "14:10 WIB"}, {"name": "BRUNEI 14", "day": "Senin s/d Minggu", "close": "14:30 WIB", "open": "14:45 WIB"}, {"name": "CHELSEA 15", "day": "Senin s/d Minggu", "close": "15:00 WIB", "open": "15:15 WIB"}, {"name": "TOTOMALI 1530", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB"}, {"name": "TOTOMACAU 5D SORE", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB"}, {"name": "POIPET15", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB"}, {"name": "TOTOMACAU SORE", "day": "Senin s/d Minggu", "close": "16:00 WIB", "open": "16:15 WIB"}, {"name": "HUAHIN 1630", "day": "Senin s/d Minggu", "close": "16:15 WIB", "open": "16:30 WIB"}, {"name": "KING KONG4D I", "day": "Senin s/d Minggu", "close": "17:00 WIB", "open": "17:15 WIB"}, {"name": "SINGAPORE", "day": "HARI SELASA & JUM'AT ( LIBUR )", "close": "17:30 WIB", "open": "17:45 WIB"}, {"name": "MAGNUM4D", "day": "HARI RABU, SABTU & MINGGU", "close": "18:10 WIB", "open": "18:40 WIB"}, {"name": "TOTOMACAU MALAM I", "day": "Senin s/d Minggu", "close": "19:00 WIB", "open": "19:15 WIB"}, {"name": "CHELSEA 19", "day": "Senin s/d Minggu", "close": "19:00 WIB", "open": "19:15 WIB"}, {"name": "POIPET19", "day": "Senin s/d Minggu", "close": "19:30 WIB", "open": "19:45 WIB"}, {"name": "PCSO", "day": "Minggu Libur", "close": "19:50 WIB", "open": "20:10 WIB"}, {"name": "TOTOMALI 2030", "day": "Selasa s/d Minggu", "close": "20:15 WIB", "open": "20:30 WIB"}, {"name": "HUAHIN 2100", "day": "Selasa s/d Minggu", "close": "20:45 WIB", "open": "21:00 WIB"}, {"name": "CHELSEA 21", "day": "Senin s/d Minggu", "close": "21:00 WIB", "open": "21:15 WIB"}, {"name": "TOTOMACAU 5D MALAM", "day": "Senin s/d Minggu", "close": "21:15 WIB", "open": "21:30 WIB"}, {"name": "NEVADA", "day": "Senin s/d Minggu", "close": "21:15 WIB", "open": "21:30 WIB"}, {"name": "BRUNEI 21", "day": "Senin s/d Minggu", "close": "21:30 WIB", "open": "21:45 WIB"}, {"name": "TOTOMACAU MALAM II", "day": "Senin s/d Minggu", "close": "22:00 WIB", "open": "22:15 WIB"}, {"name": "POIPET22", "day": "Senin s/d Minggu", "close": "22:30 WIB", "open": "22:45 WIB"}, {"name": "HONGKONG", "day": "Senin s/d Minggu", "close": "22:59 WIB", "open": "23:15 WIB"}, {"name": "TOTOMACAU MALAM III", "day": "Senin s/d Minggu", "close": "23:00 WIB", "open": "23:15 WIB"}, {"name": "TOTOMALI 2330", "day": "Senin s/d Minggu", "close": "23:15 WIB", "open": "23:30 WIB"}, {"name": "JAKARTA 2330", "day": "Senin s/d Sabtu", "close": "23:25 WIB", "open": "23:40 WIB"}, {"name": "KING KONG4D II", "day": "Senin s/d Sabtu", "close": "23:30 WIB", "open": "23:45 WIB"}];
+    const DEFAULT_JADWAL_TOGEL = [{"id": "hokidraw", "name": "HOKIDRAW", "day": "Senin s/d Minggu", "close": "RESULT 24X", "open": "1 JAM SEKALI", "order": 0}, {"id": "toto-macau-pagi", "name": "TOTO MACAU PAGI", "day": "Senin s/d Minggu", "close": "00:00 WIB", "open": "00:15 WIB", "order": 1}, {"id": "kentucky-midday", "name": "KENTUCKY MIDDAY", "day": "Senin s/d Minggu", "close": "00:05 WIB", "open": "00:20 WIB", "order": 2}, {"id": "florida-midday", "name": "FLORIDA MIDDAY", "day": "Senin s/d Minggu", "close": "00:20 WIB", "open": "00:30 WIB", "order": 3}, {"id": "huahin-0100", "name": "HUAHIN 0100", "day": "Senin s/d Minggu", "close": "00:45 WIB", "open": "01:00 WIB", "order": 4}, {"id": "bangkok-0130", "name": "BANGKOK 0130", "day": "Senin s/d Minggu", "close": "01:15 WIB", "open": "01:30 WIB", "order": 5}, {"id": "newyork-midday", "name": "NEWYORK MIDDAY", "day": "Senin s/d Minggu", "close": "01:15 WIB", "open": "01:25 WIB", "order": 6}, {"id": "carolina-day", "name": "CAROLINA DAY", "day": "Senin s/d Minggu", "close": "01:45 WIB", "open": "02:00 WIB", "order": 7}, {"id": "brunei-02", "name": "BRUNEI 02", "day": "Senin s/d Minggu", "close": "02:30 WIB", "open": "02:45 WIB", "order": 8}, {"id": "oregon-03", "name": "OREGON 03", "day": "Senin s/d Minggu", "close": "02:50 WIB", "open": "03:00 WIB", "order": 9}, {"id": "oregon-06", "name": "OREGON 06", "day": "Senin s/d Minggu", "close": "05:50 WIB", "open": "06:00 WIB", "order": 10}, {"id": "california", "name": "CALIFORNIA", "day": "Senin s/d Minggu", "close": "08:25 WIB", "open": "08:30 WIB", "order": 11}, {"id": "florida-evening", "name": "FLORIDA EVENING", "day": "Senin s/d Minggu", "close": "08:35 WIB", "open": "08:45 WIB", "order": 12}, {"id": "oregon-09", "name": "OREGON 09", "day": "Senin s/d Minggu", "close": "08:50 WIB", "open": "09:00 WIB", "order": 13}, {"id": "bangkok-0930", "name": "BANGKOK 0930", "day": "Senin s/d Minggu", "close": "09:15 WIB", "open": "09:30 WIB", "order": 14}, {"id": "newyork-evening", "name": "NEWYORK EVENING", "day": "Senin s/d Minggu", "close": "09:25 WIB", "open": "09:35 WIB", "order": 15}, {"id": "totocambodia", "name": "TOTOCAMBODIA", "day": "Senin s/d Minggu", "close": "10:45 WIB", "open": "11:00 WIB", "order": 16}, {"id": "kentucky-evening", "name": "KENTUCKY EVENING", "day": "Senin s/d Minggu", "close": "09:45 WIB", "open": "10:00 WIB", "order": 17}, {"id": "carolina-evening", "name": "CAROLINA EVENING", "day": "Senin s/d Minggu", "close": "10:17 WIB", "open": "10:22 WIB", "order": 18}, {"id": "chelsea-11", "name": "CHELSEA 11", "day": "Senin s/d Minggu", "close": "11:00 WIB", "open": "11:15 WIB", "order": 19}, {"id": "oregon-12", "name": "OREGON 12", "day": "Senin s/d Minggu", "close": "11:50 WIB", "open": "12:00 WIB", "order": 20}, {"id": "poipet12", "name": "POIPET12", "day": "Senin s/d Minggu", "close": "12:15 WIB", "open": "12:30 WIB", "order": 21}, {"id": "bullseye", "name": "BULLSEYE", "day": "Senin s/d Minggu", "close": "13:00 WIB", "open": "13:15 WIB", "order": 22}, {"id": "totomacau-siang", "name": "TOTOMACAU SIANG", "day": "Senin s/d Minggu", "close": "13:00 WIB", "open": "13:15 WIB", "order": 23}, {"id": "sydney", "name": "SYDNEY", "day": "Senin s/d Minggu", "close": "13:49 WIB", "open": "14:05 WIB", "order": 24}, {"id": "jakarta-1400", "name": "JAKARTA 1400", "day": "Senin s/d Minggu", "close": "13:55 WIB", "open": "14:10 WIB", "order": 25}, {"id": "brunei-14", "name": "BRUNEI 14", "day": "Senin s/d Minggu", "close": "14:30 WIB", "open": "14:45 WIB", "order": 26}, {"id": "chelsea-15", "name": "CHELSEA 15", "day": "Senin s/d Minggu", "close": "15:00 WIB", "open": "15:15 WIB", "order": 27}, {"id": "totomali-1530", "name": "TOTOMALI 1530", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB", "order": 28}, {"id": "totomacau-5d-sore", "name": "TOTOMACAU 5D SORE", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB", "order": 29}, {"id": "poipet15", "name": "POIPET15", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB", "order": 30}, {"id": "totomacau-sore", "name": "TOTOMACAU SORE", "day": "Senin s/d Minggu", "close": "16:00 WIB", "open": "16:15 WIB", "order": 31}, {"id": "huahin-1630", "name": "HUAHIN 1630", "day": "Senin s/d Minggu", "close": "16:15 WIB", "open": "16:30 WIB", "order": 32}, {"id": "king-kong4d-i", "name": "KING KONG4D I", "day": "Senin s/d Minggu", "close": "17:00 WIB", "open": "17:15 WIB", "order": 33}, {"id": "singapore", "name": "SINGAPORE", "day": "HARI SELASA & JUM'AT ( LIBUR )", "close": "17:30 WIB", "open": "17:45 WIB", "order": 34}, {"id": "magnum4d", "name": "MAGNUM4D", "day": "HARI RABU, SABTU & MINGGU", "close": "18:10 WIB", "open": "18:40 WIB", "order": 35}, {"id": "totomacau-malam-i", "name": "TOTOMACAU MALAM I", "day": "Senin s/d Minggu", "close": "19:00 WIB", "open": "19:15 WIB", "order": 36}, {"id": "chelsea-19", "name": "CHELSEA 19", "day": "Senin s/d Minggu", "close": "19:00 WIB", "open": "19:15 WIB", "order": 37}, {"id": "poipet19", "name": "POIPET19", "day": "Senin s/d Minggu", "close": "19:30 WIB", "open": "19:45 WIB", "order": 38}, {"id": "pcso", "name": "PCSO", "day": "Minggu Libur", "close": "19:50 WIB", "open": "20:10 WIB", "order": 39}, {"id": "totomali-2030", "name": "TOTOMALI 2030", "day": "Selasa s/d Minggu", "close": "20:15 WIB", "open": "20:30 WIB", "order": 40}, {"id": "huahin-2100", "name": "HUAHIN 2100", "day": "Selasa s/d Minggu", "close": "20:45 WIB", "open": "21:00 WIB", "order": 41}, {"id": "chelsea-21", "name": "CHELSEA 21", "day": "Senin s/d Minggu", "close": "21:00 WIB", "open": "21:15 WIB", "order": 42}, {"id": "totomacau-5d-malam", "name": "TOTOMACAU 5D MALAM", "day": "Senin s/d Minggu", "close": "21:15 WIB", "open": "21:30 WIB", "order": 43}, {"id": "nevada", "name": "NEVADA", "day": "Senin s/d Minggu", "close": "21:15 WIB", "open": "21:30 WIB", "order": 44}, {"id": "brunei-21", "name": "BRUNEI 21", "day": "Senin s/d Minggu", "close": "21:30 WIB", "open": "21:45 WIB", "order": 45}, {"id": "totomacau-malam-ii", "name": "TOTOMACAU MALAM II", "day": "Senin s/d Minggu", "close": "22:00 WIB", "open": "22:15 WIB", "order": 46}, {"id": "poipet22", "name": "POIPET22", "day": "Senin s/d Minggu", "close": "22:30 WIB", "open": "22:45 WIB", "order": 47}, {"id": "hongkong", "name": "HONGKONG", "day": "Senin s/d Minggu", "close": "22:59 WIB", "open": "23:15 WIB", "order": 48}, {"id": "totomacau-malam-iii", "name": "TOTOMACAU MALAM III", "day": "Senin s/d Minggu", "close": "23:00 WIB", "open": "23:15 WIB", "order": 49}, {"id": "totomali-2330", "name": "TOTOMALI 2330", "day": "Senin s/d Minggu", "close": "23:15 WIB", "open": "23:30 WIB", "order": 50}, {"id": "jakarta-2330", "name": "JAKARTA 2330", "day": "Senin s/d Sabtu", "close": "23:25 WIB", "open": "23:40 WIB", "order": 51}, {"id": "king-kong4d-ii", "name": "KING KONG4D II", "day": "Senin s/d Sabtu", "close": "23:30 WIB", "open": "23:45 WIB", "order": 52}];
+    let jadwalTogelData = DEFAULT_JADWAL_TOGEL.map(item=>({...item}));
     const jadwalGrid = document.getElementById("jadwalGrid");
     const jadwalSearchInput = document.getElementById("jadwalSearchInput");
+    const jadwalEditModal = document.getElementById("jadwalEditModal");
+    const jadwalEditBackdrop = document.getElementById("jadwalEditBackdrop");
+    const jadwalEditCloseBtn = document.getElementById("jadwalEditCloseBtn");
+    const jadwalEditCancelBtn = document.getElementById("jadwalEditCancelBtn");
+    const jadwalEditSaveBtn = document.getElementById("jadwalEditSaveBtn");
+    const jadwalEditId = document.getElementById("jadwalEditId");
+    const jadwalEditName = document.getElementById("jadwalEditName");
+    const jadwalEditDay = document.getElementById("jadwalEditDay");
+    const jadwalEditClose = document.getElementById("jadwalEditClose");
+    const jadwalEditOpen = document.getElementById("jadwalEditOpen");
 
     function escapeJadwalText(value){
       return String(value||"").replace(/[&<>"']/g,char=>({
@@ -3380,7 +3542,8 @@ https://domain3.com"></textarea>
       }
 
       jadwalGrid.innerHTML=shown.map(item=>`
-        <article class="jadwal-card">
+        <article class="jadwal-card" data-jadwal-id="${escapeJadwalText(item.id)}">
+          <button type="button" class="jadwal-card-edit" data-edit-jadwal="${escapeJadwalText(item.id)}" title="Edit jadwal">✏️</button>
           <div class="jadwal-card-title">${escapeJadwalText(item.name)}</div>
           <div class="jadwal-row">
             <div class="jadwal-label">Hari</div>
@@ -3397,6 +3560,83 @@ https://domain3.com"></textarea>
         </article>
       `).join("");
     }
+
+    function openJadwalEditModal(id){
+      if(currentUserProfile?.role!=="owner"){
+        showToast("Hanya Owner yang dapat mengubah jadwal");
+        return;
+      }
+      const item=jadwalTogelData.find(row=>row.id===id);
+      if(!item)return;
+
+      jadwalEditId.value=item.id;
+      jadwalEditName.value=item.name||"";
+      jadwalEditDay.value=item.day||"";
+      jadwalEditClose.value=item.close||"";
+      jadwalEditOpen.value=item.open||"";
+      jadwalEditModal.classList.add("show");
+      setTimeout(()=>jadwalEditName.focus(),80);
+    }
+
+    function closeJadwalEditModal(){
+      jadwalEditModal?.classList.remove("show");
+    }
+
+    jadwalGrid?.addEventListener("click",event=>{
+      const editButton=event.target.closest("[data-edit-jadwal]");
+      if(!editButton)return;
+      openJadwalEditModal(editButton.dataset.editJadwal);
+    });
+
+    jadwalEditCloseBtn?.addEventListener("click",closeJadwalEditModal);
+    jadwalEditCancelBtn?.addEventListener("click",closeJadwalEditModal);
+    jadwalEditBackdrop?.addEventListener("click",closeJadwalEditModal);
+
+    jadwalEditSaveBtn?.addEventListener("click",async()=>{
+      if(currentUserProfile?.role!=="owner"){
+        return showToast("Hanya Owner yang dapat menyimpan perubahan");
+      }
+
+      const id=jadwalEditId.value;
+      const current=jadwalTogelData.find(row=>row.id===id);
+      if(!id||!current)return;
+
+      const updated={
+        id,
+        name:jadwalEditName.value.trim(),
+        day:jadwalEditDay.value.trim(),
+        close:jadwalEditClose.value.trim(),
+        open:jadwalEditOpen.value.trim(),
+        order:Number.isFinite(Number(current.order))?Number(current.order):0,
+        updatedAt:Date.now(),
+        updatedBy:currentAuthUser?.uid||""
+      };
+
+      if(!updated.name||!updated.day||!updated.close||!updated.open){
+        return showToast("Semua kolom jadwal wajib diisi");
+      }
+
+      jadwalEditSaveBtn.disabled=true;
+      jadwalEditSaveBtn.textContent="Menyimpan...";
+
+      try{
+        await jadwalDb.child(id).set(updated);
+        closeJadwalEditModal();
+        showToast("Jadwal berhasil diperbarui");
+      }catch(error){
+        console.error(error);
+        showToast("Gagal menyimpan jadwal");
+      }finally{
+        jadwalEditSaveBtn.disabled=false;
+        jadwalEditSaveBtn.textContent="Simpan Perubahan";
+      }
+    });
+
+    document.addEventListener("keydown",event=>{
+      if(event.key==="Escape"&&jadwalEditModal?.classList.contains("show")){
+        closeJadwalEditModal();
+      }
+    });
 
     jadwalSearchInput?.addEventListener("input",renderJadwalTogel);
     renderJadwalTogel();
@@ -3419,6 +3659,48 @@ https://domain3.com"></textarea>
 firebase.initializeApp(firebaseConfig);
 const notesDb = firebase.database().ref("notepadKerjaBoss");
 const gambarDb = firebase.database().ref("gambarKerjaBoss");
+const jadwalDb = firebase.database().ref("jadwalTogelKerjaBoss");
+let jadwalListenerActive=false;
+
+function startJadwalListener(){
+  if(jadwalListenerActive||!currentAuthUser)return;
+  jadwalListenerActive=true;
+
+  jadwalDb.on("value",async snapshot=>{
+    const value=snapshot.val();
+
+    if(!value){
+      const seed={};
+      DEFAULT_JADWAL_TOGEL.forEach(item=>{
+        seed[item.id]={...item,updatedAt:Date.now(),updatedBy:"system"};
+      });
+
+      try{
+        await jadwalDb.set(seed);
+      }catch(error){
+        console.error(error);
+        showToast("Gagal membuat data awal jadwal");
+      }
+      return;
+    }
+
+    jadwalTogelData=Object.values(value).sort((a,b)=>
+      Number(a.order||0)-Number(b.order||0)
+    );
+    renderJadwalTogel();
+  },error=>{
+    console.error(error);
+    jadwalListenerActive=false;
+    showToast("Gagal memuat Jadwal Togel");
+  });
+}
+
+function stopJadwalListener(){
+  jadwalDb.off();
+  jadwalListenerActive=false;
+  jadwalTogelData=DEFAULT_JADWAL_TOGEL.map(item=>({...item}));
+  renderJadwalTogel();
+}
 
 const OWNER_EMAIL = "asephardian2002@gmail.com";
 const usersDb = firebase.database().ref("usersKerjaBoss");
@@ -3652,7 +3934,9 @@ auth.onAuthStateChanged(async user=>{
   currentAuthUser=user||null;
   if(!user){
     currentUserProfile=null;
+    document.body.classList.remove("jadwal-owner-mode");
     if(typeof stopGambarListener==="function") stopGambarListener();
+    if(typeof stopJadwalListener==="function") stopJadwalListener();
     authGate?.classList.remove("hidden");
     authGate?.classList.remove("checking");
     document.querySelector(".app").style.display="none";
@@ -3682,7 +3966,9 @@ auth.onAuthStateChanged(async user=>{
       dashboardWelcomeName.textContent=`WELCOME ${displayName}`;
     }
     updateAccessUI();
+    document.body.classList.toggle("jadwal-owner-mode",currentUserProfile.role==="owner");
     startGambarListener();
+    startJadwalListener();
     openPage("dashboard");
     if(currentUserProfile.role==="owner")loadOwnerUsers();
   }catch(error){
