@@ -2287,6 +2287,33 @@ CATATAN:
       }
     }
 
+
+    /* LOGOUT: KEDIPAN LEBIH LAMBAT + BACKGROUND MERAH TRANSPARAN */
+    @keyframes logoutLampBlinkSlow{
+      0%,100%{
+        background:rgba(239,68,68,.28);
+        color:#ffffff;
+        opacity:1;
+        filter:brightness(1.08);
+        border-color:rgba(248,113,113,.42);
+      }
+      50%{
+        background:rgba(127,29,29,.12);
+        color:#fecaca;
+        opacity:.70;
+        filter:brightness(.82);
+        border-color:rgba(248,113,113,.18);
+      }
+    }
+
+    .sidebar-logout.logout-light{
+      background:rgba(239,68,68,.22)!important;
+      border:1px solid rgba(248,113,113,.30)!important;
+      animation:logoutLampBlinkSlow 2.8s ease-in-out infinite!important;
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
