@@ -3071,6 +3071,248 @@ CATATAN:
       }
     }
 
+
+    /* PREDIKSI TOGEL — LIVE MARKET CONTROL */
+    #page-prediksi-togel{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      min-height:100vh!important;
+      margin:-28px!important;
+      width:calc(100% + 56px)!important;
+      padding:20px!important;
+      color:#f8fafc;
+      background:
+        radial-gradient(circle at 12% 8%,rgba(74,222,128,.09),transparent 22%),
+        radial-gradient(circle at 88% 10%,rgba(139,92,246,.12),transparent 28%),
+        linear-gradient(rgba(2,15,18,.66),rgba(3,8,18,.82)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat!important;
+    }
+    .prediksi-market-shell{
+      position:relative;
+      z-index:2;
+      width:100%;
+      min-height:calc(100vh - 40px);
+      padding:18px;
+      border-radius:24px;
+      background:linear-gradient(180deg,rgba(5,19,31,.68),rgba(5,11,24,.76));
+      border:1px solid rgba(74,222,128,.16);
+      box-shadow:0 28px 80px rgba(0,0,0,.35);
+      backdrop-filter:blur(7px);
+      -webkit-backdrop-filter:blur(7px);
+    }
+    .prediksi-market-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:14px;
+    }
+    .prediksi-heading h1{
+      margin:8px 0 0;
+      color:#f8fafc;
+      font-size:24px;
+      letter-spacing:.3px;
+    }
+    .prediksi-kicker{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(34,197,94,.11);
+      border:1px solid rgba(74,222,128,.28);
+      color:#86efac;
+      font-size:10px;
+      font-weight:1000;
+      letter-spacing:1px;
+    }
+    .prediksi-clock-card{
+      min-width:210px;
+      padding:14px 18px;
+      border-radius:18px;
+      text-align:center;
+      background:linear-gradient(115deg,rgba(139,92,246,.92),rgba(14,165,233,.92));
+      border:1px solid rgba(255,255,255,.24);
+      box-shadow:0 14px 28px rgba(0,0,0,.25);
+    }
+    .prediksi-clock-card strong{display:block;font-size:26px;line-height:1;color:#fff}
+    .prediksi-clock-card span{display:block;margin-top:7px;font-size:10px;font-weight:900;color:#e9d5ff}
+    .prediksi-controls{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 180px;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .prediksi-search-box{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      min-height:44px;
+      padding:0 13px;
+      border-radius:13px;
+      background:rgba(6,18,36,.84);
+      border:1px solid rgba(148,163,184,.18);
+    }
+    .prediksi-search-box span{color:#7dd3fc;font-weight:900}
+    .prediksi-search-box input{
+      border:0!important;background:transparent!important;color:#fff!important;
+      box-shadow:none!important;padding:10px 0!important;font-size:13px!important;
+    }
+    .prediksi-search-box input::placeholder{color:#94a3b8}
+    #prediksiStatusFilter{
+      min-height:44px;
+      border-radius:13px!important;
+      color:#fff!important;
+      background:#0b1428!important;
+      border:1px solid rgba(148,163,184,.20)!important;
+      font-weight:900;font-size:11px;
+    }
+    .prediksi-summary-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .prediksi-summary{
+      min-height:62px;
+      padding:12px 15px;
+      border-radius:14px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      border:1px solid rgba(255,255,255,.13);
+      box-shadow:inset 0 -18px 28px rgba(0,0,0,.30),0 8px 18px rgba(0,0,0,.16);
+    }
+    .prediksi-summary span{font-size:10px;font-weight:900;color:#e2e8f0}
+    .prediksi-summary strong{font-size:22px;margin-top:3px;color:#fff}
+    .prediksi-summary.total{background:linear-gradient(180deg,rgba(202,214,0,.82),rgba(47,48,0,.88))}
+    .prediksi-summary.open{background:linear-gradient(180deg,rgba(34,211,238,.90),rgba(5,66,81,.88))}
+    .prediksi-summary.closed{background:linear-gradient(180deg,rgba(251,113,133,.90),rgba(84,20,34,.90))}
+    .prediksi-workspace{
+      display:grid;
+      grid-template-columns:255px minmax(0,1fr);
+      gap:12px;
+      min-height:580px;
+    }
+    .prediksi-market-list-panel,.prediksi-result-panel{
+      border-radius:18px;
+      background:rgba(8,18,38,.78);
+      border:1px solid rgba(148,163,184,.17);
+      box-shadow:0 16px 34px rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .prediksi-panel-label{
+      padding:12px 13px 8px;
+      font-size:11px;
+      font-weight:900;
+      color:#e2e8f0;
+    }
+    .prediksi-market-list{
+      height:540px;
+      overflow:auto;
+      padding:0 9px 12px;
+      scrollbar-width:thin;
+      scrollbar-color:#22d3ee rgba(255,255,255,.06);
+    }
+    .prediksi-market-list::-webkit-scrollbar{width:6px}
+    .prediksi-market-list::-webkit-scrollbar-thumb{background:#22d3ee;border-radius:999px}
+    .prediksi-market-item{
+      position:relative;
+      width:100%;
+      margin:7px 0;
+      padding:12px 11px 10px 14px;
+      border-radius:13px;
+      border:1px solid rgba(148,163,184,.14);
+      background:rgba(15,27,51,.78);
+      color:#fff;
+      text-align:left;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    .prediksi-market-item::before{
+      content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:999px;
+      background:#fb7185;
+    }
+    .prediksi-market-item.open::before{background:#22d3ee}
+    .prediksi-market-item:hover,.prediksi-market-item.active{
+      transform:translateX(2px);
+      border-color:rgba(34,211,238,.42);
+      background:rgba(20,39,69,.94);
+    }
+    .prediksi-market-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .prediksi-market-name{font-size:11px;font-weight:1000;line-height:1.25}
+    .prediksi-status-badge{
+      flex:0 0 auto;padding:5px 7px;border-radius:999px;font-size:8px;font-weight:1000;
+      color:#fff;background:#e11d48;
+    }
+    .prediksi-market-item.open .prediksi-status-badge{background:#0891b2}
+    .prediksi-market-meta{margin-top:7px;font-size:8px;color:#cbd5e1;line-height:1.45}
+    .prediksi-market-countdown{margin-top:4px;font-size:8px;font-weight:900;color:#fda4af}
+    .prediksi-market-item.open .prediksi-market-countdown{color:#67e8f9}
+    .prediksi-result-panel{padding:10px;display:flex;flex-direction:column}
+    .prediksi-result-head{
+      min-height:40px;padding:0 2px 9px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .prediksi-result-head>div:first-child{display:flex;flex-direction:column;gap:3px}
+    .prediksi-result-head span{font-size:11px;font-weight:900;color:#e2e8f0}
+    .prediksi-result-head small{font-size:8px;color:#94a3b8}
+    .prediksi-result-actions{display:flex;gap:8px}
+    .prediksi-result-actions button{
+      border:1px solid rgba(148,163,184,.20);border-radius:10px;padding:9px 12px;
+      background:#17233c;color:#fff;font-size:10px;font-weight:900;cursor:pointer;
+    }
+    .prediksi-result-actions button.primary{
+      background:linear-gradient(180deg,#22c55e,#15803d);border-color:#86efac;
+    }
+    .prediksi-result-content{
+      flex:1;min-height:490px;border-radius:14px;padding:26px;
+      display:flex;align-items:flex-start;justify-content:center;
+      background:linear-gradient(135deg,rgba(7,25,47,.94),rgba(27,12,43,.92));
+      border:1px solid rgba(59,130,246,.26);
+      overflow:auto;
+    }
+    .prediksi-result-text{
+      width:min(900px,100%);margin:auto;white-space:pre-wrap;text-align:center;
+      font-size:16px;line-height:1.55;font-weight:900;color:#f8fafc;
+    }
+    .prediksi-empty-state{margin:auto;text-align:center;color:#94a3b8}
+    .prediksi-empty-state span{display:block;font-size:40px;margin-bottom:10px}
+    .prediksi-empty-state strong{display:block;color:#e2e8f0;font-size:17px}
+    .prediksi-empty-state p{font-size:12px;margin-top:6px}
+    .prediksi-loading,.prediksi-no-result{padding:28px 12px;text-align:center;color:#94a3b8;font-size:11px}
+    .prediksi-leaf-layer{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+    .pred-leaf{
+      position:absolute;top:-12%;font-size:17px;opacity:.48;
+      animation:predLeafFall linear infinite;filter:drop-shadow(0 5px 8px rgba(0,0,0,.2));
+    }
+    .pred-leaf.p1{left:3%;animation-duration:12s;animation-delay:-3s}.pred-leaf.p2{left:12%;animation-duration:15s;animation-delay:-8s}
+    .pred-leaf.p3{left:22%;animation-duration:13s;animation-delay:-5s}.pred-leaf.p4{left:31%;animation-duration:17s;animation-delay:-10s}
+    .pred-leaf.p5{left:41%;animation-duration:11s;animation-delay:-4s}.pred-leaf.p6{left:52%;animation-duration:16s;animation-delay:-9s}
+    .pred-leaf.p7{left:63%;animation-duration:12.5s;animation-delay:-6s}.pred-leaf.p8{left:72%;animation-duration:18s;animation-delay:-12s}
+    .pred-leaf.p9{left:81%;animation-duration:13.5s;animation-delay:-7s}.pred-leaf.p10{left:88%;animation-duration:16.5s;animation-delay:-11s}
+    .pred-leaf.p11{left:94%;animation-duration:12s;animation-delay:-2s}.pred-leaf.p12{left:98%;animation-duration:17s;animation-delay:-13s}
+    @keyframes predLeafFall{
+      0%{transform:translate3d(0,-8vh,0) rotate(0);opacity:0}
+      10%{opacity:.5}50%{transform:translate3d(-18px,55vh,0) rotate(170deg)}
+      100%{transform:translate3d(15px,110vh,0) rotate(340deg);opacity:0}
+    }
+    @media(max-width:900px){
+      .prediksi-workspace{grid-template-columns:1fr}.prediksi-market-list{height:300px}
+      .prediksi-result-content{min-height:430px}
+    }
+    @media(max-width:640px){
+      #page-prediksi-togel{margin:-18px!important;width:calc(100% + 36px)!important;padding:10px!important}
+      .prediksi-market-shell{padding:12px;border-radius:18px}
+      .prediksi-market-header{align-items:stretch;flex-direction:column}
+      .prediksi-clock-card{min-width:0;width:100%}
+      .prediksi-controls{grid-template-columns:1fr}
+      .prediksi-summary-grid{grid-template-columns:1fr 1fr 1fr}
+      .prediksi-summary{padding:10px}.prediksi-summary strong{font-size:18px}
+      .prediksi-result-head{align-items:stretch;flex-direction:column}
+      .prediksi-result-actions button{flex:1}
+      .prediksi-result-content{padding:18px;min-height:380px}
+      .prediksi-result-text{font-size:14px}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -3409,17 +3651,76 @@ CATATAN:
       </div>
 
       <div class="page" id="page-prediksi-togel">
-        <section class="hero">
-          <div>
-            <div class="pill">🔮 Prediksi Togel</div>
-            <h1>Prediksi Togel</h1>
-            <p>Ruang khusus untuk membuat dan menyimpan prediksi togel.</p>
+        <div class="prediksi-leaf-layer" aria-hidden="true">
+          <span class="pred-leaf p1">🍀</span><span class="pred-leaf p2">🍂</span><span class="pred-leaf p3">🍃</span>
+          <span class="pred-leaf p4">🍀</span><span class="pred-leaf p5">🍂</span><span class="pred-leaf p6">🍃</span>
+          <span class="pred-leaf p7">🍀</span><span class="pred-leaf p8">🍂</span><span class="pred-leaf p9">🍃</span>
+          <span class="pred-leaf p10">🍀</span><span class="pred-leaf p11">🍂</span><span class="pred-leaf p12">🍃</span>
+        </div>
+
+        <section class="prediksi-market-shell">
+          <header class="prediksi-market-header">
+            <div class="prediksi-heading">
+              <span class="prediksi-kicker">LIVE MARKET CONTROL</span>
+              <h1>PREDIKSI PASARAN</h1>
+            </div>
+            <div class="prediksi-clock-card">
+              <strong id="prediksiClockTime">00:00:00 WIB</strong>
+              <span id="prediksiClockMeta">Memuat data...</span>
+            </div>
+          </header>
+
+          <div class="prediksi-controls">
+            <label class="prediksi-search-box">
+              <span>⌕</span>
+              <input type="text" id="prediksiMarketSearch" placeholder="Cari pasaran...">
+            </label>
+            <select id="prediksiStatusFilter" aria-label="Filter status pasaran">
+              <option value="all">SEMUA STATUS</option>
+              <option value="open">SEDANG BUKA</option>
+              <option value="closed">SEDANG TUTUP</option>
+            </select>
           </div>
-        </section>
-        <section class="section">
-          <div class="placeholder-box">
-            <b>Menu Prediksi Togel sudah ditambahkan.</b><br>
-            Fitur khusus Prediksi Togel dapat kita lanjutkan di halaman ini tanpa mengubah menu Prediksi di dalam Postingan.
+
+          <div class="prediksi-summary-grid">
+            <article class="prediksi-summary total">
+              <span>Total Pasaran</span><strong id="prediksiTotalCount">0</strong>
+            </article>
+            <article class="prediksi-summary open">
+              <span>Sedang Buka</span><strong id="prediksiOpenCount">0</strong>
+            </article>
+            <article class="prediksi-summary closed">
+              <span>Sedang Tutup</span><strong id="prediksiClosedCount">0</strong>
+            </article>
+          </div>
+
+          <div class="prediksi-workspace">
+            <aside class="prediksi-market-list-panel">
+              <div class="prediksi-panel-label">Daftar Pasaran</div>
+              <div class="prediksi-market-list" id="prediksiMarketList">
+                <div class="prediksi-loading">Mengambil data prediksi dari Google Sheet...</div>
+              </div>
+            </aside>
+
+            <main class="prediksi-result-panel">
+              <div class="prediksi-result-head">
+                <div>
+                  <span>Hasil Prediksi</span>
+                  <small id="prediksiSourceStatus">Google Sheet F2:F78</small>
+                </div>
+                <div class="prediksi-result-actions">
+                  <button type="button" id="prediksiRefreshBtn">↻ Refresh Sheet</button>
+                  <button type="button" class="primary" id="prediksiCopyBtn">Copy Sekarang</button>
+                </div>
+              </div>
+              <div class="prediksi-result-content" id="prediksiResultContent">
+                <div class="prediksi-empty-state">
+                  <span>🔮</span>
+                  <strong>Pilih pasaran</strong>
+                  <p>Prediksi dari kolom F Google Sheet akan tampil di sini.</p>
+                </div>
+              </div>
+            </main>
           </div>
         </section>
       </div>
@@ -7007,7 +7308,178 @@ drawSyair();
         window.closeNoteImagePopup();
       }
     });
-  </script>
+  
+    /* PREDIKSI TOGEL — DATA GOOGLE SHEET F2:F78 */
+    const PREDIKSI_SHEET_URL="https://docs.google.com/spreadsheets/d/1_EcGXsjxv_iMbk4Vyg8YimzQyj-ymayWe6nNS1ezHc8/gviz/tq?tqx=out:csv&gid=1081718576&range=F2:F78";
+    const prediksiMarketList=document.getElementById("prediksiMarketList");
+    const prediksiMarketSearch=document.getElementById("prediksiMarketSearch");
+    const prediksiStatusFilter=document.getElementById("prediksiStatusFilter");
+    const prediksiTotalCount=document.getElementById("prediksiTotalCount");
+    const prediksiOpenCount=document.getElementById("prediksiOpenCount");
+    const prediksiClosedCount=document.getElementById("prediksiClosedCount");
+    const prediksiResultContent=document.getElementById("prediksiResultContent");
+    const prediksiSourceStatus=document.getElementById("prediksiSourceStatus");
+    const prediksiCopyBtn=document.getElementById("prediksiCopyBtn");
+    const prediksiRefreshBtn=document.getElementById("prediksiRefreshBtn");
+    const prediksiClockTime=document.getElementById("prediksiClockTime");
+    const prediksiClockMeta=document.getElementById("prediksiClockMeta");
+    let prediksiMarketData=[];
+    let prediksiSelectedId="";
+
+    function prediksiParseCsv(text){
+      const rows=[];let row=[],cell="",quoted=false;
+      for(let i=0;i<text.length;i++){
+        const ch=text[i],next=text[i+1];
+        if(ch==='"'&&quoted&&next==='"'){cell+='"';i++;continue}
+        if(ch==='"'){quoted=!quoted;continue}
+        if(ch===','&&!quoted){row.push(cell);cell="";continue}
+        if((ch==='\n'||ch==='\r')&&!quoted){
+          if(ch==='\r'&&next==='\n')i++;
+          row.push(cell);cell="";
+          rows.push(row);row=[];continue;
+        }
+        cell+=ch;
+      }
+      row.push(cell);if(row.some(v=>String(v).trim()!==""))rows.push(row);
+      return rows;
+    }
+    function prediksiCanonical(value){
+      return String(value||"").toUpperCase().replace(/^PREDIKSI\s+/i,"")
+        .replace(/\b\d{1,2}:\d{2}(?:\s*WIB)?\b/g,"")
+        .replace(/NEW\s+YORK/g,"NEWYORK").replace(/TOTO\s+MACAU/g,"TOTOMACAU")
+        .replace(/KING\s+KONG/g,"KINGKONG").replace(/[^A-Z0-9]/g,"");
+    }
+    function prediksiExtractName(content,index){
+      const first=String(content||"").split(/\r?\n/).map(x=>x.trim()).find(Boolean)||`PASARAN ${index+1}`;
+      return first.replace(/^PREDIKSI\s+/i,"").replace(/\s+\d{1,2}:\d{2}(?:\s*WIB)?\s*$/i,"").trim();
+    }
+    function prediksiFindSchedule(name){
+      const key=prediksiCanonical(name);
+      return (typeof DEFAULT_JADWAL_TOGEL!=="undefined"?DEFAULT_JADWAL_TOGEL:[]).find(item=>{
+        const itemKey=prediksiCanonical(item.name);
+        return itemKey===key||itemKey.includes(key)||key.includes(itemKey);
+      })||null;
+    }
+    function prediksiJakartaParts(){
+      const now=new Date();
+      const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"}).formatToParts(now);
+      return Object.fromEntries(parts.map(p=>[p.type,p.value]));
+    }
+    function prediksiTimeToMinutes(value){
+      const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
+      return m?Number(m[1])*60+Number(m[2]):null;
+    }
+    function prediksiStatus(schedule){
+      if(!schedule||/RESULT\s*24X/i.test(schedule.close||""))return {open:true,label:"BUKA",countdown:"Aktif sepanjang hari"};
+      const p=prediksiJakartaParts();
+      const nowMin=Number(p.hour)%24*60+Number(p.minute);
+      const closeMin=prediksiTimeToMinutes(schedule.close);
+      if(closeMin===null)return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
+      const open=nowMin<closeMin;
+      if(open){
+        const diff=Math.max(0,closeMin-nowMin),h=Math.floor(diff/60),m=diff%60;
+        return {open:true,label:"BUKA",countdown:`Tutup ${h?`${h}j `:""}${m}m lagi`};
+      }
+      return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
+    }
+    function prediksiEscape(value){
+      return String(value||"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[ch]));
+    }
+    function prediksiDecorate(items){
+      return items.map((item,index)=>{
+        const name=prediksiExtractName(item.content,index);
+        const schedule=prediksiFindSchedule(name);
+        return {...item,name,schedule,status:prediksiStatus(schedule)};
+      });
+    }
+    function prediksiRender(){
+      if(!prediksiMarketList)return;
+      prediksiMarketData=prediksiDecorate(prediksiMarketData);
+      const total=prediksiMarketData.length;
+      const openCount=prediksiMarketData.filter(x=>x.status.open).length;
+      prediksiTotalCount.textContent=total;
+      prediksiOpenCount.textContent=openCount;
+      prediksiClosedCount.textContent=total-openCount;
+      const q=(prediksiMarketSearch?.value||"").trim().toLowerCase();
+      const filter=prediksiStatusFilter?.value||"all";
+      const shown=prediksiMarketData.filter(item=>{
+        const matches=!q||item.name.toLowerCase().includes(q)||item.content.toLowerCase().includes(q);
+        const statusMatches=filter==="all"||(filter==="open"&&item.status.open)||(filter==="closed"&&!item.status.open);
+        return matches&&statusMatches;
+      });
+      if(!shown.length){prediksiMarketList.innerHTML='<div class="prediksi-no-result">Pasaran tidak ditemukan.</div>';return}
+      prediksiMarketList.innerHTML=shown.map(item=>{
+        const schedule=item.schedule;
+        const meta=schedule?`◷ Tutup ${prediksiEscape(schedule.close)} • Buka ${prediksiEscape(schedule.open)}`:"Jadwal belum ditemukan";
+        return `<button type="button" class="prediksi-market-item ${item.status.open?"open":"closed"} ${item.id===prediksiSelectedId?"active":""}" data-prediksi-id="${prediksiEscape(item.id)}">
+          <div class="prediksi-market-row"><span class="prediksi-market-name">${prediksiEscape(item.name)}</span><span class="prediksi-status-badge">${item.status.label}</span></div>
+          <div class="prediksi-market-meta">${meta}</div><div class="prediksi-market-countdown">${prediksiEscape(item.status.countdown)}</div>
+        </button>`;
+      }).join("");
+    }
+    function prediksiSelect(id){
+      const item=prediksiMarketData.find(x=>x.id===id);if(!item)return;
+      prediksiSelectedId=id;
+      prediksiResultContent.innerHTML=`<div class="prediksi-result-text">${prediksiEscape(item.content)}</div>`;
+      prediksiRender();
+    }
+    async function prediksiLoadSheet(force=false){
+      if(!prediksiMarketList)return;
+      prediksiMarketList.innerHTML='<div class="prediksi-loading">Mengambil kolom F2:F78 dari Google Sheet...</div>';
+      prediksiSourceStatus.textContent="Menghubungkan ke Google Sheet...";
+      prediksiRefreshBtn.disabled=true;
+      try{
+        const response=await fetch(PREDIKSI_SHEET_URL+(force?`&_=${Date.now()}`:""),{cache:"no-store"});
+        if(!response.ok)throw new Error("HTTP "+response.status);
+        const csv=await response.text();
+        const rows=prediksiParseCsv(csv);
+        const cells=rows.map(row=>String(row[0]||"").trim()).filter(value=>value&&/PREDIKSI/i.test(value));
+        if(!cells.length)throw new Error("Kolom F2:F78 kosong atau format tidak sesuai");
+        prediksiMarketData=cells.map((content,index)=>({id:`sheet_f_${index+2}`,content}));
+        localStorage.setItem("prediksiTogelSheetCache",JSON.stringify({savedAt:Date.now(),data:prediksiMarketData}));
+        prediksiSourceStatus.textContent=`Google Sheet F2:F78 • ${prediksiMarketData.length} data`;
+        prediksiRender();
+        const first=prediksiMarketData[0];if(first)prediksiSelect(first.id);
+      }catch(error){
+        console.error(error);
+        const cached=JSON.parse(localStorage.getItem("prediksiTogelSheetCache")||"null");
+        if(cached?.data?.length){
+          prediksiMarketData=cached.data;
+          prediksiSourceStatus.textContent="Mode cache • Sheet gagal dimuat";
+          prediksiRender();
+          if(prediksiMarketData[0])prediksiSelect(prediksiMarketData[0].id);
+          showToast("Sheet gagal dimuat, memakai data terakhir");
+        }else{
+          prediksiMarketList.innerHTML='<div class="prediksi-no-result">Gagal mengambil data. Pastikan Google Sheet dapat dilihat oleh siapa saja yang memiliki link.</div>';
+          prediksiSourceStatus.textContent="Gagal terhubung ke Google Sheet";
+        }
+      }finally{prediksiRefreshBtn.disabled=false}
+    }
+    prediksiMarketList?.addEventListener("click",event=>{
+      const btn=event.target.closest("[data-prediksi-id]");if(btn)prediksiSelect(btn.dataset.prediksiId);
+    });
+    prediksiMarketSearch?.addEventListener("input",prediksiRender);
+    prediksiStatusFilter?.addEventListener("change",prediksiRender);
+    prediksiRefreshBtn?.addEventListener("click",()=>prediksiLoadSheet(true));
+    prediksiCopyBtn?.addEventListener("click",async()=>{
+      const item=prediksiMarketData.find(x=>x.id===prediksiSelectedId);
+      if(!item)return showToast("Pilih pasaran terlebih dahulu");
+      try{await navigator.clipboard.writeText(item.content);showToast("Prediksi berhasil dicopy")}
+      catch{const ta=document.createElement("textarea");ta.value=item.content;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();showToast("Prediksi berhasil dicopy")}
+    });
+    function prediksiUpdateClock(){
+      if(!prediksiClockTime)return;
+      const now=new Date();
+      const time=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(now).replace(/\./g,":");
+      prediksiClockTime.textContent=time+" WIB";
+      const open=prediksiMarketData.filter(x=>prediksiStatus(x.schedule).open).length;
+      prediksiClockMeta.textContent=`${open} buka • ${Math.max(0,prediksiMarketData.length-open)} tutup`;
+    }
+    setInterval(()=>{prediksiUpdateClock();if(prediksiMarketData.length)prediksiRender()},1000);
+    prediksiUpdateClock();
+    prediksiLoadSheet();
+
+</script>
 
 </body>
 </html>
