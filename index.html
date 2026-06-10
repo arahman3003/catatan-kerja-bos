@@ -7444,14 +7444,54 @@ drawSyair();
         return {...item,name,schedule,status:prediksiStatus(schedule,name)};
       });
     }
+
+    function prediksiMarketKey(name){
+      const clean=String(name||"").trim().toUpperCase();
+
+      /* Semua HOKIDRAW per jam dihitung sebagai 1 pasaran saja */
+      if(/HOKI\s*DRAW|HOKIDRAW/.test(clean))return "HOKIDRAW";
+
+      return clean
+        .replace(/\s+/g," ")
+        .trim();
+    }
+
+    function prediksiSummaryCounts(items){
+      const groups=new Map();
+
+      items.forEach(item=>{
+        const key=prediksiMarketKey(item.name);
+        if(!key)return;
+
+        if(!groups.has(key)){
+          groups.set(key,{open:false});
+        }
+
+        /* Satu pasaran dianggap buka jika minimal satu result-nya masih buka */
+        if(item.status?.open){
+          groups.get(key).open=true;
+        }
+      });
+
+      const markets=[...groups.values()];
+      const total=markets.length;
+      const open=markets.filter(item=>item.open).length;
+
+      return {
+        total,
+        open,
+        closed:Math.max(0,total-open)
+      };
+    }
+
     function prediksiRender(){
       if(!prediksiMarketList)return;
       prediksiMarketData=prediksiDecorate(prediksiMarketData);
-      const total=prediksiMarketData.length;
-      const openCount=prediksiMarketData.filter(x=>x.status.open).length;
-      prediksiTotalCount.textContent=total;
-      prediksiOpenCount.textContent=openCount;
-      prediksiClosedCount.textContent=total-openCount;
+
+      const summary=prediksiSummaryCounts(prediksiMarketData);
+      prediksiTotalCount.textContent=summary.total;
+      prediksiOpenCount.textContent=summary.open;
+      prediksiClosedCount.textContent=summary.closed;
       const q=(prediksiMarketSearch?.value||"").trim().toLowerCase();
       const filter=prediksiStatusFilter?.value||"all";
       const shown=prediksiMarketData.filter(item=>{
@@ -7537,8 +7577,9 @@ drawSyair();
       const now=new Date();
       const time=new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(now).replace(/\./g,":");
       prediksiClockTime.textContent=time+" WIB";
-      const open=prediksiMarketData.filter(x=>prediksiStatus(x.schedule).open).length;
-      prediksiClockMeta.textContent=`${open} buka • ${Math.max(0,prediksiMarketData.length-open)} tutup`;
+      const decorated=prediksiDecorate(prediksiMarketData);
+      const summary=prediksiSummaryCounts(decorated);
+      prediksiClockMeta.textContent=`${summary.open} buka • ${summary.closed} tutup`;
     }
     setInterval(()=>{prediksiUpdateClock();if(prediksiMarketData.length)prediksiRender()},1000);
     prediksiUpdateClock();
