@@ -7369,18 +7369,70 @@ drawSyair();
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
       return m?Number(m[1])*60+Number(m[2]):null;
     }
-    function prediksiStatus(schedule){
-      if(!schedule||/RESULT\s*24X/i.test(schedule.close||""))return {open:true,label:"BUKA",countdown:"Aktif sepanjang hari"};
+    function prediksiStatus(schedule,name=""){
       const p=prediksiJakartaParts();
       const nowMin=Number(p.hour)%24*60+Number(p.minute);
-      const closeMin=prediksiTimeToMinutes(schedule.close);
-      if(closeMin===null)return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
-      const open=nowMin<closeMin;
-      if(open){
-        const diff=Math.max(0,closeMin-nowMin),h=Math.floor(diff/60),m=diff%60;
-        return {open:true,label:"BUKA",countdown:`Tutup ${h?`${h}j `:""}${m}m lagi`};
+
+      /* HOKIDRAW RESULT SETIAP JAM:
+         nama pada Sheet, contoh "HOKI DRAW 01:00", menentukan jam result.
+         Jika jam result sudah lewat maka status otomatis TUTUP. */
+      if(/HOKI\s*DRAW|HOKIDRAW/i.test(name)){
+        const resultMatch=String(name).match(/(\d{1,2}):(\d{2})/);
+        if(resultMatch){
+          const resultMin=Number(resultMatch[1])*60+Number(resultMatch[2]);
+
+          if(nowMin>=resultMin){
+            return {
+              open:false,
+              label:"TUTUP",
+              countdown:"Result sudah keluar"
+            };
+          }
+
+          const diff=resultMin-nowMin;
+          const h=Math.floor(diff/60);
+          const m=diff%60;
+
+          return {
+            open:true,
+            label:"BUKA",
+            countdown:`Tutup ${h?`${h}j `:""}${m}m lagi`
+          };
+        }
+
+        return {
+          open:true,
+          label:"BUKA",
+          countdown:"Result 1 jam sekali"
+        };
       }
-      return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
+
+      if(!schedule)return {open:true,label:"BUKA",countdown:"Jadwal belum tersedia"};
+
+      const closeMin=prediksiTimeToMinutes(schedule.close);
+      if(closeMin===null){
+        return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
+      }
+
+      const open=nowMin<closeMin;
+
+      if(open){
+        const diff=Math.max(0,closeMin-nowMin);
+        const h=Math.floor(diff/60);
+        const m=diff%60;
+
+        return {
+          open:true,
+          label:"BUKA",
+          countdown:`Tutup ${h?`${h}j `:""}${m}m lagi`
+        };
+      }
+
+      return {
+        open:false,
+        label:"TUTUP",
+        countdown:"Sudah tutup hari ini"
+      };
     }
     function prediksiEscape(value){
       return String(value||"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[ch]));
@@ -7389,7 +7441,7 @@ drawSyair();
       return items.map((item,index)=>{
         const name=String(item.name||"").trim()||prediksiExtractName(item.content,index);
         const schedule=prediksiFindSchedule(name);
-        return {...item,name,schedule,status:prediksiStatus(schedule)};
+        return {...item,name,schedule,status:prediksiStatus(schedule,name)};
       });
     }
     function prediksiRender(){
@@ -7410,7 +7462,14 @@ drawSyair();
       if(!shown.length){prediksiMarketList.innerHTML='<div class="prediksi-no-result">Pasaran tidak ditemukan.</div>';return}
       prediksiMarketList.innerHTML=shown.map(item=>{
         const schedule=item.schedule;
-        const meta=schedule?`◷ Tutup ${prediksiEscape(schedule.close)} • Buka ${prediksiEscape(schedule.open)}`:"Jadwal belum ditemukan";
+        const hokiResult=/(HOKI\s*DRAW|HOKIDRAW)/i.test(item.name)
+          ? String(item.name).match(/(\d{1,2}:\d{2})/)
+          : null;
+        const meta=hokiResult
+          ? `◷ Result ${prediksiEscape(hokiResult[1])} WIB`
+          : schedule
+            ? `◷ Tutup ${prediksiEscape(schedule.close)} • Buka ${prediksiEscape(schedule.open)}`
+            : "Jadwal belum ditemukan";
         return `<button type="button" class="prediksi-market-item ${item.status.open?"open":"closed"} ${item.id===prediksiSelectedId?"active":""}" data-prediksi-id="${prediksiEscape(item.id)}">
           <div class="prediksi-market-row"><span class="prediksi-market-name">${prediksiEscape(item.name)}</span><span class="prediksi-status-badge">${item.status.label}</span></div>
           <div class="prediksi-market-meta">${meta}</div><div class="prediksi-market-countdown">${prediksiEscape(item.status.countdown)}</div>
