@@ -2672,6 +2672,7 @@ auth.onAuthStateChanged(async user=>{
   currentAuthUser=user||null;
   if(!user){
     currentUserProfile=null;
+    if(typeof stopGambarListener==="function") stopGambarListener();
     authGate?.classList.remove("hidden");
     authGate?.classList.remove("checking");
     document.querySelector(".app").style.display="none";
@@ -2701,6 +2702,7 @@ auth.onAuthStateChanged(async user=>{
       dashboardWelcomeName.textContent=`WELCOME ${displayName}`;
     }
     updateAccessUI();
+    startGambarListener();
     openPage("dashboard");
     if(currentUserProfile.role==="owner")loadOwnerUsers();
   }catch(error){
@@ -5103,14 +5105,30 @@ drawSyair();
       `).join("");
     }
 
-    gambarDb.orderByChild("updatedAt").on("value",snapshot=>{
-      const data=snapshot.val()||{};
-      gambarData=Object.values(data).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+    let gambarListenerActive=false;
+
+    function startGambarListener(){
+      if(gambarListenerActive || !currentAuthUser) return;
+
+      gambarListenerActive=true;
+
+      gambarDb.orderByChild("updatedAt").on("value",snapshot=>{
+        const data=snapshot.val()||{};
+        gambarData=Object.values(data).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+        renderGambar();
+      },error=>{
+        console.error(error);
+        gambarListenerActive=false;
+        showToast("Gagal memuat gambar Firebase");
+      });
+    }
+
+    function stopGambarListener(){
+      gambarDb.off();
+      gambarListenerActive=false;
+      gambarData=[];
       renderGambar();
-    },error=>{
-      console.error(error);
-      showToast("Gagal memuat gambar Firebase");
-    });
+    }
 
     function resetGambarForm(){
       gambarEditId.value="";
