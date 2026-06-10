@@ -2032,9 +2032,9 @@
         <button type="button" class="auth-tab active" data-auth-tab="login">LOGIN</button>
         <button type="button" class="auth-tab" data-auth-tab="register">DAFTAR</button>
       </div>
-      <form class="auth-form active" id="loginForm">
-        <div class="form-group"><label for="loginEmail">Email</label><input type="email" id="loginEmail" autocomplete="email" required></div>
-        <div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" autocomplete="current-password" minlength="6" required></div>
+      <form class="auth-form active" id="loginForm" autocomplete="off">
+        <div class="form-group"><label for="loginEmail">Email</label><input type="email" id="loginEmail" autocomplete="off" autocapitalize="none" spellcheck="false" required></div>
+        <div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" autocomplete="new-password" minlength="6" required></div>
         <button type="submit" class="btn btn-green auth-submit">Masuk Dashboard</button>
       </form>
       <form class="auth-form" id="registerForm">
@@ -2591,7 +2591,28 @@ registerForm?.addEventListener("submit",async e=>{
   }
 });
 
-logoutBtn?.addEventListener("click",()=>auth.signOut());
+function clearLoginForm(){
+  if(loginForm) loginForm.reset();
+  const emailInput=document.getElementById("loginEmail");
+  const passwordInput=document.getElementById("loginPassword");
+  if(emailInput) emailInput.value="";
+  if(passwordInput) passwordInput.value="";
+  setAuthMessage("");
+  setTimeout(()=>{
+    if(emailInput) emailInput.value="";
+    if(passwordInput) passwordInput.value="";
+  },120);
+}
+
+logoutBtn?.addEventListener("click",async()=>{
+  clearLoginForm();
+  try{
+    await auth.signOut();
+  }catch(error){
+    console.error(error);
+    showToast("Gagal logout");
+  }
+});
 
 window.canOpenKerjaBossPage=function(page){
   if(!currentUserProfile)return false;
@@ -2654,6 +2675,13 @@ auth.onAuthStateChanged(async user=>{
     authGate?.classList.remove("hidden");
     authGate?.classList.remove("checking");
     document.querySelector(".app").style.display="none";
+    clearLoginForm();
+    document.querySelectorAll(".auth-tab").forEach(tab=>{
+      tab.classList.toggle("active",tab.dataset.authTab==="login");
+    });
+    loginForm?.classList.add("active");
+    registerForm?.classList.remove("active");
+    setTimeout(()=>document.getElementById("loginEmail")?.focus(),160);
     return;
   }
   try{
@@ -2665,6 +2693,8 @@ auth.onAuthStateChanged(async user=>{
     }
     authGate?.classList.add("hidden");
     authGate?.classList.remove("checking");
+    const loginPasswordField=document.getElementById("loginPassword");
+    if(loginPasswordField) loginPasswordField.value="";
     document.querySelector(".app").style.display="grid";
     if(dashboardWelcomeName){
       const displayName=(currentUserProfile.name||currentAuthUser?.displayName||"BOS").trim();
