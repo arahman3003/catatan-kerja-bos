@@ -2994,6 +2994,83 @@ CATATAN:
       .jadwal-edit-actions{flex-direction:column}
     }
 
+
+    /* MODE EDIT JADWAL */
+    .jadwal-header-actions{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .jadwal-edit-mode-btn{
+      min-height:54px;
+      padding:0 18px;
+      border-radius:16px;
+      border:1px solid rgba(74,222,128,.35);
+      background:linear-gradient(180deg,#123b31,#0b2a23);
+      color:#d1fae5;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      cursor:pointer;
+      font-weight:900;
+      box-shadow:0 10px 22px rgba(0,0,0,.18);
+      transition:transform .18s ease,filter .18s ease,background .18s ease;
+    }
+
+    body.jadwal-owner-mode .jadwal-edit-mode-btn{
+      display:flex;
+    }
+
+    .jadwal-edit-mode-btn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.08);
+    }
+
+    .jadwal-edit-mode-btn.active{
+      background:linear-gradient(180deg,#4ade80,#16a34a);
+      color:#042f1d;
+      border-color:#86efac;
+    }
+
+    .jadwal-edit-mode-btn.active strong::after{
+      content:" Aktif";
+    }
+
+    /* Pensil di card tersembunyi sampai mode edit dinyalakan */
+    body.jadwal-owner-mode .jadwal-card-edit{
+      display:none!important;
+    }
+
+    body.jadwal-owner-mode.jadwal-editing .jadwal-card-edit{
+      display:flex!important;
+    }
+
+    body.jadwal-owner-mode .jadwal-card-title{
+      padding-right:0!important;
+    }
+
+    body.jadwal-owner-mode.jadwal-editing .jadwal-card-title{
+      padding-right:40px!important;
+    }
+
+    @media(max-width:760px){
+      .jadwal-header-actions{
+        width:100%;
+        align-items:stretch;
+        flex-direction:column;
+      }
+      .jadwal-search-wrap{
+        width:100%!important;
+      }
+      .jadwal-edit-mode-btn{
+        width:100%;
+      }
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -3273,9 +3350,15 @@ CATATAN:
               <h1>Jadwal Togel</h1>
               <p>Daftar jam tutup dan jam buka seluruh pasaran.</p>
             </div>
-            <div class="jadwal-search-wrap">
-              <span>⌕</span>
-              <input type="text" id="jadwalSearchInput" placeholder="Cari pasar...">
+            <div class="jadwal-header-actions">
+              <div class="jadwal-search-wrap">
+                <span>⌕</span>
+                <input type="text" id="jadwalSearchInput" placeholder="Cari pasar...">
+              </div>
+              <button type="button" class="jadwal-edit-mode-btn" id="jadwalEditModeBtn">
+                <span>✏️</span>
+                <strong>Edit Jadwal</strong>
+              </button>
             </div>
           </div>
 
@@ -3522,6 +3605,7 @@ https://domain3.com"></textarea>
     const jadwalEditDay = document.getElementById("jadwalEditDay");
     const jadwalEditClose = document.getElementById("jadwalEditClose");
     const jadwalEditOpen = document.getElementById("jadwalEditOpen");
+    const jadwalEditModeBtn = document.getElementById("jadwalEditModeBtn");
 
     function escapeJadwalText(value){
       return String(value||"").replace(/[&<>"']/g,char=>({
@@ -3581,6 +3665,16 @@ https://domain3.com"></textarea>
     function closeJadwalEditModal(){
       jadwalEditModal?.classList.remove("show");
     }
+
+    jadwalEditModeBtn?.addEventListener("click",()=>{
+      if(currentUserProfile?.role!=="owner"){
+        return showToast("Hanya Owner yang dapat mengaktifkan mode edit");
+      }
+
+      const editing=document.body.classList.toggle("jadwal-editing");
+      jadwalEditModeBtn.classList.toggle("active",editing);
+      showToast(editing ? "Mode edit jadwal aktif" : "Mode edit jadwal dimatikan");
+    });
 
     jadwalGrid?.addEventListener("click",event=>{
       const editButton=event.target.closest("[data-edit-jadwal]");
@@ -3934,7 +4028,8 @@ auth.onAuthStateChanged(async user=>{
   currentAuthUser=user||null;
   if(!user){
     currentUserProfile=null;
-    document.body.classList.remove("jadwal-owner-mode");
+    document.body.classList.remove("jadwal-owner-mode","jadwal-editing");
+    jadwalEditModeBtn?.classList.remove("active");
     if(typeof stopGambarListener==="function") stopGambarListener();
     if(typeof stopJadwalListener==="function") stopJadwalListener();
     authGate?.classList.remove("hidden");
@@ -3967,6 +4062,10 @@ auth.onAuthStateChanged(async user=>{
     }
     updateAccessUI();
     document.body.classList.toggle("jadwal-owner-mode",currentUserProfile.role==="owner");
+    if(currentUserProfile.role!=="owner"){
+      document.body.classList.remove("jadwal-editing");
+      jadwalEditModeBtn?.classList.remove("active");
+    }
     startGambarListener();
     startJadwalListener();
     openPage("dashboard");
