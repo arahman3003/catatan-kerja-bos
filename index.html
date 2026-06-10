@@ -2357,6 +2357,67 @@ CATATAN:
       height:46px!important;
     }
 
+
+    /* HEADER CHECKER NAWALA DIHAPUS */
+    #page-link-domain .nawala-shell{
+      align-items:stretch;
+    }
+    #page-link-domain .nawala-side,
+    #page-link-domain .nawala-main{
+      grid-row:1;
+    }
+
+
+    /* WALLPAPER BERSAMA: DASHBOARD, PK CS, NOTEPAD, PREDIKSI TOGEL, GAMBAR, MANAJEMEN USER */
+    #page-dashboard .dashboard-bg-image{
+      background-image:url("https://i.imgur.com/7qjeGMI.jpeg")!important;
+      background-size:cover!important;
+      background-position:center center!important;
+      background-repeat:no-repeat!important;
+    }
+
+    #page-pk-cs .pkcs-shell{
+      background:
+        linear-gradient(rgba(2,18,14,.72),rgba(2,12,14,.84)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat!important;
+    }
+
+    #page-notepad .notehub-shell{
+      background:
+        linear-gradient(rgba(3,15,18,.74),rgba(4,10,18,.88)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat!important;
+    }
+
+    #page-prediksi-togel{
+      margin:-28px!important;
+      width:calc(100% + 56px)!important;
+      min-height:calc(100vh - 56px)!important;
+      padding:28px!important;
+      background:
+        linear-gradient(rgba(3,15,18,.72),rgba(4,10,18,.86)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat!important;
+    }
+
+    #page-gambar .gambar-shell{
+      background:
+        linear-gradient(rgba(3,15,18,.72),rgba(4,10,18,.86)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat!important;
+    }
+
+    #page-user-management{
+      background:
+        linear-gradient(rgba(3,15,18,.74),rgba(4,10,18,.88)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat!important;
+    }
+
+    @media(max-width:640px){
+      #page-prediksi-togel{
+        margin:-18px!important;
+        width:calc(100% + 36px)!important;
+        padding:18px!important;
+      }
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -2616,17 +2677,7 @@ CATATAN:
       <div class="page" id="page-prediksi"><section class="hero"><div><div class="pill">🔮 Ruang Prediksi</div><h1>Prediksi</h1><p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Prediksi.</b><br>Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.</div></section></div>
       <div class="page" id="page-link-domain">
         <section class="nawala-shell">
-          <header class="nawala-topbar">
-            <div class="nawala-logo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#70b7ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9.5 12.2l1.6 1.7 3.4-4"/></svg>
-            </div>
-            <div>
-              <h2>Checker Nawala</h2>
-              <p>Pantau domain dan status blokir Internet Positif dari satu halaman.</p>
-            </div>
-          </header>
-
-          <aside class="nawala-side">
+<aside class="nawala-side">
             <div class="nawala-side-head">
               <div class="nawala-side-title">
                 <span class="nawala-icon-badge">
