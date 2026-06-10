@@ -2453,6 +2453,38 @@ CATATAN:
       }
     }
 
+
+    #page-jadwal-togel{
+      min-height:calc(100vh - 56px);
+      color:#e5edf8;
+      margin:-28px;
+      width:calc(100% + 56px);
+      padding:28px;
+      background:
+        linear-gradient(rgba(3,15,18,.72),rgba(4,10,18,.86)),
+        url("https://i.imgur.com/7qjeGMI.jpeg") center/cover fixed no-repeat;
+    }
+    #page-jadwal-togel .hero,
+    #page-jadwal-togel .section{
+      background:linear-gradient(180deg,rgba(15,24,40,.96),rgba(8,15,27,.96));
+      border:1px solid rgba(34,197,94,.18);
+      color:#e8eef8;
+    }
+    #page-jadwal-togel .hero h1{color:#f8fafc}
+    #page-jadwal-togel .hero p{color:#93a4ba}
+    #page-jadwal-togel .pill{
+      background:rgba(34,197,94,.13);
+      color:#86efac;
+      border-color:rgba(34,197,94,.30);
+    }
+    @media(max-width:640px){
+      #page-jadwal-togel{
+        margin:-18px;
+        width:calc(100% + 36px);
+        padding:18px;
+      }
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -2520,7 +2552,11 @@ CATATAN:
         <button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button>
         <button class="nav-btn" data-page="notepad">📝 <span class="menu-label">Notepad</span></button>
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
-        <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
+        <button class="dropdown-btn" id="togelDropdownBtn">🔮 <span class="menu-label">Togel</span> <span id="togelDropdownIcon">▾</span></button>
+        <div class="submenu" id="togelSubmenu">
+          <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
+          <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
+        </div>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -2694,6 +2730,22 @@ CATATAN:
           </div>
         </div>
       </div>
+      <div class="page" id="page-jadwal-togel">
+        <section class="hero">
+          <div>
+            <div class="pill">📅 Jadwal Togel</div>
+            <h1>Jadwal Togel</h1>
+            <p>Ruang khusus untuk menyimpan dan mengelola jadwal togel.</p>
+          </div>
+        </section>
+        <section class="section">
+          <div class="placeholder-box">
+            <b>Menu Jadwal Togel sudah ditambahkan.</b><br>
+            Fitur jadwal akan kita lanjutkan di halaman ini.
+          </div>
+        </section>
+      </div>
+
       <div class="page" id="page-prediksi-togel">
         <section class="hero">
           <div>
@@ -2876,7 +2928,7 @@ https://domain3.com"></textarea>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 
   <script>
-    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
+    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
@@ -2912,6 +2964,7 @@ const DEFAULT_STAFF_PERMISSIONS = {
   dashboard:true,
   gambar:false,
   "prediksi-togel":false,
+  "jadwal-togel":false,
   notepad:true,
   "syair-togel":false,
   "bukti-kemenangan":false,
@@ -2921,10 +2974,10 @@ const DEFAULT_STAFF_PERMISSIONS = {
   selisih:false,
   "user-management":false
 };
-const ALL_MENU_KEYS = ["dashboard","pk-cs","notepad","gambar","prediksi-togel","prediksi","syair-togel","bukti-kemenangan","selisih","link-domain"];
+const ALL_MENU_KEYS = ["dashboard","pk-cs","notepad","gambar","prediksi-togel","jadwal-togel","prediksi","syair-togel","bukti-kemenangan","selisih","link-domain"];
 const MENU_LABELS = {
   dashboard:"Dashboard","pk-cs":"PK CS",notepad:"Notepad",gambar:"Gambar",
-  "prediksi-togel":"Prediksi Togel",prediksi:"Prediksi",
+  "prediksi-togel":"Prediksi Togel","jadwal-togel":"Jadwal Togel",prediksi:"Prediksi",
   "syair-togel":"Syair Togel","bukti-kemenangan":"Bukti Kemenangan",
   "link-domain":"Link Domain","pk-cs":"PK CS",selisih:"Selisih"
 };
@@ -3257,12 +3310,13 @@ let draggedNoteId = null;
       const t=document.getElementById(`page-${n}`);
       if(t)t.classList.add("active");
       sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));
-      document.body.classList.toggle("dark-workspace",["dashboard","notepad","gambar","prediksi-togel","link-domain","pk-cs","selisih"].includes(n));
+      document.body.classList.toggle("dark-workspace",["dashboard","notepad","gambar","prediksi-togel","jadwal-togel","link-domain","pk-cs","selisih"].includes(n));
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
     navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
     if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
+    if(togelDropdownBtn)togelDropdownBtn.addEventListener("click",()=>{togelSubmenu.classList.toggle("show");togelDropdownIcon.textContent=togelSubmenu.classList.contains("show")?"▴":"▾"});
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
