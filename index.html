@@ -3763,9 +3763,8 @@ CATATAN:
             </div>
             <button type="button" class="notehub-btn" id="noteSearchResetBtn">RESET</button>
             <select class="notehub-category-select" id="noteCategoryFilter" title="Kategori Notepad">
-              <option value="ALL">SEMUA KATEGORI</option>
+              <option value="PK CS" selected>PK CS</option>
               <option value="REPORT CS LINE">REPORT CS LINE</option>
-              <option value="PK CS">PK CS</option>
               <option value="LAINNYA">LAINNYA</option>
             </select>
             <button type="button" class="notehub-btn" id="noteMoveBtn">MOVE TABLE</button>
@@ -4221,7 +4220,7 @@ https://domain3.com"></textarea>
     </main>
   </div>
 
-  <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button type="button" class="modal-close" id="closeNoteModalBtn">✕</button></div><form id="noteForm"><input type="hidden" id="noteEditId"><input type="hidden" id="noteColor" value="yellow"><div class="form-group"><label for="noteCategory">Kategori Catatan</label><select id="noteCategory" required><option value="REPORT CS LINE">REPORT CS LINE</option><option value="PK CS">PK CS</option><option value="LAINNYA" selected>LAINNYA</option></select></div><div class="form-group"><label for="noteTitle">Judul Catatan</label><input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button><button type="button" class="modal-color-dot dot-green" data-color="green"></button><button type="button" class="modal-color-dot dot-blue" data-color="blue"></button><button type="button" class="modal-color-dot dot-pink" data-color="pink"></button><button type="button" class="modal-color-dot dot-purple" data-color="purple"></button><button type="button" class="modal-color-dot dot-orange" data-color="orange"></button><button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button><button type="button" class="modal-color-dot dot-rose" data-color="rose"></button></div></div><div class="form-actions"><button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button><button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button></div></form></div></div>
+  <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button type="button" class="modal-close" id="closeNoteModalBtn">✕</button></div><form id="noteForm"><input type="hidden" id="noteEditId"><input type="hidden" id="noteColor" value="yellow"><div class="form-group"><label for="noteCategory">Kategori Catatan</label><select id="noteCategory" required><option value="PK CS" selected>PK CS</option><option value="REPORT CS LINE">REPORT CS LINE</option><option value="LAINNYA">LAINNYA</option></select></div><div class="form-group"><label for="noteTitle">Judul Catatan</label><input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button><button type="button" class="modal-color-dot dot-green" data-color="green"></button><button type="button" class="modal-color-dot dot-blue" data-color="blue"></button><button type="button" class="modal-color-dot dot-pink" data-color="pink"></button><button type="button" class="modal-color-dot dot-purple" data-color="purple"></button><button type="button" class="modal-color-dot dot-orange" data-color="orange"></button><button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button><button type="button" class="modal-color-dot dot-rose" data-color="rose"></button></div></div><div class="form-actions"><button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button><button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button></div></form></div></div>
   <input type="file" id="noteImageInput" class="hidden-file" accept="image/*"><div class="toast" id="toast">Berhasil</div>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
@@ -4911,6 +4910,7 @@ let notepadData = [];
 let selectedImageNoteId = null;
 let noteMoveMode = false;
 let draggedNoteId = null;
+const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan ke PK CS, note baru tetap sesuai kategori pilihan
     function showToast(t){toast.textContent=t;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}
     function openPage(n){
       if(window.canOpenKerjaBossPage && !window.canOpenKerjaBossPage(n)){
@@ -4931,13 +4931,27 @@ let draggedNoteId = null;
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
-    modalColors.addEventListener("click",e=>{if(e.target.dataset.color)setModalColor(e.target.dataset.color)});function resetNoteForm(){noteForm.reset();noteEditId.value="";if(noteCategory)noteCategory.value="LAINNYA";noteFormTitle.textContent="Tambah Catatan";noteSaveBtn.textContent="Simpan Catatan";setModalColor("yellow")}function saveNotepad(){
+    modalColors.addEventListener("click",e=>{if(e.target.dataset.color)setModalColor(e.target.dataset.color)});function resetNoteForm(){noteForm.reset();noteEditId.value="";if(noteCategory)noteCategory.value="PK CS";noteFormTitle.textContent="Tambah Catatan";noteSaveBtn.textContent="Simpan Catatan";setModalColor("yellow")}function saveNotepad(){
   if(noteTotalStat) noteTotalStat.textContent = notepadData.length;
 }
 
 function loadNotesFromFirebase(){
   notesDb.orderByChild("updatedAt").on("value", snapshot => {
     const data = snapshot.val() || {};
+
+    const migrateUpdates = {};
+    Object.entries(data).forEach(([id, note]) => {
+      const currentCategory = (note.category || "PK CS").trim();
+      const noteTime = Number(note.updatedAt || 0);
+      const isOldExistingNote = !noteTime || noteTime <= NOTE_CATEGORY_MIGRATION_CUTOFF;
+      if(!note.category || (isOldExistingNote && currentCategory !== "PK CS")){
+        note.category = "PK CS";
+        migrateUpdates[`${id}/category`] = "PK CS";
+      }
+    });
+    if(Object.keys(migrateUpdates).length){
+      notesDb.update(migrateUpdates).catch(error => console.error(error));
+    }
 
     notepadData = Object.values(data).sort((a, b) => {
       const ao = Number.isFinite(Number(a.order)) ? Number(a.order) : null;
@@ -4982,10 +4996,10 @@ async function deleteNoteFromFirebase(id){
     function renderNotes(){
       if(noteTotalStat)noteTotalStat.textContent=notepadData.length;
       const term=(noteSearchInput?.value||"").trim().toLowerCase();
-      const activeCategory=(noteCategoryFilter?.value||"ALL").trim();
+      const activeCategory=(noteCategoryFilter?.value||"PK CS").trim();
       const filtered=notepadData.filter(note=>{
-        const noteCategoryValue=(note.category||"LAINNYA").trim();
-        const matchCategory=activeCategory==="ALL" || noteCategoryValue===activeCategory;
+        const noteCategoryValue=(note.category||"PK CS").trim();
+        const matchCategory=noteCategoryValue===activeCategory;
         const matchSearch=!term || `${note.title||""} ${note.content||""} ${noteCategoryValue}`.toLowerCase().includes(term);
         return matchCategory && matchSearch;
       });
@@ -4996,10 +5010,10 @@ async function deleteNoteFromFirebase(id){
         noteMoveBtn.textContent=noteMoveMode?"SAVE MOVE":"MOVE TABLE";
       }
       if(!filtered.length){
-        noteList.innerHTML=`<div class="empty-note">${term||activeCategory!=="ALL"?"Tidak ada note yang cocok dengan pencarian/kategori.":"Belum ada catatan."}</div>`;
+        noteList.innerHTML=`<div class="empty-note">${"Tidak ada note untuk kategori ini."}</div>`;
         return;
       }
-      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main"><div class="note-category-badge">${cleanText(note.category||"LAINNYA")}</div><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image note-image-preview" src="${note.image}" alt="Gambar catatan" onclick="openNoteImagePopup(event,this.src)">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn edit-icon" title="Edit catatan" onclick="editNoteButton(event,'${note.id}')">✏️</button><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
+      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main"><div class="note-category-badge">${cleanText(note.category||"PK CS")}</div><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image note-image-preview" src="${note.image}" alt="Gambar catatan" onclick="openNoteImagePopup(event,this.src)">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn edit-icon" title="Edit catatan" onclick="editNoteButton(event,'${note.id}')">✏️</button><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
     }
     async function saveNoteOrderToFirebase(){
       const updates={};
@@ -5048,7 +5062,7 @@ async function deleteNoteFromFirebase(id){
     noteSearchResetBtn?.addEventListener("click",()=>{
       if(noteSearchInput){
         noteSearchInput.value="";
-        if(noteCategoryFilter)noteCategoryFilter.value="ALL";
+        if(noteCategoryFilter)noteCategoryFilter.value="PK CS";
         renderNotes();
         if(noteSearchWrap?.classList.contains("search-collapsed")) openNoteSearch();
         else noteSearchInput.focus();
@@ -5065,7 +5079,7 @@ async function deleteNoteFromFirebase(id){
     id: noteEditId.value || String(now),
     title: noteTitle.value.trim(),
     content: noteContent.value.trim(),
-    category: noteCategory?.value || "LAINNYA",
+    category: noteCategory?.value || "PK CS",
     color: noteColor.value || "yellow",
     image: old ? old.image : "",
     updatedAt: now,
@@ -5084,7 +5098,7 @@ async function deleteNoteFromFirebase(id){
   resetNoteForm();
   closeNoteModal();
 });
-    function editNote(id){const n=notepadData.find(i=>i.id===id);if(!n)return;noteEditId.value=n.id;if(noteCategory)noteCategory.value=n.category||"LAINNYA";noteTitle.value=n.title;noteContent.value=n.content;setModalColor(n.color||"yellow");noteFormTitle.textContent="Edit Catatan";noteSaveBtn.textContent="Update Catatan";openPage("notepad");openNoteModal()}
+    function editNote(id){const n=notepadData.find(i=>i.id===id);if(!n)return;noteEditId.value=n.id;if(noteCategory)noteCategory.value=n.category||"PK CS";noteTitle.value=n.title;noteContent.value=n.content;setModalColor(n.color||"yellow");noteFormTitle.textContent="Edit Catatan";noteSaveBtn.textContent="Update Catatan";openPage("notepad");openNoteModal()}
     function editNoteButton(event,id){
       event.stopPropagation();
       if(noteMoveMode){
