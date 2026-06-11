@@ -3776,6 +3776,108 @@ CATATAN:
       margin-top:10px!important;
     }
 
+
+    /* POSTINGAN - PREDIKSI JITU GENERATOR */
+    #page-prediksi{
+      min-height:calc(100vh - 56px);
+      color:#fff;
+      background:
+        radial-gradient(circle at 18% 0%,rgba(246,196,83,.10),transparent 30%),
+        linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.35)),
+        var(--prediksi-wallpaper);
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      margin:-28px;
+      padding:28px;
+      width:calc(100% + 56px);
+    }
+    .predpost-shell{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 320px;
+      gap:22px;
+      align-items:start;
+      min-height:calc(100vh - 56px);
+    }
+    .predpost-stage{
+      min-height:calc(100vh - 112px);
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding-top:8px;
+    }
+    #predPostCanvas{
+      width:100%;
+      max-width:780px;
+      height:auto;
+      display:block;
+      border-radius:10px;
+      box-shadow:0 25px 70px rgba(0,0,0,.55),0 0 30px rgba(246,196,83,.12);
+      background:#050200;
+    }
+    .predpost-panel{
+      position:sticky;
+      top:18px;
+      padding:18px;
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 80% 0%,rgba(246,196,83,.12),transparent 28%),
+        linear-gradient(180deg,rgba(19,12,4,.96),rgba(7,6,4,.98));
+      border:2px solid rgba(246,196,83,.42);
+      box-shadow:0 20px 50px rgba(0,0,0,.42);
+      color:#ffeec0;
+    }
+    .predpost-panel-title{
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+      text-transform:uppercase;
+      color:#ffd86a;
+      margin-bottom:14px;
+      letter-spacing:.8px;
+      text-shadow:0 0 12px rgba(246,196,83,.25);
+    }
+    .predpost-controls{display:flex;flex-direction:column;gap:11px}
+    .predpost-controls .form-group{margin:0;gap:6px}
+    .predpost-controls label{
+      color:#f6d56b;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      font-weight:900;
+    }
+    .predpost-controls input,
+    .predpost-controls select{
+      background:#fff7df!important;
+      border:1px solid rgba(246,196,83,.55)!important;
+      color:#1a1206!important;
+      font-weight:900!important;
+      box-shadow:none!important;
+    }
+    .predpost-controls .btn{width:100%;justify-content:center}
+    .predpost-controls .btn-soft{
+      background:linear-gradient(180deg,#fde68a,#f59e0b)!important;
+      color:#2b1700!important;
+      border:1px solid rgba(255,255,255,.25)!important;
+    }
+    .predpost-help{
+      margin-top:13px;
+      color:#f7dda0;
+      font-size:12px;
+      line-height:1.6;
+      text-align:center;
+      opacity:.9;
+    }
+    @media(max-width:1100px){
+      .predpost-shell{grid-template-columns:1fr}
+      .predpost-panel{position:static}
+      .predpost-stage{min-height:auto}
+    }
+    @media(max-width:640px){
+      #page-prediksi{margin:-18px;padding:14px;width:calc(100% + 36px)}
+      .predpost-panel{border-radius:18px}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -4192,7 +4294,64 @@ CATATAN:
           </div>
         </section>
       </div>
-      <div class="page" id="page-prediksi"><section class="hero"><div><div class="pill">🔮 Ruang Prediksi</div><h1>Prediksi</h1><p>Ruang khusus untuk menyimpan atau membuat data prediksi.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Prediksi.</b><br>Nanti kita buat input dan hasil prediksi sesuai kebutuhan bos.</div></section></div>
+      <div class="page" id="page-prediksi">
+        <section class="predpost-shell">
+          <div class="predpost-stage">
+            <canvas id="predPostCanvas" width="1060" height="726"></canvas>
+          </div>
+
+          <aside class="predpost-panel">
+            <div class="predpost-panel-title">Generator Prediksi</div>
+
+            <div class="predpost-controls">
+              <div class="form-group">
+                <label>Judul Atas</label>
+                <input id="predPostTitle" value="PREDIKSI JITU">
+              </div>
+
+              <div class="form-group">
+                <label>Nama Pasaran</label>
+                <input id="predPostMarket" value="HUAHIN 0100">
+              </div>
+
+              <div class="form-group">
+                <label>Tanggal</label>
+                <input id="predPostDate" value="">
+              </div>
+
+              <div class="form-group">
+                <label>Logo / Teks Tengah</label>
+                <input id="predPostLogoText" value="HuaHin Lottery">
+              </div>
+
+              <div class="form-group">
+                <label>Shio</label>
+                <select id="predPostShio">
+                  <option>ANJING</option>
+                  <option>AYAM</option>
+                  <option>BABI</option>
+                  <option>HARIMAU</option>
+                  <option>KAMBING</option>
+                  <option>KELINCI</option>
+                  <option>KERBAU</option>
+                  <option>KUDA</option>
+                  <option>MONYET</option>
+                  <option>NAGA</option>
+                  <option>TIKUS</option>
+                  <option>ULAR</option>
+                </select>
+              </div>
+
+              <button class="btn btn-green" id="predPostGenerateBtn">🎲 Generate</button>
+              <button class="btn btn-primary" id="predPostDownloadBtn">⬇ Download PNG</button>
+              <button class="btn btn-soft" id="predPostCopyImgBtn">📋 Copy Image</button>
+              <button class="btn btn-soft" id="predPostCopyTextBtn">📄 Copy Text</button>
+            </div>
+
+            <div class="predpost-help">Card mengikuti contoh: BBFS, Angka Main, Shio, 4D, 3D, 2D, Colok Bebas, Colok Bebas 2D, dan 2D Cadangan.</div>
+          </aside>
+        </section>
+      </div>
       <div class="page" id="page-link-domain">
         <section class="nawala-shell">
 <aside class="nawala-side">
@@ -4354,7 +4513,270 @@ https://domain3.com"></textarea>
 
   <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button type="button" class="modal-close" id="closeNoteModalBtn">✕</button></div><form id="noteForm"><input type="hidden" id="noteEditId"><input type="hidden" id="noteColor" value="yellow"><div class="form-group"><label for="noteCategory">Kategori Catatan</label><select id="noteCategory" required><option value="PK CS" selected>PK CS</option><option value="REPORT CS LINE">REPORT CS LINE</option><option value="LAINNYA">LAINNYA</option></select></div><div class="form-group"><label for="noteTitle">Judul Catatan</label><input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button><button type="button" class="modal-color-dot dot-green" data-color="green"></button><button type="button" class="modal-color-dot dot-blue" data-color="blue"></button><button type="button" class="modal-color-dot dot-pink" data-color="pink"></button><button type="button" class="modal-color-dot dot-purple" data-color="purple"></button><button type="button" class="modal-color-dot dot-orange" data-color="orange"></button><button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button><button type="button" class="modal-color-dot dot-rose" data-color="rose"></button></div></div><div class="form-actions"><button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button><button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button></div></form></div></div>
   <input type="file" id="noteImageInput" class="hidden-file" accept="image/*"><div class="toast" id="toast">Berhasil</div>
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js">
+    /* POSTINGAN PREDIKSI JITU GENERATOR */
+    const predPostCanvas=document.getElementById("predPostCanvas");
+    const predPostTitle=document.getElementById("predPostTitle");
+    const predPostMarket=document.getElementById("predPostMarket");
+    const predPostDate=document.getElementById("predPostDate");
+    const predPostLogoText=document.getElementById("predPostLogoText");
+    const predPostShio=document.getElementById("predPostShio");
+    const predPostGenerateBtn=document.getElementById("predPostGenerateBtn");
+    const predPostDownloadBtn=document.getElementById("predPostDownloadBtn");
+    const predPostCopyImgBtn=document.getElementById("predPostCopyImgBtn");
+    const predPostCopyTextBtn=document.getElementById("predPostCopyTextBtn");
+
+    let predPostData=null;
+
+    function predPostPad(n){return String(n).padStart(2,"0")}
+    function predPostDateDefault(){
+      const d=new Date();
+      const month=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
+      return `${d.getDate()} ${month[d.getMonth()]} ${d.getFullYear()}`;
+    }
+    function predPostRandDigit(){return Math.floor(Math.random()*10)}
+    function predPostNumber(len){
+      let out="";
+      for(let i=0;i<len;i++)out+=predPostRandDigit();
+      return out;
+    }
+    function predPostPair(){return predPostNumber(2)}
+    function predPostLine(count,len){
+      return Array.from({length:count},()=>predPostNumber(len)).join(" · ");
+    }
+    function predPostPairLine(count){
+      return Array.from({length:count},()=>predPostPair()).join(" · ");
+    }
+    function predPostGenerate(){
+      const shioList=["ANJING","AYAM","BABI","HARIMAU","KAMBING","KELINCI","KERBAU","KUDA","MONYET","NAGA","TIKUS","ULAR"];
+      if(!predPostDate.value)predPostDate.value=predPostDateDefault();
+      if(predPostShio && !predPostShio.value)predPostShio.value=shioList[Math.floor(Math.random()*shioList.length)];
+
+      predPostData={
+        title:(predPostTitle?.value||"PREDIKSI JITU").toUpperCase(),
+        market:(predPostMarket?.value||"HUAHIN 0100").toUpperCase(),
+        date:(predPostDate?.value||predPostDateDefault()).toUpperCase(),
+        logoText:(predPostLogoText?.value||"HuaHin Lottery"),
+        bbfs:predPostNumber(7),
+        main:predPostNumber(5),
+        shio:(predPostShio?.value||shioList[Math.floor(Math.random()*shioList.length)]).toUpperCase(),
+        fourD:[predPostLine(2,4),predPostLine(2,4)],
+        threeD:[predPostLine(2,3),predPostLine(2,3)],
+        twoD:[predPostPairLine(3),predPostPairLine(3)],
+        cb:predPostPairLine(2),
+        cb2d:predPostPairLine(3),
+        cadangan:predPostPairLine(3)
+      };
+      predPostDraw();
+    }
+
+    function predPostRoundRect(ctx,x,y,w,h,r,fill,stroke,lineWidth=2){
+      ctx.beginPath();
+      ctx.moveTo(x+r,y);
+      ctx.lineTo(x+w-r,y);
+      ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+      ctx.lineTo(x+w,y+h-r);
+      ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+      ctx.lineTo(x+r,y+h);
+      ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+      ctx.lineTo(x,y+r);
+      ctx.quadraticCurveTo(x,y,x+r,y);
+      ctx.closePath();
+      if(fill){ctx.fillStyle=fill;ctx.fill();}
+      if(stroke){ctx.lineWidth=lineWidth;ctx.strokeStyle=stroke;ctx.stroke();}
+    }
+    function predPostText(ctx,text,x,y,size,color="#fff",align="center",weight="900",shadow=true){
+      ctx.save();
+      ctx.font=`${weight} ${size}px Georgia, 'Times New Roman', serif`;
+      ctx.textAlign=align;
+      ctx.textBaseline="middle";
+      if(shadow){
+        ctx.shadowColor="rgba(0,0,0,.9)";
+        ctx.shadowBlur=7;
+        ctx.shadowOffsetY=2;
+      }
+      ctx.fillStyle=color;
+      ctx.fillText(String(text||""),x,y);
+      ctx.restore();
+    }
+    function predPostGoldText(ctx,text,x,y,size,align="center"){
+      ctx.save();
+      const g=ctx.createLinearGradient(0,y-size,0,y+size);
+      g.addColorStop(0,"#fff3a5");
+      g.addColorStop(.45,"#ffd24a");
+      g.addColorStop(1,"#9f5b06");
+      ctx.font=`900 ${size}px Georgia, 'Times New Roman', serif`;
+      ctx.textAlign=align;
+      ctx.textBaseline="middle";
+      ctx.lineWidth=Math.max(2,size/13);
+      ctx.strokeStyle="#3b1600";
+      ctx.shadowColor="rgba(255,185,25,.70)";
+      ctx.shadowBlur=10;
+      ctx.strokeText(String(text||""),x,y);
+      ctx.fillStyle=g;
+      ctx.fillText(String(text||""),x,y);
+      ctx.restore();
+    }
+    function predPostDrawBox(ctx,x,y,w,h,label,value,opts={}){
+      const grad=ctx.createLinearGradient(x,y,x,y+h);
+      grad.addColorStop(0,"rgba(38,20,2,.96)");
+      grad.addColorStop(.52,"rgba(8,6,4,.94)");
+      grad.addColorStop(1,"rgba(52,26,2,.96)");
+      predPostRoundRect(ctx,x,y,w,h,10,grad,"rgba(255,200,43,.98)",3);
+      ctx.strokeStyle="rgba(255,240,144,.65)";
+      ctx.lineWidth=1;
+      predPostRoundRect(ctx,x+5,y+5,w-10,h-10,7,null,"rgba(255,173,18,.65)",1);
+
+      const headerH=opts.small?34:46;
+      const hg=ctx.createLinearGradient(x,y,x,y+headerH);
+      hg.addColorStop(0,"rgba(102,52,3,.85)");
+      hg.addColorStop(1,"rgba(18,13,4,.55)");
+      predPostRoundRect(ctx,x+4,y+4,w-8,headerH,7,hg,null,0);
+      predPostGoldText(ctx,label,x+w/2,y+headerH/2+3,opts.labelSize||30);
+
+      const lines=Array.isArray(value)?value:String(value||"").split("\n");
+      const valueSize=opts.valueSize||34;
+      const startY=y+headerH+(h-headerH)/(lines.length+1);
+      lines.forEach((line,i)=>{
+        predPostText(ctx,line,x+w/2,startY+i*((h-headerH)/(lines.length+1)),valueSize,"#fff","center","900");
+      });
+    }
+    function predPostDraw(){
+      if(!predPostCanvas||!predPostData)return;
+      const ctx=predPostCanvas.getContext("2d");
+      const W=predPostCanvas.width,H=predPostCanvas.height;
+      ctx.clearRect(0,0,W,H);
+
+      const bg=ctx.createRadialGradient(W/2,H*.35,20,W/2,H*.55,W*.75);
+      bg.addColorStop(0,"#2a1601");
+      bg.addColorStop(.46,"#0d0702");
+      bg.addColorStop(1,"#000000");
+      ctx.fillStyle=bg;
+      ctx.fillRect(0,0,W,H);
+
+      for(let i=0;i<420;i++){
+        const x=(Math.sin(i*92.41)*43758.5453%1+1)%1*W;
+        const y=(Math.sin(i*44.17)*24634.6345%1+1)%1*H;
+        const r=((Math.sin(i*13.77)*999%1+1)%1)*2.2+.5;
+        ctx.beginPath();
+        ctx.fillStyle=i%7===0?"rgba(255,238,150,.9)":"rgba(255,145,12,.45)";
+        ctx.shadowColor="rgba(255,180,20,.8)";
+        ctx.shadowBlur=8;
+        ctx.arc(x,y,r,0,Math.PI*2);
+        ctx.fill();
+      }
+      ctx.shadowBlur=0;
+
+      ctx.strokeStyle="rgba(255,173,18,.42)";
+      ctx.lineWidth=3;
+      ctx.strokeRect(8,8,W-16,H-16);
+      ctx.strokeStyle="rgba(255,225,76,.18)";
+      ctx.strokeRect(22,22,W-44,H-44);
+
+      predPostGoldText(ctx,predPostData.title,W/2,28,36);
+      predPostGoldText(ctx,predPostData.market,W/2,88,64);
+      predPostText(ctx,predPostData.date,W/2,155,32,"#fff7d0","center","900");
+
+      const logoX=W/2-160,logoY=194,logoW=320,logoH=72;
+      predPostRoundRect(ctx,logoX,logoY,logoW,logoH,10,"rgba(10,8,5,.88)","rgba(255,194,39,.95)",4);
+      predPostRoundRect(ctx,logoX+7,logoY+7,logoW-14,logoH-14,7,null,"rgba(255,236,139,.45)",1);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(logoX+70,logoY+36,27,0,Math.PI*2);
+      const wave=ctx.createLinearGradient(logoX+45,logoY+12,logoX+94,logoY+62);
+      wave.addColorStop(0,"#ffe27a");
+      wave.addColorStop(.45,"#31c7f1");
+      wave.addColorStop(1,"#0b67ae");
+      ctx.fillStyle=wave;
+      ctx.shadowColor="rgba(0,160,255,.45)";
+      ctx.shadowBlur=8;
+      ctx.fill();
+      predPostText(ctx,"~",logoX+70,logoY+34,54,"#ffffff","center","900",false);
+      ctx.restore();
+      predPostText(ctx,predPostData.logoText,logoX+198,logoY+34,27,"#e6f7ff","center","900");
+
+      const left=20, gap=12, top=286;
+      const colW=(W-left*2-gap*2)/3;
+      predPostDrawBox(ctx,left,top,colW,118,"BBFS",predPostData.bbfs,{labelSize:31,valueSize:38});
+      predPostDrawBox(ctx,left+colW+gap,top,colW,118,"ANGKA MAIN",predPostData.main,{labelSize:30,valueSize:38});
+      predPostDrawBox(ctx,left+(colW+gap)*2,top,colW,118,"SHIO",predPostData.shio,{labelSize:34,valueSize:36});
+
+      const row2=420;
+      predPostDrawBox(ctx,left,row2,colW,138,"4D",predPostData.fourD,{labelSize:34,valueSize:31});
+      predPostDrawBox(ctx,left+colW+gap,row2,colW,138,"3D",predPostData.threeD,{labelSize:34,valueSize:31});
+      predPostDrawBox(ctx,left+(colW+gap)*2,row2,colW,138,"2D",predPostData.twoD,{labelSize:34,valueSize:31});
+
+      const row3=578;
+      predPostDrawBox(ctx,left,row3,colW,104,"COLOK BEBAS",predPostData.cb,{labelSize:25,valueSize:30});
+      predPostDrawBox(ctx,left+colW+gap,row3,colW,104,"COLOK BEBAS 2D",predPostData.cb2d,{labelSize:23,valueSize:28});
+      predPostDrawBox(ctx,left+(colW+gap)*2,row3,colW,104,"2D CADANGAN",predPostData.cadangan,{labelSize:25,valueSize:28});
+    }
+    function predPostTextOutput(){
+      if(!predPostData)return "";
+      return `${predPostData.title}
+${predPostData.market}
+${predPostData.date}
+
+${predPostData.logoText}
+
+BBFS: ${predPostData.bbfs}
+ANGKA MAIN: ${predPostData.main}
+SHIO: ${predPostData.shio}
+
+4D: ${predPostData.fourD.join(" / ")}
+3D: ${predPostData.threeD.join(" / ")}
+2D: ${predPostData.twoD.join(" / ")}
+
+COLOK BEBAS: ${predPostData.cb}
+COLOK BEBAS 2D: ${predPostData.cb2d}
+2D CADANGAN: ${predPostData.cadangan}`;
+    }
+    function predPostDownload(){
+      if(!predPostCanvas)return;
+      const a=document.createElement("a");
+      a.download=`prediksi-${(predPostMarket?.value||"pasaran").toLowerCase().replace(/[^a-z0-9]+/g,"-")}.png`;
+      a.href=predPostCanvas.toDataURL("image/png");
+      a.click();
+    }
+    async function predPostCopyImage(){
+      if(!predPostCanvas)return;
+      try{
+        const blob=await new Promise(resolve=>predPostCanvas.toBlob(resolve,"image/png"));
+        await navigator.clipboard.write([new ClipboardItem({"image/png":blob})]);
+        showToast("Gambar prediksi berhasil dicopy.");
+      }catch(err){
+        showToast("Browser tidak mengizinkan copy image. Pakai Download PNG.");
+      }
+    }
+    async function predPostCopyText(){
+      try{
+        await navigator.clipboard.writeText(predPostTextOutput());
+        showToast("Text prediksi berhasil dicopy.");
+      }catch(err){
+        showToast("Gagal copy text.");
+      }
+    }
+
+    [predPostTitle,predPostMarket,predPostDate,predPostLogoText,predPostShio].forEach(el=>{
+      if(el)el.addEventListener("input",()=>{
+        if(!predPostData)predPostGenerate();
+        predPostData.title=(predPostTitle?.value||"PREDIKSI JITU").toUpperCase();
+        predPostData.market=(predPostMarket?.value||"HUAHIN 0100").toUpperCase();
+        predPostData.date=(predPostDate?.value||predPostDateDefault()).toUpperCase();
+        predPostData.logoText=predPostLogoText?.value||"HuaHin Lottery";
+        predPostData.shio=(predPostShio?.value||"ANJING").toUpperCase();
+        predPostDraw();
+      });
+    });
+    predPostGenerateBtn?.addEventListener("click",predPostGenerate);
+    predPostDownloadBtn?.addEventListener("click",predPostDownload);
+    predPostCopyImgBtn?.addEventListener("click",predPostCopyImage);
+    predPostCopyTextBtn?.addEventListener("click",predPostCopyText);
+    if(predPostDate&&!predPostDate.value)predPostDate.value=predPostDateDefault();
+    if(predPostCanvas)predPostGenerate();
+
+
+</script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 
