@@ -609,6 +609,16 @@ CATATAN:
     }
     .notehub-btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
     .notehub-btn.primary{background:linear-gradient(180deg,#f6d56b 0%,#dba42b 100%);color:#2d1b08}
+    .notehub-category-select{
+      height:42px;width:auto;min-width:170px;border-radius:14px!important;border:1px solid rgba(246,196,83,.35)!important;
+      background:#2a2118!important;color:#f8df8d!important;font-size:12px!important;font-weight:900!important;
+      padding:0 38px 0 13px!important;box-shadow:none!important;cursor:pointer;text-transform:uppercase
+    }
+    .note-category-badge{
+      display:inline-flex;align-items:center;justify-content:center;width:max-content;max-width:100%;
+      margin:0 0 8px;padding:5px 9px;border-radius:999px;background:rgba(0,0,0,.14);
+      border:1px solid rgba(0,0,0,.10);color:rgba(20,15,10,.82);font-size:10px;font-weight:900;letter-spacing:.45px;text-transform:uppercase
+    }
     .notehub-board-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 2px 14px}
     .notehub-board-title{color:#f6d56b;font-size:18px;font-weight:900;letter-spacing:.8px}
     .notehub-board-meta{display:flex;gap:10px;flex-wrap:wrap}
@@ -674,7 +684,7 @@ CATATAN:
     #page-notepad .empty-note{column-span:all;background:rgba(255,255,255,.04);border:1px dashed rgba(246,196,83,.24);color:#c7b896;padding:32px 18px;border-radius:20px}
     @media(max-width:1200px){#page-notepad .note-grid{column-count:3}}
     @media(max-width:900px){#page-notepad .note-grid{column-count:2}.notehub-shell{margin:-18px;padding:14px}}
-    @media(max-width:640px){#page-notepad .note-grid{column-count:1}.notehub-search-wrap{min-width:100%}.notehub-topbar{padding:12px}.notehub-btn{width:100%}.notehub-brand{min-width:100%}}
+    @media(max-width:640px){#page-notepad .note-grid{column-count:1}.notehub-search-wrap{min-width:100%}.notehub-topbar{padding:12px}.notehub-btn,.notehub-category-select{width:100%}.notehub-brand{min-width:100%}}
 
 
     /* LOGIN, REGISTER, OWNER & STAFF ACCESS */
@@ -3752,6 +3762,12 @@ CATATAN:
               <button type="button" class="notehub-search-close" id="noteSearchCloseBtn" title="Tutup pencarian">✕</button>
             </div>
             <button type="button" class="notehub-btn" id="noteSearchResetBtn">RESET</button>
+            <select class="notehub-category-select" id="noteCategoryFilter" title="Kategori Notepad">
+              <option value="ALL">SEMUA KATEGORI</option>
+              <option value="REPORT CS LINE">REPORT CS LINE</option>
+              <option value="PK CS">PK CS</option>
+              <option value="LAINNYA">LAINNYA</option>
+            </select>
             <button type="button" class="notehub-btn" id="noteMoveBtn">MOVE TABLE</button>
             <button type="button" class="notehub-btn primary" id="openNoteModalBtn">+ NOTE</button>
           </div>
@@ -4205,7 +4221,7 @@ https://domain3.com"></textarea>
     </main>
   </div>
 
-  <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button type="button" class="modal-close" id="closeNoteModalBtn">✕</button></div><form id="noteForm"><input type="hidden" id="noteEditId"><input type="hidden" id="noteColor" value="yellow"><div class="form-group"><label for="noteTitle">Judul Catatan</label><input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button><button type="button" class="modal-color-dot dot-green" data-color="green"></button><button type="button" class="modal-color-dot dot-blue" data-color="blue"></button><button type="button" class="modal-color-dot dot-pink" data-color="pink"></button><button type="button" class="modal-color-dot dot-purple" data-color="purple"></button><button type="button" class="modal-color-dot dot-orange" data-color="orange"></button><button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button><button type="button" class="modal-color-dot dot-rose" data-color="rose"></button></div></div><div class="form-actions"><button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button><button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button></div></form></div></div>
+  <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button type="button" class="modal-close" id="closeNoteModalBtn">✕</button></div><form id="noteForm"><input type="hidden" id="noteEditId"><input type="hidden" id="noteColor" value="yellow"><div class="form-group"><label for="noteCategory">Kategori Catatan</label><select id="noteCategory" required><option value="REPORT CS LINE">REPORT CS LINE</option><option value="PK CS">PK CS</option><option value="LAINNYA" selected>LAINNYA</option></select></div><div class="form-group"><label for="noteTitle">Judul Catatan</label><input type="text" id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button type="button" class="modal-color-dot dot-yellow active" data-color="yellow"></button><button type="button" class="modal-color-dot dot-green" data-color="green"></button><button type="button" class="modal-color-dot dot-blue" data-color="blue"></button><button type="button" class="modal-color-dot dot-pink" data-color="pink"></button><button type="button" class="modal-color-dot dot-purple" data-color="purple"></button><button type="button" class="modal-color-dot dot-orange" data-color="orange"></button><button type="button" class="modal-color-dot dot-cyan" data-color="cyan"></button><button type="button" class="modal-color-dot dot-rose" data-color="rose"></button></div></div><div class="form-actions"><button type="submit" class="btn btn-primary" id="noteSaveBtn">Simpan Catatan</button><button type="button" class="btn btn-soft" id="noteResetBtn">Reset</button></div></form></div></div>
   <input type="file" id="noteImageInput" class="hidden-file" accept="image/*"><div class="toast" id="toast">Berhasil</div>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
@@ -4360,7 +4376,7 @@ https://domain3.com"></textarea>
 
 
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
-    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
+    const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
   authDomain: "kaizokugaridashboard.firebaseapp.com",
@@ -4915,7 +4931,7 @@ let draggedNoteId = null;
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
-    modalColors.addEventListener("click",e=>{if(e.target.dataset.color)setModalColor(e.target.dataset.color)});function resetNoteForm(){noteForm.reset();noteEditId.value="";noteFormTitle.textContent="Tambah Catatan";noteSaveBtn.textContent="Simpan Catatan";setModalColor("yellow")}function saveNotepad(){
+    modalColors.addEventListener("click",e=>{if(e.target.dataset.color)setModalColor(e.target.dataset.color)});function resetNoteForm(){noteForm.reset();noteEditId.value="";if(noteCategory)noteCategory.value="LAINNYA";noteFormTitle.textContent="Tambah Catatan";noteSaveBtn.textContent="Simpan Catatan";setModalColor("yellow")}function saveNotepad(){
   if(noteTotalStat) noteTotalStat.textContent = notepadData.length;
 }
 
@@ -4966,7 +4982,13 @@ async function deleteNoteFromFirebase(id){
     function renderNotes(){
       if(noteTotalStat)noteTotalStat.textContent=notepadData.length;
       const term=(noteSearchInput?.value||"").trim().toLowerCase();
-      const filtered=term?notepadData.filter(note=>`${note.title||""} ${note.content||""}`.toLowerCase().includes(term)):notepadData;
+      const activeCategory=(noteCategoryFilter?.value||"ALL").trim();
+      const filtered=notepadData.filter(note=>{
+        const noteCategoryValue=(note.category||"LAINNYA").trim();
+        const matchCategory=activeCategory==="ALL" || noteCategoryValue===activeCategory;
+        const matchSearch=!term || `${note.title||""} ${note.content||""} ${noteCategoryValue}`.toLowerCase().includes(term);
+        return matchCategory && matchSearch;
+      });
       if(noteCountBadge)noteCountBadge.textContent=`${filtered.length} NOTE`;
       if(noteList)noteList.classList.toggle("move-mode", noteMoveMode);
       if(noteMoveBtn){
@@ -4974,10 +4996,10 @@ async function deleteNoteFromFirebase(id){
         noteMoveBtn.textContent=noteMoveMode?"SAVE MOVE":"MOVE TABLE";
       }
       if(!filtered.length){
-        noteList.innerHTML=`<div class="empty-note">${term?"Tidak ada note yang cocok dengan pencarian.":"Belum ada catatan."}</div>`;
+        noteList.innerHTML=`<div class="empty-note">${term||activeCategory!=="ALL"?"Tidak ada note yang cocok dengan pencarian/kategori.":"Belum ada catatan."}</div>`;
         return;
       }
-      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main"><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image note-image-preview" src="${note.image}" alt="Gambar catatan" onclick="openNoteImagePopup(event,this.src)">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn edit-icon" title="Edit catatan" onclick="editNoteButton(event,'${note.id}')">✏️</button><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
+      noteList.innerHTML=filtered.map(note=>`<div class="note-card color-${note.color||"yellow"}" data-id="${note.id}" draggable="${noteMoveMode?'true':'false'}">${renderColorPopover(note)}<div class="note-main"><div class="note-category-badge">${cleanText(note.category||"LAINNYA")}</div><div class="note-title">${cleanText(note.title)}</div><div class="note-content">${cleanText(note.content)}</div>${note.image?`<img class="note-image note-image-preview" src="${note.image}" alt="Gambar catatan" onclick="openNoteImagePopup(event,this.src)">`:""}</div><div class="note-bottom"><div class="note-date">${formatDate(note.updatedAt)}</div><div class="note-actions"><button class="icon-btn edit-icon" title="Edit catatan" onclick="editNoteButton(event,'${note.id}')">✏️</button><button class="icon-btn" title="Ganti warna" onclick="toggleColorPopover(event,'${note.id}')">🎨</button><button class="icon-btn" title="Tambah gambar" onclick="selectNoteImage(event,'${note.id}')">🖼️</button><button class="icon-btn delete-icon" title="Hapus" onclick="deleteNote(event,'${note.id}')">🗑️</button></div></div></div>`).join("")
     }
     async function saveNoteOrderToFirebase(){
       const updates={};
@@ -5019,9 +5041,14 @@ async function deleteNoteFromFirebase(id){
       if(noteMoveMode) noteMoveMode=false;
       renderNotes();
     });
+    noteCategoryFilter?.addEventListener("change",()=>{
+      if(noteMoveMode) noteMoveMode=false;
+      renderNotes();
+    });
     noteSearchResetBtn?.addEventListener("click",()=>{
       if(noteSearchInput){
         noteSearchInput.value="";
+        if(noteCategoryFilter)noteCategoryFilter.value="ALL";
         renderNotes();
         if(noteSearchWrap?.classList.contains("search-collapsed")) openNoteSearch();
         else noteSearchInput.focus();
@@ -5038,6 +5065,7 @@ async function deleteNoteFromFirebase(id){
     id: noteEditId.value || String(now),
     title: noteTitle.value.trim(),
     content: noteContent.value.trim(),
+    category: noteCategory?.value || "LAINNYA",
     color: noteColor.value || "yellow",
     image: old ? old.image : "",
     updatedAt: now,
@@ -5056,7 +5084,7 @@ async function deleteNoteFromFirebase(id){
   resetNoteForm();
   closeNoteModal();
 });
-    function editNote(id){const n=notepadData.find(i=>i.id===id);if(!n)return;noteEditId.value=n.id;noteTitle.value=n.title;noteContent.value=n.content;setModalColor(n.color||"yellow");noteFormTitle.textContent="Edit Catatan";noteSaveBtn.textContent="Update Catatan";openPage("notepad");openNoteModal()}
+    function editNote(id){const n=notepadData.find(i=>i.id===id);if(!n)return;noteEditId.value=n.id;if(noteCategory)noteCategory.value=n.category||"LAINNYA";noteTitle.value=n.title;noteContent.value=n.content;setModalColor(n.color||"yellow");noteFormTitle.textContent="Edit Catatan";noteSaveBtn.textContent="Update Catatan";openPage("notepad");openNoteModal()}
     function editNoteButton(event,id){
       event.stopPropagation();
       if(noteMoveMode){
