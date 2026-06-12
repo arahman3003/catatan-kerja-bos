@@ -8197,6 +8197,43 @@ drawSyair();
       const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"}).formatToParts(now);
       return Object.fromEntries(parts.map(p=>[p.type,p.value]));
     }
+
+    function prediksiTodayTextWIB(){
+      const parts=new Intl.DateTimeFormat("id-ID",{
+        timeZone:"Asia/Jakarta",
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }).formatToParts(new Date());
+
+      const get=type=>parts.find(p=>p.type===type)?.value||"";
+      const text=`${get("weekday")}, ${get("day")} ${get("month")} ${get("year")}`;
+      return text.replace(/\b\w/g,c=>c.toUpperCase());
+    }
+
+    function prediksiContentToday(content){
+      const today=prediksiTodayTextWIB();
+      const lines=String(content||"").split(/\r?\n/);
+
+      const dayDate=/^\s*(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu)\s*,?\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
+      const dateOnly=/^\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
+
+      const dateIndex=lines.findIndex(line=>dayDate.test(line)||dateOnly.test(line));
+      if(dateIndex>=0){
+        lines[dateIndex]=today;
+        return lines.join("\n");
+      }
+
+      const prediksiIndex=lines.findIndex(line=>/^\s*PREDIKSI\b/i.test(line));
+      if(prediksiIndex>=0){
+        lines.splice(prediksiIndex+1,0,today);
+        return lines.join("\n");
+      }
+
+      return today+"\n"+String(content||"");
+    }
+
     function prediksiTimeToMinutes(value){
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
       return m?Number(m[1])*60+Number(m[2]):null;
@@ -8351,7 +8388,7 @@ drawSyair();
     function prediksiSelect(id){
       const item=prediksiMarketData.find(x=>x.id===id);if(!item)return;
       prediksiSelectedId=id;
-      prediksiResultContent.innerHTML=`<div class="prediksi-result-text">${prediksiEscape(item.content)}</div>`;
+      prediksiResultContent.innerHTML=`<div class="prediksi-result-text">${prediksiEscape(prediksiContentToday(item.content))}</div>`;
       prediksiRender();
     }
     async function prediksiLoadSheet(force=false){
@@ -8402,12 +8439,14 @@ drawSyair();
       const item=prediksiMarketData.find(x=>x.id===prediksiSelectedId);
       if(!item)return showToast("Pilih pasaran terlebih dahulu");
 
+      const copyContent=prediksiContentToday(item.content);
+
       try{
-        await navigator.clipboard.writeText(item.content);
+        await navigator.clipboard.writeText(copyContent);
         showToast("Prediksi berhasil dicopy");
       }catch{
         const ta=document.createElement("textarea");
-        ta.value=item.content;
+        ta.value=copyContent;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand("copy");
@@ -8428,6 +8467,11 @@ drawSyair();
         prediksiCopyActive();
       }
     });
+    let prediksiLastDateKey="";
+    function prediksiDateKeyWIB(){
+      return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Jakarta",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+    }
+
     function prediksiUpdateClock(){
       if(!prediksiClockTime)return;
       const now=new Date();
@@ -8436,6 +8480,13 @@ drawSyair();
       const decorated=prediksiDecorate(prediksiMarketData);
       const summary=prediksiSummaryCounts(decorated);
       prediksiClockMeta.textContent=`${summary.open} buka • ${summary.closed} tutup`;
+
+      const currentDateKey=prediksiDateKeyWIB();
+      if(!prediksiLastDateKey)prediksiLastDateKey=currentDateKey;
+      if(prediksiLastDateKey!==currentDateKey){
+        prediksiLastDateKey=currentDateKey;
+        if(prediksiSelectedId)prediksiSelect(prediksiSelectedId);
+      }
     }
     setInterval(()=>{prediksiUpdateClock();if(prediksiMarketData.length)prediksiRender()},1000);
     prediksiUpdateClock();
