@@ -8291,23 +8291,15 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* Status mengikuti jadwal: TUTUP hanya di antara jam Tutup sampai jam Buka.
-         Setelah jam Buka lewat, pasaran kembali BUKA untuk result berikutnya. */
-      let isClosed=false;
-      if(openMin!==null){
-        if(closeMin<openMin){
-          isClosed=nowMin>=closeMin&&nowMin<openMin;
-        }else if(closeMin>openMin){
-          isClosed=nowMin>=closeMin||nowMin<openMin;
-        }
+      /* Status harian untuk PREDIKSI TOGEL:
+         - BUKA dari pergantian hari sampai jam Tutup.
+         - Setelah jam Tutup lewat, tetap TUTUP sampai ganti hari berikutnya.
+         - Jam Buka tetap ditampilkan sebagai info jadwal, bukan membuat status kembali BUKA di hari yang sama. */
+      if(nowMin>=closeMin){
+        return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
       }
 
-      if(isClosed){
-        const diffToOpen=openMin>=nowMin ? openMin-nowMin : (1440-nowMin)+openMin;
-        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToOpen)} lagi`};
-      }
-
-      const diffToClose=nowMin<closeMin ? closeMin-nowMin : (1440-nowMin)+closeMin;
+      const diffToClose=closeMin-nowMin;
       return {open:true,label:"BUKA",countdown:`Tutup ${formatDiff(diffToClose)} lagi`};
     }
     function prediksiEscape(value){
