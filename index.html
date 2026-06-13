@@ -4760,6 +4760,8 @@ function startJadwalListener(){
       Number(a.order||0)-Number(b.order||0)
     );
     renderJadwalTogel();
+    if(typeof prediksiRender==="function")prediksiRender();
+    if(typeof prediksiUpdateClock==="function")prediksiUpdateClock();
   },error=>{
     console.error(error);
     jadwalListenerActive=false;
@@ -4772,6 +4774,8 @@ function stopJadwalListener(){
   jadwalListenerActive=false;
   jadwalTogelData=DEFAULT_JADWAL_TOGEL.map(item=>({...item}));
   renderJadwalTogel();
+  if(typeof prediksiRender==="function")prediksiRender();
+  if(typeof prediksiUpdateClock==="function")prediksiUpdateClock();
 }
 
 const OWNER_EMAIL = "asephardian2002@gmail.com";
@@ -8187,10 +8191,23 @@ drawSyair();
     }
     function prediksiFindSchedule(name){
       const key=prediksiCanonical(name);
-      return (typeof DEFAULT_JADWAL_TOGEL!=="undefined"?DEFAULT_JADWAL_TOGEL:[]).find(item=>{
-        const itemKey=prediksiCanonical(item.name);
-        return itemKey===key||itemKey.includes(key)||key.includes(itemKey);
-      })||null;
+      const schedules=(Array.isArray(jadwalTogelData)&&jadwalTogelData.length)
+        ? jadwalTogelData
+        : (typeof DEFAULT_JADWAL_TOGEL!=="undefined"?DEFAULT_JADWAL_TOGEL:[]);
+
+      /* Ambil jadwal yang sama persis dari menu JADWAL TOGEL.
+         Ini penting agar TOTO MACAU MALAM I, II, dan III tidak saling tertukar. */
+      const exact=schedules.find(item=>prediksiCanonical(item.name)===key);
+      if(exact)return exact;
+
+      /* Fallback aman untuk nama yang sedikit berbeda, tapi pilih yang paling panjang
+         supaya tidak jatuh ke jadwal versi pendek seperti MALAM I saat pasarannya MALAM II. */
+      const candidates=schedules
+        .map(item=>({item,itemKey:prediksiCanonical(item.name)}))
+        .filter(row=>row.itemKey&&key&&(row.itemKey.includes(key)||key.includes(row.itemKey)))
+        .sort((a,b)=>b.itemKey.length-a.itemKey.length);
+
+      return candidates[0]?.item||null;
     }
     function prediksiJakartaParts(){
       const now=new Date();
@@ -8241,67 +8258,57 @@ drawSyair();
     function prediksiStatus(schedule,name=""){
       const p=prediksiJakartaParts();
       const nowMin=Number(p.hour)%24*60+Number(p.minute);
+      const formatDiff=diff=>{
+        const safe=Math.max(0,Number(diff)||0);
+        const h=Math.floor(safe/60);
+        const m=safe%60;
+        return `${h?`${h}j `:""}${m}m`;
+      };
 
       /* HOKIDRAW RESULT SETIAP JAM:
-         nama pada Sheet, contoh "HOKI DRAW 01:00", menentukan jam result.
-         Jika jam result sudah lewat maka status otomatis TUTUP. */
+         nama pada Sheet, contoh "HOKI DRAW 01:00", menentukan jam result. */
       if(/HOKI\s*DRAW|HOKIDRAW/i.test(name)){
         const resultMatch=String(name).match(/(\d{1,2}):(\d{2})/);
         if(resultMatch){
           const resultMin=Number(resultMatch[1])*60+Number(resultMatch[2]);
 
           if(nowMin>=resultMin){
-            return {
-              open:false,
-              label:"TUTUP",
-              countdown:"Result sudah keluar"
-            };
+            return {open:false,label:"TUTUP",countdown:"Result sudah keluar"};
           }
 
-          const diff=resultMin-nowMin;
-          const h=Math.floor(diff/60);
-          const m=diff%60;
-
-          return {
-            open:true,
-            label:"BUKA",
-            countdown:`Tutup ${h?`${h}j `:""}${m}m lagi`
-          };
+          return {open:true,label:"BUKA",countdown:`Tutup ${formatDiff(resultMin-nowMin)} lagi`};
         }
 
-        return {
-          open:true,
-          label:"BUKA",
-          countdown:"Result 1 jam sekali"
-        };
+        return {open:true,label:"BUKA",countdown:"Result 1 jam sekali"};
       }
 
       if(!schedule)return {open:true,label:"BUKA",countdown:"Jadwal belum tersedia"};
 
       const closeMin=prediksiTimeToMinutes(schedule.close);
+      const openMin=prediksiTimeToMinutes(schedule.open);
+
       if(closeMin===null){
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      const open=nowMin<closeMin;
-
-      if(open){
-        const diff=Math.max(0,closeMin-nowMin);
-        const h=Math.floor(diff/60);
-        const m=diff%60;
-
-        return {
-          open:true,
-          label:"BUKA",
-          countdown:`Tutup ${h?`${h}j `:""}${m}m lagi`
-        };
+      /* Status mengikuti jadwal: TUTUP hanya di antara jam Tutup sampai jam Buka.
+         Setelah jam Buka lewat, pasaran kembali BUKA untuk result berikutnya. */
+      let isClosed=false;
+      if(openMin!==null){
+        if(closeMin<openMin){
+          isClosed=nowMin>=closeMin&&nowMin<openMin;
+        }else if(closeMin>openMin){
+          isClosed=nowMin>=closeMin||nowMin<openMin;
+        }
       }
 
-      return {
-        open:false,
-        label:"TUTUP",
-        countdown:"Sudah tutup hari ini"
-      };
+      if(isClosed){
+        const diffToOpen=openMin>=nowMin ? openMin-nowMin : (1440-nowMin)+openMin;
+        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToOpen)} lagi`};
+      }
+
+      const diffToClose=nowMin<closeMin ? closeMin-nowMin : (1440-nowMin)+closeMin;
+      return {open:true,label:"BUKA",countdown:`Tutup ${formatDiff(diffToClose)} lagi`};
     }
     function prediksiEscape(value){
       return String(value||"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[ch]));
