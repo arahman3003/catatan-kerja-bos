@@ -8215,64 +8215,41 @@ drawSyair();
       return Object.fromEntries(parts.map(p=>[p.type,p.value]));
     }
 
-    function prediksiDateTextWIB(dayOffset=0){
-      /* Tanggal prediksi memakai WIB murni.
-         Catatan penting:
-         - Pasaran biasa TIDAK dipaksa menjadi besok saat status sudah tutup.
-           Status tetap TUTUP sampai lewat 00:00 WIB, lalu tanggal otomatis berganti karena hari WIB sudah berubah.
-         - Khusus data yang namanya mengandung BESOK / ALL PREDIKSI BESOK, tanggal dipaksa ke besok. */
-      const date=new Date(Date.now()+(Number(dayOffset)||0)*24*60*60*1000);
+    function prediksiTodayTextWIB(){
       const parts=new Intl.DateTimeFormat("id-ID",{
         timeZone:"Asia/Jakarta",
         weekday:"long",
         day:"numeric",
         month:"long",
         year:"numeric"
-      }).formatToParts(date);
+      }).formatToParts(new Date());
 
       const get=type=>parts.find(p=>p.type===type)?.value||"";
       const text=`${get("weekday")}, ${get("day")} ${get("month")} ${get("year")}`;
       return text.replace(/\b\w/g,c=>c.toUpperCase());
     }
 
-    function prediksiShouldUseTomorrow(item){
-      const raw=`${item?.name||""}\n${item?.content||""}`.toUpperCase();
-      return /\bBESOK\b/.test(raw);
-    }
-
-    function prediksiContentWithDate(item){
-      const content=String(item?.content||"");
-      const targetDate=prediksiDateTextWIB(prediksiShouldUseTomorrow(item)?1:0);
-      const lines=content.split(/\r?\n/);
+    function prediksiContentToday(content){
+      const today=prediksiTodayTextWIB();
+      const lines=String(content||"").split(/\r?\n/);
 
       const dayDate=/^\s*(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu)\s*,?\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
       const dateOnly=/^\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
 
-      let replaced=false;
-      const fixedLines=lines.map(line=>{
-        if(dayDate.test(line)||dateOnly.test(line)){
-          replaced=true;
-          return targetDate;
-        }
-        return line;
-      });
-
-      /* Kalau isi belum punya baris tanggal, sisipkan tanggal setelah judul PREDIKSI pertama. */
-      if(!replaced){
-        const prediksiIndex=fixedLines.findIndex(line=>/^\s*PREDIKSI\b/i.test(line));
-        if(prediksiIndex>=0){
-          fixedLines.splice(prediksiIndex+1,0,targetDate);
-          return fixedLines.join("\n");
-        }
-        return targetDate+"\n"+content;
+      const dateIndex=lines.findIndex(line=>dayDate.test(line)||dateOnly.test(line));
+      if(dateIndex>=0){
+        lines[dateIndex]=today;
+        return lines.join("\n");
       }
 
-      return fixedLines.join("\n");
-    }
+      const prediksiIndex=lines.findIndex(line=>/^\s*PREDIKSI\b/i.test(line));
+      if(prediksiIndex>=0){
+        lines.splice(prediksiIndex+1,0,today);
+        return lines.join("\n");
+      }
 
-    /* Alias lama agar bagian lain yang belum diubah tetap aman. */
-    function prediksiTodayTextWIB(){return prediksiDateTextWIB(0)}
-    function prediksiContentToday(content){return prediksiContentWithDate({content})}
+      return today+"\n"+String(content||"");
+    }
 
     function prediksiTimeToMinutes(value){
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
@@ -8314,23 +8291,16 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* Status mengikuti jadwal: TUTUP hanya di antara jam Tutup sampai jam Buka.
-         Setelah jam Buka lewat, pasaran kembali BUKA untuk result berikutnya. */
-      let isClosed=false;
-      if(openMin!==null){
-        if(closeMin<openMin){
-          isClosed=nowMin>=closeMin&&nowMin<openMin;
-        }else if(closeMin>openMin){
-          isClosed=nowMin>=closeMin||nowMin<openMin;
-        }
+      /* LOGIKA PREDIKSI TOGEL:
+         - BUKA hanya sebelum jam TUTUP hari ini.
+         - Setelah jam TUTUP lewat, status tetap TUTUP sampai pergantian hari 00:00 WIB.
+         - Jam BUKA dari jadwal hanya ditampilkan sebagai informasi, bukan untuk membuka ulang di hari yang sama. */
+      if(nowMin>=closeMin){
+        const diffToMidnight=1440-nowMin;
+        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToMidnight)} lagi`};
       }
 
-      if(isClosed){
-        const diffToOpen=openMin>=nowMin ? openMin-nowMin : (1440-nowMin)+openMin;
-        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToOpen)} lagi`};
-      }
-
-      const diffToClose=nowMin<closeMin ? closeMin-nowMin : (1440-nowMin)+closeMin;
+      const diffToClose=closeMin-nowMin;
       return {open:true,label:"BUKA",countdown:`Tutup ${formatDiff(diffToClose)} lagi`};
     }
     function prediksiEscape(value){
@@ -8418,7 +8388,7 @@ drawSyair();
     function prediksiSelect(id){
       const item=prediksiMarketData.find(x=>x.id===id);if(!item)return;
       prediksiSelectedId=id;
-      prediksiResultContent.innerHTML=`<div class="prediksi-result-text">${prediksiEscape(prediksiContentWithDate(item))}</div>`;
+      prediksiResultContent.innerHTML=`<div class="prediksi-result-text">${prediksiEscape(prediksiContentToday(item.content))}</div>`;
       prediksiRender();
     }
     async function prediksiLoadSheet(force=false){
@@ -8469,7 +8439,7 @@ drawSyair();
       const item=prediksiMarketData.find(x=>x.id===prediksiSelectedId);
       if(!item)return showToast("Pilih pasaran terlebih dahulu");
 
-      const copyContent=prediksiContentWithDate(item);
+      const copyContent=prediksiContentToday(item.content);
 
       try{
         await navigator.clipboard.writeText(copyContent);
