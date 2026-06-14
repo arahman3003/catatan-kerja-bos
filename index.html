@@ -3997,7 +3997,7 @@ CATATAN:
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
         <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        <button type="button" class="chat-sidebar-btn" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
+        <button type="button" class="chat-sidebar-btn" data-permission="chat" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4793,7 +4793,7 @@ registerAuth.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(console.e
 
 const ALL_MENU_KEYS = [
   "dashboard","pk-cs","notepad","gambar",
-  "prediksi-togel","jadwal-togel",
+  "prediksi-togel","jadwal-togel","chat",
   "prediksi","syair-togel","bukti-kemenangan",
   "selisih","link-domain","user-management"
 ];
@@ -4805,6 +4805,7 @@ const MENU_LABELS = {
   gambar:"Gambar",
   "prediksi-togel":"Prediksi Togel",
   "jadwal-togel":"Jadwal Togel",
+  chat:"CHAT",
   prediksi:"Prediksi",
   "syair-togel":"Syair Togel",
   "bukti-kemenangan":"Bukti Kemenangan",
@@ -4837,15 +4838,15 @@ function makePermissions(enabledKeys=[]){
 }
 
 const ROLE_PERMISSION_PRESETS = {
-  kasir:makePermissions([]),
-  "kapten-kasir":makePermissions([]),
+  kasir:makePermissions(["chat"]),
+  "kapten-kasir":makePermissions(["chat"]),
 
   "cs-livechat":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad"
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat"
   ]),
 
   "cs-line":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad",
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat",
     "prediksi","syair-togel","bukti-kemenangan","link-domain"
   ]),
 
@@ -4880,6 +4881,18 @@ function isFullAccessRole(role){
 function permissionsForRole(role){
   const normalized=normalizeRole(role);
   return {...(ROLE_PERMISSION_PRESETS[normalized]||ROLE_PERMISSION_PRESETS["cs-livechat"])};
+}
+
+function mergedUserPermissions(profile){
+  const role=normalizeRole(profile?.role);
+  return {...permissionsForRole(role), ...(profile?.permissions||{})};
+}
+
+function hasProfilePermission(profile,key){
+  if(!profile || profile.status==="disabled")return false;
+  if(isFullAccessRole(profile.role))return true;
+  const merged=mergedUserPermissions(profile);
+  return merged[key]===true;
 }
 
 let currentAuthUser = null;
@@ -5024,20 +5037,24 @@ window.canOpenKerjaBossPage=function(page){
   if(currentUserProfile.status==="disabled")return false;
   if(isFullAccessRole(currentUserProfile.role))return true;
   if(page==="user-management")return false;
-  return currentUserProfile.permissions?.[page]===true;
+  return hasProfilePermission(currentUserProfile,page);
 };
 
 function updateAccessUI(){
   const isOwner=currentUserProfile?.role==="owner";
   const isFullAccess=isFullAccessRole(currentUserProfile?.role);
   document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isFullAccess?"flex":"none");
+  document.querySelectorAll(".chat-sidebar-btn").forEach(el=>{
+    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,"chat");
+    el.style.display=allowed?"flex":"none";
+  });
   document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
     const page=btn.dataset.page;
     if(page==="user-management"){
       btn.style.display=isFullAccess?"flex":"none";
       return;
     }
-    const allowed=isFullAccess||currentUserProfile?.permissions?.[page]===true;
+    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,page);
     btn.style.display=allowed?"flex":"none";
   });
   document.querySelectorAll(".submenu").forEach(sub=>{
@@ -5166,7 +5183,7 @@ function renderOwnerUsers(users){
   ownerUsersList.innerHTML=list.map(user=>{
     const role=normalizeRole(user.role);
     const fullAccess=isFullAccessRole(role);
-    const permissions=user.permissions||permissionsForRole(role);
+    const permissions={...permissionsForRole(role), ...(user.permissions||{})};
     const lockedOwner=user.email===OWNER_EMAIL;
     return `<div class="owner-user-card" data-uid="${user.uid}">
       <div class="owner-user-head">
@@ -5233,7 +5250,10 @@ ownerUsersList?.addEventListener("click",async e=>{
   const role=card.querySelector(".manage-role").value;
   const status=card.querySelector(".manage-status").value;
   const normalizedRole=normalizeRole(role);
-  const permissions=permissionsForRole(normalizedRole);
+  const fullAccess=isFullAccessRole(normalizedRole);
+  const permissions=fullAccess
+    ? permissionsForRole(normalizedRole)
+    : Object.fromEntries(ALL_MENU_KEYS.map(key=>[key, card.querySelector(`[data-permission="${key}"]`)?.checked===true]));
   saveBtn.disabled=true;
   saveBtn.textContent="Menyimpan...";
   try{
