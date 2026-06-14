@@ -3963,6 +3963,27 @@ CATATAN:
       }
     }
 
+
+
+    /* FIX: COVER LOGIN TIDAK TERLALU BESAR */
+    .auth-card.auth-book.book-closed{
+      width:min(760px,88vw)!important;
+      min-height:430px!important;
+    }
+    .auth-card.auth-book.book-closed .auth-book-cover,
+    .auth-card.auth-book.book-closed .auth-book-cover-video{
+      width:100%!important;
+      height:100%!important;
+    }
+    .auth-book-cover-content{padding:34px 24px!important}
+    .auth-book-cover .auth-book-symbol{font-size:48px!important}
+    .auth-book-cover .auth-book-jp{font-size:27px!important}
+    .auth-book-cover .auth-book-sub{font-size:11px!important}
+    .auth-book-open-hint{margin-top:13px!important;padding:8px 14px!important;font-size:10px!important}
+    @media(max-width:760px){
+      .auth-card.auth-book.book-closed{width:min(430px,94vw)!important;min-height:300px!important}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -4044,7 +4065,7 @@ CATATAN:
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
         <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        <button class="nav-btn" data-page="chat">💬 <span class="menu-label">CHAT</span></button>
+        <button type="button" class="nav-btn chat-link-btn" data-page="chat">💬 <span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4769,6 +4790,15 @@ https://domain3.com"></textarea>
       setTimeout(()=>document.getElementById("loginEmail")?.focus(),180);
     }
     authBookCover?.addEventListener("click",openAuthBook);
+
+    document.addEventListener("click", function(e){
+      const chatBtn = e.target.closest('[data-page="chat"]');
+      if(!chatBtn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      window.open("http://chatjoni.netlify.app/", "_blank", "noopener,noreferrer");
+    }, true);
+
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
@@ -5324,7 +5354,10 @@ const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan k
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
-    navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
+    navButtons.forEach(b=>b.addEventListener("click",function(){
+      if(this.dataset.page==="chat"){window.open("http://chatjoni.netlify.app/", "_blank", "noopener,noreferrer");return;}
+      openPage(this.dataset.page);
+    }));
     if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
     if(togelDropdownBtn)togelDropdownBtn.addEventListener("click",()=>{togelSubmenu.classList.toggle("show");togelDropdownIcon.textContent=togelSubmenu.classList.contains("show")?"▴":"▾"});
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
