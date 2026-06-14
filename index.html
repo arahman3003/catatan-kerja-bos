@@ -705,7 +705,7 @@ CATATAN:
         linear-gradient(180deg,rgba(3,7,18,.18),rgba(3,7,18,.42))
     }
     .auth-card.auth-book{
-      position:relative;z-index:2;width:min(1040px,94vw);min-height:620px;padding:0;border-radius:22px;
+      position:relative;z-index:2;width:min(760px,92vw);min-height:475px;padding:0;border-radius:22px;
       overflow:hidden;display:grid;grid-template-columns:1fr 1fr;
       background:#050505;border:1px solid rgba(255,255,255,.18);
       box-shadow:0 28px 80px rgba(0,0,0,.62);color:#f8fafc;
@@ -748,19 +748,29 @@ CATATAN:
       box-shadow:0 0 18px rgba(0,0,0,.6);pointer-events:none
     }
 
-    /* MODE BUKU LOGIN: awal tampil cover, klik untuk membuka login */
-    .auth-book-cover{position:absolute;inset:0;z-index:12;border:0;padding:0;margin:0;cursor:pointer;background:#07101a;color:#fff;overflow:hidden;display:block;text-align:center;transform-origin:left center;transition:transform .72s cubic-bezier(.2,.8,.2,1),opacity .42s ease,visibility .42s ease;backface-visibility:hidden}
-    .auth-book-cover-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-    .auth-book-cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.04),rgba(3,7,18,.58)),radial-gradient(circle at 50% 42%,rgba(255,255,255,.07),transparent 44%);pointer-events:none}
-    .auth-book-cover-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:46px 30px;text-align:center;z-index:2}
-    .auth-book-cover .auth-book-symbol{font-size:64px!important;color:#f6c453;line-height:1;margin-bottom:10px}
-    .auth-book-cover .auth-book-jp{font-size:36px!important;font-weight:900;color:#fff;letter-spacing:2px}
-    .auth-book-cover .auth-book-sub{font-size:13px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
-    .auth-book-open-hint{margin-top:18px;padding:9px 15px;border-radius:999px;background:rgba(34,197,94,.20);border:1px solid rgba(34,197,94,.45);color:#bbf7d0;font-size:11px;font-weight:900;letter-spacing:1px}
+
+    /* MODE BUKU LOGIN: cover gambar dulu, klik baru buka halaman login */
+    .auth-book-cover{
+      position:absolute;inset:0;z-index:12;border:0;padding:0;margin:0;cursor:pointer;
+      background:#07101a;color:#fff;overflow:hidden;display:block;text-align:center;
+      transform-origin:left center;transition:transform .72s cubic-bezier(.2,.8,.2,1),opacity .42s ease,visibility .42s ease;
+      backface-visibility:hidden
+    }
+    .auth-book-cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;pointer-events:none}
+    .auth-book-cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.06),rgba(3,7,18,.58)),radial-gradient(circle at 50% 42%,rgba(255,255,255,.07),transparent 44%);pointer-events:none}
+    .auth-book-cover-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:34px 24px;text-align:center;z-index:2}
+    .auth-book-cover .auth-book-symbol{font-size:48px!important;color:#f6c453;line-height:1;margin-bottom:10px}
+    .auth-book-cover .auth-book-jp{font-size:27px!important;font-weight:900;color:#fff;letter-spacing:2px}
+    .auth-book-cover .auth-book-sub{font-size:11px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
+    .auth-book-open-hint{margin-top:13px;padding:8px 14px;border-radius:999px;background:rgba(34,197,94,.72);border:1px solid rgba(134,239,172,.65);color:#fff;font-size:10px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;box-shadow:0 8px 22px rgba(34,197,94,.22)}
     .auth-card.auth-book.book-opened .auth-book-cover{transform:rotateY(-112deg);opacity:0;visibility:hidden;pointer-events:none}
     .auth-card.auth-book.book-closed .auth-book-left,.auth-card.auth-book.book-closed .auth-book-right{filter:brightness(.76)}
     .auth-card.auth-book.book-opened .auth-book-left,.auth-card.auth-book.book-opened .auth-book-right{animation:authBookPageIn .38s ease both}
     @keyframes authBookPageIn{from{opacity:.15;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+    .auth-card.auth-book.book-closed{width:min(760px,88vw)!important;min-height:430px!important}
+    .auth-card.auth-book.book-closed .auth-book-cover,.auth-card.auth-book.book-closed .auth-book-cover-img{width:100%!important;height:100%!important}
+    .auth-card.auth-book:not(.book-closed) .auth-book-open-hint{display:none}
+    @media(max-width:760px){.auth-card.auth-book.book-closed{width:min(430px,94vw)!important;min-height:300px!important}}
 
     .auth-logo{display:none}
     .auth-card h1{text-align:center;color:#f6c453;font-size:28px;margin-bottom:7px}
@@ -810,25 +820,6 @@ CATATAN:
       .auth-book::after{display:none}
       .auth-book-left-content{justify-content:flex-end;padding:22px}
       .auth-card-content{padding:26px 22px}
-    }
-
-
-    /* UKURAN CARD LOGIN SESUAI REFERENSI */
-    .auth-book-right h1{font-size:34px!important;margin-bottom:8px!important}
-    .auth-book-right .auth-card-content>p{font-size:12px!important;line-height:1.35!important;margin-bottom:14px!important}
-    .auth-book-right .auth-tabs{margin-bottom:12px!important}
-    .auth-book-right .auth-tab{padding:9px!important;font-size:11px!important}
-    .auth-book-right .form-group{margin-bottom:11px!important}
-    .auth-book-right .form-group label{font-size:16px!important;margin-bottom:5px!important}
-    .auth-book-right input{height:38px!important;padding:0 12px!important;font-size:15px!important}
-    .auth-book-right .auth-submit{padding:10px 14px!important;font-size:15px!important;margin-top:3px!important}
-    .auth-book-symbol{font-size:61px!important}
-    .auth-book-jp{font-size:34px!important}
-    .auth-book-sub{font-size:12px!important}
-    @media(max-width:760px){
-      .auth-card.auth-book{grid-template-columns:1fr;min-height:auto!important;width:min(430px,94vw)!important}
-      .auth-book-left{min-height:210px!important}
-      .auth-book-cover{display:none}
     }
 
     .auth-user-box{
@@ -3963,27 +3954,6 @@ CATATAN:
       }
     }
 
-
-
-    /* FIX: COVER LOGIN TIDAK TERLALU BESAR */
-    .auth-card.auth-book.book-closed{
-      width:min(760px,88vw)!important;
-      min-height:430px!important;
-    }
-    .auth-card.auth-book.book-closed .auth-book-cover,
-    .auth-card.auth-book.book-closed .auth-book-cover-video{
-      width:100%!important;
-      height:100%!important;
-    }
-    .auth-book-cover-content{padding:34px 24px!important}
-    .auth-book-cover .auth-book-symbol{font-size:48px!important}
-    .auth-book-cover .auth-book-jp{font-size:27px!important}
-    .auth-book-cover .auth-book-sub{font-size:11px!important}
-    .auth-book-open-hint{margin-top:13px!important;padding:8px 14px!important;font-size:10px!important}
-    @media(max-width:760px){
-      .auth-card.auth-book.book-closed{width:min(430px,94vw)!important;min-height:300px!important}
-    }
-
 </style>
 </head>
 <body class="dark-workspace">
@@ -3997,9 +3967,7 @@ CATATAN:
 
     <div class="auth-card auth-book book-closed" id="authBook">
       <button type="button" class="auth-book-cover" id="authBookCover" aria-label="Buka halaman login">
-        <video class="auth-book-cover-video" autoplay muted loop playsinline preload="auto">
-          <source src="https://files.catbox.moe/plpp10.mp4" type="video/mp4">
-        </video>
+        <img class="auth-book-cover-img" src="https://i.imgur.com/qwarNZt.jpeg" alt="Dashboard Access Cover">
         <span class="auth-book-cover-overlay"></span>
         <span class="auth-book-cover-content">
           <span class="auth-book-symbol">⚔</span>
@@ -4065,7 +4033,7 @@ CATATAN:
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
         <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        <button type="button" class="nav-btn chat-link-btn" data-page="chat">💬 <span class="menu-label">CHAT</span></button>
+        <button type="button" class="chat-sidebar-btn chat-all-roles" title="Buka Chat" aria-label="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4782,6 +4750,7 @@ https://domain3.com"></textarea>
 
 
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
+
     const authBook=document.getElementById("authBook"),authBookCover=document.getElementById("authBookCover");
     function openAuthBook(){
       if(!authBook)return;
@@ -4880,7 +4849,7 @@ const ALL_MENU_KEYS = [
   "dashboard","pk-cs","notepad","gambar",
   "prediksi-togel","jadwal-togel",
   "prediksi","syair-togel","bukti-kemenangan",
-  "chat","selisih","link-domain","user-management"
+  "selisih","link-domain","user-management"
 ];
 
 const MENU_LABELS = {
@@ -4893,7 +4862,6 @@ const MENU_LABELS = {
   prediksi:"Prediksi",
   "syair-togel":"Syair Togel",
   "bukti-kemenangan":"Bukti Kemenangan",
-  chat:"CHAT",
   selisih:"Selisih",
   "link-domain":"Link Domain",
   "user-management":"Manajemen User"
@@ -4923,15 +4891,15 @@ function makePermissions(enabledKeys=[]){
 }
 
 const ROLE_PERMISSION_PRESETS = {
-  kasir:makePermissions(["chat"]),
-  "kapten-kasir":makePermissions(["chat"]),
+  kasir:makePermissions([]),
+  "kapten-kasir":makePermissions([]),
 
   "cs-livechat":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat"
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad"
   ]),
 
   "cs-line":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat",
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad",
     "prediksi","syair-togel","bukti-kemenangan","link-domain"
   ]),
 
@@ -5117,6 +5085,8 @@ function updateAccessUI(){
   const isOwner=currentUserProfile?.role==="owner";
   const isFullAccess=isFullAccessRole(currentUserProfile?.role);
   document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isFullAccess?"flex":"none");
+  // CHAT wajib tampil untuk semua akun/role karena link eksternal, tidak ikut permission menu.
+  document.querySelectorAll(".chat-sidebar-btn").forEach(el=>el.style.display="flex");
   document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
     const page=btn.dataset.page;
     if(page==="user-management"){
@@ -5354,10 +5324,7 @@ const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan k
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
-    navButtons.forEach(b=>b.addEventListener("click",function(){
-      if(this.dataset.page==="chat"){window.open("http://chatjoni.netlify.app/", "_blank", "noopener,noreferrer");return;}
-      openPage(this.dataset.page);
-    }));
+    navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
     if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
     if(togelDropdownBtn)togelDropdownBtn.addEventListener("click",()=>{togelSubmenu.classList.toggle("show");togelDropdownIcon.textContent=togelSubmenu.classList.contains("show")?"▴":"▾"});
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
@@ -7960,7 +7927,7 @@ drawSyair();
       try{await pkCsDb.child(id).remove();return true}
       catch(error){console.error(error);showToast("Gagal menghapus PK dari Firebase");return false}
     }
-    function pkcsEscape(t){return String(t||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+    function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
     function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
     function pkcsGetMatches(query){
       const normalizedQuery=pkcsNormalize(query);
@@ -8359,6 +8326,7 @@ drawSyair();
     function prediksiContentToday(content){
       return prediksiContentWithDate(content,0);
     }
+
     function prediksiTimeToMinutes(value){
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
       return m?Number(m[1])*60+Number(m[2]):null;
@@ -8399,12 +8367,13 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* Status harian untuk PREDIKSI TOGEL:
-         - BUKA dari pergantian hari sampai jam Tutup.
-         - Setelah jam Tutup lewat, tetap TUTUP sampai ganti hari berikutnya.
-         - Jam Buka tetap ditampilkan sebagai info jadwal, bukan membuat status kembali BUKA di hari yang sama. */
+      /* LOGIKA PREDIKSI TOGEL:
+         - BUKA hanya sebelum jam TUTUP hari ini.
+         - Setelah jam TUTUP lewat, status tetap TUTUP sampai pergantian hari 00:00 WIB.
+         - Jam BUKA dari jadwal hanya ditampilkan sebagai informasi, bukan untuk membuka ulang di hari yang sama. */
       if(nowMin>=closeMin){
-        return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
+        const diffToMidnight=1440-nowMin;
+        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToMidnight)} lagi`};
       }
 
       const diffToClose=closeMin-nowMin;
