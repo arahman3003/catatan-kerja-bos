@@ -3996,8 +3996,8 @@ CATATAN:
         <button class="nav-btn" data-page="notepad">📝 <span class="menu-label">Notepad</span></button>
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
-
         <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
+        <button type="button" class="chat-sidebar-btn" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4008,7 +4008,6 @@ CATATAN:
 
         <button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
         <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button>
-        <button type="button" class="chat-sidebar-btn" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
         <button class="nav-btn owner-only" data-page="user-management" style="display:none">👑 <span class="menu-label">Manajemen User</span></button>
       </nav>
       <div class="sidebar-footer sidebar-footer-logout-only">
@@ -4714,7 +4713,7 @@ https://domain3.com"></textarea>
 
 
 
-    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
+    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
@@ -5044,7 +5043,12 @@ function updateAccessUI(){
   document.querySelectorAll(".submenu").forEach(sub=>{
     const visible=[...sub.querySelectorAll(".nav-btn")].some(x=>x.style.display!=="none");
     if(!visible)sub.classList.remove("show");
-if(sub.id==="postinganSubmenu" && typeof postinganDropdownBtn!=="undefined" && postinganDropdownBtn){
+
+    if(sub.id==="togelSubmenu" && typeof togelDropdownBtn!=="undefined" && togelDropdownBtn){
+      togelDropdownBtn.style.display=visible?"flex":"none";
+    }
+
+    if(sub.id==="postinganSubmenu" && typeof postinganDropdownBtn!=="undefined" && postinganDropdownBtn){
       postinganDropdownBtn.style.display=visible?"flex":"none";
     }
   });
@@ -5266,6 +5270,7 @@ const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan k
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
     navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
     if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
+    if(togelDropdownBtn)togelDropdownBtn.addEventListener("click",()=>{togelSubmenu.classList.toggle("show");togelDropdownIcon.textContent=togelSubmenu.classList.contains("show")?"▴":"▾"});
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
@@ -7866,7 +7871,7 @@ drawSyair();
       try{await pkCsDb.child(id).remove();return true}
       catch(error){console.error(error);showToast("Gagal menghapus PK dari Firebase");return false}
     }
-    function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+    function pkcsEscape(t){return String(t||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
     function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
     function pkcsGetMatches(query){
       const normalizedQuery=pkcsNormalize(query);
@@ -8208,42 +8213,63 @@ drawSyair();
       return Object.fromEntries(parts.map(p=>[p.type,p.value]));
     }
 
-    function prediksiTodayTextWIB(){
+    function prediksiDateTextWIB(offsetDays=0){
+      const base=new Date(Date.now()+(Number(offsetDays)||0)*24*60*60*1000);
       const parts=new Intl.DateTimeFormat("id-ID",{
         timeZone:"Asia/Jakarta",
         weekday:"long",
         day:"numeric",
         month:"long",
         year:"numeric"
-      }).formatToParts(new Date());
+      }).formatToParts(base);
 
       const get=type=>parts.find(p=>p.type===type)?.value||"";
       const text=`${get("weekday")}, ${get("day")} ${get("month")} ${get("year")}`;
       return text.replace(/\b\w/g,c=>c.toUpperCase());
     }
 
-    function prediksiContentToday(content){
-      const today=prediksiTodayTextWIB();
+    function prediksiTodayTextWIB(){
+      return prediksiDateTextWIB(0);
+    }
+
+    function prediksiDateOffsetForItem(item){
+      const name=String(item?.name||"");
+      if(/\bBESOK\b/i.test(name))return 1;
+      if(item?.status && item.status.open===false)return 1;
+      return 0;
+    }
+
+    function prediksiContentWithDate(content,offsetDays=0){
+      const targetDate=prediksiDateTextWIB(offsetDays);
       const lines=String(content||"").split(/\r?\n/);
 
       const dayDate=/^\s*(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu)\s*,?\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
       const dateOnly=/^\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
 
-      const dateIndex=lines.findIndex(line=>dayDate.test(line)||dateOnly.test(line));
-      if(dateIndex>=0){
-        lines[dateIndex]=today;
+      let changed=false;
+      for(let i=0;i<lines.length;i++){
+        if(dayDate.test(lines[i])||dateOnly.test(lines[i])){
+          lines[i]=targetDate;
+          changed=true;
+        }
+      }
+      if(changed)return lines.join("\n");
+
+      const prediksiIndexes=[];
+      lines.forEach((line,index)=>{if(/^\s*PREDIKSI\b/i.test(line))prediksiIndexes.push(index)});
+      if(prediksiIndexes.length){
+        for(let i=prediksiIndexes.length-1;i>=0;i--){
+          lines.splice(prediksiIndexes[i]+1,0,targetDate);
+        }
         return lines.join("\n");
       }
 
-      const prediksiIndex=lines.findIndex(line=>/^\s*PREDIKSI\b/i.test(line));
-      if(prediksiIndex>=0){
-        lines.splice(prediksiIndex+1,0,today);
-        return lines.join("\n");
-      }
-
-      return today+"\n"+String(content||"");
+      return targetDate+"\n"+String(content||"");
     }
 
+    function prediksiContentToday(content){
+      return prediksiContentWithDate(content,0);
+    }
     function prediksiTimeToMinutes(value){
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
       return m?Number(m[1])*60+Number(m[2]):null;
@@ -8380,7 +8406,7 @@ drawSyair();
     function prediksiSelect(id){
       const item=prediksiMarketData.find(x=>x.id===id);if(!item)return;
       prediksiSelectedId=id;
-      prediksiResultContent.innerHTML=`<div class="prediksi-result-text">${prediksiEscape(prediksiContentToday(item.content))}</div>`;
+      prediksiResultContent.innerHTML=`<div class="prediksi-result-text">${prediksiEscape(prediksiContentWithDate(item.content,prediksiDateOffsetForItem(item)))}</div>`;
       prediksiRender();
     }
     async function prediksiLoadSheet(force=false){
@@ -8431,7 +8457,7 @@ drawSyair();
       const item=prediksiMarketData.find(x=>x.id===prediksiSelectedId);
       if(!item)return showToast("Pilih pasaran terlebih dahulu");
 
-      const copyContent=prediksiContentToday(item.content);
+      const copyContent=prediksiContentWithDate(item.content,prediksiDateOffsetForItem(item));
 
       try{
         await navigator.clipboard.writeText(copyContent);
