@@ -5421,6 +5421,10 @@ const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan k
         showToast("Akses menu ini belum diberikan Owner");
         return;
       }
+      if(n==="chat"){
+        window.open("http://chatjoni.netlify.app/","_blank","noopener,noreferrer");
+        return;
+      }
       pages.forEach(p=>p.classList.remove("active"));
       const t=document.getElementById(`page-${n}`);
       if(t)t.classList.add("active");
