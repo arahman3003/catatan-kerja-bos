@@ -708,7 +708,8 @@ CATATAN:
       position:relative;z-index:2;width:min(1040px,94vw);min-height:620px;padding:0;border-radius:22px;
       overflow:hidden;display:grid;grid-template-columns:1fr 1fr;
       background:#050505;border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 28px 80px rgba(0,0,0,.62);color:#f8fafc
+      box-shadow:0 28px 80px rgba(0,0,0,.62);color:#f8fafc;
+      perspective:1600px;transform-style:preserve-3d
     }
     .auth-book-left,.auth-book-right{position:relative;min-width:0}
     .auth-book-left{
@@ -746,6 +747,21 @@ CATATAN:
       background:linear-gradient(180deg,transparent,rgba(255,255,255,.12),transparent);
       box-shadow:0 0 18px rgba(0,0,0,.6);pointer-events:none
     }
+
+    /* MODE BUKU LOGIN: awal tampil cover, klik untuk membuka login */
+    .auth-book-cover{position:absolute;inset:0;z-index:12;border:0;padding:0;margin:0;cursor:pointer;background:#07101a;color:#fff;overflow:hidden;display:block;text-align:center;transform-origin:left center;transition:transform .72s cubic-bezier(.2,.8,.2,1),opacity .42s ease,visibility .42s ease;backface-visibility:hidden}
+    .auth-book-cover-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+    .auth-book-cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.04),rgba(3,7,18,.58)),radial-gradient(circle at 50% 42%,rgba(255,255,255,.07),transparent 44%);pointer-events:none}
+    .auth-book-cover-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:46px 30px;text-align:center;z-index:2}
+    .auth-book-cover .auth-book-symbol{font-size:64px!important;color:#f6c453;line-height:1;margin-bottom:10px}
+    .auth-book-cover .auth-book-jp{font-size:36px!important;font-weight:900;color:#fff;letter-spacing:2px}
+    .auth-book-cover .auth-book-sub{font-size:13px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
+    .auth-book-open-hint{margin-top:18px;padding:9px 15px;border-radius:999px;background:rgba(34,197,94,.20);border:1px solid rgba(34,197,94,.45);color:#bbf7d0;font-size:11px;font-weight:900;letter-spacing:1px}
+    .auth-card.auth-book.book-opened .auth-book-cover{transform:rotateY(-112deg);opacity:0;visibility:hidden;pointer-events:none}
+    .auth-card.auth-book.book-closed .auth-book-left,.auth-card.auth-book.book-closed .auth-book-right{filter:brightness(.76)}
+    .auth-card.auth-book.book-opened .auth-book-left,.auth-card.auth-book.book-opened .auth-book-right{animation:authBookPageIn .38s ease both}
+    @keyframes authBookPageIn{from{opacity:.15;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+
     .auth-logo{display:none}
     .auth-card h1{text-align:center;color:#f6c453;font-size:28px;margin-bottom:7px}
     .auth-card>p{text-align:center;color:#93a4ba;font-size:13px;line-height:1.6;margin-bottom:20px}
@@ -788,63 +804,31 @@ CATATAN:
     .auth-book-right .auth-tab.active{background:linear-gradient(180deg,#22c55e,#16a34a);color:#fff}
     .auth-book-right input{background:#0b0b0b!important;border-color:#2b2b2b!important}
     .auth-book-right input:focus{border-color:#22c55e!important}
-
-    /* MODE BUKU LOGIN: tampilan awal cover, klik untuk membuka halaman login */
-    .auth-card.auth-book{
-      perspective:1600px;
-      transform-style:preserve-3d;
-      transition:width .55s ease,min-height .55s ease,box-shadow .35s ease;
-    }
-    .auth-card.auth-book.book-closed{
-      width:min(520px,90vw)!important;
-      min-height:620px!important;
-      grid-template-columns:1fr!important;
-      cursor:pointer;
-    }
-    .auth-card.auth-book.book-closed .auth-book-left,
-    .auth-card.auth-book.book-closed .auth-book-right,
-    .auth-card.auth-book.book-closed::after{
-      opacity:0;
-      pointer-events:none;
-    }
-    .auth-book-cover{
-      position:absolute;
-      inset:0;
-      z-index:8;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      border:0;
-      padding:0;
-      overflow:hidden;
-      border-radius:22px;
-      background:#07101a;
-      color:#fff;
-      cursor:pointer;
-      transform-origin:left center;
-      transform:rotateY(0deg);
-      opacity:1;
-      transition:transform .72s cubic-bezier(.2,.85,.2,1),opacity .28s ease,visibility .28s ease;
-      backface-visibility:hidden;
-      box-shadow:inset -18px 0 26px rgba(0,0,0,.32),0 22px 60px rgba(0,0,0,.42);
-    }
-    .auth-book-cover-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-    .auth-book-cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.06),rgba(3,7,18,.60)),radial-gradient(circle at 48% 38%,rgba(34,197,94,.10),transparent 52%);pointer-events:none}
-    .auth-book-cover-content{position:relative;z-index:2;width:100%;padding:34px 28px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;text-shadow:0 10px 28px rgba(0,0,0,.58)}
-    .auth-book-cover .auth-book-symbol{font-size:64px!important;color:#f6c453;line-height:1;margin-bottom:10px}
-    .auth-book-cover .auth-book-jp{font-size:36px!important;font-weight:900;color:#fff;letter-spacing:2px}
-    .auth-book-cover .auth-book-sub{font-size:13px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
-    .auth-book-open-text{margin-top:18px;padding:9px 16px;border-radius:999px;border:1px solid rgba(246,196,83,.42);background:rgba(0,0,0,.34);color:#f8df8d;font-size:11px;font-weight:900;letter-spacing:1.4px}
-    .auth-card.auth-book.book-opened .auth-book-cover{transform:rotateY(-96deg);opacity:0;visibility:hidden;pointer-events:none}
-    .auth-card.auth-book.book-opened .auth-book-left,.auth-card.auth-book.book-opened .auth-book-right{animation:authBookPageIn .38s ease both}
-    @keyframes authBookPageIn{from{opacity:.15;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
     @media(max-width:760px){
       .auth-card.auth-book{grid-template-columns:1fr;min-height:auto;width:min(470px,96vw)}
       .auth-book-left{min-height:220px;border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
       .auth-book::after{display:none}
       .auth-book-left-content{justify-content:flex-end;padding:22px}
       .auth-card-content{padding:26px 22px}
+    }
+
+
+    /* UKURAN CARD LOGIN SESUAI REFERENSI */
+    .auth-book-right h1{font-size:34px!important;margin-bottom:8px!important}
+    .auth-book-right .auth-card-content>p{font-size:12px!important;line-height:1.35!important;margin-bottom:14px!important}
+    .auth-book-right .auth-tabs{margin-bottom:12px!important}
+    .auth-book-right .auth-tab{padding:9px!important;font-size:11px!important}
+    .auth-book-right .form-group{margin-bottom:11px!important}
+    .auth-book-right .form-group label{font-size:16px!important;margin-bottom:5px!important}
+    .auth-book-right input{height:38px!important;padding:0 12px!important;font-size:15px!important}
+    .auth-book-right .auth-submit{padding:10px 14px!important;font-size:15px!important;margin-top:3px!important}
+    .auth-book-symbol{font-size:61px!important}
+    .auth-book-jp{font-size:34px!important}
+    .auth-book-sub{font-size:12px!important}
+    @media(max-width:760px){
+      .auth-card.auth-book{grid-template-columns:1fr;min-height:auto!important;width:min(430px,94vw)!important}
+      .auth-book-left{min-height:210px!important}
+      .auth-book-cover{display:none}
     }
 
     .auth-user-box{
@@ -2078,7 +2062,7 @@ CATATAN:
 
     /* UKURAN CARD LOGIN SESUAI REFERENSI */
     .auth-book-right h1{
-      font-size:34px!important;
+      font-size:24px!important;
       margin-bottom:8px!important;
     }
     .auth-book-right .auth-card-content>p{
@@ -2092,24 +2076,23 @@ CATATAN:
       font-size:11px!important;
     }
     .auth-book-right .form-group{margin-bottom:11px!important}
-    .auth-book-right .form-group label {
-        font-size: 16px !important;
-        font-family: lexend;
-        margin-bottom: 5px !important;
+    .auth-book-right .form-group label{
+      font-size:11px!important;
+      margin-bottom:5px!important;
     }
     .auth-book-right input{
       height:38px!important;
       padding:0 12px!important;
-      font-size:15px!important;
+      font-size:12px!important;
     }
     .auth-book-right .auth-submit{
       padding:10px 14px!important;
-      font-size:15px!important;
+      font-size:12px!important;
       margin-top:3px!important;
     }
-    .auth-book-symbol{font-size:61px!important}
-    .auth-book-jp{font-size:34px!important}
-    .auth-book-sub{font-size:12px!important}
+    .auth-book-symbol{font-size:30px!important}
+    .auth-book-jp{font-size:20px!important}
+    .auth-book-sub{font-size:9px!important}
     @media(max-width:760px){
       .auth-card.auth-book{
         width:min(430px,94vw)!important;
@@ -4001,7 +3984,7 @@ CATATAN:
           <span class="auth-book-symbol">⚔</span>
           <span class="auth-book-jp">ロロノア・ゾロ</span>
           <span class="auth-book-sub">DASHBOARD ACCESS</span>
-          <span class="auth-book-open-text">KLIK UNTUK MEMBUKA</span>
+          <span class="auth-book-open-hint">KLIK UNTUK MEMBUKA</span>
         </span>
       </button>
       <div class="auth-book-left">
@@ -4019,7 +4002,7 @@ CATATAN:
       <div class="auth-book-right">
         <div class="auth-card-content">
       <h1>ロロノア・ゾロ</h1>
-      <p></p>
+      <p>Masuk untuk membuka dashboard. Pengguna baru otomatis terdaftar sebagai CS Livechat.</p>
       <div class="auth-tabs">
         <button type="button" class="auth-tab active" data-auth-tab="login">LOGIN</button>
         <button type="button" class="auth-tab" data-auth-tab="register">DAFTAR</button>
@@ -4059,11 +4042,9 @@ CATATAN:
         <button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button>
         <button class="nav-btn" data-page="notepad">📝 <span class="menu-label">Notepad</span></button>
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
-        <button class="dropdown-btn" id="togelDropdownBtn">🔮 <span class="menu-label">Togel</span> <span id="togelDropdownIcon">▾</span></button>
-        <div class="submenu" id="togelSubmenu">
-          <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
-          <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        </div>
+        <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
+        <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
+        <button class="nav-btn" data-page="chat">💬 <span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4780,6 +4761,14 @@ https://domain3.com"></textarea>
 
 
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
+    const authBook=document.getElementById("authBook"),authBookCover=document.getElementById("authBookCover");
+    function openAuthBook(){
+      if(!authBook)return;
+      authBook.classList.remove("book-closed");
+      authBook.classList.add("book-opened");
+      setTimeout(()=>document.getElementById("loginEmail")?.focus(),180);
+    }
+    authBookCover?.addEventListener("click",openAuthBook);
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
@@ -4960,22 +4949,7 @@ logoutBtn=document.getElementById("logoutBtn"),
 sidebarUserBox=document.getElementById("sidebarUserBox"),
 ownerUsersList=document.getElementById("ownerUsersList"),
 refreshUsersBtn=document.getElementById("refreshUsersBtn"),
-dashboardWelcomeName=document.getElementById("dashboardWelcomeName"),
-authBook=document.getElementById("authBook"),
-authBookCover=document.getElementById("authBookCover");
-
-function openAuthBook(){
-  if(!authBook)return;
-  authBook.classList.remove("book-closed");
-  authBook.classList.add("book-opened");
-  setTimeout(()=>document.getElementById("loginEmail")?.focus(),360);
-}
-function closeAuthBook(){
-  if(!authBook)return;
-  authBook.classList.add("book-closed");
-  authBook.classList.remove("book-opened");
-}
-authBookCover?.addEventListener("click",openAuthBook);
+dashboardWelcomeName=document.getElementById("dashboardWelcomeName");
 
 function setAuthMessage(message="",success=false){
   if(!authMessage)return;
@@ -4996,7 +4970,6 @@ function authErrorText(error){
   return map[code]||error?.message||"Terjadi kesalahan autentikasi.";
 }
 document.querySelectorAll(".auth-tab").forEach(btn=>btn.addEventListener("click",()=>{
-  openAuthBook();
   document.querySelectorAll(".auth-tab").forEach(x=>x.classList.toggle("active",x===btn));
   const tab=btn.dataset.authTab;
   loginForm.classList.toggle("active",tab==="login");
@@ -5191,7 +5164,6 @@ auth.onAuthStateChanged(async user=>{
     if(typeof stopJadwalListener==="function") stopJadwalListener();
     authGate?.classList.remove("hidden");
     authGate?.classList.remove("checking");
-    closeAuthBook();
     document.querySelector(".app").style.display="none";
     clearLoginForm();
     document.querySelectorAll(".auth-tab").forEach(tab=>{
@@ -5199,7 +5171,7 @@ auth.onAuthStateChanged(async user=>{
     });
     loginForm?.classList.add("active");
     registerForm?.classList.remove("active");
-    setTimeout(()=>{if(authBook?.classList.contains("book-opened"))document.getElementById("loginEmail")?.focus()},160);
+    setTimeout(()=>document.getElementById("loginEmail")?.focus(),160);
     return;
   }
   try{
@@ -5352,14 +5324,7 @@ const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan k
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
-    navButtons.forEach(b=>b.addEventListener("click",function(){
-      const page=this.dataset.page;
-      if(page==="chat"){
-        window.open("http://chatjoni.netlify.app/","_blank","noopener");
-        return;
-      }
-      openPage(page);
-    }));
+    navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
     if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
     if(togelDropdownBtn)togelDropdownBtn.addEventListener("click",()=>{togelSubmenu.classList.toggle("show");togelDropdownIcon.textContent=togelSubmenu.classList.contains("show")?"▴":"▾"});
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
@@ -7962,7 +7927,7 @@ drawSyair();
       try{await pkCsDb.child(id).remove();return true}
       catch(error){console.error(error);showToast("Gagal menghapus PK dari Firebase");return false}
     }
-    function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+    function pkcsEscape(t){return String(t||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
     function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
     function pkcsGetMatches(query){
       const normalizedQuery=pkcsNormalize(query);
@@ -8304,42 +8269,63 @@ drawSyair();
       return Object.fromEntries(parts.map(p=>[p.type,p.value]));
     }
 
-    function prediksiTodayTextWIB(){
+    function prediksiDateTextWIB(offsetDays=0){
+      const base=new Date(Date.now()+(Number(offsetDays)||0)*24*60*60*1000);
       const parts=new Intl.DateTimeFormat("id-ID",{
         timeZone:"Asia/Jakarta",
         weekday:"long",
         day:"numeric",
         month:"long",
         year:"numeric"
-      }).formatToParts(new Date());
+      }).formatToParts(base);
 
       const get=type=>parts.find(p=>p.type===type)?.value||"";
       const text=`${get("weekday")}, ${get("day")} ${get("month")} ${get("year")}`;
       return text.replace(/\b\w/g,c=>c.toUpperCase());
     }
 
-    function prediksiContentToday(content){
-      const today=prediksiTodayTextWIB();
+    function prediksiTodayTextWIB(){
+      return prediksiDateTextWIB(0);
+    }
+
+    function prediksiDateOffsetForItem(item){
+      const name=String(item?.name||"");
+      if(/\bBESOK\b/i.test(name))return 1;
+      if(item?.status && item.status.open===false)return 1;
+      return 0;
+    }
+
+    function prediksiContentWithDate(content,offsetDays=0){
+      const targetDate=prediksiDateTextWIB(offsetDays);
       const lines=String(content||"").split(/\r?\n/);
 
       const dayDate=/^\s*(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu)\s*,?\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
       const dateOnly=/^\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
 
-      const dateIndex=lines.findIndex(line=>dayDate.test(line)||dateOnly.test(line));
-      if(dateIndex>=0){
-        lines[dateIndex]=today;
+      let changed=false;
+      for(let i=0;i<lines.length;i++){
+        if(dayDate.test(lines[i])||dateOnly.test(lines[i])){
+          lines[i]=targetDate;
+          changed=true;
+        }
+      }
+      if(changed)return lines.join("\n");
+
+      const prediksiIndexes=[];
+      lines.forEach((line,index)=>{if(/^\s*PREDIKSI\b/i.test(line))prediksiIndexes.push(index)});
+      if(prediksiIndexes.length){
+        for(let i=prediksiIndexes.length-1;i>=0;i--){
+          lines.splice(prediksiIndexes[i]+1,0,targetDate);
+        }
         return lines.join("\n");
       }
 
-      const prediksiIndex=lines.findIndex(line=>/^\s*PREDIKSI\b/i.test(line));
-      if(prediksiIndex>=0){
-        lines.splice(prediksiIndex+1,0,today);
-        return lines.join("\n");
-      }
-
-      return today+"\n"+String(content||"");
+      return targetDate+"\n"+String(content||"");
     }
 
+    function prediksiContentToday(content){
+      return prediksiContentWithDate(content,0);
+    }
     function prediksiTimeToMinutes(value){
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
       return m?Number(m[1])*60+Number(m[2]):null;
@@ -8380,23 +8366,15 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* Status mengikuti jadwal: TUTUP hanya di antara jam Tutup sampai jam Buka.
-         Setelah jam Buka lewat, pasaran kembali BUKA untuk result berikutnya. */
-      let isClosed=false;
-      if(openMin!==null){
-        if(closeMin<openMin){
-          isClosed=nowMin>=closeMin&&nowMin<openMin;
-        }else if(closeMin>openMin){
-          isClosed=nowMin>=closeMin||nowMin<openMin;
-        }
+      /* Status harian untuk PREDIKSI TOGEL:
+         - BUKA dari pergantian hari sampai jam Tutup.
+         - Setelah jam Tutup lewat, tetap TUTUP sampai ganti hari berikutnya.
+         - Jam Buka tetap ditampilkan sebagai info jadwal, bukan membuat status kembali BUKA di hari yang sama. */
+      if(nowMin>=closeMin){
+        return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
       }
 
-      if(isClosed){
-        const diffToOpen=openMin>=nowMin ? openMin-nowMin : (1440-nowMin)+openMin;
-        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToOpen)} lagi`};
-      }
-
-      const diffToClose=nowMin<closeMin ? closeMin-nowMin : (1440-nowMin)+closeMin;
+      const diffToClose=closeMin-nowMin;
       return {open:true,label:"BUKA",countdown:`Tutup ${formatDiff(diffToClose)} lagi`};
     }
     function prediksiEscape(value){
