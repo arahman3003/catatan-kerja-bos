@@ -3995,11 +3995,9 @@ CATATAN:
         <button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button>
         <button class="nav-btn" data-page="notepad">📝 <span class="menu-label">Notepad</span></button>
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
-        <button class="dropdown-btn" id="togelDropdownBtn">🔮 <span class="menu-label">Togel</span> <span id="togelDropdownIcon">▾</span></button>
-        <div class="submenu" id="togelSubmenu">
-          <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
-          <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        </div>
+        <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
+
+        <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4008,9 +4006,9 @@ CATATAN:
           <button class="nav-btn" data-page="prediksi">🔮 <span class="menu-label">Prediksi</span></button>
         </div>
 
-        <button class="nav-btn chat-sidebar-btn" data-page="chat">💬 <span class="menu-label">CHAT</span></button>
         <button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
         <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button>
+        <button type="button" class="chat-sidebar-btn" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
         <button class="nav-btn owner-only" data-page="user-management" style="display:none">👑 <span class="menu-label">Manajemen User</span></button>
       </nav>
       <div class="sidebar-footer sidebar-footer-logout-only">
@@ -4716,7 +4714,7 @@ https://domain3.com"></textarea>
 
 
 
-    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
+    const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
@@ -4798,7 +4796,7 @@ const ALL_MENU_KEYS = [
   "dashboard","pk-cs","notepad","gambar",
   "prediksi-togel","jadwal-togel",
   "prediksi","syair-togel","bukti-kemenangan",
-  "chat","selisih","link-domain","user-management"
+  "selisih","link-domain","user-management"
 ];
 
 const MENU_LABELS = {
@@ -4811,7 +4809,6 @@ const MENU_LABELS = {
   prediksi:"Prediksi",
   "syair-togel":"Syair Togel",
   "bukti-kemenangan":"Bukti Kemenangan",
-  chat:"CHAT",
   selisih:"Selisih",
   "link-domain":"Link Domain",
   "user-management":"Manajemen User"
@@ -4841,16 +4838,16 @@ function makePermissions(enabledKeys=[]){
 }
 
 const ROLE_PERMISSION_PRESETS = {
-  kasir:makePermissions(["chat"]),
-  "kapten-kasir":makePermissions(["chat"]),
+  kasir:makePermissions([]),
+  "kapten-kasir":makePermissions([]),
 
   "cs-livechat":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat"
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad"
   ]),
 
   "cs-line":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat",
-    "prediksi","syair-togel","bukti-kemenangan","link-domain","chat"
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad",
+    "prediksi","syair-togel","bukti-kemenangan","link-domain"
   ]),
 
   leader:makePermissions(ALL_MENU_KEYS),
@@ -5047,12 +5044,7 @@ function updateAccessUI(){
   document.querySelectorAll(".submenu").forEach(sub=>{
     const visible=[...sub.querySelectorAll(".nav-btn")].some(x=>x.style.display!=="none");
     if(!visible)sub.classList.remove("show");
-
-    if(sub.id==="togelSubmenu" && typeof togelDropdownBtn!=="undefined" && togelDropdownBtn){
-      togelDropdownBtn.style.display=visible?"flex":"none";
-    }
-
-    if(sub.id==="postinganSubmenu" && typeof postinganDropdownBtn!=="undefined" && postinganDropdownBtn){
+if(sub.id==="postinganSubmenu" && typeof postinganDropdownBtn!=="undefined" && postinganDropdownBtn){
       postinganDropdownBtn.style.display=visible?"flex":"none";
     }
   });
@@ -5272,16 +5264,8 @@ const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan k
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
-    navButtons.forEach(b=>b.addEventListener("click",function(){
-      const page=this.dataset.page;
-      if(page==="chat"){
-        window.open("http://chatjoni.netlify.app/","_blank","noopener");
-        return;
-      }
-      openPage(page);
-    }));
+    navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
     if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
-    if(togelDropdownBtn)togelDropdownBtn.addEventListener("click",()=>{togelSubmenu.classList.toggle("show");togelDropdownIcon.textContent=togelSubmenu.classList.contains("show")?"▴":"▾"});
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
     function openNoteModal(){noteModal.classList.add("show");setTimeout(()=>noteTitle.focus(),50)}function closeNoteModal(){noteModal.classList.remove("show")}
     function setModalColor(c){noteColor.value=c;document.querySelectorAll(".modal-color-dot").forEach(d=>d.classList.toggle("active",d.dataset.color===c))}
@@ -8300,23 +8284,15 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* Status mengikuti jadwal: TUTUP hanya di antara jam Tutup sampai jam Buka.
-         Setelah jam Buka lewat, pasaran kembali BUKA untuk result berikutnya. */
-      let isClosed=false;
-      if(openMin!==null){
-        if(closeMin<openMin){
-          isClosed=nowMin>=closeMin&&nowMin<openMin;
-        }else if(closeMin>openMin){
-          isClosed=nowMin>=closeMin||nowMin<openMin;
-        }
+      /* Status harian untuk PREDIKSI TOGEL:
+         - BUKA dari pergantian hari sampai jam Tutup.
+         - Setelah jam Tutup lewat, tetap TUTUP sampai ganti hari berikutnya.
+         - Jam Buka tetap ditampilkan sebagai info jadwal, bukan membuat status kembali BUKA di hari yang sama. */
+      if(nowMin>=closeMin){
+        return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
       }
 
-      if(isClosed){
-        const diffToOpen=openMin>=nowMin ? openMin-nowMin : (1440-nowMin)+openMin;
-        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToOpen)} lagi`};
-      }
-
-      const diffToClose=nowMin<closeMin ? closeMin-nowMin : (1440-nowMin)+closeMin;
+      const diffToClose=closeMin-nowMin;
       return {open:true,label:"BUKA",countdown:`Tutup ${formatDiff(diffToClose)} lagi`};
     }
     function prediksiEscape(value){
