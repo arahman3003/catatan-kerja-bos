@@ -757,8 +757,16 @@ CATATAN:
       backface-visibility:hidden
     }
     .auth-book-cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;pointer-events:none}
-    .auth-book-cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.06),rgba(3,7,18,.58)),radial-gradient(circle at 50% 42%,rgba(255,255,255,.07),transparent 44%);pointer-events:none}
-    .auth-book-cover-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:34px 24px;text-align:center;z-index:2}
+    .auth-book-cover-overlay{
+      position:absolute;inset:0;background:
+        linear-gradient(180deg,rgba(3,7,18,.06),rgba(3,7,18,.58)),
+        radial-gradient(circle at 50% 42%,rgba(255,255,255,.07),transparent 44%);
+      pointer-events:none
+    }
+    .auth-book-cover-content{
+      position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+      padding:34px 24px;text-align:center;z-index:2
+    }
     .auth-book-cover .auth-book-symbol{font-size:48px!important;color:#f6c453;line-height:1;margin-bottom:10px}
     .auth-book-cover .auth-book-jp{font-size:27px!important;font-weight:900;color:#fff;letter-spacing:2px}
     .auth-book-cover .auth-book-sub{font-size:11px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
@@ -767,10 +775,12 @@ CATATAN:
     .auth-card.auth-book.book-closed .auth-book-left,.auth-card.auth-book.book-closed .auth-book-right{filter:brightness(.76)}
     .auth-card.auth-book.book-opened .auth-book-left,.auth-card.auth-book.book-opened .auth-book-right{animation:authBookPageIn .38s ease both}
     @keyframes authBookPageIn{from{opacity:.15;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
-    .auth-card.auth-book.book-closed{width:min(390px,90vw)!important;min-height:690px!important;border-radius:30px!important}
+    .auth-card.auth-book.book-closed{width:min(760px,88vw)!important;min-height:430px!important}
     .auth-card.auth-book.book-closed .auth-book-cover,.auth-card.auth-book.book-closed .auth-book-cover-img{width:100%!important;height:100%!important}
     .auth-card.auth-book:not(.book-closed) .auth-book-open-hint{display:none}
-    @media(max-width:760px){.auth-card.auth-book.book-closed{width:min(360px,94vw)!important;min-height:640px!important;border-radius:28px!important}}
+    @media(max-width:760px){
+      .auth-card.auth-book.book-closed{width:min(430px,94vw)!important;min-height:300px!important}
+    }
 
     .auth-logo{display:none}
     .auth-card h1{text-align:center;color:#f6c453;font-size:28px;margin-bottom:7px}
@@ -3954,6 +3964,47 @@ CATATAN:
       }
     }
 
+
+
+    /* FIX: ukuran card login setelah dibuka dibuat sama mode HP/portrait */
+    .auth-card.auth-book{
+      width:min(390px,90vw)!important;
+      min-height:690px!important;
+      grid-template-columns:1fr!important;
+      border-radius:30px!important;
+    }
+    .auth-card.auth-book .auth-book-left{
+      min-height:305px!important;
+      border-right:none!important;
+      border-bottom:1px solid rgba(255,255,255,.10)!important;
+    }
+    .auth-card.auth-book .auth-book-right{
+      min-height:385px!important;
+      align-items:flex-start!important;
+    }
+    .auth-card.auth-book .auth-card-content{
+      padding:22px 24px!important;
+    }
+    .auth-card.auth-book::after{
+      display:none!important;
+    }
+    .auth-card.auth-book .auth-book-left-content{
+      padding:22px!important;
+    }
+    .auth-card.auth-book .auth-book-video{
+      object-fit:cover!important;
+      object-position:center center!important;
+    }
+    @media(max-width:760px){
+      .auth-card.auth-book{
+        width:min(360px,94vw)!important;
+        min-height:640px!important;
+      }
+      .auth-card.auth-book .auth-book-left{min-height:285px!important}
+      .auth-card.auth-book .auth-book-right{min-height:355px!important}
+      .auth-card.auth-book .auth-card-content{padding:20px 20px!important}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -3967,7 +4018,7 @@ CATATAN:
 
     <div class="auth-card auth-book book-closed" id="authBook">
       <button type="button" class="auth-book-cover" id="authBookCover" aria-label="Buka halaman login">
-        <img class="auth-book-cover-img" src="https://i.imgur.com/zTgbtWo.jpeg" alt="Dashboard Access Cover">
+        <img class="auth-book-cover-img" src="https://i.imgur.com/qwarNZt.jpeg" alt="Dashboard Access Cover">
         <span class="auth-book-cover-overlay"></span>
         <span class="auth-book-cover-content">
           <span class="auth-book-symbol">⚔</span>
@@ -4033,7 +4084,7 @@ CATATAN:
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
         <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        <button type="button" class="chat-sidebar-btn chat-all-roles" title="Buka Chat" aria-label="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
+        <button type="button" class="chat-sidebar-btn" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4760,6 +4811,7 @@ https://domain3.com"></textarea>
     }
     authBookCover?.addEventListener("click",openAuthBook);
 
+
     document.addEventListener("click", function(e){
       const chatBtn = e.target.closest('[data-page="chat"]');
       if(!chatBtn) return;
@@ -4847,7 +4899,7 @@ registerAuth.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(console.e
 
 const ALL_MENU_KEYS = [
   "dashboard","pk-cs","notepad","gambar",
-  "prediksi-togel","jadwal-togel",
+  "prediksi-togel","jadwal-togel","chat",
   "prediksi","syair-togel","bukti-kemenangan",
   "selisih","link-domain","user-management"
 ];
@@ -4859,6 +4911,7 @@ const MENU_LABELS = {
   gambar:"Gambar",
   "prediksi-togel":"Prediksi Togel",
   "jadwal-togel":"Jadwal Togel",
+  chat:"CHAT",
   prediksi:"Prediksi",
   "syair-togel":"Syair Togel",
   "bukti-kemenangan":"Bukti Kemenangan",
@@ -4891,16 +4944,16 @@ function makePermissions(enabledKeys=[]){
 }
 
 const ROLE_PERMISSION_PRESETS = {
-  kasir:makePermissions([]),
-  "kapten-kasir":makePermissions([]),
+  kasir:makePermissions(["chat"]),
+  "kapten-kasir":makePermissions(["chat"]),
 
   "cs-livechat":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad"
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat"
   ]),
 
   "cs-line":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad",
-    "prediksi","syair-togel","bukti-kemenangan","link-domain"
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat",
+    "prediksi","syair-togel","bukti-kemenangan","link-domain","chat"
   ]),
 
   leader:makePermissions(ALL_MENU_KEYS),
@@ -4934,6 +4987,18 @@ function isFullAccessRole(role){
 function permissionsForRole(role){
   const normalized=normalizeRole(role);
   return {...(ROLE_PERMISSION_PRESETS[normalized]||ROLE_PERMISSION_PRESETS["cs-livechat"])};
+}
+
+function mergedUserPermissions(profile){
+  const role=normalizeRole(profile?.role);
+  return {...permissionsForRole(role), ...(profile?.permissions||{})};
+}
+
+function hasProfilePermission(profile,key){
+  if(!profile || profile.status==="disabled")return false;
+  if(isFullAccessRole(profile.role))return true;
+  const merged=mergedUserPermissions(profile);
+  return merged[key]===true;
 }
 
 let currentAuthUser = null;
@@ -5078,22 +5143,24 @@ window.canOpenKerjaBossPage=function(page){
   if(currentUserProfile.status==="disabled")return false;
   if(isFullAccessRole(currentUserProfile.role))return true;
   if(page==="user-management")return false;
-  return currentUserProfile.permissions?.[page]===true;
+  return hasProfilePermission(currentUserProfile,page);
 };
 
 function updateAccessUI(){
   const isOwner=currentUserProfile?.role==="owner";
   const isFullAccess=isFullAccessRole(currentUserProfile?.role);
   document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isFullAccess?"flex":"none");
-  // CHAT wajib tampil untuk semua akun/role karena link eksternal, tidak ikut permission menu.
-  document.querySelectorAll(".chat-sidebar-btn").forEach(el=>el.style.display="flex");
+  document.querySelectorAll(".chat-sidebar-btn").forEach(el=>{
+    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,"chat");
+    el.style.display=allowed?"flex":"none";
+  });
   document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
     const page=btn.dataset.page;
     if(page==="user-management"){
       btn.style.display=isFullAccess?"flex":"none";
       return;
     }
-    const allowed=isFullAccess||currentUserProfile?.permissions?.[page]===true;
+    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,page);
     btn.style.display=allowed?"flex":"none";
   });
   document.querySelectorAll(".submenu").forEach(sub=>{
@@ -5222,7 +5289,7 @@ function renderOwnerUsers(users){
   ownerUsersList.innerHTML=list.map(user=>{
     const role=normalizeRole(user.role);
     const fullAccess=isFullAccessRole(role);
-    const permissions=user.permissions||permissionsForRole(role);
+    const permissions={...permissionsForRole(role), ...(user.permissions||{})};
     const lockedOwner=user.email===OWNER_EMAIL;
     return `<div class="owner-user-card" data-uid="${user.uid}">
       <div class="owner-user-head">
@@ -5289,7 +5356,10 @@ ownerUsersList?.addEventListener("click",async e=>{
   const role=card.querySelector(".manage-role").value;
   const status=card.querySelector(".manage-status").value;
   const normalizedRole=normalizeRole(role);
-  const permissions=permissionsForRole(normalizedRole);
+  const fullAccess=isFullAccessRole(normalizedRole);
+  const permissions=fullAccess
+    ? permissionsForRole(normalizedRole)
+    : Object.fromEntries(ALL_MENU_KEYS.map(key=>[key, card.querySelector(`[data-permission="${key}"]`)?.checked===true]));
   saveBtn.disabled=true;
   saveBtn.textContent="Menyimpan...";
   try{
@@ -8367,13 +8437,12 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* LOGIKA PREDIKSI TOGEL:
-         - BUKA hanya sebelum jam TUTUP hari ini.
-         - Setelah jam TUTUP lewat, status tetap TUTUP sampai pergantian hari 00:00 WIB.
-         - Jam BUKA dari jadwal hanya ditampilkan sebagai informasi, bukan untuk membuka ulang di hari yang sama. */
+      /* Status harian untuk PREDIKSI TOGEL:
+         - BUKA dari pergantian hari sampai jam Tutup.
+         - Setelah jam Tutup lewat, tetap TUTUP sampai ganti hari berikutnya.
+         - Jam Buka tetap ditampilkan sebagai info jadwal, bukan membuat status kembali BUKA di hari yang sama. */
       if(nowMin>=closeMin){
-        const diffToMidnight=1440-nowMin;
-        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToMidnight)} lagi`};
+        return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
       }
 
       const diffToClose=closeMin-nowMin;
