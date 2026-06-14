@@ -4008,7 +4008,7 @@ CATATAN:
           <button class="nav-btn" data-page="prediksi">🔮 <span class="menu-label">Prediksi</span></button>
         </div>
 
-        <button type="button" class="chat-sidebar-btn" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
+        <button type="button" class="chat-sidebar-btn chat-all-roles" title="Buka Chat" aria-label="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
         <button class="nav-btn" data-page="selisih">⇄ <span class="menu-label">Selisih</span></button>
         <button class="nav-btn" data-page="link-domain">🔗 <span class="menu-label">Link Domain</span></button>
         <button class="nav-btn owner-only" data-page="user-management" style="display:none">👑 <span class="menu-label">Manajemen User</span></button>
@@ -5034,6 +5034,8 @@ function updateAccessUI(){
   const isOwner=currentUserProfile?.role==="owner";
   const isFullAccess=isFullAccessRole(currentUserProfile?.role);
   document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isFullAccess?"flex":"none");
+  // CHAT wajib tampil untuk semua akun/role karena link eksternal, tidak ikut permission menu.
+  document.querySelectorAll(".chat-sidebar-btn").forEach(el=>el.style.display="flex");
   document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
     const page=btn.dataset.page;
     if(page==="user-management"){
@@ -8292,12 +8294,13 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* Status harian untuk PREDIKSI TOGEL:
-         - BUKA dari pergantian hari sampai jam Tutup.
-         - Setelah jam Tutup lewat, tetap TUTUP sampai ganti hari berikutnya.
-         - Jam Buka tetap ditampilkan sebagai info jadwal, bukan membuat status kembali BUKA di hari yang sama. */
+      /* LOGIKA PREDIKSI TOGEL:
+         - BUKA hanya sebelum jam TUTUP hari ini.
+         - Setelah jam TUTUP lewat, status tetap TUTUP sampai pergantian hari 00:00 WIB.
+         - Jam BUKA dari jadwal hanya ditampilkan sebagai informasi, bukan untuk membuka ulang di hari yang sama. */
       if(nowMin>=closeMin){
-        return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
+        const diffToMidnight=1440-nowMin;
+        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToMidnight)} lagi`};
       }
 
       const diffToClose=closeMin-nowMin;
