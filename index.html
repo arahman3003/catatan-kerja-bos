@@ -705,7 +705,7 @@ CATATAN:
         linear-gradient(180deg,rgba(3,7,18,.18),rgba(3,7,18,.42))
     }
     .auth-card.auth-book{
-      position:relative;z-index:2;width:min(760px,92vw);min-height:475px;padding:0;border-radius:22px;
+      position:relative;z-index:2;width:min(1040px,94vw);min-height:620px;padding:0;border-radius:22px;
       overflow:hidden;display:grid;grid-template-columns:1fr 1fr;
       background:#050505;border:1px solid rgba(255,255,255,.18);
       box-shadow:0 28px 80px rgba(0,0,0,.62);color:#f8fafc
@@ -2048,7 +2048,7 @@ CATATAN:
     .auth-book-right input{
       height:38px!important;
       padding:0 12px!important;
-      font-size:16px!important;
+      font-size:12px!important;
     }
     .auth-book-right .auth-submit{
       padding:10px 14px!important;
@@ -3955,7 +3955,7 @@ CATATAN:
       <div class="auth-book-right">
         <div class="auth-card-content">
       <h1>ロロノア・ゾロ</h1>
-      <p></p>
+      <p>Masuk untuk membuka dashboard. Pengguna baru otomatis terdaftar sebagai CS Livechat.</p>
       <div class="auth-tabs">
         <button type="button" class="auth-tab active" data-auth-tab="login">LOGIN</button>
         <button type="button" class="auth-tab" data-auth-tab="register">DAFTAR</button>
@@ -3995,9 +3995,11 @@ CATATAN:
         <button class="nav-btn" data-page="pk-cs">📋 <span class="menu-label">PK CS</span></button>
         <button class="nav-btn" data-page="notepad">📝 <span class="menu-label">Notepad</span></button>
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
-        <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
-        <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        <button type="button" class="chat-sidebar-btn" data-permission="chat" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
+        <button class="dropdown-btn" id="togelDropdownBtn">🔮 <span class="menu-label">Togel</span> <span id="togelDropdownIcon">▾</span></button>
+        <div class="submenu" id="togelSubmenu">
+          <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
+          <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
+        </div>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4793,9 +4795,9 @@ registerAuth.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(console.e
 
 const ALL_MENU_KEYS = [
   "dashboard","pk-cs","notepad","gambar",
-  "prediksi-togel","jadwal-togel","chat",
+  "prediksi-togel","jadwal-togel",
   "prediksi","syair-togel","bukti-kemenangan",
-  "selisih","link-domain","user-management"
+  "chat","selisih","link-domain","user-management"
 ];
 
 const MENU_LABELS = {
@@ -4805,10 +4807,10 @@ const MENU_LABELS = {
   gambar:"Gambar",
   "prediksi-togel":"Prediksi Togel",
   "jadwal-togel":"Jadwal Togel",
-  chat:"CHAT",
   prediksi:"Prediksi",
   "syair-togel":"Syair Togel",
   "bukti-kemenangan":"Bukti Kemenangan",
+  chat:"CHAT",
   selisih:"Selisih",
   "link-domain":"Link Domain",
   "user-management":"Manajemen User"
@@ -4881,18 +4883,6 @@ function isFullAccessRole(role){
 function permissionsForRole(role){
   const normalized=normalizeRole(role);
   return {...(ROLE_PERMISSION_PRESETS[normalized]||ROLE_PERMISSION_PRESETS["cs-livechat"])};
-}
-
-function mergedUserPermissions(profile){
-  const role=normalizeRole(profile?.role);
-  return {...permissionsForRole(role), ...(profile?.permissions||{})};
-}
-
-function hasProfilePermission(profile,key){
-  if(!profile || profile.status==="disabled")return false;
-  if(isFullAccessRole(profile.role))return true;
-  const merged=mergedUserPermissions(profile);
-  return merged[key]===true;
 }
 
 let currentAuthUser = null;
@@ -5037,24 +5027,20 @@ window.canOpenKerjaBossPage=function(page){
   if(currentUserProfile.status==="disabled")return false;
   if(isFullAccessRole(currentUserProfile.role))return true;
   if(page==="user-management")return false;
-  return hasProfilePermission(currentUserProfile,page);
+  return currentUserProfile.permissions?.[page]===true;
 };
 
 function updateAccessUI(){
   const isOwner=currentUserProfile?.role==="owner";
   const isFullAccess=isFullAccessRole(currentUserProfile?.role);
   document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isFullAccess?"flex":"none");
-  document.querySelectorAll(".chat-sidebar-btn").forEach(el=>{
-    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,"chat");
-    el.style.display=allowed?"flex":"none";
-  });
   document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
     const page=btn.dataset.page;
     if(page==="user-management"){
       btn.style.display=isFullAccess?"flex":"none";
       return;
     }
-    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,page);
+    const allowed=isFullAccess||currentUserProfile?.permissions?.[page]===true;
     btn.style.display=allowed?"flex":"none";
   });
   document.querySelectorAll(".submenu").forEach(sub=>{
@@ -5183,7 +5169,7 @@ function renderOwnerUsers(users){
   ownerUsersList.innerHTML=list.map(user=>{
     const role=normalizeRole(user.role);
     const fullAccess=isFullAccessRole(role);
-    const permissions={...permissionsForRole(role), ...(user.permissions||{})};
+    const permissions=user.permissions||permissionsForRole(role);
     const lockedOwner=user.email===OWNER_EMAIL;
     return `<div class="owner-user-card" data-uid="${user.uid}">
       <div class="owner-user-head">
@@ -5250,10 +5236,7 @@ ownerUsersList?.addEventListener("click",async e=>{
   const role=card.querySelector(".manage-role").value;
   const status=card.querySelector(".manage-status").value;
   const normalizedRole=normalizeRole(role);
-  const fullAccess=isFullAccessRole(normalizedRole);
-  const permissions=fullAccess
-    ? permissionsForRole(normalizedRole)
-    : Object.fromEntries(ALL_MENU_KEYS.map(key=>[key, card.querySelector(`[data-permission="${key}"]`)?.checked===true]));
+  const permissions=permissionsForRole(normalizedRole);
   saveBtn.disabled=true;
   saveBtn.textContent="Menyimpan...";
   try{
@@ -5288,7 +5271,14 @@ const NOTE_CATEGORY_MIGRATION_CUTOFF = 1781199000000; // note lama dipindahkan k
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
-    navButtons.forEach(b=>b.addEventListener("click",function(){openPage(this.dataset.page)}));
+    navButtons.forEach(b=>b.addEventListener("click",function(){
+      const page=this.dataset.page;
+      if(page==="chat"){
+        window.open("http://chatjoni.netlify.app/","_blank","noopener");
+        return;
+      }
+      openPage(page);
+    }));
     if(postinganDropdownBtn)postinganDropdownBtn.addEventListener("click",()=>{postinganSubmenu.classList.toggle("show");dropdownIcon.textContent=postinganSubmenu.classList.contains("show")?"▴":"▾"});
     if(togelDropdownBtn)togelDropdownBtn.addEventListener("click",()=>{togelSubmenu.classList.toggle("show");togelDropdownIcon.textContent=togelSubmenu.classList.contains("show")?"▴":"▾"});
     if(heroPostinganBtn)heroPostinganBtn.addEventListener("click",()=>{postinganSubmenu.classList.add("show");dropdownIcon.textContent="▴"});
@@ -7891,7 +7881,7 @@ drawSyair();
       try{await pkCsDb.child(id).remove();return true}
       catch(error){console.error(error);showToast("Gagal menghapus PK dari Firebase");return false}
     }
-    function pkcsEscape(t){return String(t||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+    function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
     function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
     function pkcsGetMatches(query){
       const normalizedQuery=pkcsNormalize(query);
@@ -8233,63 +8223,42 @@ drawSyair();
       return Object.fromEntries(parts.map(p=>[p.type,p.value]));
     }
 
-    function prediksiDateTextWIB(offsetDays=0){
-      const base=new Date(Date.now()+(Number(offsetDays)||0)*24*60*60*1000);
+    function prediksiTodayTextWIB(){
       const parts=new Intl.DateTimeFormat("id-ID",{
         timeZone:"Asia/Jakarta",
         weekday:"long",
         day:"numeric",
         month:"long",
         year:"numeric"
-      }).formatToParts(base);
+      }).formatToParts(new Date());
 
       const get=type=>parts.find(p=>p.type===type)?.value||"";
       const text=`${get("weekday")}, ${get("day")} ${get("month")} ${get("year")}`;
       return text.replace(/\b\w/g,c=>c.toUpperCase());
     }
 
-    function prediksiTodayTextWIB(){
-      return prediksiDateTextWIB(0);
-    }
-
-    function prediksiDateOffsetForItem(item){
-      const name=String(item?.name||"");
-      if(/\bBESOK\b/i.test(name))return 1;
-      if(item?.status && item.status.open===false)return 1;
-      return 0;
-    }
-
-    function prediksiContentWithDate(content,offsetDays=0){
-      const targetDate=prediksiDateTextWIB(offsetDays);
+    function prediksiContentToday(content){
+      const today=prediksiTodayTextWIB();
       const lines=String(content||"").split(/\r?\n/);
 
       const dayDate=/^\s*(senin|selasa|rabu|kamis|jumat|jum'at|sabtu|minggu)\s*,?\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
       const dateOnly=/^\s*\d{1,2}\s+(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}\s*$/i;
 
-      let changed=false;
-      for(let i=0;i<lines.length;i++){
-        if(dayDate.test(lines[i])||dateOnly.test(lines[i])){
-          lines[i]=targetDate;
-          changed=true;
-        }
-      }
-      if(changed)return lines.join("\n");
-
-      const prediksiIndexes=[];
-      lines.forEach((line,index)=>{if(/^\s*PREDIKSI\b/i.test(line))prediksiIndexes.push(index)});
-      if(prediksiIndexes.length){
-        for(let i=prediksiIndexes.length-1;i>=0;i--){
-          lines.splice(prediksiIndexes[i]+1,0,targetDate);
-        }
+      const dateIndex=lines.findIndex(line=>dayDate.test(line)||dateOnly.test(line));
+      if(dateIndex>=0){
+        lines[dateIndex]=today;
         return lines.join("\n");
       }
 
-      return targetDate+"\n"+String(content||"");
+      const prediksiIndex=lines.findIndex(line=>/^\s*PREDIKSI\b/i.test(line));
+      if(prediksiIndex>=0){
+        lines.splice(prediksiIndex+1,0,today);
+        return lines.join("\n");
+      }
+
+      return today+"\n"+String(content||"");
     }
 
-    function prediksiContentToday(content){
-      return prediksiContentWithDate(content,0);
-    }
     function prediksiTimeToMinutes(value){
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
       return m?Number(m[1])*60+Number(m[2]):null;
@@ -8330,15 +8299,23 @@ drawSyair();
         return {open:true,label:"BUKA",countdown:"Jadwal aktif"};
       }
 
-      /* Status harian untuk PREDIKSI TOGEL:
-         - BUKA dari pergantian hari sampai jam Tutup.
-         - Setelah jam Tutup lewat, tetap TUTUP sampai ganti hari berikutnya.
-         - Jam Buka tetap ditampilkan sebagai info jadwal, bukan membuat status kembali BUKA di hari yang sama. */
-      if(nowMin>=closeMin){
-        return {open:false,label:"TUTUP",countdown:"Sudah tutup hari ini"};
+      /* Status mengikuti jadwal: TUTUP hanya di antara jam Tutup sampai jam Buka.
+         Setelah jam Buka lewat, pasaran kembali BUKA untuk result berikutnya. */
+      let isClosed=false;
+      if(openMin!==null){
+        if(closeMin<openMin){
+          isClosed=nowMin>=closeMin&&nowMin<openMin;
+        }else if(closeMin>openMin){
+          isClosed=nowMin>=closeMin||nowMin<openMin;
+        }
       }
 
-      const diffToClose=closeMin-nowMin;
+      if(isClosed){
+        const diffToOpen=openMin>=nowMin ? openMin-nowMin : (1440-nowMin)+openMin;
+        return {open:false,label:"TUTUP",countdown:`Buka ${formatDiff(diffToOpen)} lagi`};
+      }
+
+      const diffToClose=nowMin<closeMin ? closeMin-nowMin : (1440-nowMin)+closeMin;
       return {open:true,label:"BUKA",countdown:`Tutup ${formatDiff(diffToClose)} lagi`};
     }
     function prediksiEscape(value){
