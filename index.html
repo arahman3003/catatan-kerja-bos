@@ -4068,6 +4068,73 @@ CATATAN:
       .auth-card.auth-book.book-opened::after{display:none!important}
     }
 
+    /* ANIMASI BUKA BUKU: cover geser/flip halus ke halaman login */
+    .auth-card.auth-book.book-opening{
+      position:relative!important;
+      width:min(760px,94vw)!important;
+      min-height:690px!important;
+      display:grid!important;
+      grid-template-columns:1fr 1fr!important;
+      border-radius:30px!important;
+      overflow:hidden!important;
+      perspective:1800px!important;
+      transform-style:preserve-3d!important;
+      transition:width .55s cubic-bezier(.22,.9,.25,1), min-height .55s cubic-bezier(.22,.9,.25,1), transform .55s ease!important;
+    }
+    .auth-card.auth-book.book-opening .auth-book-left,
+    .auth-card.auth-book.book-opening .auth-book-right{
+      display:flex!important;
+      min-height:690px!important;
+      visibility:visible!important;
+      pointer-events:none!important;
+      opacity:0!important;
+      animation:authLoginPageReveal .78s cubic-bezier(.22,.9,.25,1) .28s forwards!important;
+    }
+    .auth-card.auth-book.book-opening .auth-book-left{border-right:1px solid rgba(255,255,255,.10)!important;border-bottom:none!important}
+    .auth-card.auth-book.book-opening .auth-book-right{align-items:center!important}
+    .auth-card.auth-book.book-opening::after{display:block!important;opacity:0;animation:authBookSpineReveal .55s ease .34s forwards}
+    .auth-card.auth-book.book-opening .auth-book-cover{
+      display:flex!important;
+      transform-origin:left center!important;
+      transform-style:preserve-3d!important;
+      backface-visibility:hidden!important;
+      will-change:transform,opacity,filter!important;
+      animation:authBookCoverOpen .95s cubic-bezier(.18,.86,.22,1) forwards!important;
+      box-shadow:22px 0 45px rgba(0,0,0,.42)!important;
+    }
+    .auth-card.auth-book.book-opening .auth-book-cover::after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(0,0,0,.42),rgba(255,255,255,.08) 18%,rgba(0,0,0,.18) 52%,rgba(0,0,0,.42));
+      opacity:0;animation:authBookCoverShade .95s ease forwards;
+    }
+    @keyframes authBookCoverOpen{
+      0%{transform:translateX(0) rotateY(0deg) scale(1);opacity:1;filter:brightness(1)}
+      42%{transform:translateX(-10%) rotateY(-42deg) scale(1.01);opacity:1;filter:brightness(.93)}
+      78%{transform:translateX(-42%) rotateY(-82deg) scale(1.015);opacity:.82;filter:brightness(.78)}
+      100%{transform:translateX(-54%) rotateY(-104deg) scale(1.02);opacity:0;filter:brightness(.65)}
+    }
+    @keyframes authLoginPageReveal{
+      0%{opacity:0;transform:translateX(18px) scale(.985);filter:blur(4px)}
+      100%{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
+    }
+    @keyframes authBookSpineReveal{to{opacity:1}}
+    @keyframes authBookCoverShade{
+      0%{opacity:0}
+      40%{opacity:.45}
+      100%{opacity:.08}
+    }
+    @media(max-width:760px){
+      .auth-card.auth-book.book-opening{width:min(360px,94vw)!important;min-height:640px!important;grid-template-columns:1fr!important}
+      .auth-card.auth-book.book-opening .auth-book-left{min-height:285px!important;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.10)!important}
+      .auth-card.auth-book.book-opening .auth-book-right{min-height:355px!important}
+      .auth-card.auth-book.book-opening::after{display:none!important}
+      .auth-card.auth-book.book-opening .auth-book-cover{animation:authBookCoverOpenMobile .72s cubic-bezier(.18,.86,.22,1) forwards!important}
+    }
+    @keyframes authBookCoverOpenMobile{
+      0%{transform:translateY(0) scale(1);opacity:1;filter:brightness(1)}
+      100%{transform:translateY(-18px) scale(1.025);opacity:0;filter:brightness(.72)}
+    }
+
 </style>
 </head>
 <body class="dark-workspace">
@@ -4868,10 +4935,14 @@ https://domain3.com"></textarea>
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
     const authBook=document.getElementById("authBook"),authBookCover=document.getElementById("authBookCover");
     function openAuthBook(){
-      if(!authBook)return;
+      if(!authBook || authBook.classList.contains("book-opening") || authBook.classList.contains("book-opened"))return;
       authBook.classList.remove("book-closed");
-      authBook.classList.add("book-opened");
-      setTimeout(()=>document.getElementById("loginEmail")?.focus(),180);
+      authBook.classList.add("book-opening");
+      setTimeout(()=>{
+        authBook.classList.remove("book-opening");
+        authBook.classList.add("book-opened");
+        document.getElementById("loginEmail")?.focus();
+      },920);
     }
     authBookCover?.addEventListener("click",openAuthBook);
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
