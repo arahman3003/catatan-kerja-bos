@@ -705,7 +705,7 @@ CATATAN:
         linear-gradient(180deg,rgba(3,7,18,.18),rgba(3,7,18,.42))
     }
     .auth-card.auth-book{
-      position:relative;z-index:2;width:min(760px,92vw);min-height:475px;padding:0;border-radius:22px;
+      position:relative;z-index:2;width:min(1040px,94vw);min-height:620px;padding:0;border-radius:22px;
       overflow:hidden;display:grid;grid-template-columns:1fr 1fr;
       background:#050505;border:1px solid rgba(255,255,255,.18);
       box-shadow:0 28px 80px rgba(0,0,0,.62);color:#f8fafc;
@@ -748,40 +748,39 @@ CATATAN:
       box-shadow:0 0 18px rgba(0,0,0,.6);pointer-events:none
     }
 
-
-    /* MODE BUKU LOGIN: cover gambar dulu, klik baru buka halaman login */
+    /* MODE BUKU LOGIN: awal tampil cover, klik untuk membuka login */
     .auth-book-cover{
       position:absolute;inset:0;z-index:12;border:0;padding:0;margin:0;cursor:pointer;
       background:#07101a;color:#fff;overflow:hidden;display:block;text-align:center;
       transform-origin:left center;transition:transform .72s cubic-bezier(.2,.8,.2,1),opacity .42s ease,visibility .42s ease;
       backface-visibility:hidden
     }
-    .auth-book-cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;pointer-events:none}
+    .auth-book-cover-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
     .auth-book-cover-overlay{
       position:absolute;inset:0;background:
-        linear-gradient(180deg,rgba(3,7,18,.06),rgba(3,7,18,.58)),
+        linear-gradient(180deg,rgba(3,7,18,.04),rgba(3,7,18,.58)),
         radial-gradient(circle at 50% 42%,rgba(255,255,255,.07),transparent 44%);
       pointer-events:none
     }
     .auth-book-cover-content{
       position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-      padding:34px 24px;text-align:center;z-index:2
+      padding:46px 30px;text-align:center;z-index:2
     }
-    .auth-book-cover .auth-book-symbol{font-size:48px!important;color:#f6c453;line-height:1;margin-bottom:10px}
-    .auth-book-cover .auth-book-jp{font-size:27px!important;font-weight:900;color:#fff;letter-spacing:2px}
-    .auth-book-cover .auth-book-sub{font-size:11px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
-    .auth-book-open-hint{margin-top:13px;padding:8px 14px;border-radius:999px;background:rgba(34,197,94,.72);border:1px solid rgba(134,239,172,.65);color:#fff;font-size:10px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;box-shadow:0 8px 22px rgba(34,197,94,.22)}
-    .auth-card.auth-book.book-opened .auth-book-cover{transform:rotateY(-112deg);opacity:0;visibility:hidden;pointer-events:none}
-    .auth-card.auth-book.book-closed .auth-book-left,.auth-card.auth-book.book-closed .auth-book-right{filter:brightness(.76)}
-    .auth-card.auth-book.book-opened .auth-book-left,.auth-card.auth-book.book-opened .auth-book-right{animation:authBookPageIn .38s ease both}
+    .auth-book-cover .auth-book-symbol{font-size:64px!important;color:#f6c453;line-height:1;margin-bottom:10px}
+    .auth-book-cover .auth-book-jp{font-size:36px!important;font-weight:900;color:#fff;letter-spacing:2px}
+    .auth-book-cover .auth-book-sub{font-size:13px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
+    .auth-book-open-hint{
+      margin-top:18px;padding:9px 15px;border-radius:999px;background:rgba(34,197,94,.20);
+      border:1px solid rgba(34,197,94,.45);color:#bbf7d0;font-size:11px;font-weight:900;letter-spacing:1px
+    }
+    .auth-card.auth-book.book-opened .auth-book-cover{
+      transform:rotateY(-112deg);opacity:0;visibility:hidden;pointer-events:none
+    }
+    .auth-card.auth-book.book-closed .auth-book-left,
+    .auth-card.auth-book.book-closed .auth-book-right{filter:brightness(.76)}
+    .auth-card.auth-book.book-opened .auth-book-left,
+    .auth-card.auth-book.book-opened .auth-book-right{animation:authBookPageIn .38s ease both}
     @keyframes authBookPageIn{from{opacity:.15;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
-    .auth-card.auth-book.book-closed{width:min(760px,88vw)!important;min-height:430px!important}
-    .auth-card.auth-book.book-closed .auth-book-cover,.auth-card.auth-book.book-closed .auth-book-cover-img{width:100%!important;height:100%!important}
-    .auth-card.auth-book:not(.book-closed) .auth-book-open-hint{display:none}
-    @media(max-width:760px){
-      .auth-card.auth-book.book-closed{width:min(430px,94vw)!important;min-height:300px!important}
-    }
-
     .auth-logo{display:none}
     .auth-card h1{text-align:center;color:#f6c453;font-size:28px;margin-bottom:7px}
     .auth-card>p{text-align:center;color:#93a4ba;font-size:13px;line-height:1.6;margin-bottom:20px}
@@ -830,6 +829,26 @@ CATATAN:
       .auth-book::after{display:none}
       .auth-book-left-content{justify-content:flex-end;padding:22px}
       .auth-card-content{padding:26px 22px}
+    }
+
+
+
+    /* UKURAN CARD LOGIN SESUAI REFERENSI */
+    .auth-book-right h1{font-size:34px!important;margin-bottom:8px!important}
+    .auth-book-right .auth-card-content>p{font-size:12px!important;line-height:1.35!important;margin-bottom:14px!important}
+    .auth-book-right .auth-tabs{margin-bottom:12px!important}
+    .auth-book-right .auth-tab{padding:9px!important;font-size:11px!important}
+    .auth-book-right .form-group{margin-bottom:11px!important}
+    .auth-book-right .form-group label{font-size:16px!important;margin-bottom:5px!important}
+    .auth-book-right input{height:38px!important;padding:0 12px!important;font-size:15px!important}
+    .auth-book-right .auth-submit{padding:10px 14px!important;font-size:15px!important;margin-top:3px!important}
+    .auth-book-symbol{font-size:61px!important}
+    .auth-book-jp{font-size:34px!important}
+    .auth-book-sub{font-size:12px!important}
+    @media(max-width:760px){
+      .auth-card.auth-book{grid-template-columns:1fr;min-height:auto!important;width:min(430px,94vw)!important}
+      .auth-book-left{min-height:210px!important}
+      .auth-book-cover{display:none}
     }
 
     .auth-user-box{
@@ -985,6 +1004,26 @@ CATATAN:
       background:rgba(34,197,94,.08)!important;
       border-color:rgba(34,197,94,.25)!important;
     }
+
+
+    /* UKURAN CARD LOGIN SESUAI REFERENSI */
+    .auth-book-right h1{font-size:34px!important;margin-bottom:8px!important}
+    .auth-book-right .auth-card-content>p{font-size:12px!important;line-height:1.35!important;margin-bottom:14px!important}
+    .auth-book-right .auth-tabs{margin-bottom:12px!important}
+    .auth-book-right .auth-tab{padding:9px!important;font-size:11px!important}
+    .auth-book-right .form-group{margin-bottom:11px!important}
+    .auth-book-right .form-group label{font-size:16px!important;margin-bottom:5px!important}
+    .auth-book-right input{height:38px!important;padding:0 12px!important;font-size:15px!important}
+    .auth-book-right .auth-submit{padding:10px 14px!important;font-size:15px!important;margin-top:3px!important}
+    .auth-book-symbol{font-size:61px!important}
+    .auth-book-jp{font-size:34px!important}
+    .auth-book-sub{font-size:12px!important}
+    @media(max-width:760px){
+      .auth-card.auth-book{grid-template-columns:1fr;min-height:auto!important;width:min(430px,94vw)!important}
+      .auth-book-left{min-height:210px!important}
+      .auth-book-cover{display:none}
+    }
+
     .auth-user-box{
       background:rgba(34,197,94,.09)!important;
       border-color:rgba(34,197,94,.22)!important;
@@ -3966,43 +4005,67 @@ CATATAN:
 
 
 
-    /* FIX: ukuran card login setelah dibuka dibuat sama mode HP/portrait */
-    .auth-card.auth-book{
+    /* LOGIN MODE BUKU FIX: cover pertama dulu, login kiri-kanan setelah diklik */
+    .auth-card.auth-book.book-closed{
+      position:relative!important;
       width:min(390px,90vw)!important;
       min-height:690px!important;
+      display:block!important;
       grid-template-columns:1fr!important;
       border-radius:30px!important;
+      overflow:hidden!important;
+      cursor:pointer!important;
     }
-    .auth-card.auth-book .auth-book-left{
-      min-height:305px!important;
-      border-right:none!important;
-      border-bottom:1px solid rgba(255,255,255,.10)!important;
+    .auth-book-cover{
+      position:absolute;
+      inset:0;
+      z-index:50;
+      display:none;
+      width:100%;
+      height:100%;
+      padding:0;
+      margin:0;
+      border:0;
+      cursor:pointer;
+      overflow:hidden;
+      background:#07101a;
+      color:#fff;
+      text-align:center;
     }
-    .auth-card.auth-book .auth-book-right{
-      min-height:385px!important;
-      align-items:flex-start!important;
+    .auth-card.auth-book.book-closed .auth-book-cover{display:flex!important}
+    .auth-book-cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;pointer-events:none}
+    .auth-book-cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.04),rgba(3,7,18,.58));pointer-events:none}
+    .auth-book-cover-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:46px 30px;text-align:center}
+    .auth-book-cover .auth-book-symbol{font-size:52px!important;color:#f6c453!important;line-height:1;margin-bottom:10px}
+    .auth-book-cover .auth-book-jp{font-size:30px!important;font-weight:900!important;color:#fff!important;letter-spacing:2px}
+    .auth-book-cover .auth-book-sub{font-size:12px!important;font-weight:900!important;letter-spacing:2px;color:#ffe6a6!important;margin-top:8px}
+    .auth-book-open-hint{margin-top:16px;padding:9px 16px;border-radius:999px;background:rgba(34,197,94,.78);border:1px solid rgba(134,239,172,.65);color:#fff;font-size:11px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;box-shadow:0 8px 22px rgba(34,197,94,.22)}
+    .auth-card.auth-book.book-closed .auth-book-left,
+    .auth-card.auth-book.book-closed .auth-book-right,
+    .auth-card.auth-book.book-closed::after{
+      display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;
     }
-    .auth-card.auth-book .auth-card-content{
-      padding:22px 24px!important;
+    .auth-card.auth-book.book-opened{
+      position:relative!important;
+      width:min(760px,94vw)!important;
+      min-height:690px!important;
+      display:grid!important;
+      grid-template-columns:1fr 1fr!important;
+      border-radius:30px!important;
+      overflow:hidden!important;
     }
-    .auth-card.auth-book::after{
-      display:none!important;
-    }
-    .auth-card.auth-book .auth-book-left-content{
-      padding:22px!important;
-    }
-    .auth-card.auth-book .auth-book-video{
-      object-fit:cover!important;
-      object-position:center center!important;
-    }
+    .auth-card.auth-book.book-opened .auth-book-cover{display:none!important}
+    .auth-card.auth-book.book-opened .auth-book-left,
+    .auth-card.auth-book.book-opened .auth-book-right{display:flex!important;min-height:690px!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+    .auth-card.auth-book.book-opened .auth-book-left{border-right:1px solid rgba(255,255,255,.10)!important;border-bottom:none!important}
+    .auth-card.auth-book.book-opened .auth-book-right{align-items:center!important}
+    .auth-card.auth-book.book-opened::after{display:block!important}
     @media(max-width:760px){
-      .auth-card.auth-book{
-        width:min(360px,94vw)!important;
-        min-height:640px!important;
-      }
-      .auth-card.auth-book .auth-book-left{min-height:285px!important}
-      .auth-card.auth-book .auth-book-right{min-height:355px!important}
-      .auth-card.auth-book .auth-card-content{padding:20px 20px!important}
+      .auth-card.auth-book.book-closed{width:min(360px,94vw)!important;min-height:640px!important}
+      .auth-card.auth-book.book-opened{width:min(360px,94vw)!important;min-height:640px!important;grid-template-columns:1fr!important}
+      .auth-card.auth-book.book-opened .auth-book-left{min-height:285px!important;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.10)!important}
+      .auth-card.auth-book.book-opened .auth-book-right{min-height:355px!important}
+      .auth-card.auth-book.book-opened::after{display:none!important}
     }
 
 </style>
@@ -4018,7 +4081,9 @@ CATATAN:
 
     <div class="auth-card auth-book book-closed" id="authBook">
       <button type="button" class="auth-book-cover" id="authBookCover" aria-label="Buka halaman login">
-        <img class="auth-book-cover-img" src="https://i.imgur.com/qwarNZt.jpeg" alt="Dashboard Access Cover">
+        <video class="auth-book-cover-video" autoplay muted loop playsinline preload="auto">
+          <source src="https://files.catbox.moe/plpp10.mp4" type="video/mp4">
+        </video>
         <span class="auth-book-cover-overlay"></span>
         <span class="auth-book-cover-content">
           <span class="auth-book-symbol">⚔</span>
@@ -4084,7 +4149,7 @@ CATATAN:
         <button class="nav-btn" data-page="gambar">🖼️ <span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel">🔮 <span class="menu-label">Prediksi Togel</span></button>
         <button class="nav-btn" data-page="jadwal-togel">📅 <span class="menu-label">Jadwal Togel</span></button>
-        <button type="button" class="chat-sidebar-btn" title="Buka Chat" onclick="window.open('http://chatjoni.netlify.app/','_blank','noopener')">💬 <span class="menu-label">CHAT</span></button>
+        <button class="nav-btn" data-page="chat">💬 <span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn">▤ <span class="menu-label">Postingan</span> <span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -4801,7 +4866,6 @@ https://domain3.com"></textarea>
 
 
     const navButtons=document.querySelectorAll(".nav-btn,.open-page"),sidebarButtons=document.querySelectorAll(".nav-btn"),pages=document.querySelectorAll(".page"),postinganDropdownBtn=document.getElementById("postinganDropdownBtn"),postinganSubmenu=document.getElementById("postinganSubmenu"),dropdownIcon=document.getElementById("dropdownIcon"),togelDropdownBtn=document.getElementById("togelDropdownBtn"),togelSubmenu=document.getElementById("togelSubmenu"),togelDropdownIcon=document.getElementById("togelDropdownIcon"),heroPostinganBtn=document.getElementById("heroPostinganBtn"),sidebarToggleBtn=document.getElementById("sidebarToggleBtn");
-
     const authBook=document.getElementById("authBook"),authBookCover=document.getElementById("authBookCover");
     function openAuthBook(){
       if(!authBook)return;
@@ -4810,16 +4874,6 @@ https://domain3.com"></textarea>
       setTimeout(()=>document.getElementById("loginEmail")?.focus(),180);
     }
     authBookCover?.addEventListener("click",openAuthBook);
-
-
-    document.addEventListener("click", function(e){
-      const chatBtn = e.target.closest('[data-page="chat"]');
-      if(!chatBtn) return;
-      e.preventDefault();
-      e.stopPropagation();
-      window.open("http://chatjoni.netlify.app/", "_blank", "noopener,noreferrer");
-    }, true);
-
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
     const firebaseConfig = {
   apiKey: "AIzaSyBlz66_6O-BzEoIeTn1SxPa6WGAvgLZmlQ",
@@ -4899,9 +4953,9 @@ registerAuth.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(console.e
 
 const ALL_MENU_KEYS = [
   "dashboard","pk-cs","notepad","gambar",
-  "prediksi-togel","jadwal-togel","chat",
+  "prediksi-togel","jadwal-togel",
   "prediksi","syair-togel","bukti-kemenangan",
-  "selisih","link-domain","user-management"
+  "chat","selisih","link-domain","user-management"
 ];
 
 const MENU_LABELS = {
@@ -4911,10 +4965,10 @@ const MENU_LABELS = {
   gambar:"Gambar",
   "prediksi-togel":"Prediksi Togel",
   "jadwal-togel":"Jadwal Togel",
-  chat:"CHAT",
   prediksi:"Prediksi",
   "syair-togel":"Syair Togel",
   "bukti-kemenangan":"Bukti Kemenangan",
+  chat:"CHAT",
   selisih:"Selisih",
   "link-domain":"Link Domain",
   "user-management":"Manajemen User"
@@ -4953,7 +5007,7 @@ const ROLE_PERMISSION_PRESETS = {
 
   "cs-line":makePermissions([
     "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat",
-    "prediksi","syair-togel","bukti-kemenangan","link-domain","chat"
+    "prediksi","syair-togel","bukti-kemenangan","link-domain"
   ]),
 
   leader:makePermissions(ALL_MENU_KEYS),
@@ -4987,18 +5041,6 @@ function isFullAccessRole(role){
 function permissionsForRole(role){
   const normalized=normalizeRole(role);
   return {...(ROLE_PERMISSION_PRESETS[normalized]||ROLE_PERMISSION_PRESETS["cs-livechat"])};
-}
-
-function mergedUserPermissions(profile){
-  const role=normalizeRole(profile?.role);
-  return {...permissionsForRole(role), ...(profile?.permissions||{})};
-}
-
-function hasProfilePermission(profile,key){
-  if(!profile || profile.status==="disabled")return false;
-  if(isFullAccessRole(profile.role))return true;
-  const merged=mergedUserPermissions(profile);
-  return merged[key]===true;
 }
 
 let currentAuthUser = null;
@@ -5143,24 +5185,20 @@ window.canOpenKerjaBossPage=function(page){
   if(currentUserProfile.status==="disabled")return false;
   if(isFullAccessRole(currentUserProfile.role))return true;
   if(page==="user-management")return false;
-  return hasProfilePermission(currentUserProfile,page);
+  return currentUserProfile.permissions?.[page]===true;
 };
 
 function updateAccessUI(){
   const isOwner=currentUserProfile?.role==="owner";
   const isFullAccess=isFullAccessRole(currentUserProfile?.role);
   document.querySelectorAll(".owner-only").forEach(el=>el.style.display=isFullAccess?"flex":"none");
-  document.querySelectorAll(".chat-sidebar-btn").forEach(el=>{
-    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,"chat");
-    el.style.display=allowed?"flex":"none";
-  });
   document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>{
     const page=btn.dataset.page;
     if(page==="user-management"){
       btn.style.display=isFullAccess?"flex":"none";
       return;
     }
-    const allowed=isFullAccess||hasProfilePermission(currentUserProfile,page);
+    const allowed=isFullAccess||currentUserProfile?.permissions?.[page]===true;
     btn.style.display=allowed?"flex":"none";
   });
   document.querySelectorAll(".submenu").forEach(sub=>{
@@ -5289,7 +5327,7 @@ function renderOwnerUsers(users){
   ownerUsersList.innerHTML=list.map(user=>{
     const role=normalizeRole(user.role);
     const fullAccess=isFullAccessRole(role);
-    const permissions={...permissionsForRole(role), ...(user.permissions||{})};
+    const permissions=user.permissions||permissionsForRole(role);
     const lockedOwner=user.email===OWNER_EMAIL;
     return `<div class="owner-user-card" data-uid="${user.uid}">
       <div class="owner-user-head">
@@ -5356,10 +5394,7 @@ ownerUsersList?.addEventListener("click",async e=>{
   const role=card.querySelector(".manage-role").value;
   const status=card.querySelector(".manage-status").value;
   const normalizedRole=normalizeRole(role);
-  const fullAccess=isFullAccessRole(normalizedRole);
-  const permissions=fullAccess
-    ? permissionsForRole(normalizedRole)
-    : Object.fromEntries(ALL_MENU_KEYS.map(key=>[key, card.querySelector(`[data-permission="${key}"]`)?.checked===true]));
+  const permissions=permissionsForRole(normalizedRole);
   saveBtn.disabled=true;
   saveBtn.textContent="Menyimpan...";
   try{
@@ -7997,7 +8032,7 @@ drawSyair();
       try{await pkCsDb.child(id).remove();return true}
       catch(error){console.error(error);showToast("Gagal menghapus PK dari Firebase");return false}
     }
-    function pkcsEscape(t){return String(t||"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+    function pkcsEscape(t){return String(t||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
     function pkcsNormalize(t){return String(t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
     function pkcsGetMatches(query){
       const normalizedQuery=pkcsNormalize(query);
@@ -8396,7 +8431,6 @@ drawSyair();
     function prediksiContentToday(content){
       return prediksiContentWithDate(content,0);
     }
-
     function prediksiTimeToMinutes(value){
       const m=String(value||"").match(/(\d{1,2}):(\d{2})/);
       return m?Number(m[1])*60+Number(m[2]):null;
@@ -8901,6 +8935,25 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
 
 
 
+</script>
+
+
+<script>
+(function(){
+  const book=document.getElementById('authBook');
+  const cover=document.getElementById('authBookCover');
+  if(!book||!cover) return;
+  book.classList.remove('book-opened');
+  book.classList.add('book-closed');
+  function openBook(e){
+    e.preventDefault();
+    e.stopPropagation();
+    book.classList.remove('book-closed');
+    book.classList.add('book-opened');
+    setTimeout(()=>document.getElementById('loginEmail')?.focus(),180);
+  }
+  cover.addEventListener('click',openBook);
+})();
 </script>
 
 </body>
