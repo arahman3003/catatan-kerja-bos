@@ -788,6 +788,57 @@ CATATAN:
     .auth-book-right .auth-tab.active{background:linear-gradient(180deg,#22c55e,#16a34a);color:#fff}
     .auth-book-right input{background:#0b0b0b!important;border-color:#2b2b2b!important}
     .auth-book-right input:focus{border-color:#22c55e!important}
+
+    /* MODE BUKU LOGIN: tampilan awal cover, klik untuk membuka halaman login */
+    .auth-card.auth-book{
+      perspective:1600px;
+      transform-style:preserve-3d;
+      transition:width .55s ease,min-height .55s ease,box-shadow .35s ease;
+    }
+    .auth-card.auth-book.book-closed{
+      width:min(520px,90vw)!important;
+      min-height:620px!important;
+      grid-template-columns:1fr!important;
+      cursor:pointer;
+    }
+    .auth-card.auth-book.book-closed .auth-book-left,
+    .auth-card.auth-book.book-closed .auth-book-right,
+    .auth-card.auth-book.book-closed::after{
+      opacity:0;
+      pointer-events:none;
+    }
+    .auth-book-cover{
+      position:absolute;
+      inset:0;
+      z-index:8;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      border:0;
+      padding:0;
+      overflow:hidden;
+      border-radius:22px;
+      background:#07101a;
+      color:#fff;
+      cursor:pointer;
+      transform-origin:left center;
+      transform:rotateY(0deg);
+      opacity:1;
+      transition:transform .72s cubic-bezier(.2,.85,.2,1),opacity .28s ease,visibility .28s ease;
+      backface-visibility:hidden;
+      box-shadow:inset -18px 0 26px rgba(0,0,0,.32),0 22px 60px rgba(0,0,0,.42);
+    }
+    .auth-book-cover-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+    .auth-book-cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.06),rgba(3,7,18,.60)),radial-gradient(circle at 48% 38%,rgba(34,197,94,.10),transparent 52%);pointer-events:none}
+    .auth-book-cover-content{position:relative;z-index:2;width:100%;padding:34px 28px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;text-shadow:0 10px 28px rgba(0,0,0,.58)}
+    .auth-book-cover .auth-book-symbol{font-size:64px!important;color:#f6c453;line-height:1;margin-bottom:10px}
+    .auth-book-cover .auth-book-jp{font-size:36px!important;font-weight:900;color:#fff;letter-spacing:2px}
+    .auth-book-cover .auth-book-sub{font-size:13px!important;font-weight:900;letter-spacing:2px;color:#ffe6a6;margin-top:8px}
+    .auth-book-open-text{margin-top:18px;padding:9px 16px;border-radius:999px;border:1px solid rgba(246,196,83,.42);background:rgba(0,0,0,.34);color:#f8df8d;font-size:11px;font-weight:900;letter-spacing:1.4px}
+    .auth-card.auth-book.book-opened .auth-book-cover{transform:rotateY(-96deg);opacity:0;visibility:hidden;pointer-events:none}
+    .auth-card.auth-book.book-opened .auth-book-left,.auth-card.auth-book.book-opened .auth-book-right{animation:authBookPageIn .38s ease both}
+    @keyframes authBookPageIn{from{opacity:.15;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
     @media(max-width:760px){
       .auth-card.auth-book{grid-template-columns:1fr;min-height:auto;width:min(470px,96vw)}
       .auth-book-left{min-height:220px;border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -3940,7 +3991,19 @@ CATATAN:
     </video>
     <div class="auth-bg-overlay"></div>
 
-    <div class="auth-card auth-book">
+    <div class="auth-card auth-book book-closed" id="authBook">
+      <button type="button" class="auth-book-cover" id="authBookCover" aria-label="Buka halaman login">
+        <video class="auth-book-cover-video" autoplay muted loop playsinline preload="auto">
+          <source src="https://files.catbox.moe/plpp10.mp4" type="video/mp4">
+        </video>
+        <span class="auth-book-cover-overlay"></span>
+        <span class="auth-book-cover-content">
+          <span class="auth-book-symbol">⚔</span>
+          <span class="auth-book-jp">ロロノア・ゾロ</span>
+          <span class="auth-book-sub">DASHBOARD ACCESS</span>
+          <span class="auth-book-open-text">KLIK UNTUK MEMBUKA</span>
+        </span>
+      </button>
       <div class="auth-book-left">
         <video class="auth-book-video" autoplay muted loop playsinline preload="auto">
           <source src="https://files.catbox.moe/plpp10.mp4" type="video/mp4">
@@ -4897,7 +4960,22 @@ logoutBtn=document.getElementById("logoutBtn"),
 sidebarUserBox=document.getElementById("sidebarUserBox"),
 ownerUsersList=document.getElementById("ownerUsersList"),
 refreshUsersBtn=document.getElementById("refreshUsersBtn"),
-dashboardWelcomeName=document.getElementById("dashboardWelcomeName");
+dashboardWelcomeName=document.getElementById("dashboardWelcomeName"),
+authBook=document.getElementById("authBook"),
+authBookCover=document.getElementById("authBookCover");
+
+function openAuthBook(){
+  if(!authBook)return;
+  authBook.classList.remove("book-closed");
+  authBook.classList.add("book-opened");
+  setTimeout(()=>document.getElementById("loginEmail")?.focus(),360);
+}
+function closeAuthBook(){
+  if(!authBook)return;
+  authBook.classList.add("book-closed");
+  authBook.classList.remove("book-opened");
+}
+authBookCover?.addEventListener("click",openAuthBook);
 
 function setAuthMessage(message="",success=false){
   if(!authMessage)return;
@@ -4918,6 +4996,7 @@ function authErrorText(error){
   return map[code]||error?.message||"Terjadi kesalahan autentikasi.";
 }
 document.querySelectorAll(".auth-tab").forEach(btn=>btn.addEventListener("click",()=>{
+  openAuthBook();
   document.querySelectorAll(".auth-tab").forEach(x=>x.classList.toggle("active",x===btn));
   const tab=btn.dataset.authTab;
   loginForm.classList.toggle("active",tab==="login");
@@ -5112,6 +5191,7 @@ auth.onAuthStateChanged(async user=>{
     if(typeof stopJadwalListener==="function") stopJadwalListener();
     authGate?.classList.remove("hidden");
     authGate?.classList.remove("checking");
+    closeAuthBook();
     document.querySelector(".app").style.display="none";
     clearLoginForm();
     document.querySelectorAll(".auth-tab").forEach(tab=>{
@@ -5119,7 +5199,7 @@ auth.onAuthStateChanged(async user=>{
     });
     loginForm?.classList.add("active");
     registerForm?.classList.remove("active");
-    setTimeout(()=>document.getElementById("loginEmail")?.focus(),160);
+    setTimeout(()=>{if(authBook?.classList.contains("book-opened"))document.getElementById("loginEmail")?.focus()},160);
     return;
   }
   try{
