@@ -4068,7 +4068,12 @@ CATATAN:
       .auth-card.auth-book.book-opened::after{display:none!important}
     }
 
-    /* ANIMASI BUKA BUKU: cover geser/flip halus ke halaman login */
+
+    /* PREMIUM BOOK OPEN ANIMATION - hanya efek cover login */
+    .auth-card.auth-book.book-closed{
+      perspective:1800px!important;
+      transform-style:preserve-3d!important;
+    }
     .auth-card.auth-book.book-opening{
       position:relative!important;
       width:min(760px,94vw)!important;
@@ -4076,63 +4081,94 @@ CATATAN:
       display:grid!important;
       grid-template-columns:1fr 1fr!important;
       border-radius:30px!important;
-      overflow:hidden!important;
-      perspective:1800px!important;
+      overflow:visible!important;
+      perspective:1900px!important;
       transform-style:preserve-3d!important;
-      transition:width .55s cubic-bezier(.22,.9,.25,1), min-height .55s cubic-bezier(.22,.9,.25,1), transform .55s ease!important;
+      animation:kaizokuBookGrow .78s cubic-bezier(.2,.9,.18,1) both!important;
     }
     .auth-card.auth-book.book-opening .auth-book-left,
     .auth-card.auth-book.book-opening .auth-book-right{
       display:flex!important;
       min-height:690px!important;
+      opacity:0!important;
       visibility:visible!important;
       pointer-events:none!important;
-      opacity:0!important;
-      animation:authLoginPageReveal .78s cubic-bezier(.22,.9,.25,1) .28s forwards!important;
+      animation:kaizokuLoginReveal .58s ease .46s forwards!important;
     }
-    .auth-card.auth-book.book-opening .auth-book-left{border-right:1px solid rgba(255,255,255,.10)!important;border-bottom:none!important}
+    .auth-card.auth-book.book-opening .auth-book-left{
+      border-right:1px solid rgba(255,255,255,.10)!important;
+      border-bottom:none!important;
+    }
     .auth-card.auth-book.book-opening .auth-book-right{align-items:center!important}
-    .auth-card.auth-book.book-opening::after{display:block!important;opacity:0;animation:authBookSpineReveal .55s ease .34s forwards}
+    .auth-card.auth-book.book-opening::after{display:block!important}
     .auth-card.auth-book.book-opening .auth-book-cover{
       display:flex!important;
+      position:absolute!important;
+      inset:0 auto 0 0!important;
+      width:50%!important;
+      height:100%!important;
       transform-origin:left center!important;
       transform-style:preserve-3d!important;
       backface-visibility:hidden!important;
-      will-change:transform,opacity,filter!important;
-      animation:authBookCoverOpen .95s cubic-bezier(.18,.86,.22,1) forwards!important;
-      box-shadow:22px 0 45px rgba(0,0,0,.42)!important;
+      z-index:80!important;
+      border-radius:30px 0 0 30px!important;
+      overflow:hidden!important;
+      box-shadow:22px 0 48px rgba(0,0,0,.45), inset -22px 0 34px rgba(0,0,0,.24)!important;
+      animation:kaizokuPremiumFlip 1.02s cubic-bezier(.18,.84,.18,1) forwards!important;
+    }
+    .auth-card.auth-book.book-opening .auth-book-cover::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:3;
+      pointer-events:none;
+      background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.10) 30%,rgba(255,255,255,.45) 47%,rgba(255,255,255,.08) 60%,transparent 100%);
+      transform:translateX(-120%) skewX(-15deg);
+      animation:kaizokuCoverShine .78s ease .13s both;
+      mix-blend-mode:screen;
     }
     .auth-card.auth-book.book-opening .auth-book-cover::after{
-      content:"";position:absolute;inset:0;pointer-events:none;
-      background:linear-gradient(90deg,rgba(0,0,0,.42),rgba(255,255,255,.08) 18%,rgba(0,0,0,.18) 52%,rgba(0,0,0,.42));
-      opacity:0;animation:authBookCoverShade .95s ease forwards;
+      content:"";
+      position:absolute;
+      right:-34px;
+      top:0;
+      bottom:0;
+      width:70px;
+      z-index:4;
+      pointer-events:none;
+      background:linear-gradient(90deg,rgba(0,0,0,.42),rgba(0,0,0,.12),transparent);
+      filter:blur(1px);
+      opacity:.9;
     }
-    @keyframes authBookCoverOpen{
-      0%{transform:translateX(0) rotateY(0deg) scale(1);opacity:1;filter:brightness(1)}
-      42%{transform:translateX(-10%) rotateY(-42deg) scale(1.01);opacity:1;filter:brightness(.93)}
-      78%{transform:translateX(-42%) rotateY(-82deg) scale(1.015);opacity:.82;filter:brightness(.78)}
-      100%{transform:translateX(-54%) rotateY(-104deg) scale(1.02);opacity:0;filter:brightness(.65)}
+    @keyframes kaizokuBookGrow{
+      0%{width:min(390px,90vw);transform:scale(.985)}
+      100%{width:min(760px,94vw);transform:scale(1)}
     }
-    @keyframes authLoginPageReveal{
-      0%{opacity:0;transform:translateX(18px) scale(.985);filter:blur(4px)}
-      100%{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
+    @keyframes kaizokuPremiumFlip{
+      0%{transform:rotateY(0deg) translateZ(4px)}
+      32%{transform:rotateY(-38deg) translateZ(18px);box-shadow:34px 0 70px rgba(0,0,0,.50)}
+      68%{transform:rotateY(-118deg) translateZ(22px);box-shadow:18px 0 48px rgba(0,0,0,.38)}
+      100%{transform:rotateY(-176deg) translateZ(3px);opacity:0;visibility:hidden;pointer-events:none}
     }
-    @keyframes authBookSpineReveal{to{opacity:1}}
-    @keyframes authBookCoverShade{
-      0%{opacity:0}
-      40%{opacity:.45}
-      100%{opacity:.08}
+    @keyframes kaizokuCoverShine{
+      0%{transform:translateX(-120%) skewX(-15deg);opacity:0}
+      18%{opacity:1}
+      100%{transform:translateX(130%) skewX(-15deg);opacity:0}
+    }
+    @keyframes kaizokuLoginReveal{
+      0%{opacity:0;filter:blur(7px);transform:translateY(14px) scale(.985)}
+      100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);pointer-events:auto}
     }
     @media(max-width:760px){
-      .auth-card.auth-book.book-opening{width:min(360px,94vw)!important;min-height:640px!important;grid-template-columns:1fr!important}
+      .auth-card.auth-book.book-opening{width:min(360px,94vw)!important;min-height:640px!important;grid-template-columns:1fr!important;overflow:hidden!important}
+      .auth-card.auth-book.book-opening .auth-book-cover{inset:0!important;width:100%!important;border-radius:30px!important;animation:kaizokuMobileCoverOpen .72s ease forwards!important}
       .auth-card.auth-book.book-opening .auth-book-left{min-height:285px!important;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.10)!important}
       .auth-card.auth-book.book-opening .auth-book-right{min-height:355px!important}
       .auth-card.auth-book.book-opening::after{display:none!important}
-      .auth-card.auth-book.book-opening .auth-book-cover{animation:authBookCoverOpenMobile .72s cubic-bezier(.18,.86,.22,1) forwards!important}
-    }
-    @keyframes authBookCoverOpenMobile{
-      0%{transform:translateY(0) scale(1);opacity:1;filter:brightness(1)}
-      100%{transform:translateY(-18px) scale(1.025);opacity:0;filter:brightness(.72)}
+      @keyframes kaizokuMobileCoverOpen{
+        0%{transform:translateY(0);opacity:1}
+        100%{transform:translateY(-104%);opacity:0;visibility:hidden;pointer-events:none}
+      }
     }
 
 </style>
@@ -4942,7 +4978,7 @@ https://domain3.com"></textarea>
         authBook.classList.remove("book-opening");
         authBook.classList.add("book-opened");
         document.getElementById("loginEmail")?.focus();
-      },920);
+      },980);
     }
     authBookCover?.addEventListener("click",openAuthBook);
     const toast=document.getElementById("toast"),noteForm=document.getElementById("noteForm"),noteFormTitle=document.getElementById("noteFormTitle"),noteEditId=document.getElementById("noteEditId"),noteTitle=document.getElementById("noteTitle"),noteContent=document.getElementById("noteContent"),noteColor=document.getElementById("noteColor"),noteCategory=document.getElementById("noteCategory"),modalColors=document.getElementById("modalColors"),noteSaveBtn=document.getElementById("noteSaveBtn"),noteResetBtn=document.getElementById("noteResetBtn"),noteList=document.getElementById("noteList"),noteModal=document.getElementById("noteModal"),openNoteModalBtn=document.getElementById("openNoteModalBtn"),closeNoteModalBtn=document.getElementById("closeNoteModalBtn"),noteImageInput=document.getElementById("noteImageInput"),noteTotalStat=document.getElementById("noteTotalStat"),noteSearchInput=document.getElementById("noteSearchInput"),noteSearchResetBtn=document.getElementById("noteSearchResetBtn"),noteSearchToggleBtn=document.getElementById("noteSearchToggleBtn"),noteSearchCloseBtn=document.getElementById("noteSearchCloseBtn"),noteSearchWrap=document.getElementById("noteSearchWrap"),noteCategoryFilter=document.getElementById("noteCategoryFilter"),noteMoveBtn=document.getElementById("noteMoveBtn"),noteCountBadge=document.getElementById("noteCountBadge");
