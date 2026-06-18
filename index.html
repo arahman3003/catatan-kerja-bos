@@ -5048,15 +5048,17 @@ function makePermissions(enabledKeys=[]){
 }
 
 const ROLE_PERMISSION_PRESETS = {
-  kasir:makePermissions(["chat"]),
-  "kapten-kasir":makePermissions(["chat"]),
+  /* CHAT dibuat terkunci untuk semua role biasa.
+     Owner/Leader bisa mengizinkan manual dari Manajemen User dengan mencentang CHAT lalu Simpan Akses. */
+  kasir:makePermissions([]),
+  "kapten-kasir":makePermissions([]),
 
   "cs-livechat":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat"
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad"
   ]),
 
   "cs-line":makePermissions([
-    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad","chat",
+    "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad",
     "prediksi","syair-togel","bukti-kemenangan","link-domain"
   ]),
 
@@ -5091,6 +5093,25 @@ function isFullAccessRole(role){
 function permissionsForRole(role){
   const normalized=normalizeRole(role);
   return {...(ROLE_PERMISSION_PRESETS[normalized]||ROLE_PERMISSION_PRESETS["cs-livechat"])};
+}
+
+function collectPermissionsFromCard(card, role){
+  const normalized=normalizeRole(role);
+  if(isFullAccessRole(normalized)) return permissionsForRole(normalized);
+  const permissions=makePermissions([]);
+  card.querySelectorAll("[data-permission]").forEach(cb=>{
+    permissions[cb.dataset.permission]=cb.checked===true;
+  });
+  return permissions;
+}
+
+function lockChatByDefault(profile){
+  if(!profile) return profile;
+  const role=normalizeRole(profile.role);
+  if(isFullAccessRole(role)) return profile;
+  const permissions={...permissionsForRole(role),...(profile.permissions||{})};
+  if(profile.chatAccessManual!==true) permissions.chat=false;
+  return {...profile,role,permissions};
 }
 
 let currentAuthUser = null;
@@ -5172,6 +5193,7 @@ registerForm?.addEventListener("submit",async e=>{
       permissions:isOwner
         ? Object.fromEntries(ALL_MENU_KEYS.map(k=>[k,true]))
         : permissionsForRole("cs-livechat"),
+      chatAccessManual:isOwner,
       createdAt:firebase.database.ServerValue.TIMESTAMP,
       updatedAt:firebase.database.ServerValue.TIMESTAMP
     };
@@ -5279,6 +5301,7 @@ async function ensureUserProfile(user){
       uid:user.uid,name:user.displayName||email.split("@")[0],email,
       role:isOwner?"owner":"cs-livechat",status:"active",
       permissions:isOwner?permissionsForRole("owner"):permissionsForRole("cs-livechat"),
+      chatAccessManual:isOwner,
       createdAt:firebase.database.ServerValue.TIMESTAMP,
       updatedAt:firebase.database.ServerValue.TIMESTAMP
     };
@@ -5287,6 +5310,7 @@ async function ensureUserProfile(user){
     await usersDb.child(user.uid).update({
       role:"owner",status:"active",
       permissions:permissionsForRole("owner"),
+      chatAccessManual:true,
       updatedAt:firebase.database.ServerValue.TIMESTAMP
     });
     profile={...profile,role:"owner",status:"active",permissions:permissionsForRole("owner")};
@@ -5306,7 +5330,16 @@ async function ensureUserProfile(user){
     profile={...profile,role:normalizedRole,permissions:updatedPermissions};
   }
 
-  return profile;
+  const lockedProfile=lockChatByDefault(profile);
+  if(!isFullAccessRole(lockedProfile.role) && profile.chatAccessManual!==true && profile.permissions?.chat===true){
+    await usersDb.child(user.uid).update({
+      "permissions/chat":false,
+      chatAccessManual:false,
+      updatedAt:firebase.database.ServerValue.TIMESTAMP
+    });
+  }
+
+  return lockedProfile;
 }
 
 auth.onAuthStateChanged(async user=>{
@@ -5377,7 +5410,8 @@ function renderOwnerUsers(users){
   ownerUsersList.innerHTML=list.map(user=>{
     const role=normalizeRole(user.role);
     const fullAccess=isFullAccessRole(role);
-    const permissions=user.permissions||permissionsForRole(role);
+    const effectiveUser=lockChatByDefault(user);
+    const permissions=effectiveUser.permissions||permissionsForRole(role);
     const lockedOwner=user.email===OWNER_EMAIL;
     return `<div class="owner-user-card" data-uid="${user.uid}">
       <div class="owner-user-head">
@@ -5411,7 +5445,22 @@ function renderOwnerUsers(users){
 
 function loadOwnerUsers(){
   if(!isFullAccessRole(currentUserProfile?.role))return;
-  usersDb.on("value",snap=>renderOwnerUsers(snap.val()||{}));
+  usersDb.on("value",snap=>{
+    const users=snap.val()||{};
+    const updates={};
+    Object.entries(users).forEach(([uid,user])=>{
+      const role=normalizeRole(user.role);
+      if(!isFullAccessRole(role) && user.chatAccessManual!==true && user.permissions?.chat===true){
+        updates[`${uid}/permissions/chat`]=false;
+        updates[`${uid}/chatAccessManual`]=false;
+        updates[`${uid}/updatedAt`]=firebase.database.ServerValue.TIMESTAMP;
+      }
+    });
+    if(Object.keys(updates).length){
+      usersDb.update(updates).catch(console.error);
+    }
+    renderOwnerUsers(users);
+  });
 }
 refreshUsersBtn?.addEventListener("click",loadOwnerUsers);
 
@@ -5444,11 +5493,17 @@ ownerUsersList?.addEventListener("click",async e=>{
   const role=card.querySelector(".manage-role").value;
   const status=card.querySelector(".manage-status").value;
   const normalizedRole=normalizeRole(role);
-  const permissions=permissionsForRole(normalizedRole);
+  const permissions=collectPermissionsFromCard(card, normalizedRole);
   saveBtn.disabled=true;
   saveBtn.textContent="Menyimpan...";
   try{
-    await usersDb.child(uid).update({role:normalizedRole,status,permissions,updatedAt:firebase.database.ServerValue.TIMESTAMP});
+    await usersDb.child(uid).update({
+      role:normalizedRole,
+      status,
+      permissions,
+      chatAccessManual:isFullAccessRole(normalizedRole) ? true : permissions.chat===true,
+      updatedAt:firebase.database.ServerValue.TIMESTAMP
+    });
     showToast("Akses pengguna berhasil diperbarui");
   }catch(error){
     console.error(error);
