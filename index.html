@@ -5323,6 +5323,105 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 }
 </style>
 
+
+<style id="kd-v17-sesuai-target-final">
+/* V17 - proporsi dikunci mengikuti gambar target. Akses Cepat tidak dijulang. */
+@media (min-width:981px){
+  #page-dashboard{
+    padding:7px 9px 5px!important;
+    overflow:hidden!important;
+  }
+  .kd-dashboard-v2{
+    min-height:0!important;
+    height:auto!important;
+  }
+
+  /* Yang dikurangi hanya area WELCOME supaya row bawah punya ruang */
+  .kd-hero-grid{
+    height:204px!important;
+    min-height:204px!important;
+    margin-top:7px!important;
+    gap:7px!important;
+  }
+  .kd-hero-main,
+  .kd-manga-panel,
+  .kd-manga-single{
+    height:204px!important;
+    min-height:204px!important;
+    max-height:204px!important;
+  }
+  .kd-hero-copy{left:30px!important;top:18px!important;max-width:60%!important;}
+  .kd-hero-kicker{font-size:30px!important;}
+  .kd-hero-copy h1{font-size:52px!important;line-height:.88!important;}
+  .kd-hero-ribbon{padding:6px 20px 7px 13px!important;margin-top:6px!important;}
+  .kd-hero-ribbon strong{font-size:15px!important;}
+  .kd-hero-ribbon span{font-size:8.5px!important;}
+  .kd-hero-focus{top:24px!important;right:18px!important;font-size:21px!important;}
+
+  /* Statistik tetap compact */
+  .kd-stat-grid{margin-top:7px!important;padding:6px!important;gap:7px!important;}
+  .kd-stat-card{height:72px!important;min-height:72px!important;padding:8px 11px!important;}
+  .kd-stat-icon{width:42px!important;height:42px!important;font-size:21px!important;}
+  .kd-stat-card strong{font-size:21px!important;}
+
+  /* AKSES CEPAT: tinggi normal, persis tidak dibuat flex-grow */
+  .kd-quick-section{
+    flex:none!important;
+    min-height:0!important;
+    height:auto!important;
+    margin-top:7px!important;
+    padding:7px!important;
+  }
+  .kd-quick-grid{flex:none!important;height:auto!important;align-items:start!important;gap:8px!important;}
+  .kd-quick-card{
+    height:184px!important;
+    min-height:184px!important;
+    max-height:184px!important;
+    grid-template-rows:76px 108px!important;
+  }
+  .kd-card-art{height:76px!important;min-height:76px!important;max-height:76px!important;}
+  .kd-card-body{height:108px!important;min-height:108px!important;max-height:108px!important;}
+
+  /* ROW BAWAH seperti target: quote + satu banner tips + brand */
+  .kd-bottom-grid{
+    margin-top:7px!important;
+    gap:8px!important;
+    height:150px!important;
+    min-height:150px!important;
+    max-height:150px!important;
+    grid-template-columns:1.05fr 2.55fr .82fr!important;
+    align-items:stretch!important;
+  }
+  .kd-bottom-grid > article{
+    height:150px!important;
+    min-height:150px!important;
+    max-height:150px!important;
+  }
+  .kd-tips-banner{
+    height:150px!important;
+    min-height:150px!important;
+    max-height:150px!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:#020907!important;
+  }
+  .kd-tips-banner-img{
+    width:100%!important;
+    height:100%!important;
+    display:block!important;
+    object-fit:fill!important;
+    object-position:center!important;
+  }
+  .kd-quote-card{padding:11px 13px!important;}
+  .kd-quote-card h3{font-size:14px!important;}
+  .kd-quote-card blockquote{font-size:14px!important;line-height:1.15!important;margin-top:9px!important;}
+  .kd-brand-card{padding:13px 13px 10px!important;}
+  .kd-brand-card h3{font-size:15px!important;}
+  .kd-brand-card hr{margin:9px 0!important;}
+  .kd-dashboard-footer{height:18px!important;min-height:18px!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
@@ -5526,7 +5625,7 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
               <span>- KAIZOKUGARI</span>
             </article>
 
-            <article class="kd-tips-banner" aria-label="Tips cepat banner"><img class="kd-tips-banner-img" src="tips-cepat-banner.png" alt="Tips Cepat banner"></article>
+            <article class="kd-tips-banner" aria-label="Tips cepat banner"><img class="kd-tips-banner-img" src="tips-cepat-banner-V17.png" alt="Tips Cepat banner"></article>
 
             <article class="kd-brand-card">
               <h3>KAIZOKUGARI</h3>
