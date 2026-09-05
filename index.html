@@ -5229,6 +5229,100 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 }
 </style>
 
+
+<style id="kd-v16-fix-akses-cepat-normal-tips-utuh">
+/* V16 - FIX sesuai koreksi user: akses cepat JANGAN tinggi, yang diatur adalah hero atas + banner bawah */
+@media (min-width:981px){
+  /* HERO/WELCOME dipendekkan supaya row bawah punya ruang */
+  .kd-hero-grid{
+    min-height:238px!important;
+    height:238px!important;
+    margin-top:7px!important;
+  }
+  .kd-hero-main,
+  .kd-manga-panel,
+  .kd-manga-single{height:238px!important;min-height:238px!important;}
+  .kd-hero-copy{left:32px!important;top:22px!important;max-width:59%!important;}
+  .kd-hero-kicker{font-size:34px!important;}
+  .kd-hero-copy h1{font-size:58px!important;line-height:.88!important;}
+  .kd-hero-ribbon{padding:7px 22px 8px 14px!important;margin-top:8px!important;}
+  .kd-hero-ribbon strong{font-size:16px!important;}
+  .kd-hero-ribbon span{font-size:9px!important;}
+  .kd-hero-focus{top:30px!important;right:20px!important;font-size:23px!important;}
+
+  /* Statistik tetap ringkas */
+  .kd-stat-card{min-height:74px!important;height:74px!important;}
+  .kd-stat-icon{width:44px!important;height:44px!important;font-size:22px!important;}
+  .kd-stat-card strong{font-size:22px!important;}
+
+  /* PENTING: AKSES CEPAT kembali normal, tidak flex-grow / tidak menjulang */
+  .kd-quick-section{
+    flex:none!important;
+    min-height:0!important;
+    height:auto!important;
+    margin-top:7px!important;
+    padding:7px!important;
+  }
+  .kd-quick-grid{
+    flex:none!important;
+    height:auto!important;
+    align-items:start!important;
+    gap:8px!important;
+  }
+  .kd-quick-card{
+    height:184px!important;
+    min-height:184px!important;
+    max-height:184px!important;
+    grid-template-rows:76px 108px!important;
+  }
+  .kd-card-art{height:76px!important;min-height:76px!important;max-height:76px!important;}
+  .kd-card-body{height:108px!important;min-height:108px!important;padding:10px 38px 9px 12px!important;}
+  .kd-card-body h3{font-size:13px!important;margin-bottom:4px!important;}
+  .kd-card-body p{font-size:9px!important;line-height:1.3!important;}
+
+  /* ROW BAWAH: pendek seperti target */
+  .kd-bottom-grid{
+    margin-top:7px!important;
+    gap:8px!important;
+    min-height:116px!important;
+    height:116px!important;
+    grid-template-columns:1.05fr 2.7fr .82fr!important;
+    align-items:stretch!important;
+  }
+  .kd-bottom-grid > article{
+    min-height:116px!important;
+    height:116px!important;
+    max-height:116px!important;
+  }
+  .kd-tips-banner{
+    height:116px!important;
+    min-height:116px!important;
+    max-height:116px!important;
+    padding:0!important;
+    overflow:hidden!important;
+    display:block!important;
+    background:#020907!important;
+  }
+  /* Tampilkan SELURUH gambar, jangan cover/crop */
+  .kd-tips-banner-img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    object-fit:fill!important;
+    object-position:center!important;
+  }
+  .kd-quote-card{padding:9px 11px!important;}
+  .kd-quote-card h3{font-size:12px!important;}
+  .kd-quote-card blockquote{font-size:12px!important;line-height:1.1!important;margin-top:7px!important;}
+  .kd-brand-card{padding:10px 11px 8px!important;}
+  .kd-brand-card h3{font-size:13px!important;}
+  .kd-brand-card hr{margin:7px 0!important;}
+
+  .kd-dashboard-footer{height:20px!important;min-height:20px!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
