@@ -5043,6 +5043,34 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 }
 </style>
 
+
+<style id="kd-v13-tips-banner-full-fix">
+/* V13 - tampilkan banner tips penuh, tidak terpotong */
+.kd-bottom-grid{grid-template-columns:1.05fr 2.7fr .82fr!important;align-items:stretch!important;}
+.kd-tips-banner{
+  padding:0!important;
+  min-height:auto!important;
+  background:#020907!important;
+  display:flex!important;
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  overflow:hidden!important;
+}
+.kd-tips-banner-img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+.kd-quote-card,.kd-brand-card{
+  min-height:100%!important;
+}
+@media (max-width: 980px){
+  .kd-bottom-grid{grid-template-columns:1fr!important;}
+  .kd-tips-banner-img{width:100%!important;height:auto!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
@@ -5246,7 +5274,7 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
               <span>- KAIZOKUGARI</span>
             </article>
 
-            <article class="kd-tips-banner" aria-label="Tips cepat banner"></article>
+            <article class="kd-tips-banner" aria-label="Tips cepat banner"><img class="kd-tips-banner-img" src="tips-cepat-banner.png" alt="Tips Cepat banner"></article>
 
             <article class="kd-brand-card">
               <h3>KAIZOKUGARI</h3>
