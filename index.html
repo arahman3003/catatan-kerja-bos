@@ -5071,6 +5071,46 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 }
 </style>
 
+
+<style id="kd-v14-tips-banner-proporsional">
+/* V14 - banner tengah proporsional seperti contoh, tidak terlalu tinggi */
+@media (min-width: 981px){
+  .kd-bottom-grid{
+    grid-template-columns:1.05fr 2.7fr .82fr!important;
+    gap:9px!important;
+    margin-top:9px!important;
+    align-items:stretch!important;
+  }
+  .kd-bottom-grid > article{
+    min-height:132px!important;
+    height:132px!important;
+  }
+  .kd-quote-card,
+  .kd-brand-card{
+    overflow:hidden!important;
+  }
+  .kd-tips-banner{
+    min-height:132px!important;
+    height:132px!important;
+    padding:0!important;
+    display:block!important;
+    background:#020907!important;
+    overflow:hidden!important;
+  }
+  .kd-tips-banner-img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    display:block!important;
+  }
+}
+@media (max-width:980px){
+  .kd-tips-banner{height:auto!important;min-height:auto!important;}
+  .kd-tips-banner-img{width:100%!important;height:auto!important;object-fit:contain!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
