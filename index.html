@@ -5021,6 +5021,28 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 }
 </style>
 
+
+<style id="kd-v12-gabung-tips-banner">
+/* V12 - gabung box tips + gambar menjadi 1 banner sesuai referensi */
+.kd-tips-card,.kd-eye-card{display:none!important;}
+.kd-bottom-grid{grid-template-columns:1.05fr 2.7fr .82fr!important;align-items:stretch!important;}
+.kd-tips-banner{
+  grid-column:auto!important;
+  min-height:154px!important;
+  border:1px solid rgba(53,242,154,.55)!important;
+  border-radius:0!important;
+  background:#020907 url("tips-cepat-banner.png") center center/cover no-repeat!important;
+  overflow:hidden!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 0 14px rgba(53,242,154,.08)!important;
+}
+.kd-tips-banner::before,
+.kd-tips-banner::after{display:none!important;content:none!important;}
+@media (max-width: 980px){
+  .kd-bottom-grid{grid-template-columns:1fr!important;}
+  .kd-tips-banner{min-height:130px!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
@@ -5224,17 +5246,7 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
               <span>- KAIZOKUGARI</span>
             </article>
 
-            <article class="kd-tips-card">
-              <h3>💡 TIPS CEPAT</h3>
-              <ul>
-                <li>Gunakan fitur Notepad untuk menyimpan catatan penting.</li>
-                <li>Simpan gambar penting di galeri agar mudah diakses.</li>
-                <li>Cek jadwal togel sebelum pasaran tutup.</li>
-                <li>Manfaatkan semua fitur untuk hasil yang lebih maksimal.</li>
-              </ul>
-            </article>
-
-            <article class="kd-eye-card"><div>SETIAP<br>DATA ADALAH<br>PELUANG,<br>JANGAN<br>LEWATKAN!</div></article>
+            <article class="kd-tips-banner" aria-label="Tips cepat banner"></article>
 
             <article class="kd-brand-card">
               <h3>KAIZOKUGARI</h3>
