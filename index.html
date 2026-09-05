@@ -4273,6 +4273,157 @@ body.sidebar-collapsed .dropdown-btn #dropdownIcon{display:none!important}
 }
 
 </style>
+
+<style id="kd-density-fix-v3">
+/* ============================================================
+   KAIZOKUGARI DASHBOARD COMIC V3 - PADAT / FULLSCREEN
+   Memperbaiki jarak kosong V2 pada layar lebar / browser zoom-out.
+   ============================================================ */
+
+/* Sidebar dibuat lebih proporsional seperti referensi */
+.app{grid-template-columns:290px minmax(0,1fr)!important;}
+.sidebar{width:290px!important;}
+
+/* KUNCI UTAMA: jangan batasi dashboard 1700px dan jangan center-kan kotak kecil */
+#page-dashboard{
+  padding:10px 12px 8px!important;
+  overflow:auto!important;
+}
+.kd-dashboard-v2{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  min-height:calc(100vh - 18px)!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+
+/* Bar atas lebih tinggi dan terbaca */
+.kd-top-strip{
+  min-height:48px!important;
+  height:48px!important;
+  grid-template-columns:minmax(0,1fr) auto minmax(260px,310px)!important;
+  padding:5px 14px!important;
+  gap:16px!important;
+}
+.kd-process-line{font-size:11px!important;gap:18px!important;}
+.kd-top-quote{font-size:11px!important;}
+.kd-clock-box{height:37px!important;padding:4px 12px!important;}
+.kd-clock-box strong{font-size:18px!important;}
+
+/* HERO mengisi lebar dan tinggi, tidak lagi gepeng */
+.kd-hero-grid{
+  grid-template-columns:minmax(0,4.35fr) minmax(280px,1.3fr)!important;
+  gap:9px!important;
+  margin-top:9px!important;
+  min-height:clamp(320px,34vh,430px)!important;
+}
+.kd-hero-copy{left:42px!important;top:38px!important;max-width:58%!important;}
+.kd-hero-kicker{font-size:clamp(38px,2.8vw,58px)!important;}
+.kd-hero-copy h1{font-size:clamp(54px,5vw,94px)!important;}
+.kd-hero-ribbon{padding:10px 34px 11px 20px!important;}
+.kd-hero-ribbon strong{font-size:21px!important;}
+.kd-hero-ribbon span{font-size:11px!important;}
+.kd-hero-focus{right:32px!important;top:48px!important;font-size:31px!important;}
+.kd-manga-frame span{font-size:14px!important;}
+
+/* Statistik lebih besar dan lebih padat */
+.kd-stat-grid{
+  gap:10px!important;
+  margin-top:9px!important;
+  padding:9px!important;
+}
+.kd-stat-card{min-height:102px!important;padding:12px 14px!important;gap:14px!important;}
+.kd-stat-icon{width:62px!important;height:62px!important;font-size:30px!important;}
+.kd-stat-card span{font-size:10px!important;}
+.kd-stat-card strong{font-size:29px!important;}
+.kd-stat-card small{font-size:10px!important;}
+
+/* Akses cepat dibuat lebih tinggi agar memenuhi viewport */
+.kd-quick-section{
+  margin-top:9px!important;
+  padding:9px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:285px!important;
+  flex:1 0 auto!important;
+}
+.kd-section-heading{
+  height:40px!important;
+  grid-template-columns:310px 1fr auto!important;
+  margin-bottom:9px!important;
+}
+.kd-section-heading h2{height:35px!important;font-size:25px!important;padding-left:16px!important;}
+.kd-section-heading p{font-size:10px!important;}
+.kd-section-heading small{font-size:9px!important;}
+.kd-quick-grid{
+  flex:1!important;
+  gap:10px!important;
+  align-items:stretch!important;
+}
+.kd-quick-card{
+  height:100%!important;
+  min-height:225px!important;
+  display:grid!important;
+  grid-template-rows:minmax(96px,45%) 1fr!important;
+}
+.kd-card-art{height:auto!important;min-height:96px!important;}
+.kd-card-art span{font-size:27px!important;}
+.kd-card-body{min-height:128px!important;padding:14px 44px 13px 14px!important;}
+.kd-card-body b{font-size:19px!important;}
+.kd-card-body h3{font-size:17px!important;margin-bottom:7px!important;}
+.kd-card-body p{font-size:11px!important;line-height:1.45!important;}
+.kd-card-body i{width:32px!important;height:32px!important;font-size:17px!important;right:11px!important;bottom:11px!important;}
+
+/* Panel bawah juga diperbesar, hilangkan kesan kosong di bawah */
+.kd-bottom-grid{
+  margin-top:9px!important;
+  gap:10px!important;
+  min-height:165px!important;
+  grid-template-columns:1.05fr 1.35fr 1.35fr .82fr!important;
+}
+.kd-quote-card,.kd-tips-card{padding:15px 16px!important;}
+.kd-quote-card h3,.kd-tips-card h3{font-size:17px!important;}
+.kd-quote-card blockquote{font-size:17px!important;line-height:1.2!important;margin-top:12px!important;}
+.kd-tips-card ul{gap:7px!important;margin-top:10px!important;}
+.kd-tips-card li{font-size:10.5px!important;padding-left:20px!important;}
+.kd-eye-card div{font-size:16px!important;padding:9px 11px!important;}
+.kd-brand-card{padding:17px 16px 12px!important;}
+.kd-brand-card h3{font-size:18px!important;}
+.kd-brand-card>span{font-size:8px!important;}
+.kd-brand-card p{font-size:9px!important;}
+.kd-dashboard-footer{height:34px!important;font-size:9px!important;}
+.kd-dashboard-footer strong{font-size:8px!important;}
+
+/* Desktop lebar: tetap 6 akses cepat + 5 statistik, jangan pecah terlalu dini */
+@media (min-width:1181px){
+  .kd-quick-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important;}
+  .kd-stat-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;}
+  .kd-bottom-grid{grid-template-columns:1.05fr 1.35fr 1.35fr .82fr!important;}
+}
+
+/* Laptop sedang */
+@media (max-width:1180px) and (min-width:981px){
+  .app{grid-template-columns:250px minmax(0,1fr)!important;}
+  .sidebar{width:250px!important;}
+  .kd-hero-grid{grid-template-columns:minmax(0,3.6fr) minmax(230px,1.25fr)!important;}
+  .kd-quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+  .kd-stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+  .kd-bottom-grid{grid-template-columns:1fr 1fr!important;}
+}
+
+/* Tetap hormati mode sidebar collapse */
+body.sidebar-collapsed .app{grid-template-columns:78px minmax(0,1fr)!important;}
+body.sidebar-collapsed .sidebar{width:78px!important;}
+
+@media(max-width:980px){
+  .app,body.sidebar-collapsed .app{grid-template-columns:1fr!important;}
+  .sidebar,body.sidebar-collapsed .sidebar{width:100%!important;}
+  .kd-dashboard-v2{min-height:auto!important;}
+  .kd-hero-grid{min-height:300px!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
