@@ -6780,19 +6780,242 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
-<style id="notepad-v11-force-fulltext-scroll-edge">
-\/* V11: paksa tulisan isi note melebar penuh sampai sisi kanan, tanpa ruang kosong gambar,
-   dan scrollbar tetap di sisi paling kanan area isi. *\/
-#page-notepad .note-card{overflow:hidden !important;}
-#page-notepad .note-main{position:relative !important;z-index:2 !important;width:100% !important;max-width:100% !important;min-width:0 !important;height:206px !important;max-height:206px !important;overflow:hidden !important;padding:11px 8px 0 12px !important;box-sizing:border-box !important;}
-#page-notepad .note-title{width:100% !important;max-width:100% !important;padding-right:2px !important;box-sizing:border-box !important;}
-#page-notepad .note-content{display:block !important;align-self:stretch !important;width:calc(100% + 8px) !important;max-width:none !important;min-width:0 !important;height:136px !important;max-height:136px !important;margin:8px -8px 0 0 !important;padding:0 2px 4px 0 !important;text-align:left !important;line-height:1.55 !important;font-size:14px !important;font-weight:600 !important;white-space:pre-wrap !important;word-break:break-word !important;overflow-wrap:anywhere !important;overflow-y:auto !important;overflow-x:hidden !important;box-sizing:border-box !important;scrollbar-width:thin !important;scrollbar-color:#2bea91 transparent !important;scrollbar-gutter:stable !important;}
+
+<style id="notepad-v12-pastel-card-scroll-edge-final">
+/* ===== V12 FINAL: desain card pastel seperti referensi + scrollbar di pinggir kanan ===== */
+
+/* Card utama */
+#page-notepad .note-card{
+  position:relative !important;
+  overflow:hidden !important;
+  height:330px !important;
+  min-height:330px !important;
+  max-height:330px !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:22px !important;
+  color:#1c1720 !important;
+  box-shadow:0 10px 22px rgba(0,0,0,.15) !important;
+  transition:transform .16s ease, box-shadow .16s ease !important;
+}
+#page-notepad .note-card:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 14px 28px rgba(0,0,0,.20) !important;
+}
+
+/* Hilangkan overlay gelap / artwork card lama */
+#page-notepad .note-card::after{
+  content:none !important;
+  display:none !important;
+  background:none !important;
+}
+#page-notepad .note-card::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  top:-20px !important;
+  right:-18px !important;
+  width:92px !important;
+  height:92px !important;
+  inset:auto -18px auto auto !important;
+  border-radius:50% !important;
+  background:rgba(255,255,255,.17) !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+}
+
+/* Warna pastel seperti referensi */
+#page-notepad .note-card.color-purple{background:#d8b9ef !important;}
+#page-notepad .note-card.color-pink{background:#efbdd5 !important;}
+#page-notepad .note-card.color-rose{background:#efbdd5 !important;}
+#page-notepad .note-card.color-blue{background:#bfe6f1 !important;}
+#page-notepad .note-card.color-cyan{background:#bfe6f1 !important;}
+#page-notepad .note-card.color-yellow{background:#f0df8c !important;}
+#page-notepad .note-card.color-orange{background:#f3cf9a !important;}
+#page-notepad .note-card.color-green{background:#c8edc8 !important;}
+
+/* Area isi harus selebar card, tidak ada slot gambar kanan */
+#page-notepad .note-main{
+  position:relative !important;
+  z-index:2 !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:274px !important;
+  max-height:274px !important;
+  margin:0 !important;
+  padding:12px 14px 0 14px !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  display:block !important;
+}
+
+/* Badge */
+#page-notepad .note-category-badge{
+  position:relative !important;
+  z-index:3 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:max-content !important;
+  min-width:42px !important;
+  height:20px !important;
+  margin:0 0 10px 0 !important;
+  padding:0 10px !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:rgba(44,34,48,.13) !important;
+  color:#3b2d3e !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  line-height:20px !important;
+  letter-spacing:.2px !important;
+  text-transform:uppercase !important;
+  box-shadow:none !important;
+}
+
+/* Judul tanpa ribbon, benar-benar seperti model lama */
+#page-notepad .note-title{
+  position:relative !important;
+  z-index:2 !important;
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 0 8px 0 !important;
+  padding:0 4px 8px 4px !important;
+  border:0 !important;
+  border-bottom:1px dashed rgba(49,38,53,.18) !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  clip-path:none !important;
+  box-shadow:none !important;
+  color:#211824 !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+  line-height:1.15 !important;
+  text-align:center !important;
+  text-transform:uppercase !important;
+  letter-spacing:.2px !important;
+  box-sizing:border-box !important;
+}
+
+/* ISI: full lebar. Scrollbar ditempelkan ke sisi kanan card */
+#page-notepad .note-content{
+  position:relative !important;
+  z-index:2 !important;
+  display:block !important;
+  width:calc(100% + 14px) !important;
+  max-width:none !important;
+  min-width:0 !important;
+  height:205px !important;
+  max-height:205px !important;
+  margin:0 -14px 0 0 !important;
+  padding:2px 15px 8px 0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-sizing:border-box !important;
+  color:#231a26 !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  line-height:1.58 !important;
+  text-align:left !important;
+  white-space:pre-wrap !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  scrollbar-width:thin !important;
+  scrollbar-color:rgba(92,67,97,.46) transparent !important;
+  scrollbar-gutter:stable !important;
+}
 #page-notepad .note-content::-webkit-scrollbar{width:6px !important;}
 #page-notepad .note-content::-webkit-scrollbar-track{background:transparent !important;}
-#page-notepad .note-content::-webkit-scrollbar-thumb{background:#2bea91 !important;border-radius:999px !important;}
-#page-notepad .note-content::-webkit-scrollbar-thumb:hover{background:#53f6ad !important;}
-#page-notepad .note-card .note-image{display:none !important;}
-<\/style>
+#page-notepad .note-content::-webkit-scrollbar-thumb{
+  background:rgba(92,67,97,.46) !important;
+  border-radius:999px !important;
+}
+#page-notepad .note-content::-webkit-scrollbar-thumb:hover{background:rgba(92,67,97,.66) !important;}
+
+/* Tidak pakai gambar di samping card */
+#page-notepad .note-image{display:none !important;}
+
+/* Footer card seperti referensi: tombol kiri, tanggal kanan */
+#page-notepad .note-bottom{
+  position:absolute !important;
+  z-index:3 !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  height:56px !important;
+  margin:0 !important;
+  padding:8px 12px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  flex-direction:row-reverse !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:8px !important;
+  border-top:1px solid rgba(46,35,50,.14) !important;
+  background:rgba(255,255,255,.035) !important;
+}
+#page-notepad .note-date{
+  margin:0 !important;
+  padding:0 !important;
+  color:rgba(47,36,51,.65) !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+#page-notepad .note-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:6px !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+}
+#page-notepad .icon-btn{
+  width:24px !important;
+  height:24px !important;
+  min-width:24px !important;
+  min-height:24px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.30) !important;
+  color:#3b2c40 !important;
+  box-shadow:inset 0 0 0 1px rgba(57,43,61,.08) !important;
+  font-size:11px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+#page-notepad .icon-btn:hover{
+  transform:translateY(-1px) !important;
+  background:rgba(255,255,255,.48) !important;
+}
+
+/* Jaga responsive lama, tapi bentuk card tetap aman */
+@media(max-width:900px){
+  #page-notepad .note-card{
+    height:330px !important;
+    min-height:330px !important;
+    max-height:330px !important;
+  }
+  #page-notepad .note-main{
+    height:274px !important;
+    max-height:274px !important;
+  }
+  #page-notepad .note-content{
+    height:205px !important;
+    max-height:205px !important;
+  }
+}
+</style>
 
 </head>
 <body class="dark-workspace">
