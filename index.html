@@ -4617,6 +4617,48 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
   .logout-svg{display:flex!important}
   .logout-svg svg{width:24px!important;height:24px!important;stroke:currentColor!important;fill:none!important;stroke-width:2.3!important;stroke-linecap:round!important;stroke-linejoin:round!important}
 }
+<style id="kd-v27-postingan-chat-fix">
+
+  /* V27 patch — rapikan Postingan dan hilangkan CHAT */
+  .dropdown-btn .menu-main,
+  .dropdown-btn .menu-main .nav-icon,
+  .dropdown-btn .menu-main .menu-label{
+    margin-left:0!important;
+  }
+  .dropdown-btn{
+    width:100%!important;
+    min-height:44px!important;
+    padding:10px 14px!important;
+    gap:13px!important;
+    justify-content:space-between!important;
+    align-items:center!important;
+  }
+  .dropdown-btn .menu-main{
+    flex:1 1 auto!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:13px!important;
+    justify-content:flex-start!important;
+  }
+  .dropdown-btn .nav-icon{
+    width:22px!important;
+    height:22px!important;
+    flex:0 0 22px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    color:currentColor!important;
+  }
+  .dropdown-btn #dropdownIcon{
+    margin-left:auto!important;
+    flex:0 0 auto!important;
+  }
+  .nav-btn[data-page="chat"],
+  [data-page="chat"].page,
+  .open-page[data-page="chat"]{
+    display:none!important;
+  }
+
 </style>
 
 </head>
@@ -4697,7 +4739,6 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
         <button class="nav-btn" data-page="gambar"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1.8"></rect><circle cx="9" cy="10" r="1.4"></circle><path d="M6.5 16l3.4-3.5 2.7 2.5 2.1-2 2.8 3"></path></svg></span><span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.3 3.7L17 8l-3.7 1.3L12 13l-1.3-3.7L7 8l3.7-1.3z"></path><path d="M18.2 13.8l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"></path><path d="M5.2 14.8l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg></span><span class="menu-label">Prediksi Togel</span></button>
         <button class="nav-btn" data-page="jadwal-togel"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="1.8"></rect><path d="M8 3.8v3.2"></path><path d="M16 3.8v3.2"></path><path d="M4 9.5h16"></path><path d="M8 12.5h.01"></path><path d="M12 12.5h.01"></path><path d="M16 12.5h.01"></path><path d="M8 16h.01"></path><path d="M12 16h.01"></path><path d="M16 16h.01"></path></svg></span><span class="menu-label">Jadwal Togel</span></button>
-        <button class="nav-btn" data-page="chat"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18.5l-2.5 1.5.8-3.2A7.5 7.5 0 1 1 19.5 12 7.5 7.5 0 0 1 6 18.5z"></path></svg></span><span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn"><span class="menu-main"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h8l3 3V19.5H7z"></path><path d="M15 4.5v3h3"></path><path d="M9 11h6"></path><path d="M9 14h6"></path><path d="M9 17h5"></path></svg></span><span class="menu-label">Postingan</span></span><span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
