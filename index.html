@@ -6166,22 +6166,6 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
     to{transform:translate(-50%,-50%) scale(18);opacity:0}
   }
 
-  /* Tiny hover sheen under pointer, rendered as a separate fixed layer */
-  .kaizo-pointer-glow{
-    position:fixed;
-    left:0;top:0;
-    width:180px;height:180px;
-    border-radius:50%;
-    pointer-events:none;
-    z-index:999999;
-    opacity:0;
-    transform:translate(-50%,-50%);
-    background:radial-gradient(circle,rgba(53,242,154,.07) 0%,rgba(53,242,154,.025) 35%,transparent 70%);
-    transition:opacity .18s ease;
-    mix-blend-mode:screen;
-  }
-  body.kaizo-pointer-active .kaizo-pointer-glow{opacity:1}
-
   /* Result refresh animation */
   #page-pk-cs #pkcsResult.kaizo-result-refresh .pkcs-centered-text,
   #page-pk-cs #pkcsResult.kaizo-result-refresh:not(.pkcs-result-empty){
@@ -6205,7 +6189,6 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
       transition-duration:.001ms !important;
       scroll-behavior:auto !important;
     }
-    .kaizo-pointer-glow{display:none !important}
   }
 </style>
 
@@ -11550,28 +11533,6 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
     setTimeout(function(){ r.remove(); }, 560);
   }
 
-  function initPointerGlow(){
-    if(window.matchMedia && window.matchMedia('(pointer:coarse)').matches) return;
-    var glow = document.createElement('div');
-    glow.className = 'kaizo-pointer-glow';
-    document.body.appendChild(glow);
-    var raf = 0, x = 0, y = 0;
-    document.addEventListener('mousemove', function(e){
-      x = e.clientX; y = e.clientY;
-      document.body.classList.add('kaizo-pointer-active');
-      if(!raf){
-        raf = requestAnimationFrame(function(){
-          glow.style.left = x + 'px';
-          glow.style.top = y + 'px';
-          raf = 0;
-        });
-      }
-    }, {passive:true});
-    document.addEventListener('mouseleave', function(){
-      document.body.classList.remove('kaizo-pointer-active');
-    });
-  }
-
   function initResultRefresh(){
     var el = document.getElementById('pkcsResult');
     if(!el) return;
@@ -11588,7 +11549,6 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
 
   function init(){
     document.addEventListener('pointerdown', addRipple, {passive:true});
-    initPointerGlow();
     initResultRefresh();
   }
 
