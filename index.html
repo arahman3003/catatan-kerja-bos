@@ -5540,6 +5540,191 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 }
 </style>
 
+
+
+<style id="kd-v20-mirip-contoh-rapi">
+/* V20 - samakan posisi, ukuran box, dan proporsi gambar seperti contoh referensi */
+@media (min-width:981px){
+  .app{grid-template-columns:236px minmax(0,1fr)!important;}
+  .sidebar{width:236px!important;}
+
+  #page-dashboard{
+    margin:-28px!important;
+    width:calc(100% + 56px)!important;
+    min-height:100vh!important;
+    padding:6px 8px 8px!important;
+    overflow:auto!important;
+  }
+  .kd-dashboard-v2{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    min-height:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+  }
+
+  /* Sidebar bawah kiri sama seperti contoh */
+  .kd-sidebar-motivation{
+    margin:12px 0 54px!important;
+    height:248px!important;
+    min-height:248px!important;
+    max-height:248px!important;
+    aspect-ratio:auto!important;
+    border-radius:10px!important;
+    background:#020806 url("sidebar-motivasi-kaizokugari.png") center center/cover no-repeat!important;
+  }
+
+  /* Strip atas tipis */
+  .kd-top-strip{
+    height:34px!important;
+    min-height:34px!important;
+    padding:4px 12px!important;
+    gap:12px!important;
+    grid-template-columns:minmax(0,1fr) auto minmax(235px,255px)!important;
+  }
+  .kd-process-line{font-size:10px!important;gap:16px!important;letter-spacing:1.2px!important;}
+  .kd-top-quote{font-size:10px!important;letter-spacing:.4px!important;}
+  .kd-clock-box{height:34px!important;padding:4px 11px!important;border-radius:8px!important;}
+  .kd-clock-box strong{font-size:16px!important;}
+  .kd-clock-box span,.kd-clock-box small{font-size:9px!important;}
+
+  /* HERO area utama */
+  .kd-hero-grid{
+    margin-top:7px!important;
+    gap:7px!important;
+    grid-template-columns:minmax(0,4.28fr) minmax(270px,1.25fr)!important;
+    min-height:268px!important;
+    max-height:none!important;
+  }
+  .kd-hero-main,
+  .kd-manga-panel,
+  .kd-manga-single{min-height:268px!important;height:268px!important;max-height:268px!important;}
+  .kd-hero-copy{left:28px!important;top:22px!important;max-width:53%!important;}
+  .kd-hero-kicker{font-size:clamp(32px,3vw,48px)!important;line-height:.92!important;}
+  .kd-hero-copy h1{font-size:clamp(54px,4.5vw,78px)!important;line-height:.88!important;}
+  .kd-hero-ribbon{margin-top:10px!important;padding:9px 28px 9px 16px!important;}
+  .kd-hero-ribbon strong{font-size:18px!important;}
+  .kd-hero-ribbon span{font-size:9.5px!important;letter-spacing:.4px!important;}
+  .kd-hero-focus{right:26px!important;top:36px!important;font-size:28px!important;line-height:.95!important;}
+
+  /* Panel kanan tetap 1 kotak, proporsional seperti contoh */
+  .kd-manga-single{
+    background:#f0f0f0 url("panel-kanan-manga.png") center center/100% 100% no-repeat!important;
+    border:1px solid rgba(53,242,154,.62)!important;
+  }
+
+  /* Statistik */
+  .kd-stat-grid{
+    margin-top:8px!important;
+    gap:8px!important;
+    padding:8px!important;
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  }
+  .kd-stat-card{height:96px!important;min-height:96px!important;max-height:96px!important;padding:10px 13px!important;gap:12px!important;}
+  .kd-stat-icon{width:54px!important;height:54px!important;font-size:26px!important;}
+  .kd-stat-card span{font-size:9px!important;letter-spacing:.8px!important;}
+  .kd-stat-card strong{font-size:23px!important;line-height:1!important;}
+  .kd-stat-card small{font-size:9px!important;line-height:1.2!important;}
+
+  /* AKSES CEPAT seperti contoh: tidak terlalu tinggi, tidak terlalu pendek */
+  .kd-quick-section{
+    margin-top:8px!important;
+    padding:8px!important;
+    min-height:auto!important;
+    height:auto!important;
+    flex:none!important;
+  }
+  .kd-section-heading{
+    height:38px!important;
+    min-height:38px!important;
+    grid-template-columns:255px 1fr auto!important;
+    margin-bottom:8px!important;
+  }
+  .kd-section-heading h2{height:32px!important;font-size:20px!important;padding-left:14px!important;}
+  .kd-section-heading p{font-size:9.2px!important;letter-spacing:1.4px!important;}
+  .kd-section-heading small{font-size:8px!important;letter-spacing:1px!important;}
+  .kd-quick-grid{gap:8px!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;align-items:stretch!important;}
+  .kd-quick-card{
+    height:214px!important;
+    min-height:214px!important;
+    max-height:214px!important;
+    display:grid!important;
+    grid-template-rows:86px 128px!important;
+  }
+  .kd-card-art{height:86px!important;min-height:86px!important;max-height:86px!important;}
+  .kd-card-body{height:128px!important;min-height:128px!important;max-height:128px!important;padding:11px 40px 10px 12px!important;}
+  .kd-card-body::before{top:-13px!important;height:19px!important;width:78px!important;}
+  .kd-card-body b{font-size:16px!important;margin-bottom:2px!important;}
+  .kd-card-body h3{font-size:14px!important;margin:0 0 5px!important;line-height:1.1!important;}
+  .kd-card-body p{font-size:9.6px!important;line-height:1.35!important;}
+  .kd-card-body i{width:29px!important;height:29px!important;right:9px!important;bottom:9px!important;font-size:15px!important;}
+
+  /* Baris bawah sesuai contoh */
+  .kd-bottom-grid{
+    margin-top:8px!important;
+    gap:8px!important;
+    grid-template-columns:1.02fr 2.72fr .84fr!important;
+    height:146px!important;
+    min-height:146px!important;
+    max-height:146px!important;
+    align-items:stretch!important;
+  }
+  .kd-bottom-grid > article{
+    height:146px!important;
+    min-height:146px!important;
+    max-height:146px!important;
+  }
+  .kd-quote-card{padding:11px 13px!important;}
+  .kd-quote-card h3{font-size:14px!important;}
+  .kd-quote-card blockquote{font-size:13px!important;line-height:1.18!important;margin:8px 0 4px!important;}
+  .kd-quote-card span{font-size:8px!important;}
+
+  .kd-tips-banner{
+    border:1px solid rgba(53,242,154,.58)!important;
+    background:#020907!important;
+    overflow:hidden!important;
+  }
+  .kd-tips-banner,
+  .kd-tips-banner-img{
+    height:146px!important;
+    min-height:146px!important;
+    max-height:146px!important;
+  }
+  .kd-tips-banner-img{
+    width:100%!important;
+    display:block!important;
+    object-fit:fill!important;
+    object-position:center center!important;
+  }
+
+  .kd-brand-card{padding:13px 13px 10px!important;}
+  .kd-brand-card h3{font-size:15px!important;margin-bottom:2px!important;}
+  .kd-brand-card > span{font-size:7px!important;letter-spacing:1.2px!important;}
+  .kd-brand-card hr{margin:10px 0!important;}
+  .kd-brand-card p{font-size:8px!important;line-height:1.42!important;}
+  .kd-brand-card b{font-size:24px!important;right:10px!important;bottom:7px!important;}
+
+  .kd-dashboard-footer{height:16px!important;min-height:16px!important;font-size:7px!important;padding:0 1px!important;}
+  .kd-dashboard-footer strong{font-size:7px!important;}
+}
+
+/* Laptop sedang tetap aman */
+@media (max-width:1180px) and (min-width:981px){
+  .app{grid-template-columns:218px minmax(0,1fr)!important;}
+  .sidebar{width:218px!important;}
+  .kd-top-strip{grid-template-columns:minmax(0,1fr) auto minmax(215px,235px)!important;}
+  .kd-hero-grid{grid-template-columns:minmax(0,3.9fr) minmax(235px,1.18fr)!important;min-height:250px!important;}
+  .kd-hero-main,.kd-manga-panel,.kd-manga-single{height:250px!important;min-height:250px!important;max-height:250px!important;}
+  .kd-quick-card{height:202px!important;min-height:202px!important;max-height:202px!important;grid-template-rows:80px 122px!important;}
+  .kd-card-art{height:80px!important;min-height:80px!important;max-height:80px!important;}
+  .kd-card-body{height:122px!important;min-height:122px!important;max-height:122px!important;}
+  .kd-bottom-grid{grid-template-columns:1fr 2.45fr .86fr!important;height:138px!important;min-height:138px!important;max-height:138px!important;}
+  .kd-bottom-grid > article,.kd-tips-banner,.kd-tips-banner-img{height:138px!important;min-height:138px!important;max-height:138px!important;}
+  .kd-sidebar-motivation{height:228px!important;min-height:228px!important;max-height:228px!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
