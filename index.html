@@ -6564,6 +6564,36 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="notepad-card-size-v3-fix">
+/* Sesuai permintaan: gap 15px, card lebih tinggi 330px, dan width dipersempit */
+#page-notepad .note-grid{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fit,minmax(280px,360px)) !important;
+  justify-content:center !important;
+  gap:15px !important;
+  column-count:unset !important;
+  align-items:stretch !important;
+}
+#page-notepad .note-card{
+  width:100% !important;
+  height:330px !important;
+  min-height:330px !important;
+  max-height:330px !important;
+}
+@media(max-width:760px){
+  #page-notepad .note-grid{
+    grid-template-columns:1fr !important;
+    gap:15px !important;
+  }
+  #page-notepad .note-card{
+    height:330px !important;
+    min-height:330px !important;
+    max-height:330px !important;
+  }
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
