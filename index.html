@@ -5423,102 +5423,120 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 </style>
 
 
-<style id="kd-v18-padat-sampai-bawah">
-/* V18 - tata ulang vertikal agar padat sampai bawah seperti contoh */
+<style id="kd-v19-padat-bawah-top-tetap">
+/* V19 - HANYA PADATKAN BAGIAN BAWAH. BAGIAN ATAS V17 TETAP. */
 @media (min-width:981px){
-  #page-dashboard{
-    padding:7px 9px 6px!important;
-    overflow:hidden!important;
-  }
-  .kd-dashboard-v2{
-    min-height:calc(100vh - 14px)!important;
-    height:auto!important;
-  }
-
-  /* area atas dibuat lebih seimbang seperti contoh */
-  .kd-top-strip{
-    height:32px!important;
-    min-height:32px!important;
-    padding:4px 12px!important;
-  }
-  .kd-clock-box{height:32px!important; padding:4px 10px!important;}
-  .kd-clock-box strong{font-size:16px!important;}
-
-  .kd-hero-grid{
-    height:228px!important;
-    min-height:228px!important;
-    max-height:228px!important;
-    margin-top:8px!important;
-    gap:8px!important;
-  }
-  .kd-hero-main,
-  .kd-manga-panel,
-  .kd-manga-single{
-    height:228px!important;
-    min-height:228px!important;
-    max-height:228px!important;
-  }
-  .kd-hero-copy{left:30px!important;top:22px!important;max-width:63%!important;}
-  .kd-hero-kicker{font-size:36px!important;line-height:.92!important;}
-  .kd-hero-copy h1{font-size:58px!important;line-height:.88!important;}
-  .kd-hero-ribbon{padding:7px 22px 8px 13px!important;margin-top:8px!important;}
-  .kd-hero-ribbon strong{font-size:16px!important;}
-  .kd-hero-ribbon span{font-size:9px!important;}
-  .kd-hero-focus{top:30px!important;right:18px!important;font-size:23px!important;}
-
-  .kd-stat-grid{margin-top:8px!important;padding:7px!important;gap:8px!important;}
-  .kd-stat-card{height:76px!important;min-height:76px!important;padding:9px 12px!important;}
-  .kd-stat-icon{width:44px!important;height:44px!important;font-size:22px!important;}
-  .kd-stat-card strong{font-size:22px!important;}
-
-  .kd-quick-section{
+  /* Statistik dibuat sedikit lebih tinggi agar isi lebih berisi */
+  .kd-stat-grid{
     margin-top:8px!important;
     padding:8px!important;
-    min-height:0!important;
+    gap:8px!important;
+  }
+  .kd-stat-card{
+    height:92px!important;
+    min-height:92px!important;
+    max-height:92px!important;
+    padding:10px 13px!important;
+    gap:12px!important;
+  }
+  .kd-stat-icon{
+    width:52px!important;
+    height:52px!important;
+    font-size:25px!important;
+  }
+  .kd-stat-card span{font-size:9.5px!important;}
+  .kd-stat-card strong{font-size:25px!important;}
+  .kd-stat-card small{font-size:9px!important;}
+
+  /* Akses cepat dibuat proporsional, bukan menjulang */
+  .kd-quick-section{
+    flex:none!important;
     height:auto!important;
+    min-height:0!important;
+    margin-top:8px!important;
+    padding:8px!important;
   }
   .kd-section-heading{
-    height:34px!important;
+    height:38px!important;
     margin-bottom:8px!important;
   }
-  .kd-section-heading h2{height:30px!important;font-size:18px!important;padding-left:13px!important;}
-  .kd-section-heading p{font-size:10px!important;}
-  .kd-section-heading small{font-size:8px!important;}
-  .kd-quick-grid{gap:8px!important;align-items:start!important;}
-  .kd-quick-card{
-    height:204px!important;
-    min-height:204px!important;
-    max-height:204px!important;
-    grid-template-rows:82px 122px!important;
+  .kd-section-heading h2{
+    height:33px!important;
+    font-size:21px!important;
+    padding-left:14px!important;
   }
-  .kd-card-art{height:82px!important;min-height:82px!important;max-height:82px!important;}
-  .kd-card-body{height:122px!important;min-height:122px!important;max-height:122px!important;padding:11px 40px 11px 13px!important;}
-  .kd-card-body h3{font-size:15px!important;}
-  .kd-card-body p{font-size:10px!important;line-height:1.36!important;}
-  .kd-card-body i{width:30px!important;height:30px!important;font-size:15px!important;right:9px!important;bottom:9px!important;}
+  .kd-section-heading p{font-size:9.5px!important;}
+  .kd-section-heading small{font-size:8px!important;}
+  .kd-quick-grid{
+    height:auto!important;
+    gap:8px!important;
+    align-items:start!important;
+  }
+  .kd-quick-card{
+    height:238px!important;
+    min-height:238px!important;
+    max-height:238px!important;
+    grid-template-rows:92px 146px!important;
+  }
+  .kd-card-art{
+    height:92px!important;
+    min-height:92px!important;
+    max-height:92px!important;
+  }
+  .kd-card-body{
+    height:146px!important;
+    min-height:146px!important;
+    max-height:146px!important;
+    padding:13px 42px 12px 13px!important;
+  }
+  .kd-card-body b{font-size:17px!important;}
+  .kd-card-body h3{font-size:16px!important;margin-bottom:6px!important;}
+  .kd-card-body p{font-size:10.5px!important;line-height:1.42!important;}
+  .kd-card-body i{
+    width:31px!important;
+    height:31px!important;
+    right:10px!important;
+    bottom:10px!important;
+  }
 
+  /* Baris bawah dibuat lebih penuh seperti target */
   .kd-bottom-grid{
     margin-top:8px!important;
     gap:8px!important;
-    height:140px!important;
-    min-height:140px!important;
-    max-height:140px!important;
+    height:172px!important;
+    min-height:172px!important;
+    max-height:172px!important;
     grid-template-columns:1.05fr 2.55fr .82fr!important;
+    align-items:stretch!important;
   }
   .kd-bottom-grid > article{
-    height:140px!important;
-    min-height:140px!important;
-    max-height:140px!important;
+    height:172px!important;
+    min-height:172px!important;
+    max-height:172px!important;
   }
   .kd-tips-banner,
-  .kd-tips-banner-img{height:140px!important;min-height:140px!important;max-height:140px!important;}
-  .kd-tips-banner-img{object-fit:fill!important;display:block!important;}
-  .kd-quote-card{padding:11px 13px!important;}
-  .kd-quote-card h3{font-size:14px!important;}
-  .kd-quote-card blockquote{font-size:14px!important;line-height:1.14!important;}
-  .kd-brand-card{padding:12px 12px 10px!important;}
+  .kd-tips-banner-img{
+    height:172px!important;
+    min-height:172px!important;
+    max-height:172px!important;
+  }
+  .kd-tips-banner-img{
+    width:100%!important;
+    display:block!important;
+    object-fit:fill!important;
+  }
+  .kd-quote-card{padding:13px 14px!important;}
+  .kd-quote-card h3{font-size:15px!important;}
+  .kd-quote-card blockquote{font-size:15px!important;line-height:1.18!important;margin-top:10px!important;}
+  .kd-brand-card{padding:14px 14px 11px!important;}
+  .kd-brand-card h3{font-size:16px!important;}
+  .kd-brand-card hr{margin:10px 0!important;}
+  .kd-brand-card p{font-size:8px!important;line-height:1.45!important;}
 
-  .kd-dashboard-footer{height:18px!important;min-height:18px!important;padding-top:4px!important;}
+  .kd-dashboard-footer{
+    height:22px!important;
+    min-height:22px!important;
+  }
 }
 </style>
 
