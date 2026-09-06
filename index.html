@@ -6780,6 +6780,20 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+<style id="notepad-v11-force-fulltext-scroll-edge">
+\/* V11: paksa tulisan isi note melebar penuh sampai sisi kanan, tanpa ruang kosong gambar,
+   dan scrollbar tetap di sisi paling kanan area isi. *\/
+#page-notepad .note-card{overflow:hidden !important;}
+#page-notepad .note-main{position:relative !important;z-index:2 !important;width:100% !important;max-width:100% !important;min-width:0 !important;height:206px !important;max-height:206px !important;overflow:hidden !important;padding:11px 8px 0 12px !important;box-sizing:border-box !important;}
+#page-notepad .note-title{width:100% !important;max-width:100% !important;padding-right:2px !important;box-sizing:border-box !important;}
+#page-notepad .note-content{display:block !important;align-self:stretch !important;width:calc(100% + 8px) !important;max-width:none !important;min-width:0 !important;height:136px !important;max-height:136px !important;margin:8px -8px 0 0 !important;padding:0 2px 4px 0 !important;text-align:left !important;line-height:1.55 !important;font-size:14px !important;font-weight:600 !important;white-space:pre-wrap !important;word-break:break-word !important;overflow-wrap:anywhere !important;overflow-y:auto !important;overflow-x:hidden !important;box-sizing:border-box !important;scrollbar-width:thin !important;scrollbar-color:#2bea91 transparent !important;scrollbar-gutter:stable !important;}
+#page-notepad .note-content::-webkit-scrollbar{width:6px !important;}
+#page-notepad .note-content::-webkit-scrollbar-track{background:transparent !important;}
+#page-notepad .note-content::-webkit-scrollbar-thumb{background:#2bea91 !important;border-radius:999px !important;}
+#page-notepad .note-content::-webkit-scrollbar-thumb:hover{background:#53f6ad !important;}
+#page-notepad .note-card .note-image{display:none !important;}
+<\/style>
+
 </head>
 <body class="dark-workspace">
 
