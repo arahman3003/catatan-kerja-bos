@@ -4620,38 +4620,55 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 <style id="kd-v27-postingan-chat-fix">
 
   /* V27 patch — rapikan Postingan dan hilangkan CHAT */
+  .dropdown-btn{
+    width:100%!important;
+    min-height:44px!important;
+    padding:10px 42px 10px 14px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    position:relative!important;
+    gap:0!important;
+  }
   .dropdown-btn .menu-main,
   .dropdown-btn .menu-main .nav-icon,
   .dropdown-btn .menu-main .menu-label{
     margin-left:0!important;
   }
-  .dropdown-btn{
-    width:100%!important;
-    min-height:44px!important;
-    padding:10px 14px!important;
-    gap:13px!important;
-    justify-content:space-between!important;
-    align-items:center!important;
-  }
   .dropdown-btn .menu-main{
-    flex:1 1 auto!important;
-    display:flex!important;
+    width:100%!important;
+    min-width:0!important;
+    display:grid!important;
+    grid-template-columns:22px minmax(0,1fr)!important;
     align-items:center!important;
-    gap:13px!important;
+    column-gap:13px!important;
     justify-content:flex-start!important;
   }
   .dropdown-btn .nav-icon{
     width:22px!important;
     height:22px!important;
-    flex:0 0 22px!important;
     display:flex!important;
     align-items:center!important;
     justify-content:center!important;
     color:currentColor!important;
   }
+  .dropdown-btn .menu-label{
+    display:block!important;
+    text-align:left!important;
+    white-space:nowrap!important;
+  }
   .dropdown-btn #dropdownIcon{
-    margin-left:auto!important;
-    flex:0 0 auto!important;
+    position:absolute!important;
+    right:14px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    margin:0!important;
+    width:auto!important;
+    min-width:12px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    line-height:1!important;
   }
   .nav-btn[data-page="chat"],
   [data-page="chat"].page,
