@@ -6739,6 +6739,47 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="notepad-v10-no-empty-image-space-fix">
+/* V10: hapus ruang kosong cadangan gambar di sisi kanan.
+   Isi tulisan dibuat full sampai ke sisi kanan box seperti contoh user. */
+#page-notepad .note-main{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  padding:11px 12px 0 12px !important;
+  box-sizing:border-box !important;
+}
+#page-notepad .note-title{
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 0 8px 0 !important;
+  padding-right:4px !important;
+  box-sizing:border-box !important;
+}
+#page-notepad .note-content{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  margin:8px 0 0 0 !important;
+  padding:0 6px 4px 0 !important;
+  text-align:left !important;
+  box-sizing:border-box !important;
+}
+/* Jangan sisakan layout khusus gambar samping. Bila ada gambar, pindahkan normal ke bawah, bukan reservasi di kanan. */
+#page-notepad .note-image{
+  position:static !important;
+  right:auto !important;
+  top:auto !important;
+  width:100% !important;
+  max-width:100% !important;
+  height:auto !important;
+  max-height:120px !important;
+  margin:10px 0 0 0 !important;
+  display:block !important;
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
