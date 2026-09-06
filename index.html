@@ -5866,6 +5866,110 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 })();
 </script>
 
+
+<style id="pkcs-result-center-clean-fix">
+  /* Outer result area tetap jadi area scroll, scrollbar di pinggir kanan */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty){
+    display:block !important;
+    height:100% !important;
+    min-height:100% !important;
+    padding:0 !important;
+    overflow:auto !important;
+    text-align:initial !important;
+  }
+
+  /* Shell untuk menaruh isi tepat di tengah area hasil */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) > .pkcs-centered-shell{
+    min-height:100% !important;
+    width:100% !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    box-sizing:border-box !important;
+    padding:28px 34px !important;
+  }
+
+  /* Teks hasil dibuat rapi dan center */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) .pkcs-centered-text{
+    width:min(780px, 100%) !important;
+    max-width:780px !important;
+    margin:0 auto !important;
+    white-space:pre-wrap !important;
+    word-break:break-word !important;
+    line-height:1.82 !important;
+    font-size:15px !important;
+    font-weight:700 !important;
+    color:#24352c !important;
+    text-align:center !important;
+    box-sizing:border-box !important;
+  }
+
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) .pkcs-centered-text *{
+    text-align:center !important;
+  }
+
+  @media (max-width:980px){
+    #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) > .pkcs-centered-shell{
+      padding:20px 16px !important;
+    }
+    #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) .pkcs-centered-text{
+      width:100% !important;
+      max-width:none !important;
+      font-size:14px !important;
+      line-height:1.72 !important;
+    }
+  }
+</style>
+<script id="pkcs-result-center-clean-script">
+(function(){
+  function applyCenteredLayout(){
+    var el = document.getElementById('pkcsResult');
+    if(!el) return;
+    if(el.classList.contains('pkcs-result-empty')) return;
+
+    var existingShell = el.querySelector(':scope > .pkcs-centered-shell');
+    if(existingShell) return;
+
+    var existingText = el.querySelector(':scope > .pkcs-centered-text');
+    var html = existingText ? existingText.innerHTML : el.innerHTML;
+
+    el.innerHTML = '';
+    var shell = document.createElement('div');
+    shell.className = 'pkcs-centered-shell';
+    var text = document.createElement('div');
+    text.className = 'pkcs-centered-text';
+    text.innerHTML = html;
+    shell.appendChild(text);
+    el.appendChild(shell);
+  }
+
+  function initPkcsCenterFix(){
+    var el = document.getElementById('pkcsResult');
+    if(!el) return;
+
+    var busy = false;
+    var observer = new MutationObserver(function(){
+      if(busy) return;
+      busy = true;
+      try {
+        applyCenteredLayout();
+      } finally {
+        busy = false;
+      }
+    });
+
+    observer.observe(el, {childList:true, subtree:true, characterData:true});
+    applyCenteredLayout();
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initPkcsCenterFix);
+  } else {
+    initPkcsCenterFix();
+  }
+})();
+</script>
+
 </head>
 <body class="dark-workspace">
 
