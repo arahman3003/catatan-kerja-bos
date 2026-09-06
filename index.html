@@ -5775,6 +5775,34 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 }
 </style>
 
+
+<style id="pkcs-result-center-fix">
+  /* Fix posisi hasil agar blok teks berada di area tengah seperti contoh */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty){
+    width:min(760px, calc(100% - 76px)) !important;
+    max-width:760px !important;
+    margin:0 auto !important;
+    padding:24px 0 !important;
+    text-align:left !important;
+    display:block !important;
+    height:100% !important;
+    min-height:100% !important;
+    color:#24352c !important;
+  }
+
+  /* Jika hasil sangat pendek, tetap enak dilihat dan tidak mepet kiri */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) br + br{
+    line-height:1.2 !important;
+  }
+
+  @media (max-width: 980px){
+    #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty){
+      width:calc(100% - 32px) !important;
+      max-width:none !important;
+      padding:18px 0 !important;
+    }
+  }
+</style>
 </head>
 <body class="dark-workspace">
 
