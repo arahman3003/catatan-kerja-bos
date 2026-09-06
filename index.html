@@ -6713,6 +6713,32 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="notepad-v9-text-full-width-fix">
+/* V9: tulisan isi note dibuat melebar penuh ke kanan-kiri seperti contoh lama.
+   Desain box, warna, ribbon, tombol, tinggi, dan layout card tetap dipertahankan. */
+#page-notepad .note-card:not(:has(.note-image)) .note-main{
+  width:calc(100% - 14px) !important;
+  max-width:calc(100% - 14px) !important;
+  padding:11px 12px 0 12px !important;
+}
+#page-notepad .note-card:not(:has(.note-image)) .note-title{
+  width:100% !important;
+  margin:0 0 7px 0 !important;
+}
+#page-notepad .note-card:not(:has(.note-image)) .note-content{
+  width:100% !important;
+  max-width:100% !important;
+  padding:0 4px 4px 0 !important;
+  text-align:left !important;
+}
+
+/* Jika suatu card memang punya gambar upload/manual, area gambar tetap aman dan tidak tertimpa teks. */
+#page-notepad .note-card:has(.note-image) .note-main{
+  width:69% !important;
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
