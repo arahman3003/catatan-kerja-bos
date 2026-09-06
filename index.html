@@ -6632,6 +6632,21 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="notepad-card-size-v6-min-side-space">
+/* V6: space kiri kanan tinggal sangat sedikit, gap antar card tetap 15px */
+#page-notepad .note-grid{
+  width:calc(100% - 2px) !important;
+  margin:0 1px !important;
+}
+@media(max-width:640px){
+  #page-notepad .note-grid{
+    width:100% !important;
+    margin:0 !important;
+  }
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
