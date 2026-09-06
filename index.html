@@ -5803,6 +5803,69 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
     }
   }
 </style>
+
+<style id="pkcs-result-true-center-fix">
+  /* Posisikan blok hasil benar-benar di tengah area hasil */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty){
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:24px !important;
+    text-align:left !important;
+  }
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) .pkcs-centered-text{
+    width:min(760px, calc(100% - 76px)) !important;
+    max-width:760px !important;
+    margin:0 auto !important;
+    white-space:pre-wrap !important;
+    word-break:break-word !important;
+    line-height:1.72 !important;
+    font-size:15px !important;
+    font-weight:700 !important;
+    color:#24352c !important;
+    text-align:left !important;
+  }
+  @media (max-width: 980px){
+    #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty){
+      padding:18px !important;
+    }
+    #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) .pkcs-centered-text{
+      width:100% !important;
+      max-width:none !important;
+    }
+  }
+</style>
+<script id="pkcs-result-true-center-script">
+(function(){
+  function centerPkcsResult(){
+    var el = document.getElementById('pkcsResult');
+    if(!el) return;
+    if(el.classList.contains('pkcs-result-empty')) return;
+    if(el.querySelector('.pkcs-centered-text')) return;
+    var txt = el.textContent || '';
+    el.textContent = '';
+    var box = document.createElement('div');
+    box.className = 'pkcs-centered-text';
+    box.textContent = txt;
+    el.appendChild(box);
+  }
+  function init(){
+    var el = document.getElementById('pkcsResult');
+    if(!el) return;
+    var busy = false;
+    var observer = new MutationObserver(function(){
+      if(busy) return;
+      busy = true;
+      try { centerPkcsResult(); } finally { busy = false; }
+    });
+    observer.observe(el, {childList:true, characterData:true, subtree:true});
+    centerPkcsResult();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
 </head>
 <body class="dark-workspace">
 
