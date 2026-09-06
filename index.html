@@ -6553,6 +6553,17 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="notepad-remove-card-background-images">
+/* Hapus artwork/gambar background di dalam kartu Notepad saja.
+   Layout, warna ribbon, teks, tombol, hover, dan fungsi lain tetap. */
+#page-notepad .note-card::after{
+  content:none !important;
+  display:none !important;
+  background-image:none !important;
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
