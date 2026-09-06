@@ -4767,6 +4767,134 @@ body.sidebar-collapsed .dropdown-btn #dropdownIcon{display:none!important}
       #page-pk-cs .pkcs-footer-line{max-width:100%;width:100%}
     }
 
+
+
+    /* PK CS V33 — FULL LEBAR SESUAI CONTOH */
+    #page-pk-cs{
+      width:100%;
+      min-height:calc(100vh - 56px);
+    }
+    #page-pk-cs .pkcs-shell{
+      min-height:calc(100vh - 56px);
+      margin:-28px;
+      padding:6px 6px 16px;
+      background:
+        radial-gradient(circle at 12% 2%,rgba(44,244,176,.08),transparent 24%),
+        radial-gradient(circle at 90% 8%,rgba(44,244,176,.05),transparent 20%),
+        linear-gradient(180deg,rgba(2,10,9,.72),rgba(2,9,11,.80));
+    }
+    #page-pk-cs .pkcs-stage{
+      width:100%;
+      max-width:none;
+      margin:0;
+      gap:10px;
+    }
+    #page-pk-cs .pkcs-hero-grid{
+      grid-template-columns:minmax(0,1fr) 300px;
+      gap:10px;
+    }
+    #page-pk-cs .pkcs-hero-main,
+    #page-pk-cs .pkcs-hero-side{
+      min-height:238px;
+    }
+    #page-pk-cs .pkcs-toolbar{
+      grid-template-columns:220px 290px 300px minmax(0,1fr);
+      gap:10px;
+      padding:8px;
+    }
+    #page-pk-cs .pkcs-toolbar-title,
+    #page-pk-cs .pkcs-toolbar-btn,
+    #page-pk-cs .pkcs-toolbar-art{
+      min-height:68px;
+    }
+    #page-pk-cs .pkcs-toolbar-title{
+      font-size:23px;
+    }
+    #page-pk-cs .pkcs-toolbar-title span{font-size:40px;}
+    #page-pk-cs .pkcs-toolbar-btn{
+      font-size:17px;
+      border-radius:12px;
+    }
+    #page-pk-cs .pkcs-grid{
+      grid-template-columns:430px minmax(0,1fr);
+      gap:12px;
+      align-items:stretch;
+    }
+    #page-pk-cs .pkcs-left,
+    #page-pk-cs .pkcs-right{
+      min-height:540px;
+    }
+    #page-pk-cs .pkcs-left{
+      padding:18px;
+      gap:14px;
+    }
+    #page-pk-cs .pkcs-search-title,
+    #page-pk-cs .pkcs-result-title{
+      min-height:58px;
+      font-size:22px;
+    }
+    #page-pk-cs .pkcs-search-sub{
+      font-size:15px;
+    }
+    #page-pk-cs .pkcs-search-row{
+      grid-template-columns:minmax(0,1fr) 112px;
+    }
+    #page-pk-cs .pkcs-search,
+    #page-pk-cs .pkcs-search-btn{
+      height:52px;
+    }
+    #page-pk-cs .pkcs-left-art{
+      min-height:350px;
+      flex:1 1 auto;
+    }
+    #page-pk-cs .pkcs-right{
+      padding:14px;
+      gap:12px;
+    }
+    #page-pk-cs .pkcs-result-box{
+      min-height:410px !important;
+      height:410px !important;
+      max-height:410px !important;
+      border-radius:20px !important;
+    }
+    #page-pk-cs #pkcsResult{
+      padding:28px 30px !important;
+      font-size:17px !important;
+    }
+    #page-pk-cs .pkcs-result-foot{
+      padding-top:2px;
+    }
+    #page-pk-cs .pkcs-edit,
+    #page-pk-cs .pkcs-delete,
+    #page-pk-cs .pkcs-copy{
+      min-width:118px;
+      height:58px;
+      font-size:16px !important;
+    }
+    #page-pk-cs .pkcs-footer{
+      min-height:76px;
+      padding:14px 16px;
+    }
+    #page-pk-cs .pkcs-footer-line{
+      width:420px;
+      max-width:34vw;
+    }
+
+    @media (max-width: 1500px){
+      #page-pk-cs .pkcs-hero-grid{grid-template-columns:minmax(0,1fr) 270px;}
+      #page-pk-cs .pkcs-toolbar{grid-template-columns:200px 255px 270px minmax(0,1fr);}
+      #page-pk-cs .pkcs-grid{grid-template-columns:390px minmax(0,1fr);}
+      #page-pk-cs .pkcs-result-box{min-height:380px !important;height:380px !important;max-height:380px !important;}
+    }
+    @media (max-width: 1180px){
+      #page-pk-cs .pkcs-shell{margin:-20px;padding:8px;}
+      #page-pk-cs .pkcs-toolbar{grid-template-columns:1fr 1fr;}
+      #page-pk-cs .pkcs-toolbar-art{grid-column:1/-1;}
+      #page-pk-cs .pkcs-grid{grid-template-columns:1fr;}
+      #page-pk-cs .pkcs-left-art{min-height:300px;}
+      #page-pk-cs .pkcs-right{min-height:520px;}
+    }
+
 </style>
 
 <style id="kd-density-fix-v3">
