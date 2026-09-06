@@ -4193,9 +4193,7 @@ CATATAN:
   box-shadow:0 7px 18px rgba(0,220,120,.17)!important;
   transform:translateX(2px)
 }
-.dropdown-btn{display:flex!important;align-items:center!important;justify-content:space-between!important;width:100%!important;background:rgba(53,242,154,.035)!important;border-color:rgba(53,242,154,.24)!important;text-align:left!important}
-.dropdown-btn .menu-main{display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important;flex:1 1 auto!important}
-.dropdown-btn #dropdownIcon{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:16px!important;margin-left:8px!important;flex:0 0 auto!important}
+.dropdown-btn{background:rgba(53,242,154,.035)!important;border-color:rgba(53,242,154,.24)!important}
 .dropdown-btn:hover{background:rgba(53,242,154,.12)!important;color:#fff!important}
 .submenu{margin-left:12px!important;padding-left:9px!important;border-left:1px solid rgba(53,242,154,.32)!important;gap:4px!important}
 .kd-sidebar-motivation{margin:14px 0 50px;min-height:120px;border:1px solid rgba(53,242,154,.45);border-radius:8px;padding:12px;background:linear-gradient(120deg,rgba(0,0,0,.80),rgba(5,43,30,.80)),url("https://i.imgur.com/7qjeGMI.jpeg") center/cover no-repeat;position:relative;overflow:hidden}
@@ -4313,25 +4311,6 @@ body.sidebar-collapsed .dropdown-btn #dropdownIcon{display:none!important}
 }
 .kd-card-body::before{top:-15px!important;height:21px!important;}
 
-
-/* V29 FIX: rapikan posisi Postingan + sidebar lebih stabil */
-.app{grid-template-columns:270px minmax(0,1fr)!important}
-.sidebar{width:270px!important;min-width:270px!important;max-width:270px!important;position:sticky!important;top:0!important;height:100vh!important;flex:0 0 270px!important}
-.main{min-width:0!important}
-.menu{display:flex!important;flex-direction:column!important;align-items:stretch!important}
-.menu > .nav-btn,.menu > .dropdown-btn{width:100%!important}
-.dropdown-btn{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:10px 14px!important;text-align:left!important}
-.dropdown-btn > .menu-main{display:flex!important;align-items:center!important;gap:13px!important;flex:1 1 auto!important;min-width:0!important;margin-left:0!important}
-.dropdown-btn > .menu-main .menu-label{margin:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important;flex:0 0 auto!important;display:flex!important;align-items:center!important;justify-content:center!important}
-.dropdown-btn span{margin-left:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important}
-.submenu{width:calc(100% - 18px)!important}
-.kd-sidebar-motivation{width:100%!important;align-self:stretch!important}
-.sidebar-footer.sidebar-footer-logout-only{width:100%!important;align-self:stretch!important}
-@media (min-width:981px){
-  body:not(.sidebar-collapsed) .sidebar{overflow-y:auto!important}
-}
 </style>
 
 <style id="kd-density-fix-v3">
@@ -4482,25 +4461,6 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
   .kd-dashboard-v2{min-height:auto!important;}
   .kd-hero-grid{min-height:300px!important;}
 }
-
-/* V29 FIX: rapikan posisi Postingan + sidebar lebih stabil */
-.app{grid-template-columns:270px minmax(0,1fr)!important}
-.sidebar{width:270px!important;min-width:270px!important;max-width:270px!important;position:sticky!important;top:0!important;height:100vh!important;flex:0 0 270px!important}
-.main{min-width:0!important}
-.menu{display:flex!important;flex-direction:column!important;align-items:stretch!important}
-.menu > .nav-btn,.menu > .dropdown-btn{width:100%!important}
-.dropdown-btn{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:10px 14px!important;text-align:left!important}
-.dropdown-btn > .menu-main{display:flex!important;align-items:center!important;gap:13px!important;flex:1 1 auto!important;min-width:0!important;margin-left:0!important}
-.dropdown-btn > .menu-main .menu-label{margin:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important;flex:0 0 auto!important;display:flex!important;align-items:center!important;justify-content:center!important}
-.dropdown-btn span{margin-left:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important}
-.submenu{width:calc(100% - 18px)!important}
-.kd-sidebar-motivation{width:100%!important;align-self:stretch!important}
-.sidebar-footer.sidebar-footer-logout-only{width:100%!important;align-self:stretch!important}
-@media (min-width:981px){
-  body:not(.sidebar-collapsed) .sidebar{overflow-y:auto!important}
-}
 </style>
 <!-- V6: comic brush font khusus quote topbar -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -4596,25 +4556,6 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
   .kd-bottom-grid>article{height:auto!important;max-height:none!important;}
   .kd-tips-banner-img{width:100%!important;height:auto!important;object-fit:contain!important;}
 }
-
-/* V29 FIX: rapikan posisi Postingan + sidebar lebih stabil */
-.app{grid-template-columns:270px minmax(0,1fr)!important}
-.sidebar{width:270px!important;min-width:270px!important;max-width:270px!important;position:sticky!important;top:0!important;height:100vh!important;flex:0 0 270px!important}
-.main{min-width:0!important}
-.menu{display:flex!important;flex-direction:column!important;align-items:stretch!important}
-.menu > .nav-btn,.menu > .dropdown-btn{width:100%!important}
-.dropdown-btn{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:10px 14px!important;text-align:left!important}
-.dropdown-btn > .menu-main{display:flex!important;align-items:center!important;gap:13px!important;flex:1 1 auto!important;min-width:0!important;margin-left:0!important}
-.dropdown-btn > .menu-main .menu-label{margin:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important;flex:0 0 auto!important;display:flex!important;align-items:center!important;justify-content:center!important}
-.dropdown-btn span{margin-left:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important}
-.submenu{width:calc(100% - 18px)!important}
-.kd-sidebar-motivation{width:100%!important;align-self:stretch!important}
-.sidebar-footer.sidebar-footer-logout-only{width:100%!important;align-self:stretch!important}
-@media (min-width:981px){
-  body:not(.sidebar-collapsed) .sidebar{overflow-y:auto!important}
-}
 </style>
 
 
@@ -4675,94 +4616,6 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
   .sidebar-logout.logout-image-only{width:46px!important;height:46px!important;border-radius:10px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;filter:none!important;transform:none!important}
   .logout-svg{display:flex!important}
   .logout-svg svg{width:24px!important;height:24px!important;stroke:currentColor!important;fill:none!important;stroke-width:2.3!important;stroke-linecap:round!important;stroke-linejoin:round!important}
-}
-
-/* V29 FIX: rapikan posisi Postingan + sidebar lebih stabil */
-.app{grid-template-columns:270px minmax(0,1fr)!important}
-.sidebar{width:270px!important;min-width:270px!important;max-width:270px!important;position:sticky!important;top:0!important;height:100vh!important;flex:0 0 270px!important}
-.main{min-width:0!important}
-.menu{display:flex!important;flex-direction:column!important;align-items:stretch!important}
-.menu > .nav-btn,.menu > .dropdown-btn{width:100%!important}
-.dropdown-btn{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:10px 14px!important;text-align:left!important}
-.dropdown-btn > .menu-main{display:flex!important;align-items:center!important;gap:13px!important;flex:1 1 auto!important;min-width:0!important;margin-left:0!important}
-.dropdown-btn > .menu-main .menu-label{margin:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important;flex:0 0 auto!important;display:flex!important;align-items:center!important;justify-content:center!important}
-.dropdown-btn span{margin-left:0!important}
-.dropdown-btn > #dropdownIcon{margin-left:auto!important}
-.submenu{width:calc(100% - 18px)!important}
-.kd-sidebar-motivation{width:100%!important;align-self:stretch!important}
-.sidebar-footer.sidebar-footer-logout-only{width:100%!important;align-self:stretch!important}
-@media (min-width:981px){
-  body:not(.sidebar-collapsed) .sidebar{overflow-y:auto!important}
-}
-</style>
-
-
-<style id="kd-v31-sidebar-stable-best-effort">
-/* V31: Sidebar dibuat stabil/rapi. Catatan: zoom browser TIDAK bisa dikunci 100% dari HTML biasa.
-   Jadi solusi terbaik adalah membuat sidebar fixed, lebar tetap, dan layout utama menyesuaikan. */
-@media (min-width:981px){
-  :root{--kd-sidebar-fixed-width:206px;}
-  .app{display:block!important;min-height:100vh!important;}
-  .sidebar{
-    position:fixed!important;
-    left:0!important;top:0!important;
-    width:var(--kd-sidebar-fixed-width)!important;
-    min-width:var(--kd-sidebar-fixed-width)!important;
-    max-width:var(--kd-sidebar-fixed-width)!important;
-    height:100vh!important;
-    z-index:1000!important;
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    padding:12px 10px 12px!important;
-    border-right:1px solid rgba(53,242,154,.45)!important;
-    box-sizing:border-box!important;
-    scrollbar-width:thin;
-  }
-  .main{
-    margin-left:var(--kd-sidebar-fixed-width)!important;
-    width:calc(100% - var(--kd-sidebar-fixed-width))!important;
-    min-width:1180px!important;
-    box-sizing:border-box!important;
-  }
-  #page-dashboard{padding:8px 10px 10px!important;}
-
-  .sidebar-top-row{margin-top:8px!important;gap:8px!important;}
-  .brand-text-only{margin-bottom:10px!important;}
-  .brand{font-size:18px!important;line-height:1.05!important;text-align:center!important;}
-  .kd-brand-jp,.kd-brand-tag{text-align:center!important;}
-  .kd-brand-jp{font-size:9px!important;margin-top:2px!important;}
-  .kd-brand-tag{font-size:7px!important;letter-spacing:2px!important;margin-top:6px!important;}
-  .auth-user-box.auth-user-top{padding:10px 10px!important;border-radius:16px!important;min-height:86px!important;}
-  .sidebar-toggle{width:38px!important;height:38px!important;border-radius:12px!important;font-size:18px!important;margin:0!important;flex:0 0 38px!important;}
-
-  .menu{gap:8px!important;}
-  .menu>.nav-btn,.menu>.dropdown-btn{min-height:42px!important;padding:10px 12px!important;border-radius:14px!important;}
-  .menu button .menu-label,.dropdown-btn .menu-label{font-size:12px!important;line-height:1.1!important;white-space:nowrap!important;}
-  .nav-icon{width:18px!important;height:18px!important;flex:0 0 18px!important;}
-  .dropdown-btn{justify-content:space-between!important;align-items:center!important;}
-  .dropdown-btn>.menu-main{display:flex!important;align-items:center!important;gap:10px!important;flex:1 1 auto!important;}
-  #dropdownIcon{margin-left:auto!important;position:static!important;transform:none!important;}
-  .submenu{padding-left:16px!important;margin-top:4px!important;gap:6px!important;}
-  .submenu button{min-height:38px!important;padding:8px 10px!important;border-radius:12px!important;}
-
-  .kd-sidebar-motivation{
-    margin:12px 0 12px!important;
-    width:100%!important;
-    aspect-ratio:1086/1448!important;
-    max-height:230px!important;
-    border-radius:10px!important;
-    background-size:cover!important;
-    background-position:center!important;
-  }
-  .sidebar-footer.sidebar-footer-logout-only{
-    width:100%!important;
-    min-height:60px!important;
-    padding:10px 12px!important;
-    border-radius:14px!important;
-    margin-top:8px!important;
-  }
-  .sidebar-footer.sidebar-footer-logout-only .sidebar-footer-text{font-size:10px!important;line-height:1.15!important;}
 }
 </style>
 
@@ -4844,7 +4697,7 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
         <button class="nav-btn" data-page="gambar"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1.8"></rect><circle cx="9" cy="10" r="1.4"></circle><path d="M6.5 16l3.4-3.5 2.7 2.5 2.1-2 2.8 3"></path></svg></span><span class="menu-label">Gambar</span></button>
         <button class="nav-btn" data-page="prediksi-togel"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.3 3.7L17 8l-3.7 1.3L12 13l-1.3-3.7L7 8l3.7-1.3z"></path><path d="M18.2 13.8l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"></path><path d="M5.2 14.8l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg></span><span class="menu-label">Prediksi Togel</span></button>
         <button class="nav-btn" data-page="jadwal-togel"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="1.8"></rect><path d="M8 3.8v3.2"></path><path d="M16 3.8v3.2"></path><path d="M4 9.5h16"></path><path d="M8 12.5h.01"></path><path d="M12 12.5h.01"></path><path d="M16 12.5h.01"></path><path d="M8 16h.01"></path><path d="M12 16h.01"></path><path d="M16 16h.01"></path></svg></span><span class="menu-label">Jadwal Togel</span></button>
-
+        <button class="nav-btn" data-page="chat"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18.5l-2.5 1.5.8-3.2A7.5 7.5 0 1 1 19.5 12 7.5 7.5 0 0 1 6 18.5z"></path></svg></span><span class="menu-label">CHAT</span></button>
 
         <button class="dropdown-btn" id="postinganDropdownBtn"><span class="menu-main"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5h8l3 3V19.5H7z"></path><path d="M15 4.5v3h3"></path><path d="M9 11h6"></path><path d="M9 14h6"></path><path d="M9 17h5"></path></svg></span><span class="menu-label">Postingan</span></span><span id="dropdownIcon">▾</span></button>
         <div class="submenu" id="postinganSubmenu">
@@ -5772,6 +5625,7 @@ const MENU_LABELS = {
   prediksi:"Prediksi",
   "syair-togel":"Syair Togel",
   "bukti-kemenangan":"Bukti Kemenangan",
+  chat:"CHAT",
   selisih:"Selisih",
   "link-domain":"Link Domain",
   "user-management":"Manajemen User"
@@ -9867,7 +9721,6 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
   }
 })();
 </script>
-
 
 </body>
 </html>
