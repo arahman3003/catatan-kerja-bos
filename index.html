@@ -6209,6 +6209,174 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
   }
 </style>
 
+
+<style id="kaizokugari-alive-v2-sidebar">
+/* =========================================================
+   ALIVE V2 — SIDEBAR MANGA PUSH EFFECT
+   Hanya interaksi sidebar. Layout/fitur lain tidak diubah.
+   ========================================================= */
+@media (min-width:901px){
+  .sidebar .menu button,
+  .sidebar .submenu button{
+    position:relative !important;
+    overflow:visible !important;
+    transform-origin:left center !important;
+    will-change:transform,filter !important;
+    transition:
+      transform .24s cubic-bezier(.16,1,.3,1),
+      box-shadow .24s ease,
+      border-color .20s ease,
+      background .22s ease,
+      filter .20s ease !important;
+    z-index:1;
+  }
+
+  /* manga accent on the left edge */
+  .sidebar .menu > .nav-btn::before,
+  .sidebar .submenu .nav-btn::before{
+    content:"";
+    position:absolute;
+    left:-2px;
+    top:7px;
+    bottom:7px;
+    width:4px;
+    border-radius:2px;
+    background:linear-gradient(180deg,#aaffd3,#24ef8c);
+    box-shadow:0 0 14px rgba(53,242,154,.58);
+    opacity:0;
+    transform:scaleY(.35);
+    transition:opacity .18s ease,transform .22s cubic-bezier(.16,1,.3,1);
+    pointer-events:none;
+  }
+
+  /* small forward arrow like the reference */
+  .sidebar .menu > .nav-btn::after,
+  .sidebar .submenu .nav-btn::after{
+    content:"▶";
+    position:absolute;
+    right:8px;
+    top:50%;
+    color:#06140d;
+    font-size:10px;
+    line-height:1;
+    opacity:0;
+    transform:translate(-10px,-50%) scale(.65);
+    transition:opacity .17s ease,transform .24s cubic-bezier(.16,1,.3,1);
+    pointer-events:none;
+    text-shadow:0 0 8px rgba(255,255,255,.28);
+  }
+
+  /* cursor hover: menu benar-benar maju */
+  .sidebar .menu > .nav-btn:hover,
+  .sidebar .submenu .nav-btn:hover,
+  .sidebar .dropdown-btn:hover{
+    transform:translateX(10px) scale(1.035) !important;
+    filter:brightness(1.10) saturate(1.08) !important;
+    border-color:#8affc6 !important;
+    box-shadow:
+      -5px 0 0 rgba(53,242,154,.18),
+      0 10px 22px rgba(0,0,0,.34),
+      0 0 22px rgba(53,242,154,.24) !important;
+    z-index:12 !important;
+  }
+
+  /* hover yang belum aktif tetap gaya hijau gelap, bukan sekadar tombol diam */
+  .sidebar .menu > .nav-btn:not(.active):hover,
+  .sidebar .submenu .nav-btn:not(.active):hover{
+    background:
+      repeating-linear-gradient(-14deg,rgba(255,255,255,.045) 0 2px,transparent 2px 8px),
+      linear-gradient(90deg,#123a2c 0%,#27ed91 100%) !important;
+    color:#f6fff9 !important;
+  }
+
+  /* yang sudah dipilih tetap 'keluar ke depan' */
+  .sidebar .menu > .nav-btn.active,
+  .sidebar .submenu .nav-btn.active{
+    transform:translateX(7px) scale(1.018) !important;
+    z-index:8 !important;
+    background:
+      repeating-linear-gradient(-14deg,rgba(0,0,0,.08) 0 2px,transparent 2px 8px),
+      linear-gradient(90deg,#53f6a8 0%,#20e486 100%) !important;
+    border-color:#a1ffd2 !important;
+    box-shadow:
+      -4px 0 0 rgba(53,242,154,.25),
+      0 9px 22px rgba(0,0,0,.28),
+      0 0 18px rgba(53,242,154,.22) !important;
+  }
+
+  .sidebar .menu > .nav-btn.active:hover,
+  .sidebar .submenu .nav-btn.active:hover{
+    transform:translateX(11px) scale(1.04) !important;
+  }
+
+  .sidebar .menu > .nav-btn:hover::before,
+  .sidebar .submenu .nav-btn:hover::before,
+  .sidebar .menu > .nav-btn.active::before,
+  .sidebar .submenu .nav-btn.active::before{
+    opacity:1;
+    transform:scaleY(1);
+  }
+
+  .sidebar .menu > .nav-btn:hover::after,
+  .sidebar .submenu .nav-btn:hover::after,
+  .sidebar .menu > .nav-btn.active::after,
+  .sidebar .submenu .nav-btn.active::after{
+    opacity:1;
+    transform:translate(0,-50%) scale(1);
+  }
+
+  /* icon + teks ikut bereaksi */
+  .sidebar .nav-icon,
+  .sidebar .menu-label{
+    transition:transform .24s cubic-bezier(.16,1,.3,1),filter .20s ease,letter-spacing .20s ease !important;
+  }
+  .sidebar .menu button:hover .nav-icon,
+  .sidebar .submenu button:hover .nav-icon,
+  .sidebar .menu button.active .nav-icon,
+  .sidebar .submenu button.active .nav-icon{
+    transform:translateX(2px) scale(1.13) rotate(-3deg) !important;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,.28));
+  }
+  .sidebar .menu button:hover .menu-label,
+  .sidebar .submenu button:hover .menu-label{
+    transform:translateX(3px) !important;
+    letter-spacing:.35px !important;
+  }
+
+  /* press/click terasa menekan lalu memantul maju */
+  .sidebar .menu button.kaizo-nav-kick,
+  .sidebar .submenu button.kaizo-nav-kick{
+    animation:kaizoNavKick .34s cubic-bezier(.2,.9,.25,1) both !important;
+  }
+  @keyframes kaizoNavKick{
+    0%{transform:translateX(9px) scale(1.03)}
+    28%{transform:translateX(3px) scale(.965)}
+    64%{transform:translateX(13px) scale(1.052)}
+    100%{transform:translateX(7px) scale(1.018)}
+  }
+
+  /* dropdown juga terasa hidup tanpa mengganggu panah aslinya */
+  .sidebar .dropdown-btn:hover #dropdownIcon{
+    transform:translateX(2px) rotate(-90deg) scale(1.12);
+  }
+  .sidebar .dropdown-btn #dropdownIcon{
+    transition:transform .24s cubic-bezier(.16,1,.3,1) !important;
+  }
+}
+
+/* mode sidebar kecil tetap aman */
+body.sidebar-collapsed .sidebar .menu button,
+body.sidebar-collapsed .sidebar .submenu button{
+  transform:none !important;
+}
+body.sidebar-collapsed .sidebar .menu button::before,
+body.sidebar-collapsed .sidebar .menu button::after,
+body.sidebar-collapsed .sidebar .submenu button::before,
+body.sidebar-collapsed .sidebar .submenu button::after{
+  display:none !important;
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
@@ -11425,6 +11593,30 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
+  else init();
+})();
+</script>
+
+
+<script id="kaizokugari-alive-v2-sidebar-js">
+(function(){
+  'use strict';
+  function kick(btn){
+    if(!btn || btn.disabled) return;
+    btn.classList.remove('kaizo-nav-kick');
+    void btn.offsetWidth;
+    btn.classList.add('kaizo-nav-kick');
+    setTimeout(function(){ btn.classList.remove('kaizo-nav-kick'); }, 370);
+  }
+  function init(){
+    var sidebar=document.querySelector('.sidebar');
+    if(!sidebar) return;
+    sidebar.addEventListener('pointerdown',function(e){
+      var btn=e.target.closest('.menu button,.submenu button');
+      if(btn) kick(btn);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
 })();
 </script>
