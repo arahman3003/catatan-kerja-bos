@@ -5992,6 +5992,223 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
   }
 </style>
 
+
+<style id="kaizokugari-alive-v1">
+  /* =========================================================
+     KAIZOKUGARI ALIVE V1
+     Visual interaction layer only. No layout dimensions changed.
+     ========================================================= */
+  :root{
+    --kaizo-alive:#35f29a;
+    --kaizo-alive-soft:rgba(53,242,154,.18);
+    --kaizo-alive-glow:rgba(53,242,154,.32);
+  }
+
+  /* Smoothness without changing layout */
+  button, a, input, textarea, select,
+  .kd-stat-card, .kd-bottom-grid>article, .pkx-panel, .pkx-resultbox{
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* Page entrance: subtle, fast, and layout-safe */
+  .page.active{
+    animation:kaizoPageIn .32s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes kaizoPageIn{
+    from{opacity:.25;transform:translateY(7px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* Sidebar buttons: glow only, no movement so alignment stays locked */
+  .menu button,.submenu button{
+    transition:filter .18s ease, box-shadow .22s ease, border-color .18s ease, background .18s ease !important;
+  }
+  .menu button:hover,.submenu button:hover{
+    filter:brightness(1.08) saturate(1.05);
+    box-shadow:0 0 0 1px rgba(87,255,183,.16),0 0 24px rgba(53,242,154,.15) !important;
+  }
+  .menu button.active,.submenu button.active{
+    box-shadow:0 8px 24px rgba(0,230,130,.20),inset 0 0 18px rgba(255,255,255,.05) !important;
+  }
+
+  /* Dashboard stats breathe on hover */
+  .kd-stat-card{
+    transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,border-color .22s ease,filter .22s ease !important;
+  }
+  .kd-stat-card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(100,255,190,.72) !important;
+    box-shadow:0 10px 28px rgba(0,0,0,.26),0 0 22px rgba(53,242,154,.10);
+    filter:brightness(1.035);
+  }
+  .kd-stat-card:hover .kd-stat-icon{
+    box-shadow:inset 0 0 16px rgba(53,242,154,.18),0 0 18px rgba(53,242,154,.16);
+  }
+  .kd-stat-icon{
+    transition:transform .22s ease,box-shadow .22s ease !important;
+  }
+  .kd-stat-card:hover .kd-stat-icon{transform:scale(1.055)}
+  .kd-online-card strong i{animation:kaizoOnlinePulse 1.8s ease-in-out infinite}
+  @keyframes kaizoOnlinePulse{
+    0%,100%{transform:scale(.9);opacity:.75;box-shadow:0 0 6px var(--kd-accent)}
+    50%{transform:scale(1.25);opacity:1;box-shadow:0 0 15px var(--kd-accent)}
+  }
+
+  /* Quick cards */
+  .kd-quick-card{
+    transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .2s ease,filter .2s ease !important;
+  }
+  .kd-quick-card:hover{
+    transform:translateY(-4px) scale(1.008) !important;
+    border-color:#75ffc1 !important;
+    box-shadow:0 14px 32px rgba(0,0,0,.34),0 0 20px rgba(53,242,154,.12) !important;
+  }
+  .kd-quick-card .kd-card-art{
+    transition:transform .45s cubic-bezier(.2,.8,.2,1),filter .3s ease !important;
+  }
+  .kd-quick-card:hover .kd-card-art{
+    transform:scale(1.025);
+    filter:grayscale(.92) brightness(1.08) !important;
+  }
+  .kd-card-body i{
+    transition:transform .24s ease,box-shadow .24s ease !important;
+  }
+  .kd-quick-card:hover .kd-card-body i{
+    transform:translateX(3px) scale(1.08);
+    box-shadow:0 0 16px rgba(53,242,154,.42);
+  }
+
+  /* Lower dashboard cards */
+  .kd-bottom-grid>article{
+    transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,filter .22s ease;
+  }
+  .kd-bottom-grid>article:hover{
+    transform:translateY(-2px);
+    border-color:rgba(96,255,188,.72);
+    box-shadow:0 10px 24px rgba(0,0,0,.22),0 0 16px rgba(53,242,154,.08);
+    filter:brightness(1.035);
+  }
+
+  /* PK CS panels get a subtle edge response */
+  #page-pk-cs .pkx-panel,
+  #page-pk-cs .pkx-resultbox{
+    transition:border-color .22s ease,box-shadow .22s ease,filter .22s ease;
+  }
+  #page-pk-cs .pkx-panel:hover{
+    border-color:rgba(91,255,184,.78) !important;
+    box-shadow:0 0 0 1px rgba(53,242,154,.06),0 12px 28px rgba(0,0,0,.18);
+  }
+  #page-pk-cs .pkx-resultbox:hover{
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 0 22px rgba(53,242,154,.08);
+  }
+
+  /* Action buttons: stronger life feedback */
+  #page-pk-cs .pkx-action-btn,
+  #page-pk-cs .pkx-actions button,
+  #page-pk-cs .pkx-search-row button,
+  .btn,.notepad-header button,.form-actions button{
+    transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .16s ease,box-shadow .18s ease,border-color .18s ease !important;
+    position:relative;
+    isolation:isolate;
+  }
+  #page-pk-cs .pkx-action-btn:hover,
+  #page-pk-cs .pkx-actions button:hover,
+  #page-pk-cs .pkx-search-row button:hover,
+  .btn:hover,.notepad-header button:hover,.form-actions button:hover{
+    transform:translateY(-2px) !important;
+    filter:brightness(1.08) saturate(1.04);
+    box-shadow:0 9px 24px rgba(0,0,0,.22),0 0 18px rgba(53,242,154,.12) !important;
+  }
+  #page-pk-cs .pkx-action-btn:active,
+  #page-pk-cs .pkx-actions button:active,
+  #page-pk-cs .pkx-search-row button:active,
+  .btn:active,.notepad-header button:active,.form-actions button:active,
+  .kd-quick-card:active{
+    transform:translateY(0) scale(.975) !important;
+    filter:brightness(.96);
+    transition-duration:.07s !important;
+  }
+
+  /* Search result list */
+  #page-pk-cs .pkcs-item{
+    transition:transform .16s ease,background .16s ease,border-color .16s ease,box-shadow .18s ease,filter .16s ease !important;
+  }
+  #page-pk-cs .pkcs-item:hover{
+    transform:translateX(3px) !important;
+    filter:brightness(1.08);
+    box-shadow:0 5px 14px rgba(0,0,0,.20),0 0 12px rgba(53,242,154,.08);
+  }
+
+  /* Inputs feel active */
+  input,textarea,select{
+    transition:border-color .18s ease,box-shadow .18s ease,background .18s ease,filter .18s ease !important;
+  }
+  input:focus,textarea:focus,select:focus{
+    outline:none !important;
+    border-color:rgba(74,255,172,.86) !important;
+    box-shadow:0 0 0 3px rgba(53,242,154,.09),0 0 18px rgba(53,242,154,.08) !important;
+  }
+
+  /* Click ripple inserted by JS */
+  .kaizo-ripple-host{position:relative !important;overflow:hidden !important}
+  .kaizo-ripple{
+    position:absolute;
+    width:12px;height:12px;
+    border-radius:50%;
+    pointer-events:none;
+    background:rgba(255,255,255,.45);
+    box-shadow:0 0 18px rgba(91,255,186,.28);
+    transform:translate(-50%,-50%) scale(0);
+    animation:kaizoRipple .52s ease-out forwards;
+    z-index:99;
+  }
+  @keyframes kaizoRipple{
+    to{transform:translate(-50%,-50%) scale(18);opacity:0}
+  }
+
+  /* Tiny hover sheen under pointer, rendered as a separate fixed layer */
+  .kaizo-pointer-glow{
+    position:fixed;
+    left:0;top:0;
+    width:180px;height:180px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:999999;
+    opacity:0;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle,rgba(53,242,154,.07) 0%,rgba(53,242,154,.025) 35%,transparent 70%);
+    transition:opacity .18s ease;
+    mix-blend-mode:screen;
+  }
+  body.kaizo-pointer-active .kaizo-pointer-glow{opacity:1}
+
+  /* Result refresh animation */
+  #page-pk-cs #pkcsResult.kaizo-result-refresh .pkcs-centered-text,
+  #page-pk-cs #pkcsResult.kaizo-result-refresh:not(.pkcs-result-empty){
+    animation:kaizoResultIn .26s ease both;
+  }
+  @keyframes kaizoResultIn{
+    from{opacity:.2;transform:translateY(5px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* Keyboard accessibility */
+  button:focus-visible,a:focus-visible{
+    outline:2px solid rgba(95,255,186,.78) !important;
+    outline-offset:2px !important;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    .kaizo-pointer-glow{display:none !important}
+  }
+</style>
+
 </head>
 <body class="dark-workspace">
 
@@ -11144,6 +11361,71 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
   if(!kdStartFirebaseCounters()){
     window.addEventListener('load',()=>setTimeout(kdStartFirebaseCounters,500),{once:true});
   }
+})();
+</script>
+
+
+<script id="kaizokugari-alive-v1-js">
+(function(){
+  'use strict';
+
+  function addRipple(e){
+    var host = e.target.closest('button, .kd-quick-card, .pkcs-item');
+    if(!host || host.disabled) return;
+    host.classList.add('kaizo-ripple-host');
+    var r = document.createElement('span');
+    r.className = 'kaizo-ripple';
+    var rect = host.getBoundingClientRect();
+    r.style.left = (e.clientX - rect.left) + 'px';
+    r.style.top  = (e.clientY - rect.top) + 'px';
+    host.appendChild(r);
+    setTimeout(function(){ r.remove(); }, 560);
+  }
+
+  function initPointerGlow(){
+    if(window.matchMedia && window.matchMedia('(pointer:coarse)').matches) return;
+    var glow = document.createElement('div');
+    glow.className = 'kaizo-pointer-glow';
+    document.body.appendChild(glow);
+    var raf = 0, x = 0, y = 0;
+    document.addEventListener('mousemove', function(e){
+      x = e.clientX; y = e.clientY;
+      document.body.classList.add('kaizo-pointer-active');
+      if(!raf){
+        raf = requestAnimationFrame(function(){
+          glow.style.left = x + 'px';
+          glow.style.top = y + 'px';
+          raf = 0;
+        });
+      }
+    }, {passive:true});
+    document.addEventListener('mouseleave', function(){
+      document.body.classList.remove('kaizo-pointer-active');
+    });
+  }
+
+  function initResultRefresh(){
+    var el = document.getElementById('pkcsResult');
+    if(!el) return;
+    var timer = 0;
+    var obs = new MutationObserver(function(){
+      clearTimeout(timer);
+      el.classList.remove('kaizo-result-refresh');
+      void el.offsetWidth;
+      el.classList.add('kaizo-result-refresh');
+      timer = setTimeout(function(){el.classList.remove('kaizo-result-refresh');}, 320);
+    });
+    obs.observe(el,{childList:true,characterData:true,subtree:true});
+  }
+
+  function init(){
+    document.addEventListener('pointerdown', addRipple, {passive:true});
+    initPointerGlow();
+    initResultRefresh();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
+  else init();
 })();
 </script>
 
