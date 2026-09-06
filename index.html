@@ -9799,5 +9799,43 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
 })();
 </script>
 
+
+<script id="kd-sidebar-zoom-lock-script">
+(function(){
+  const sidebar = document.querySelector('.sidebar');
+  if(!sidebar) return;
+
+  // Kunci tampilan sidebar sesuai zoom saat file pertama kali dibuka.
+  // Jika file dibuka saat browser zoom 80%, sidebar akan mempertahankan tampilan 80% itu
+  // walaupun user nanti zoom in / zoom out.
+  let baseDPR = window.devicePixelRatio || 1;
+
+  function applySidebarZoomLock(){
+    if(window.innerWidth <= 900){
+      sidebar.style.zoom = '';
+      return;
+    }
+    const currentDPR = window.devicePixelRatio || 1;
+    const ratio = baseDPR / currentDPR;
+    const safeRatio = Math.max(0.55, Math.min(1.6, ratio));
+    sidebar.style.zoom = safeRatio.toFixed(4);
+  }
+
+  // Simpan basis saat pertama kali dibuka.
+  applySidebarZoomLock();
+
+  let lastDPR = window.devicePixelRatio || 1;
+  setInterval(function(){
+    const now = window.devicePixelRatio || 1;
+    if(Math.abs(now - lastDPR) > 0.001){
+      lastDPR = now;
+      applySidebarZoomLock();
+    }
+  }, 250);
+
+  window.addEventListener('resize', applySidebarZoomLock);
+})();
+</script>
+
 </body>
 </html>
