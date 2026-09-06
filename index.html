@@ -5970,6 +5970,28 @@ body.sidebar-collapsed .sidebar{width:78px!important;}
 })();
 </script>
 
+
+<style id="pkcs-scroll-edge-final-fix">
+  /* paksa area scroll selebar panel supaya scrollbar kembali ke pinggir kanan */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty){
+    width:100% !important;
+    max-width:none !important;
+    min-width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    scrollbar-gutter:stable !important;
+  }
+  /* konten tetap berada di tengah tanpa memindahkan scrollbar */
+  #page-pk-cs .pkx-resultbox #pkcsResult:not(.pkcs-result-empty) > .pkcs-centered-shell{
+    width:100% !important;
+    min-width:100% !important;
+    box-sizing:border-box !important;
+  }
+</style>
+
 </head>
 <body class="dark-workspace">
 
