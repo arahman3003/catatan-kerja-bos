@@ -8096,6 +8096,87 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="kaizokugari-gambar-viewer-fix-final">
+/* FIX VIEWER GAMBAR: pindahkan modal secara visual ke viewport penuh */
+#gambarViewer{
+  position:fixed!important;
+  inset:0!important;
+  z-index:2147483000!important;
+  display:none!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:24px!important;
+  background:rgba(0,7,5,.82)!important;
+  backdrop-filter:blur(10px)!important;
+  -webkit-backdrop-filter:blur(10px)!important;
+  transform:none!important;
+  overflow:hidden!important;
+}
+#gambarViewer.show{display:flex!important;}
+#gambarViewer .gambar-viewer-backdrop{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  background:transparent!important;
+}
+#gambarViewer .gambar-viewer-box{
+  position:relative!important;
+  z-index:2!important;
+  width:auto!important;
+  max-width:94vw!important;
+  max-height:92vh!important;
+  min-width:320px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:14px!important;
+  border-radius:12px!important;
+  border:1px solid rgba(51,242,154,.78)!important;
+  background:#020806!important;
+  box-shadow:0 30px 95px rgba(0,0,0,.75),0 0 28px rgba(51,242,154,.10)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+}
+#gambarViewer #gambarViewerImage{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:90vw!important;
+  max-height:80vh!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  opacity:1!important;
+  visibility:visible!important;
+  border-radius:8px!important;
+  background:#000!important;
+}
+#gambarViewer #gambarViewerTitle{
+  display:block!important;
+  width:100%!important;
+  padding:10px 44px 2px!important;
+  text-align:center!important;
+  color:#fff!important;
+  font-size:15px!important;
+  font-weight:900!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+#gambarViewer .gambar-viewer-close{
+  position:absolute!important;
+  top:-13px!important;
+  right:-13px!important;
+  z-index:5!important;
+}
+@media(max-width:640px){
+  #gambarViewer{padding:14px!important;}
+  #gambarViewer .gambar-viewer-box{min-width:0!important;max-width:96vw!important;padding:10px!important;}
+  #gambarViewer #gambarViewerImage{max-width:92vw!important;max-height:78vh!important;}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
@@ -13576,6 +13657,65 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
 
   window.openKgNotePreview = openPreviewById;
   window.closeKgNotePreview = closePreview;
+})();
+</script>
+
+
+<script id="kaizokugari-gambar-viewer-fix-script">
+(function(){
+  function mountViewerToBody(){
+    const viewer=document.getElementById('gambarViewer');
+    if(viewer && viewer.parentElement!==document.body){
+      document.body.appendChild(viewer);
+    }
+  }
+  function openViewerFromImage(img){
+    if(!img) return;
+    mountViewerToBody();
+    const viewer=document.getElementById('gambarViewer');
+    const preview=document.getElementById('gambarViewerImage');
+    const title=document.getElementById('gambarViewerTitle');
+    if(!viewer || !preview) return;
+    const src=img.currentSrc || img.src || img.getAttribute('src') || '';
+    if(!src) return;
+    preview.removeAttribute('src');
+    preview.src=src;
+    const card=img.closest('.gambar-card');
+    const titleEl=card?.querySelector('.gambar-card-title');
+    if(title) title.textContent=titleEl?.textContent?.trim() || img.alt || 'Preview Gambar';
+    viewer.classList.add('show');
+    document.body.style.overflow='hidden';
+  }
+  function closeViewerFix(){
+    const viewer=document.getElementById('gambarViewer');
+    const preview=document.getElementById('gambarViewerImage');
+    if(viewer) viewer.classList.remove('show');
+    if(preview) preview.removeAttribute('src');
+    document.body.style.overflow='';
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',mountViewerToBody,{once:true});
+  }else{
+    mountViewerToBody();
+  }
+
+  document.addEventListener('click',function(e){
+    const img=e.target.closest?.('#page-gambar .gambar-card-image[data-view-id]');
+    if(img){
+      openViewerFromImage(img);
+      return;
+    }
+    if(e.target.closest?.('#gambarViewerCloseBtn') || e.target.id==='gambarViewerBackdrop'){
+      closeViewerFix();
+    }
+  },true);
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && document.getElementById('gambarViewer')?.classList.contains('show')){
+      closeViewerFix();
+    }
+  },true);
 })();
 </script>
 
