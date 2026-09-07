@@ -12989,8 +12989,28 @@ COLOK BEBAS 2D: ${predPostData.cb2d}
   const EYE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="2.8"></circle></svg>';
 
   function getNoteById(id){
-    if(!Array.isArray(window.notepadData)) return null;
-    return window.notepadData.find(n => String(n.id) === String(id)) || null;
+    try{
+      if(typeof notepadData !== 'undefined' && Array.isArray(notepadData)){
+        const found = notepadData.find(n => String(n.id) === String(id));
+        if(found) return found;
+      }
+    }catch(_){ }
+
+    /* Fallback: ambil langsung dari card jika data global belum siap */
+    try{
+      const esc = (window.CSS && CSS.escape) ? CSS.escape(String(id)) : String(id).replace(/['\\]/g,'\\$&');
+      const card = document.querySelector(`#page-notepad .note-card[data-id="${esc}"]`);
+      if(card){
+        return {
+          id,
+          title: card.querySelector('.note-title')?.textContent?.trim() || 'Tanpa Judul',
+          category: card.querySelector('.note-category-badge')?.textContent?.trim() || 'PK CS',
+          content: card.querySelector('.note-content')?.textContent || '',
+          updatedAt: ''
+        };
+      }
+    }catch(_){ }
+    return null;
   }
 
   function openPreviewById(id){
