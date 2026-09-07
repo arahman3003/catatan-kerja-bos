@@ -8280,6 +8280,54 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="kg-gambar-card-width-reference-final">
+/* ============================================================
+   MENU GAMBAR — UKURAN GRID SESUAI REFERENSI
+   Card tidak lagi ikut melebar saat viewport desktop besar.
+   Target visual: 6 card compact + poster kanan, seperti contoh.
+   ============================================================ */
+@media (min-width:1451px){
+  #page-gambar .kg-gambar-content{
+    width:min(100%,1426px)!important;
+    max-width:1426px!important;
+    grid-template-columns:minmax(0,1fr) 190px!important;
+    gap:8px!important;
+    justify-content:start!important;
+    margin-left:0!important;
+    margin-right:auto!important;
+  }
+  #page-gambar .gambar-grid{
+    width:100%!important;
+    max-width:none!important;
+    grid-template-columns:repeat(6,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  #page-gambar .gambar-card{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:186px!important;
+    min-height:186px!important;
+    max-height:186px!important;
+  }
+  #page-gambar .gambar-card-image{
+    width:calc(100% - 18px)!important;
+    height:88px!important;
+    min-height:88px!important;
+    max-height:88px!important;
+    margin-left:9px!important;
+    margin-right:9px!important;
+    object-fit:cover!important;
+  }
+  #page-gambar .kg-gambar-poster{
+    width:190px!important;
+    min-width:190px!important;
+    max-width:190px!important;
+  }
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
