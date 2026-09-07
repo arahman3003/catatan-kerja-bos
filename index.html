@@ -6464,6 +6464,44 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 @keyframes kn2Pulse{0%,100%{opacity:.55;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
 #page-notepad .kn2-hidden{display:none!important}
 
+/* ===== NOTEPAD MOVE BUTTON VISIBLE FINAL ===== */
+#page-notepad .kn2-move{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:104px!important;
+  height:42px!important;
+  padding:0 17px!important;
+  border:1px solid rgba(48,237,144,.65)!important;
+  border-radius:9px!important;
+  background:linear-gradient(180deg,#09281f 0%,#041812 100%)!important;
+  color:#eafff5!important;
+  font-weight:900!important;
+  font-size:12px!important;
+  letter-spacing:.7px!important;
+  cursor:pointer!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),0 0 0 rgba(48,237,144,0)!important;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important;
+}
+#page-notepad .kn2-move:hover{
+  transform:translateY(-1px)!important;
+  background:linear-gradient(180deg,#0d382b 0%,#06221a 100%)!important;
+  box-shadow:0 0 16px rgba(48,237,144,.16)!important;
+}
+#page-notepad .kn2-move.move-active{
+  background:linear-gradient(180deg,#22d3ee 0%,#2563eb 100%)!important;
+  color:#fff!important;
+  border-color:rgba(125,211,252,.85)!important;
+  box-shadow:0 0 20px rgba(34,211,238,.28)!important;
+}
+#page-notepad .note-grid.move-mode .note-card{
+  cursor:grab!important;
+}
+#page-notepad .note-grid.move-mode .note-card:active{
+  cursor:grabbing!important;
+}
+
+
 /* BOARD */
 #page-notepad .kn2-note-board{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
 #page-notepad .note-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;column-count:unset!important;align-items:stretch!important}
@@ -7901,7 +7939,7 @@ body.sidebar-collapsed .sidebar .submenu button::after{
             <span class="notehub-pill kn2-count" id="noteCountBadge">0 NOTE</span>
             <span class="notehub-pill kn2-sync"><i></i><b>Firebase Sync</b><small>Data tersimpan otomatis</small></span>
             <button type="button" id="noteSearchToggleBtn" class="kn2-hidden" aria-hidden="true" tabindex="-1">SEARCH</button>
-            <button type="button" id="noteMoveBtn" class="kn2-hidden" aria-hidden="true" tabindex="-1">MOVE TABLE</button>
+            <button type="button" id="noteMoveBtn" class="notehub-btn kn2-move" title="Pindahkan posisi Notepad">↕ MOVE</button>
           </section>
 
           <section class="notes-area notehub-board kn2-note-board">
@@ -9335,7 +9373,7 @@ async function deleteNoteFromFirebase(id){
       if(noteList)noteList.classList.toggle("move-mode", noteMoveMode);
       if(noteMoveBtn){
         noteMoveBtn.classList.toggle("move-active", noteMoveMode);
-        noteMoveBtn.textContent=noteMoveMode?"SAVE MOVE":"MOVE TABLE";
+        noteMoveBtn.textContent=noteMoveMode?"✓ SAVE MOVE":"↕ MOVE";
       }
       if(!filtered.length){
         noteList.innerHTML=`<div class="empty-note">${"Tidak ada note untuk kategori ini."}</div>`;
