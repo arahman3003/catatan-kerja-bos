@@ -8223,6 +8223,63 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="kg-gambar-poster-single-border-compact-final">
+/* ============================================================
+   MENU GAMBAR — POSTER KANAN + CARD COMPACT FINAL
+   - Hilangkan border container kedua pada poster kanan
+   - Kembalikan lebar poster ke proporsi referensi
+   - Pertahankan 6 card per baris dengan ukuran compact
+   ============================================================ */
+#page-gambar .kg-gambar-content{
+  grid-template-columns:minmax(0,1fr) 190px!important;
+  gap:8px!important;
+  align-items:start!important;
+}
+#page-gambar .kg-gambar-poster{
+  width:190px!important;
+  min-width:190px!important;
+  max-width:190px!important;
+  height:565px!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  margin:0!important;
+  border-radius:0!important;
+  background-size:100% 100%!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+}
+#page-gambar .gambar-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+#page-gambar .gambar-card{
+  height:186px!important;
+  min-height:186px!important;
+  max-height:186px!important;
+}
+#page-gambar .gambar-card-image{
+  width:calc(100% - 18px)!important;
+  height:88px!important;
+  min-height:88px!important;
+  max-height:88px!important;
+  margin:0 9px!important;
+  object-fit:cover!important;
+}
+@media(max-width:1450px) and (min-width:1181px){
+  #page-gambar .kg-gambar-content{grid-template-columns:minmax(0,1fr) 180px!important}
+  #page-gambar .kg-gambar-poster{width:180px!important;min-width:180px!important;max-width:180px!important}
+  #page-gambar .gambar-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+}
+@media(max-width:1180px) and (min-width:901px){
+  #page-gambar .kg-gambar-content{grid-template-columns:minmax(0,1fr) 160px!important}
+  #page-gambar .kg-gambar-poster{width:160px!important;min-width:160px!important;max-width:160px!important;height:470px!important}
+  #page-gambar .gambar-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
