@@ -8039,6 +8039,63 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="kg-gambar-fullwidth-density-fix-final">
+/* ============================================================
+   MENU GAMBAR — FULL WIDTH / PADAT
+   Menyamakan lebar visual dengan Dashboard, PK CS, dan Notepad.
+   Tidak menyentuh logic, Firebase, login, modal, edit, hapus, dll.
+   ============================================================ */
+#page-gambar{
+  width:calc(100% + 56px)!important;
+  max-width:none!important;
+  margin:-28px!important;
+  padding:8px!important;
+  box-sizing:border-box!important;
+}
+#page-gambar .gambar-shell{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+}
+#page-gambar .kg-gambar-hero,
+#page-gambar .kg-gambar-toolbar,
+#page-gambar .kg-gambar-content{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  box-sizing:border-box!important;
+}
+#page-gambar .kg-gambar-content{
+  grid-template-columns:minmax(0,1fr) 190px!important;
+}
+#page-gambar .gambar-grid{
+  width:100%!important;
+  max-width:none!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+}
+@media(max-width:1450px){
+  #page-gambar .gambar-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+}
+@media(max-width:1180px){
+  #page-gambar .gambar-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(max-width:900px){
+  #page-gambar{width:calc(100% + 36px)!important;margin:-18px!important}
+  #page-gambar .gambar-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:640px){
+  #page-gambar .gambar-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:440px){
+  #page-gambar .gambar-grid{grid-template-columns:1fr!important}
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
