@@ -8177,6 +8177,52 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="kg-poster-kanan-lebar-sesuai-final">
+/* ============================================================
+   MENU GAMBAR - POSTER KANAN LEBAR SESUAI REFERENSI
+   Hanya mengatur kolom poster kanan agar proporsinya sama
+   seperti contoh pertama. Fitur lain tidak disentuh.
+   ============================================================ */
+#page-gambar .kg-gambar-content{
+  grid-template-columns:minmax(0,1fr) clamp(210px,14vw,255px)!important;
+  gap:10px!important;
+}
+#page-gambar .kg-gambar-poster{
+  width:100%!important;
+  min-width:210px!important;
+  max-width:255px!important;
+  height:565px!important;
+  justify-self:stretch!important;
+  align-self:start!important;
+  background-size:100% 100%!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+}
+
+@media(max-width:1450px) and (min-width:1181px){
+  #page-gambar .kg-gambar-content{
+    grid-template-columns:minmax(0,1fr) clamp(190px,13.5vw,220px)!important;
+  }
+  #page-gambar .kg-gambar-poster{
+    width:100%!important;
+    min-width:190px!important;
+    max-width:220px!important;
+  }
+}
+@media(max-width:1180px) and (min-width:901px){
+  #page-gambar .kg-gambar-content{
+    grid-template-columns:minmax(0,1fr) 170px!important;
+  }
+  #page-gambar .kg-gambar-poster{
+    width:170px!important;
+    min-width:170px!important;
+    max-width:170px!important;
+    height:470px!important;
+  }
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
