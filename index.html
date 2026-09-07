@@ -7234,6 +7234,100 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 #page-notepad .note-card .note-image,#page-notepad .note-card:has(.note-image) .note-image{display:none!important;width:0!important;height:0!important;max-width:0!important;max-height:0!important;margin:0!important;padding:0!important;}
 </style>
 
+
+<style id="notepad-comic-bg-no-body-color-final">
+/* ============================================================
+   FINAL OVERRIDE
+   - Hilangkan warna pastel pada BODY card
+   - Pertahankan warna hanya pada JUDUL
+   - Background utama = gambar comic random
+   ============================================================ */
+#page-notepad .note-card,
+#page-notepad .note-card.color-yellow,
+#page-notepad .note-card.color-orange,
+#page-notepad .note-card.color-blue,
+#page-notepad .note-card.color-cyan,
+#page-notepad .note-card.color-pink,
+#page-notepad .note-card.color-rose,
+#page-notepad .note-card.color-purple,
+#page-notepad .note-card.color-green{
+  background:rgba(255,255,255,.04)!important;
+  border:1px solid rgba(0,255,170,.16)!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.22)!important;
+}
+
+/* Gambar comic jadi fokus utama background */
+#page-notepad .note-card::after{
+  opacity:.52!important;
+  filter:grayscale(.02) contrast(1.12) brightness(.92) saturate(1)!important;
+}
+#page-notepad .note-card:hover::after{
+  opacity:.58!important;
+  transform:scale(1.02)!important;
+  filter:grayscale(0) contrast(1.14) brightness(.95) saturate(1)!important;
+}
+
+/* Hapus nuansa warna-warni body, ganti lapisan netral tipis */
+#page-notepad .note-card::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  border-radius:22px!important;
+  background:linear-gradient(180deg,
+    rgba(255,255,255,.18) 0%,
+    rgba(255,255,255,.10) 24%,
+    rgba(255,255,255,.06) 56%,
+    rgba(255,255,255,.12) 100%)!important;
+}
+
+/* Isi card tetap bersih dan mudah dibaca */
+#page-notepad .note-main,
+#page-notepad .note-content,
+#page-notepad .note-bottom,
+#page-notepad .note-date,
+#page-notepad .note-actions,
+#page-notepad .note-category-badge{
+  background:transparent!important;
+}
+
+#page-notepad .note-category-badge{
+  background:rgba(255,255,255,.72)!important;
+  color:#111827!important;
+  box-shadow:none!important;
+}
+
+#page-notepad .note-title{
+  box-shadow:none!important;
+}
+
+#page-notepad .note-content{
+  color:#101418!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.28)!important;
+}
+
+#page-notepad .note-date{
+  color:rgba(17,24,39,.78)!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.22)!important;
+}
+
+#page-notepad .note-actions{
+  border-top:1px solid rgba(17,24,39,.10)!important;
+}
+
+#page-notepad .icon-btn{
+  background:rgba(255,255,255,.72)!important;
+  border:1px solid rgba(17,24,39,.10)!important;
+}
+#page-notepad .icon-btn:hover{
+  background:rgba(255,255,255,.92)!important;
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
