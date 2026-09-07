@@ -7015,6 +7015,126 @@ body.sidebar-collapsed .sidebar .submenu button::after{
   }
 }
 </style>
+
+<style id="v14-login-click-reliable-fix">
+/* V14: perbaikan khusus halaman login setelah cover diklik.
+   Tidak menyentuh Firebase/Auth logic atau halaman dashboard. */
+.auth-card.auth-book.book-opening,
+.auth-card.auth-book.book-opened{
+  position:relative !important;
+  z-index:2 !important;
+  width:min(780px,94vw) !important;
+  min-height:690px !important;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  overflow:hidden !important;
+  border-radius:30px !important;
+  background:#050505 !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  box-shadow:0 32px 95px rgba(0,0,0,.62),0 0 38px rgba(34,197,94,.12) !important;
+}
+
+/* Begitu diklik, cover benar-benar hilang. Tidak ada fase layar kosong. */
+.auth-card.auth-book.book-opening .auth-book-cover,
+.auth-card.auth-book.book-opened .auth-book-cover{
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  transform:none !important;
+}
+
+/* Kedua halaman login selalu terlihat setelah click */
+.auth-card.auth-book.book-opening .auth-book-left,
+.auth-card.auth-book.book-opening .auth-book-right,
+.auth-card.auth-book.book-opened .auth-book-left,
+.auth-card.auth-book.book-opened .auth-book-right{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  filter:none !important;
+  transform:none !important;
+  animation:none !important;
+  min-height:690px !important;
+}
+.auth-card.auth-book.book-opening .auth-book-left,
+.auth-card.auth-book.book-opened .auth-book-left{
+  position:relative !important;
+  overflow:hidden !important;
+  background:#07101a !important;
+  border-right:1px solid rgba(255,255,255,.10) !important;
+  border-radius:30px 0 0 30px !important;
+}
+.auth-card.auth-book.book-opening .auth-book-right,
+.auth-card.auth-book.book-opened .auth-book-right{
+  position:relative !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:visible !important;
+  background:linear-gradient(180deg,#090909 0%,#020202 100%) !important;
+  border-radius:0 30px 30px 0 !important;
+}
+
+/* Pastikan semua isi form tidak ikut transparan/tersembunyi oleh CSS lama */
+.auth-card.auth-book.book-opening .auth-book-left-content,
+.auth-card.auth-book.book-opening .auth-card-content,
+.auth-card.auth-book.book-opened .auth-book-left-content,
+.auth-card.auth-book.book-opened .auth-card-content{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  filter:none !important;
+  transform:none !important;
+  animation:none !important;
+}
+.auth-card.auth-book.book-opening .auth-book-left-content,
+.auth-card.auth-book.book-opened .auth-book-left-content{
+  display:flex !important;
+}
+.auth-card.auth-book.book-opening .auth-tabs,
+.auth-card.auth-book.book-opened .auth-tabs,
+.auth-card.auth-book.book-opening .auth-form.active,
+.auth-card.auth-book.book-opened .auth-form.active,
+.auth-card.auth-book.book-opening .auth-message,
+.auth-card.auth-book.book-opened .auth-message{
+  visibility:visible !important;
+  opacity:1 !important;
+  filter:none !important;
+  transform:none !important;
+}
+
+/* Form yang tidak aktif tetap tersembunyi sesuai fungsi tab LOGIN/DAFTAR */
+.auth-card.auth-book .auth-form:not(.active){
+  display:none !important;
+}
+.auth-card.auth-book .auth-form.active{
+  display:block !important;
+}
+
+@media(max-width:760px){
+  .auth-card.auth-book.book-opening,
+  .auth-card.auth-book.book-opened{
+    width:min(430px,94vw) !important;
+    min-height:auto !important;
+    grid-template-columns:1fr !important;
+    overflow:auto !important;
+  }
+  .auth-card.auth-book.book-opening .auth-book-left,
+  .auth-card.auth-book.book-opened .auth-book-left{
+    min-height:250px !important;
+    border-right:none !important;
+    border-bottom:1px solid rgba(255,255,255,.10) !important;
+    border-radius:30px 30px 0 0 !important;
+  }
+  .auth-card.auth-book.book-opening .auth-book-right,
+  .auth-card.auth-book.book-opened .auth-book-right{
+    min-height:390px !important;
+    border-radius:0 0 30px 30px !important;
+  }
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
