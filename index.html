@@ -7445,6 +7445,58 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 }
 </style>
 
+
+<style id="notepad-comic-bg-title-color-fix-shadow-final">
+/* ============================================================
+   FINAL OVERRIDE V3
+   - perbaiki semua judul agar selalu punya warna strip
+   - tambah warna untuk card green yang sebelumnya ada yang polos
+   - text shadow isi dibuat: 0 1px 2px #00ff4c
+   ============================================================ */
+#page-notepad .note-title{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0 0 8px 0!important;
+  padding:4px 14px 4px 10px!important;
+  box-sizing:border-box!important;
+  border-radius:0!important;
+  clip-path:polygon(0 0,95% 0,100% 50%,95% 100%,0 100%)!important;
+  background:#52e99f!important;
+  color:#051a11!important;
+}
+#page-notepad .note-card.color-yellow .note-title,
+#page-notepad .note-card.color-orange .note-title{
+  background:#f1d965!important;
+  color:#201a05!important;
+}
+#page-notepad .note-card.color-blue .note-title,
+#page-notepad .note-card.color-cyan .note-title{
+  background:#78d9ee!important;
+  color:#061a20!important;
+}
+#page-notepad .note-card.color-pink .note-title,
+#page-notepad .note-card.color-rose .note-title{
+  background:#ee9fc4!important;
+  color:#241018!important;
+}
+#page-notepad .note-card.color-purple .note-title{
+  background:#c8a9f0!important;
+  color:#190f29!important;
+}
+#page-notepad .note-card.color-green .note-title{
+  background:#bfe8b8!important;
+  color:#102112!important;
+}
+
+#page-notepad .note-content,
+#page-notepad .note-card .note-content,
+#page-notepad .note-date,
+#page-notepad .note-card .note-date{
+  text-shadow:0 1px 2px #00ff4c!important;
+}
+</style>
+
 </head>
 <body class="dark-workspace">
 
