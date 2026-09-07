@@ -8042,13 +8042,13 @@ body.sidebar-collapsed .sidebar .submenu button::after{
 
 <style id="kg-gambar-reference-lock-final-v1">
 /* ============================================================
-   MENU GAMBAR — FINAL LOCK SESUAI GAMBAR REFERENSI
-   Dibangun dari base REFERENCE_EXACT agar override percobaan
-   sebelumnya tidak menumpuk. Fokus: full-width seperti Dashboard,
-   6 card compact, poster kanan proporsional, tidak horizontal overflow.
+   MENU GAMBAR — FINAL LOCK RAPAT / PADAT SESUAI REFERENSI USER
+   Fix utama:
+   - kartu tidak berjauhan
+   - 6 kolom rapat seperti contoh
+   - poster kanan satu border dan lebar proporsional
    ============================================================ */
 @media (min-width:1181px){
-  /* Gunakan seluruh area MAIN seperti Dashboard, tanpa max-width tersembunyi */
   #page-gambar{
     box-sizing:border-box!important;
     overflow-x:hidden!important;
@@ -8072,61 +8072,64 @@ body.sidebar-collapsed .sidebar .submenu button::after{
     box-sizing:border-box!important;
   }
 
-  /* Proporsi sama dengan contoh: 6 card compact + poster kanan */
   #page-gambar .kg-gambar-content{
     display:grid!important;
-    grid-template-columns:minmax(0,1fr) clamp(188px,13.4%,205px)!important;
-    gap:10px!important;
+    grid-template-columns:minmax(0,1fr) 150px!important;
+    gap:12px!important;
     align-items:start!important;
   }
+
   #page-gambar .gambar-grid{
     width:100%!important;
     min-width:0!important;
     max-width:none!important;
     display:grid!important;
-    grid-template-columns:repeat(6,minmax(0,200px))!important;
-    column-gap:8px!important;
-    row-gap:10px!important;
-    justify-content:space-between!important;
+    grid-template-columns:repeat(6,minmax(0,1fr))!important;
+    column-gap:12px!important;
+    row-gap:12px!important;
+    justify-content:stretch!important;
     align-items:start!important;
   }
 
   #page-gambar .gambar-card{
     width:100%!important;
     min-width:0!important;
-    max-width:200px!important;
-    height:186px!important;
-    min-height:186px!important;
-    max-height:186px!important;
+    max-width:none!important;
+    height:182px!important;
+    min-height:182px!important;
+    max-height:182px!important;
   }
   #page-gambar .gambar-card-head{
-    min-height:31px!important;
-    height:31px!important;
-    padding:5px 26px 4px 10px!important;
+    min-height:30px!important;
+    height:30px!important;
+    padding:5px 24px 4px 10px!important;
   }
   #page-gambar .gambar-card-title{
     font-size:11px!important;
     line-height:1.15!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
   }
   #page-gambar .gambar-card-image{
-    width:calc(100% - 18px)!important;
+    width:calc(100% - 16px)!important;
     height:88px!important;
     min-height:88px!important;
     max-height:88px!important;
-    margin:0 9px!important;
+    margin:0 8px!important;
     object-fit:cover!important;
     object-position:center!important;
   }
   #page-gambar .gambar-card-body{
-    padding:5px 9px 8px!important;
+    padding:6px 8px 8px!important;
     gap:5px!important;
   }
   #page-gambar .gambar-card-date{
     font-size:9px!important;
-    line-height:1.15!important;
+    line-height:1.12!important;
   }
   #page-gambar .gambar-card-actions{
-    gap:7px!important;
+    gap:6px!important;
   }
   #page-gambar .gambar-card-actions button{
     height:28px!important;
@@ -8135,15 +8138,15 @@ body.sidebar-collapsed .sidebar .submenu button::after{
   }
 
   #page-gambar .kg-gambar-poster{
-    width:100%!important;
-    min-width:188px!important;
-    max-width:205px!important;
-    height:565px!important;
+    width:150px!important;
+    min-width:150px!important;
+    max-width:150px!important;
+    height:552px!important;
     margin:0!important;
     padding:0!important;
     border:1px solid rgba(51,242,154,.72)!important;
     border-radius:0!important;
-    outline:0!important;
+    outline:none!important;
     box-shadow:none!important;
     background-size:100% 100%!important;
     background-position:center center!important;
@@ -8152,16 +8155,19 @@ body.sidebar-collapsed .sidebar .submenu button::after{
     align-self:start!important;
   }
 
-  /* Pastikan page tidak mendorong seluruh aplikasi secara horizontal */
   .main{min-width:0!important;overflow-x:hidden!important;}
   .app{min-width:0!important;overflow-x:hidden!important;}
 }
 
-/* Desktop lebih lebar: card tetap compact, tidak melebar liar */
 @media (min-width:1700px){
-  #page-gambar .gambar-grid{
-    grid-template-columns:repeat(6,200px)!important;
-    justify-content:space-between!important;
+  #page-gambar .kg-gambar-content{
+    grid-template-columns:minmax(0,1fr) 156px!important;
+  }
+  #page-gambar .kg-gambar-poster{
+    width:156px!important;
+    min-width:156px!important;
+    max-width:156px!important;
+    height:560px!important;
   }
 }
 </style>
