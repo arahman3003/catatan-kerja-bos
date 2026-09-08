@@ -265,9 +265,83 @@ window.openNoteImagePopup = function(event, src){
     }
 
 
+    function prediksiThumbSrc(name){
+      const clean=String(name||"").toUpperCase().replace(/\s+/g," ").trim();
+      const base="assets/images/market-icons/";
+
+      if(/HOKI\s*DRAW|HOKIDRAW/.test(clean)) return base+"bullseye-target-1.png";
+
+      if(/TOTO\s*MACAU.*PAGI/.test(clean)) return base+"macau-tower-1.png";
+      if(/TOTO\s*MACAU.*SIANG/.test(clean)) return base+"macau-tower-2.png";
+      if(/TOTO\s*MACAU.*SORE/.test(clean)) return base+"macau-tower-3.png";
+      if(/TOTO\s*MACAU.*MALAM\s*I{2,3}/.test(clean)) return base+"macau-tower-3.png";
+      if(/TOTO\s*MACAU.*MALAM\s*I/.test(clean)) return base+"macau-tower-2.png";
+      if(/TOTO\s*MACAU.*5D.*SORE/.test(clean)) return base+"macau-tower-3.png";
+      if(/TOTO\s*MACAU.*5D.*MALAM/.test(clean)) return base+"macau-tower-3.png";
+      if(/TOTO\s*MACAU|TOTOMACAU/.test(clean)) return base+"macau-tower-1.png";
+
+      if(/KENTUCKY.*MIDDAY/.test(clean)) return base+"usa-flag.png";
+      if(/KENTUCKY.*EVENING/.test(clean)) return base+"kentucky-horse-1.png";
+      if(/KENTUCKY/.test(clean)) return base+"usa-flag.png";
+
+      if(/FLORIDA.*MIDDAY/.test(clean)) return base+"florida-beach-1.png";
+      if(/FLORIDA.*EVENING/.test(clean)) return base+"florida-beach-2.png";
+      if(/FLORIDA/.test(clean)) return base+"florida-beach-1.png";
+
+      if(/HUAHIN\s*0100/.test(clean)) return base+"huahin-temple-1.png";
+      if(/HUAHIN\s*1630/.test(clean)) return base+"huahin-temple-1.png";
+      if(/HUAHIN\s*2100/.test(clean)) return base+"huahin-temple-1.png";
+      if(/HUAHIN/.test(clean)) return base+"huahin-temple-1.png";
+
+      if(/BANGKOK\s*0130/.test(clean)) return base+"bangkok-temple-1.png";
+      if(/BANGKOK\s*0930/.test(clean)) return base+"bangkok-temple-2.png";
+      if(/BANGKOK/.test(clean)) return base+"bangkok-temple-1.png";
+
+      if(/NEW\s*YORK|NEWYORK/.test(clean)) return base+"newyork-liberty-1.png";
+      if(/CAROLINA.*DAY/.test(clean)) return base+"carolina-beach-1.png";
+      if(/CAROLINA.*EVENING/.test(clean)) return base+"carolina-beach-2.png";
+      if(/CAROLINA/.test(clean)) return base+"carolina-beach-1.png";
+
+      if(/BRUNEI\s*02/.test(clean)) return base+"brunei-mosque-1.png";
+      if(/BRUNEI\s*14/.test(clean)) return base+"brunei-mosque-2.png";
+      if(/BRUNEI\s*21/.test(clean)) return base+"brunei-mosque-1.png";
+      if(/BRUNEI/.test(clean)) return base+"brunei-mosque-1.png";
+
+      if(/OREGON\s*03/.test(clean)) return base+"oregon-mountain-1.png";
+      if(/OREGON\s*06/.test(clean)) return base+"oregon-mountain-2.png";
+      if(/OREGON\s*09/.test(clean)) return base+"oregon-coast-1.png";
+      if(/OREGON\s*12/.test(clean)) return base+"nevada-mountain-1.png";
+      if(/OREGON/.test(clean)) return base+"oregon-mountain-1.png";
+      if(/CALIFORNIA/.test(clean)) return base+"california-goldengate.png";
+
+      if(/TOTOCAMBODIA/.test(clean)) return base+"cambodia-angkor-1.png";
+      if(/CHELSEA/.test(clean)) return /19|21/.test(clean) ? base+"chelsea-bigben-2.png" : base+"chelsea-bigben-1.png";
+      if(/POIPET/.test(clean)) return /19|22/.test(clean) ? base+"poipet-gate-2.png" : base+"poipet-gate-1.png";
+
+      if(/BULLSEYE/.test(clean)) return base+"bullseye-target-1.png";
+      if(/SYDNEY/.test(clean)) return base+"sydney-opera-1.png";
+      if(/JAKARTA/.test(clean)) return base+"jakarta-monas-1.png";
+      if(/SINGAPORE/.test(clean)) return base+"singapore-merlion-1.png";
+      if(/MAGNUM4D/.test(clean)) return base+"malaysia-petronas-1.png";
+      if(/TOTOMALI/.test(clean)) return base+"malaysia-petronas-1.png";
+      if(/PCSO/.test(clean)) return base+"pcso-generic-1.png";
+      if(/NEVADA/.test(clean)) return base+"nevada-mountain-1.png";
+      if(/HONGKONG/.test(clean)) return base+"macau-tower-2.png";
+      if(/KING\s*KONG4D|KING-KONG4D/.test(clean)) return base+"pcso-generic-1.png";
+
+      return "";
+    }
+
     function prediksiInitials(name){
-      return String(name||""
-).replace(/[^A-Za-z0-9 ]+/g," ").trim().split(/\s+/).filter(Boolean).slice(0,2).map(part=>part.charAt(0)).join("").toUpperCase()||"TG";
+      return String(name||"")
+        .replace(/[^A-Za-z0-9 ]+/g," ")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0,2)
+        .map(part=>part.charAt(0))
+        .join("")
+        .toUpperCase()||"TG";
     }
 
     function prediksiRender(){
@@ -298,8 +372,12 @@ window.openNoteImagePopup = function(event, src){
             : 'Jadwal belum ditemukan';
         const detail=item.status.open?'Masih buka hari ini':'Sudah tutup hari ini';
         const initials=prediksiEscape(prediksiInitials(item.name));
+        const thumbSrc=prediksiThumbSrc(item.name);
+        const thumbHtml=thumbSrc
+          ? `<div class="prediksi-market-thumb has-image"><img src="${prediksiEscape(thumbSrc)}" alt="${prediksiEscape(item.name)}"></div>`
+          : `<div class="prediksi-market-thumb">${initials}</div>`;
         return `<button type="button" class="prediksi-market-item ${item.status.open?"open":"closed"} ${item.id===prediksiSelectedId?"active":""}" data-prediksi-id="${prediksiEscape(item.id)}">
-          <div class="prediksi-market-thumb">${initials}</div>
+          ${thumbHtml}
           <div class="prediksi-market-copy">
             <div class="prediksi-market-row"><span class="prediksi-market-name">${prediksiEscape(item.name)}</span><span class="prediksi-status-badge">${item.status.open?'BUKA':'TUTUP'}</span></div>
             <div class="prediksi-market-meta">${meta}</div>
