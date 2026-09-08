@@ -267,7 +267,7 @@ window.openNoteImagePopup = function(event, src){
 
     function prediksiThumbSrc(name){
       const clean=String(name||"").toUpperCase().replace(/\s+/g," ").trim();
-      const base="assets/images/market-icons/";
+      const base="assets/images/";
 
       if(/HOKI\s*DRAW|HOKIDRAW/.test(clean)) return base+"bullseye-target-1.png";
 
