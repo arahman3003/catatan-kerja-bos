@@ -92,3 +92,129 @@
 #page-prediksi-togel .prediksi-summary-copy{
   max-width:100%!important;
 }
+
+/* V7 - TOP AREA disamakan dengan screenshot referensi */
+/* Header kanan: jam + bagian atas poster. Quote poster dipindah ke baris search */
+#page-prediksi-togel .prediksi-hero-wrap{
+  grid-template-columns:minmax(0,1fr) 258px!important;
+  gap:8px!important;
+  align-items:stretch!important;
+}
+#page-prediksi-togel .prediksi-hero-main{
+  gap:8px!important;
+}
+#page-prediksi-togel .prediksi-hero-crumb{
+  min-height:38px!important;
+  height:38px!important;
+}
+#page-prediksi-togel .prediksi-hero-banner{
+  min-height:161px!important;
+  height:161px!important;
+  background-size:cover!important;
+  background-position:center center!important;
+}
+#page-prediksi-togel .prediksi-hero-side{
+  display:grid!important;
+  grid-template-rows:88px 119px!important;
+  gap:8px!important;
+  min-height:207px!important;
+}
+#page-prediksi-togel .prediksi-clock-card{
+  min-height:88px!important;
+  height:88px!important;
+}
+#page-prediksi-togel .prediksi-side-poster{
+  min-height:119px!important;
+  height:119px!important;
+  background-image:url("../images/image-24.png")!important;
+  background-repeat:no-repeat!important;
+  background-size:100% 200%!important;
+  background-position:center top!important;
+  border:0!important;
+  border-radius:0!important;
+}
+
+/* Search tidak lagi kepanjangan: sisakan kolom kanan untuk quote seperti referensi */
+#page-prediksi-togel .prediksi-controls{
+  position:relative!important;
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 205px 258px!important;
+  gap:10px!important;
+  align-items:stretch!important;
+  margin:0!important;
+}
+#page-prediksi-togel .prediksi-controls::after{
+  content:''!important;
+  display:block!important;
+  grid-column:3!important;
+  grid-row:1!important;
+  height:48px!important;
+  min-height:48px!important;
+  background-image:url("../images/image-24.png")!important;
+  background-repeat:no-repeat!important;
+  background-size:100% 200%!important;
+  background-position:center bottom!important;
+  border:0!important;
+  border-radius:0!important;
+  pointer-events:none!important;
+}
+#page-prediksi-togel .prediksi-search-box{
+  grid-column:1!important;
+  grid-row:1!important;
+  width:100%!important;
+}
+#page-prediksi-togel #prediksiStatusFilter{
+  grid-column:2!important;
+  grid-row:1!important;
+  width:205px!important;
+}
+
+/* 3 summary mengikuti proporsi referensi: 29% / 29% / 42% */
+#page-prediksi-togel .prediksi-summary-grid{
+  grid-template-columns:minmax(0,29fr) minmax(0,29fr) minmax(0,42fr)!important;
+  gap:10px!important;
+}
+#page-prediksi-togel .prediksi-summary{
+  min-height:100px!important;
+  padding:14px 18px!important;
+  grid-template-columns:72px minmax(0,1fr)!important;
+  gap:16px!important;
+}
+
+/* Posisi dan ukuran gambar tiap summary disamakan dengan contoh */
+#page-prediksi-togel .prediksi-summary.total::after{
+  width:31%!important;
+  min-width:125px!important;
+  background-size:cover!important;
+  background-position:right center!important;
+  opacity:.72!important;
+}
+#page-prediksi-togel .prediksi-summary.open::after{
+  width:38%!important;
+  min-width:150px!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  opacity:.96!important;
+}
+#page-prediksi-togel .prediksi-summary.closed::after{
+  width:57%!important;
+  min-width:280px!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  opacity:.88!important;
+}
+
+/* jaga teks tetap di depan dan tidak ketabrak gambar */
+#page-prediksi-togel .prediksi-summary-copy{
+  position:relative!important;
+  z-index:3!important;
+}
+
+@media (max-width:1260px){
+  #page-prediksi-togel .prediksi-controls{
+    grid-template-columns:minmax(0,1fr) 205px!important;
+  }
+  #page-prediksi-togel .prediksi-controls::after{display:none!important;}
+  #page-prediksi-togel .prediksi-summary-grid{grid-template-columns:1fr 1fr 1fr!important;}
+}
