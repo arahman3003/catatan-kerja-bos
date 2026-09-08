@@ -66,11 +66,11 @@
   z-index:1!important;
   pointer-events:none!important;
   background-repeat:no-repeat!important;
-  background-position:center center!important;
+  background-position:right center!important;
   background-size:cover!important;
 }
 #page-prediksi-togel .prediksi-summary.total::after{
-  width:210px!important;
+  width:360px!important;
   background-image:url("../images/prediksi-summary-total.png")!important;
   opacity:.72!important;
 }
@@ -80,7 +80,7 @@
   opacity:.92!important;
 }
 #page-prediksi-togel .prediksi-summary.closed::after{
-  width:260px!important;
+  width:360px!important;
   background-image:url("../images/prediksi-summary-closed.png")!important;
   opacity:.90!important;
 }
