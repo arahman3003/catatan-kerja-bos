@@ -67,22 +67,27 @@
   pointer-events:none!important;
   background-repeat:no-repeat!important;
   background-position:right center!important;
-  background-size:cover!important;
 }
 #page-prediksi-togel .prediksi-summary.total::after{
-  width:360px!important;
+  width:42%!important;
+  min-width:190px!important;
   background-image:url("../images/prediksi-summary-total.png")!important;
-  opacity:.72!important;
+  background-size:100% 100%!important;
+  opacity:.80!important;
 }
 #page-prediksi-togel .prediksi-summary.open::after{
-  width:200px!important;
+  width:31%!important;
+  min-width:150px!important;
   background-image:url("../images/prediksi-summary-open.png")!important;
-  opacity:.92!important;
+  background-size:100% 100%!important;
+  opacity:.96!important;
 }
 #page-prediksi-togel .prediksi-summary.closed::after{
-  width:360px!important;
+  width:43%!important;
+  min-width:200px!important;
   background-image:url("../images/prediksi-summary-closed.png")!important;
-  opacity:.90!important;
+  background-size:100% 100%!important;
+  opacity:.92!important;
 }
 #page-prediksi-togel .prediksi-summary-copy{
   max-width:100%!important;
