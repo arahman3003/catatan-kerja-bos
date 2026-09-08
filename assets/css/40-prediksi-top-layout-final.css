@@ -1,4 +1,7 @@
-/* V7 - RAPATKAN BAGIAN ATAS PREDIKSI TOGEL SESUAI REFERENSI */
+/* V8 - PERBAIKAN HEADER PREDIKSI TOGEL
+   - Hapus box breadcrumb duplikat di atas banner
+   - Pakai hanya tulisan yang sudah menyatu di gambar header
+   - Rapikan ulang tinggi banner + search agar tidak tumpang tindih */
 
 #page-prediksi-togel .prediksi-hero-wrap{
   display:grid!important;
@@ -11,29 +14,31 @@
 #page-prediksi-togel .prediksi-hero-main{
   min-width:0!important;
   display:grid!important;
-  grid-template-rows:30px 161px 48px!important;
-  gap:6px!important;
+  grid-template-rows:258px 48px!important;
+  gap:8px!important;
   align-content:start!important;
 }
 
+/* HAPUS BOX ATAS DUPLIKAT */
 #page-prediksi-togel .prediksi-hero-crumb{
-  height:30px!important;
-  min-height:30px!important;
-  padding:0 16px!important;
-  border-radius:0!important;
-  font-size:12px!important;
-  line-height:30px!important;
+  display:none!important;
+  height:0!important;
+  min-height:0!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  overflow:hidden!important;
 }
 
 #page-prediksi-togel .prediksi-hero-banner{
-  height:161px!important;
-  min-height:161px!important;
+  height:258px!important;
+  min-height:258px!important;
   border-radius:0!important;
   background-position:center center!important;
   background-size:cover!important;
 }
 
-/* Search + status hanya selebar kolom banner kiri, bukan sepanjang halaman */
+/* Search + status sejajar persis di bawah banner kiri */
 #page-prediksi-togel .prediksi-controls{
   width:100%!important;
   display:grid!important;
@@ -52,18 +57,18 @@
   padding:0 16px!important;
 }
 
-/* Panel kanan dibuat setinggi kolom kiri: clock di atas, poster di bawah */
+/* Panel kanan disamakan tinggi totalnya dengan area banner + controls kiri */
 #page-prediksi-togel .prediksi-hero-side{
   display:grid!important;
-  grid-template-rows:78px minmax(0,1fr)!important;
-  gap:6px!important;
+  grid-template-rows:88px minmax(0,1fr)!important;
+  gap:8px!important;
   min-width:0!important;
-  min-height:251px!important;
-  height:251px!important;
+  min-height:314px!important;
+  height:314px!important;
 }
 #page-prediksi-togel .prediksi-clock-card{
-  min-height:78px!important;
-  height:78px!important;
+  min-height:88px!important;
+  height:88px!important;
   padding:8px 12px!important;
   border-radius:0!important;
 }
@@ -134,12 +139,10 @@
   opacity:.93!important;
 }
 
-/* Fade halus dari area teks menuju gambar, seperti contoh */
 #page-prediksi-togel .prediksi-summary{
   background:linear-gradient(90deg,rgba(3,23,19,.99) 0%,rgba(3,23,19,.98) 47%,rgba(3,23,19,.82) 66%,rgba(3,23,19,.18) 100%)!important;
 }
 
-/* Background hasil prediksi menggunakan gambar ke-4 yang baru */
 #page-prediksi-togel .prediksi-result-content{
   background:
     linear-gradient(180deg,rgba(2,18,15,.18),rgba(2,18,15,.30)),
@@ -151,7 +154,7 @@
     grid-template-columns:1fr!important;
   }
   #page-prediksi-togel .prediksi-hero-main{
-    grid-template-rows:30px 161px 48px!important;
+    grid-template-rows:258px 48px!important;
   }
   #page-prediksi-togel .prediksi-hero-side{
     height:auto!important;
@@ -166,7 +169,11 @@
     grid-template-columns:1fr!important;
   }
   #page-prediksi-togel .prediksi-hero-main{
-    grid-template-rows:30px 150px auto!important;
+    grid-template-rows:210px auto!important;
+  }
+  #page-prediksi-togel .prediksi-hero-banner{
+    height:210px!important;
+    min-height:210px!important;
   }
   #page-prediksi-togel .prediksi-summary-grid{
     grid-template-columns:1fr!important;
