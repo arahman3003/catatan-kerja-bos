@@ -1,0 +1,44 @@
+/* Ganti footer quote daftar pasaran dengan banner gambar penuh */
+#page-prediksi-togel .prediksi-market-list-panel{
+  position:relative!important;
+}
+#page-prediksi-togel .prediksi-market-list{
+  padding:0 10px 126px!important;
+}
+#page-prediksi-togel .prediksi-panel-foot-quote{
+  display:none!important;
+}
+#page-prediksi-togel .prediksi-panel-foot-banner{
+  position:absolute!important;
+  left:12px!important;
+  right:12px!important;
+  bottom:12px!important;
+  height:118px!important;
+  border:1px solid rgba(46,255,202,.72)!important;
+  border-radius:16px!important;
+  background:url("../images/prediksi-bottom-banner.png") center center/cover no-repeat!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.22)!important;
+  overflow:hidden!important;
+}
+@media (max-width: 1600px){
+  #page-prediksi-togel .prediksi-panel-foot-banner{
+    height:110px!important;
+  }
+  #page-prediksi-togel .prediksi-market-list{
+    padding-bottom:118px!important;
+  }
+}
+@media (max-width: 1200px){
+  #page-prediksi-togel .prediksi-panel-foot-banner{
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:calc(100% - 24px)!important;
+    margin:0 12px 12px!important;
+    height:96px!important;
+  }
+  #page-prediksi-togel .prediksi-market-list{
+    padding-bottom:10px!important;
+  }
+}
