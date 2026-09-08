@@ -232,3 +232,14 @@
   min-width:180px!important;
   background-position:right center!important;
 }
+
+/* V10 - NAIKKAN SELURUH AREA PREDIKSI KE ATAS
+   Mengurangi ruang kosong dari padding .main tanpa mengubah layout bagian lain. */
+#page-prediksi-togel{
+  margin-top:-18px!important;
+  padding-top:0!important;
+}
+
+#page-prediksi-togel .prediksi-market-shell{
+  margin-top:0!important;
+}
