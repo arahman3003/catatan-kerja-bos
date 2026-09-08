@@ -1,0 +1,8 @@
+@media (min-width:1181px){
+  #page-gambar .kg-gambar-content{grid-template-columns:minmax(0,1fr) 228px!important;}
+  #page-gambar .kg-gambar-poster{justify-self:end!important;align-self:start!important;width:228px!important;min-width:228px!important;max-width:228px!important;}
+}
+@media (min-width:1700px){
+  #page-gambar .kg-gambar-content{grid-template-columns:minmax(0,1fr) 238px!important;}
+  #page-gambar .kg-gambar-poster{justify-self:end!important;width:238px!important;min-width:238px!important;max-width:238px!important;}
+}

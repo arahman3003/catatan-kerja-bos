@@ -1,0 +1,245 @@
+/* ===== NOTEPAD V2: isolated, full-width, no global layout changes ===== */
+#page-notepad{
+  margin:-28px!important;
+  width:calc(100% + 56px)!important;
+  min-height:calc(100vh - 56px)!important;
+  padding:8px 10px 12px!important;
+  box-sizing:border-box!important;
+  overflow-x:hidden!important;
+  background:#020806!important;
+  color:#f7fff9!important;
+}
+#page-notepad .kn2-note-page{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+  box-sizing:border-box!important;
+}
+
+/* HEADER */
+#page-notepad .kn2-note-header{
+  width:100%!important;
+  height:205px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 267px!important;
+  gap:8px!important;
+  overflow:hidden!important;
+}
+#page-notepad .kn2-main-header{
+  min-width:0!important;
+  height:205px!important;
+  border:0!important;
+  background-image:url("../images/image-06.png")!important;
+  background-size:100% 100%!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  overflow:hidden!important;
+}
+#page-notepad .kn2-head-side{
+  display:grid!important;
+  grid-template-rows:94px 103px!important;
+  gap:8px!important;
+  min-width:0!important;
+}
+#page-notepad .kn2-live-clock{
+  border:0!important;
+  background:linear-gradient(135deg,#063826 0%,#061e17 72%,#0b3526 100%)!important;
+  display:grid!important;
+  grid-template-columns:70px 1fr!important;
+  align-items:center!important;
+  padding:8px 10px!important;
+  box-sizing:border-box!important;
+  box-shadow:inset 0 0 24px rgba(30,241,145,.08)!important;
+}
+#page-notepad .kn2-clock-face{width:58px!important;height:58px!important;border:3px solid #9bffd0!important;border-radius:50%!important;position:relative!important;box-shadow:0 0 14px rgba(67,248,167,.25)!important}
+#page-notepad .kn2-clock-face::before{content:"";position:absolute;inset:8px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(210,255,231,.95) 0 1deg,transparent 1deg 30deg);opacity:.55}
+#page-notepad .kn2-clock-face i{position:absolute!important;width:6px!important;height:6px!important;border-radius:50%!important;background:#eafff5!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;z-index:5!important}
+#page-notepad .kn2-clock-hand{position:absolute!important;left:50%!important;top:50%!important;transform-origin:0 50%!important;height:2px!important;border-radius:9px!important;background:#eafff5!important;z-index:4!important}
+#page-notepad .kn2-clock-hour{width:18px!important}
+#page-notepad .kn2-clock-minute{width:23px!important;background:#aaffd3!important}
+#page-notepad .kn2-clock-second{width:25px!important;height:1px!important;background:#2df09a!important}
+#page-notepad .kn2-clock-copy{display:flex!important;flex-direction:column!important;justify-content:center!important;min-width:0!important}
+#page-notepad .kn2-clock-copy b{font-size:10px!important;letter-spacing:1.2px!important;color:#c8ffe1!important;white-space:nowrap!important}
+#page-notepad .kn2-clock-copy strong{font-size:28px!important;line-height:1!important;color:#fff!important;letter-spacing:.5px!important;margin:4px 0!important}
+#page-notepad .kn2-clock-copy span{font-size:9px!important;font-weight:800!important;color:#33f59b!important;white-space:nowrap!important}
+#page-notepad .kn2-right-quote{
+  border:0px!important;
+  outline:0px!important;
+  box-shadow:none!important;background-image:url("../images/image-07.png")!important;background-size:100% 100%!important;background-position:center!important;background-repeat:no-repeat!important}
+
+/* TOOLBAR */
+#page-notepad .kn2-toolbar{
+  width:100%!important;
+  min-height:68px!important;
+  display:grid!important;
+  grid-template-columns:minmax(330px,1.7fr) 160px 105px 120px 108px minmax(20px,1fr) 120px 190px!important;
+  gap:10px!important;
+  align-items:center!important;
+  padding:10px!important;
+  border:0!important;
+  background:linear-gradient(180deg,rgba(1,20,14,.98),rgba(2,14,11,.98))!important;
+  box-sizing:border-box!important;
+}
+#page-notepad .notehub-search-wrap{height:46px!important;display:flex!important;align-items:center!important;gap:8px!important;border:1px solid #21df90!important;border-radius:10px!important;background:#04140f!important;padding:0 12px!important;min-width:0!important}
+#page-notepad .kn2-search-icon{font-size:24px!important;color:#2df09a!important;line-height:1!important}
+#page-notepad #noteSearchInput{width:100%!important;height:42px!important;background:transparent!important;border:none!important;outline:none!important;color:#ecfff5!important;font-size:14px!important;box-shadow:none!important;padding:0!important}
+#page-notepad #noteSearchInput::placeholder{color:#a9bdb4!important}
+#page-notepad .notehub-search-close{display:none!important}
+#page-notepad .notehub-category-select,#page-notepad .notehub-btn,#page-notepad .notehub-pill{height:46px!important;border:1px solid #21df90!important;border-radius:10px!important;background:#061a13!important;color:#f5fff9!important;font-weight:900!important;box-sizing:border-box!important}
+#page-notepad .notehub-category-select{padding:0 15px!important;font-size:13px!important;cursor:pointer!important}
+#page-notepad .notehub-btn{display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;padding:0 14px!important;font-size:13px!important;cursor:pointer!important;transition:transform .16s ease,filter .16s ease,box-shadow .16s ease!important}
+#page-notepad .notehub-btn:hover{transform:translateY(-2px)!important;filter:brightness(1.08)!important;box-shadow:0 7px 18px rgba(31,241,146,.16)!important}
+#page-notepad .kn2-add{background:linear-gradient(180deg,#67f2aa,#2fe28d)!important;color:#032516!important;border-color:#73ffc0!important;box-shadow:0 0 18px rgba(50,238,151,.18)!important}
+#page-notepad .kn2-count{display:flex!important;align-items:center!important;justify-content:center!important;color:#4ff7a7!important;font-size:13px!important}
+#page-notepad .kn2-count::before{content:"▤";margin-right:8px;font-size:17px!important}
+#page-notepad .kn2-sync{display:grid!important;grid-template-columns:34px 1fr!important;grid-template-rows:1fr 1fr!important;align-items:center!important;padding:5px 8px!important;line-height:1!important;position:relative!important}
+#page-notepad .kn2-sync::before{content:"☁";grid-row:1/3;display:flex;align-items:center;justify-content:center;font-size:28px;color:#45f7aa}
+#page-notepad .kn2-sync b{font-size:12px!important;align-self:end!important}
+#page-notepad .kn2-sync small{font-size:8px!important;color:#61f8ac!important;align-self:start!important;margin-top:4px!important}
+#page-notepad .kn2-sync i{position:absolute!important;width:8px!important;height:8px!important;border-radius:50%!important;background:#3dffa8!important;right:8px!important;top:8px!important;box-shadow:0 0 10px #3dffa8!important;animation:kn2Pulse 1.7s ease-in-out infinite!important}
+@keyframes kn2Pulse{0%,100%{opacity:.55;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+#page-notepad .kn2-hidden{display:none!important}
+
+/* ===== NOTEPAD MOVE BUTTON COMPACT + EXACT ===== */
+#page-notepad .kn2-move{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:108px!important;
+  min-width:108px!important;
+  max-width:108px!important;
+  height:46px!important;
+  padding:0 12px!important;
+  border:1px solid #21df90!important;
+  border-radius:10px!important;
+  background:linear-gradient(180deg,#0b2b21 0%,#061a13 100%)!important;
+  color:#effff7!important;
+  font-weight:900!important;
+  font-size:12px!important;
+  letter-spacing:.4px!important;
+  cursor:pointer!important;
+  box-shadow:none!important;
+  transition:transform .16s ease,filter .16s ease,box-shadow .16s ease!important;
+}
+#page-notepad .kn2-move:hover{
+  transform:translateY(-2px)!important;
+  filter:brightness(1.08)!important;
+  box-shadow:0 7px 18px rgba(31,241,146,.16)!important;
+}
+#page-notepad .kn2-move.move-active{
+  background:linear-gradient(180deg,#67f2aa,#2fe28d)!important;
+  color:#032516!important;
+  border-color:#73ffc0!important;
+  box-shadow:0 0 18px rgba(50,238,151,.18)!important;
+}
+#page-notepad .note-grid.move-mode .note-card{
+  cursor:grab!important;
+  user-select:none!important;
+}
+#page-notepad .note-grid.move-mode .note-card:active{
+  cursor:grabbing!important;
+}
+#page-notepad .note-grid.move-mode .note-card.dragging{
+  opacity:.42!important;
+  transform:scale(.985)!important;
+  outline:2px dashed #42f3a5!important;
+  outline-offset:-3px!important;
+}
+#page-notepad .note-grid.move-mode .note-card.drop-target{
+  outline:2px solid #42f3a5!important;
+  outline-offset:-2px!important;
+}
+
+
+/* BOARD */
+#page-notepad .kn2-note-board{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
+#page-notepad .note-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;column-count:unset!important;align-items:stretch!important}
+#page-notepad .empty-note{grid-column:1/-1!important;min-height:220px!important;border:1px dashed rgba(44,232,154,.5)!important;border-radius:10px!important;background:#04140f!important;color:#b9d4c7!important;display:flex!important;align-items:center!important;justify-content:center!important}
+
+#page-notepad .note-card{
+  height:264px!important;
+  min-height:264px!important;
+  max-height:264px!important;
+  margin:0!important;
+  break-inside:auto!important;
+  position:relative!important;
+  overflow:hidden!important;
+  border:1px solid #22e392!important;
+  border-radius:11px!important;
+  background:
+    repeating-linear-gradient(165deg,rgba(255,255,255,.018) 0 1px,transparent 1px 17px),
+    linear-gradient(180deg,#061712 0%,#04120e 100%)!important;
+  box-shadow:inset 0 0 0 1px rgba(55,243,156,.05),0 8px 16px rgba(0,0,0,.22)!important;
+  color:#f4fff8!important;
+  padding:0!important;
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease!important;
+}
+#page-notepad .note-card:hover{transform:translateY(-2px)!important;box-shadow:0 11px 23px rgba(0,0,0,.34),0 0 14px rgba(32,231,145,.10)!important;border-color:#58f5ad!important}
+#page-notepad .note-card::before{content:""!important;position:absolute!important;inset:0!important;background:linear-gradient(90deg,rgba(3,18,13,.98) 0%,rgba(3,18,13,.97) 54%,rgba(3,18,13,.76) 68%,rgba(3,18,13,.18) 100%)!important;z-index:1!important;pointer-events:none!important;border-radius:0!important;width:auto!important;height:auto!important}
+#page-notepad .note-card::after{content:""!important;position:absolute!important;right:0!important;top:0!important;width:42%!important;height:100%!important;background-repeat:no-repeat!important;background-size:cover!important;background-position:center!important;z-index:0!important;pointer-events:none!important;opacity:.95!important;border:0!important;border-radius:0!important}
+#page-notepad .note-card:nth-child(6n+1)::after{background-image:url("../images/image-08.png")!important}
+#page-notepad .note-card:nth-child(6n+2)::after{background-image:url("../images/image-09.png")!important}
+#page-notepad .note-card:nth-child(6n+3)::after{background-image:url("../images/image-10.png")!important}
+#page-notepad .note-card:nth-child(6n+4)::after{background-image:url("../images/image-11.png")!important}
+#page-notepad .note-card:nth-child(6n+5)::after{background-image:url("../images/image-12.png")!important}
+#page-notepad .note-card:nth-child(6n+6)::after{background-image:url("../images/image-13.png")!important}
+#page-notepad .note-main{position:relative!important;z-index:2!important;width:69%!important;height:206px!important;max-height:206px!important;overflow:hidden!important;padding:11px 10px 0 12px!important;box-sizing:border-box!important}
+#page-notepad .note-category-badge{display:inline-flex!important;align-items:center!important;height:22px!important;padding:0 12px!important;border-radius:14px!important;background:#d9ded8!important;color:#17231d!important;font-size:10px!important;font-weight:900!important;letter-spacing:.5px!important;text-transform:uppercase!important;margin-bottom:5px!important;box-shadow:0 1px 0 rgba(255,255,255,.4) inset!important}
+#page-notepad .note-title{
+  display:block!important;width:calc(100% + 12px)!important;margin:0 0 7px -2px!important;padding:4px 15px 4px 10px!important;
+  font-size:18px!important;line-height:1.05!important;font-weight:1000!important;font-style:italic!important;text-transform:uppercase!important;color:#051a11!important;
+  background:#52e99f!important;clip-path:polygon(0 0,95% 0,100% 50%,95% 100%,0 100%)!important;text-shadow:none!important;letter-spacing:.2px!important;box-sizing:border-box!important;
+}
+#page-notepad .note-card.color-yellow .note-title,#page-notepad .note-card.color-orange .note-title{background:#f1d965!important;color:#201a05!important}
+#page-notepad .note-card.color-blue .note-title,#page-notepad .note-card.color-cyan .note-title{background:#78d9ee!important;color:#061a20!important}
+#page-notepad .note-card.color-pink .note-title,#page-notepad .note-card.color-rose .note-title{background:#ee9fc4!important;color:#241018!important}
+#page-notepad .note-card.color-purple .note-title{background:#c8a9f0!important;color:#190f29!important}
+#page-notepad .note-content{
+  width:100%!important;height:136px!important;max-height:136px!important;overflow-y:auto!important;overflow-x:hidden!important;
+  padding:0 8px 4px 0!important;color:#f4fff8!important;font-size:13px!important;line-height:1.33!important;font-weight:600!important;white-space:pre-wrap!important;word-break:break-word!important;text-align:left!important;box-sizing:border-box!important;
+}
+#page-notepad .note-content::-webkit-scrollbar{width:5px!important}
+#page-notepad .note-content::-webkit-scrollbar-track{background:transparent!important}
+#page-notepad .note-content::-webkit-scrollbar-thumb{background:#2bea91!important;border-radius:999px!important}
+#page-notepad .note-image{position:absolute!important;z-index:3!important;right:-41%!important;top:72px!important;width:39%!important;max-width:39%!important;height:110px!important;max-height:110px!important;object-fit:cover!important;border:1px solid rgba(65,247,163,.75)!important;border-radius:7px!important;margin:0!important;box-shadow:0 5px 12px rgba(0,0,0,.25)!important}
+#page-notepad .note-bottom{position:absolute!important;z-index:4!important;left:0!important;right:0!important;bottom:0!important;height:47px!important;margin:0!important;padding:6px 10px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;box-sizing:border-box!important;border-top:1px solid rgba(46,232,148,.17)!important;background:linear-gradient(180deg,rgba(1,12,9,.15),rgba(1,12,9,.88))!important}
+#page-notepad .note-date{order:2!important;margin-left:auto!important;padding:4px 7px!important;border-radius:12px!important;background:rgba(2,15,11,.78)!important;color:#eafff4!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important}
+#page-notepad .note-actions{order:1!important;display:flex!important;align-items:center!important;gap:7px!important;border:0!important;padding:0!important;margin:0!important}
+#page-notepad .icon-btn{width:30px!important;height:30px!important;min-width:30px!important;border-radius:7px!important;border:1px solid #2de895!important;background:#071c14!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:13px!important;padding:0!important;cursor:pointer!important;transition:transform .15s ease,filter .15s ease!important}
+#page-notepad .icon-btn:hover{transform:translateY(-2px) scale(1.04)!important;filter:brightness(1.12)!important}
+#page-notepad .icon-btn.edit-icon{background:#45ed9b!important;color:#062116!important}
+#page-notepad .icon-btn.delete-icon{background:#2a0d12!important;border-color:#e34f64!important;color:#ffdde2!important}
+#page-notepad .color-popover{z-index:20!important}
+
+/* FOOTER ART */
+#page-notepad .kn2-footer-art{width:100%!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;align-items:stretch!important;margin-top:10px!important;background:none!important;border:0!important;padding:0!important;overflow:visible!important}
+#page-notepad .kn2-footer-card{position:relative!important;display:block!important;height:168px!important;min-height:168px!important;border:0!important;border-radius:0!important;overflow:visible!important;background:none!important;box-shadow:none!important}
+#page-notepad .kn2-footer-card img{width:100%!important;height:100%!important;display:block!important;object-fit:cover!important;object-position:center center!important;background:transparent!important}
+#page-notepad .kn2-footer-card:hover{transform:translateY(-1px)!important;box-shadow:none!important}
+
+
+#page-notepad .kn2-footer-card.kn2-footer-card-left img{object-position:center center!important}
+#page-notepad .kn2-footer-card.kn2-footer-card-center img{object-fit:contain!important;object-position:center center!important;background:transparent!important}
+#page-notepad .kn2-footer-card.kn2-footer-card-right img{object-position:center center!important}
+
+@media(max-width:1250px){
+  #page-notepad .kn2-note-header{grid-template-columns:minmax(0,1fr) 245px!important}
+  #page-notepad .kn2-toolbar{grid-template-columns:minmax(280px,1.5fr) 150px 100px 110px 100px minmax(8px,1fr) 110px 175px!important;gap:7px!important}
+  #page-notepad .note-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:900px){
+  #page-notepad{margin:-18px!important;width:calc(100% + 36px)!important;padding:8px!important}
+  #page-notepad .kn2-note-header{height:auto!important;grid-template-columns:1fr!important}
+  #page-notepad .kn2-main-header{height:180px!important}
+  #page-notepad .kn2-head-side{grid-template-columns:1fr 1fr!important;grid-template-rows:92px!important}
+  #page-notepad .kn2-live-clock,#page-notepad .kn2-right-quote{height:92px!important}
+  #page-notepad .kn2-toolbar{grid-template-columns:1fr 1fr!important}
+  #page-notepad .kn2-toolbar-space{display:none!important}
+  #page-notepad .note-grid{grid-template-columns:1fr!important}
+  #page-notepad .note-card{height:280px!important;min-height:280px!important;max-height:280px!important}
+  #page-notepad .kn2-footer-art{grid-template-columns:1fr!important}
+  #page-notepad .kn2-footer-card{height:auto!important;min-height:168px!important}
+}

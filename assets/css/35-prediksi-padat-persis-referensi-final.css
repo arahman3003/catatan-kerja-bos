@@ -1,0 +1,212 @@
+/* Prediksi togel dibuat padat dan full lebar mengikuti referensi */
+#page-prediksi-togel{
+  width:100%!important;
+  max-width:none!important;
+  min-height:calc(100vh - 56px)!important;
+  margin:0!important;
+  padding:8px 10px 12px!important;
+  box-sizing:border-box!important;
+  overflow-x:hidden!important;
+  background:#020806!important;
+  color:#f7fff9!important;
+}
+#page-prediksi-togel .prediksi-market-shell{
+  width:100%!important;
+  max-width:none!important;
+  min-height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+  box-sizing:border-box!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+#page-prediksi-togel .prediksi-hero-wrap{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 258px!important;
+  gap:8px!important;
+  align-items:stretch!important;
+  margin:0!important;
+}
+#page-prediksi-togel .prediksi-hero-main{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:6px!important;
+}
+#page-prediksi-togel .prediksi-hero-crumb{
+  min-height:30px!important;
+  height:30px!important;
+  padding:0 16px!important;
+  font-size:12px!important;
+  letter-spacing:1px!important;
+  border-radius:0!important;
+}
+#page-prediksi-togel .prediksi-hero-crumb span{font-size:14px!important}
+#page-prediksi-togel .prediksi-hero-banner{
+  min-height:161px!important;
+  height:161px!important;
+  border-radius:0!important;
+  background-position:center!important;
+  background-size:cover!important;
+}
+#page-prediksi-togel .prediksi-hero-side{
+  display:grid!important;
+  grid-template-rows:78px 54px 1fr!important;
+  gap:6px!important;
+  min-width:0!important;
+}
+#page-prediksi-togel .prediksi-clock-card{
+  min-height:78px!important;
+  padding:8px 12px!important;
+  border-radius:0!important;
+}
+#page-prediksi-togel .prediksi-side-row{
+  display:grid!important;
+  grid-template-columns:56px 1fr!important;
+  gap:0!important;
+  min-height:54px!important;
+  border-radius:0!important;
+}
+#page-prediksi-togel .prediksi-side-quote{
+  min-height:50px!important;
+  padding:0 14px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  text-align:right!important;
+  font-size:13px!important;
+  line-height:1.05!important;
+  border-radius:0!important;
+}
+#page-prediksi-togel .prediksi-controls{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 205px!important;
+  gap:10px!important;
+  align-items:stretch!important;
+  margin:0!important;
+}
+#page-prediksi-togel .prediksi-search-box,
+#page-prediksi-togel #prediksiStatusFilter{
+  height:48px!important;
+  min-height:48px!important;
+}
+#page-prediksi-togel .prediksi-summary-grid{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:1fr 1fr 1fr!important;
+  gap:10px!important;
+  margin:0!important;
+}
+#page-prediksi-togel .prediksi-summary{
+  min-height:98px!important;
+  padding:14px 18px!important;
+  grid-template-columns:72px minmax(0,1fr)!important;
+  gap:16px!important;
+  border-radius:18px!important;
+}
+#page-prediksi-togel .prediksi-summary-icon{width:54px!important;height:54px!important}
+#page-prediksi-togel .prediksi-summary-copy span{font-size:14px!important}
+#page-prediksi-togel .prediksi-summary-copy strong{font-size:24px!important;line-height:1!important}
+#page-prediksi-togel .prediksi-summary-copy em{font-size:12px!important}
+#page-prediksi-togel .prediksi-workspace{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:35.5% minmax(0,1fr)!important;
+  gap:10px!important;
+  align-items:stretch!important;
+  min-height:640px!important;
+}
+#page-prediksi-togel .prediksi-market-list-panel,
+#page-prediksi-togel .prediksi-result-panel{
+  min-width:0!important;
+  border-radius:18px!important;
+}
+#page-prediksi-togel .prediksi-panel-ribbon{
+  min-height:44px!important;
+  font-size:18px!important;
+}
+#page-prediksi-togel .prediksi-panel-subline{
+  top:13px!important;
+  right:18px!important;
+  font-size:10px!important;
+  max-width:52%!important;
+  text-align:right!important;
+}
+#page-prediksi-togel .prediksi-market-list-panel{min-height:640px!important}
+#page-prediksi-togel .prediksi-market-list{
+  height:596px!important;
+  padding:0 10px 10px!important;
+}
+#page-prediksi-togel .prediksi-market-item{
+  grid-template-columns:76px minmax(0,1fr) 18px!important;
+  gap:12px!important;
+  min-height:78px!important;
+  margin:0 0 8px!important;
+  padding:10px 12px!important;
+  border-radius:14px!important;
+}
+#page-prediksi-togel .prediksi-market-thumb{width:54px!important;height:54px!important}
+#page-prediksi-togel .prediksi-market-name{font-size:12px!important;line-height:1.15!important;letter-spacing:0!important}
+#page-prediksi-togel .prediksi-status-badge{padding:5px 10px!important;font-size:8px!important}
+#page-prediksi-togel .prediksi-market-meta,
+#page-prediksi-togel .prediksi-market-countdown{font-size:9px!important;line-height:1.25!important;margin-top:3px!important}
+#page-prediksi-togel .prediksi-panel-foot-quote{font-size:8px!important;line-height:1.05!important}
+#page-prediksi-togel .prediksi-result-panel{
+  min-height:640px!important;
+  padding:10px!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+#page-prediksi-togel .prediksi-result-head{
+  min-height:44px!important;
+  gap:10px!important;
+  padding-bottom:8px!important;
+}
+#page-prediksi-togel .prediksi-result-title-group small,
+#page-prediksi-togel #prediksiSourceStatus{font-size:10px!important;line-height:1.15!important}
+#page-prediksi-togel .prediksi-result-actions{gap:8px!important}
+#page-prediksi-togel .prediksi-result-actions button,
+#page-prediksi-togel #prediksiRefreshBtn,
+#page-prediksi-togel #prediksiCopyBtn{
+  min-height:38px!important;
+  height:38px!important;
+  padding:0 14px!important;
+  font-size:11px!important;
+  border-radius:12px!important;
+}
+#page-prediksi-togel .prediksi-result-content{
+  flex:1 1 auto!important;
+  min-height:576px!important;
+  padding:24px 26px 22px!important;
+  border-radius:16px!important;
+  background-position:center center!important;
+  background-size:cover!important;
+}
+#page-prediksi-togel .prediksi-result-text{
+  width:100%!important;
+  max-width:none!important;
+  margin:0 auto!important;
+  padding-top:10px!important;
+  font-size:17px!important;
+  line-height:1.5!important;
+  text-align:center!important;
+}
+#page-prediksi-togel .prediksi-result-sticker{right:18px!important;bottom:14px!important;transform:scale(.88)!important;transform-origin:bottom right!important}
+#page-prediksi-togel .prediksi-empty-state{min-height:100%!important}
+@media (max-width:1500px){
+  #page-prediksi-togel .prediksi-workspace{grid-template-columns:34% minmax(0,1fr)!important}
+}
+@media (max-width:1260px){
+  #page-prediksi-togel .prediksi-hero-wrap{grid-template-columns:1fr!important}
+  #page-prediksi-togel .prediksi-hero-side{grid-template-columns:1fr 1fr 1fr!important;grid-template-rows:none!important}
+  #page-prediksi-togel .prediksi-workspace{grid-template-columns:1fr!important}
+}

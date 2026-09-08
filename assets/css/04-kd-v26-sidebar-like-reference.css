@@ -1,0 +1,115 @@
+/* V26 — sidebar dirapikan mengikuti contoh pertama */
+@media (min-width:981px){
+  .app{grid-template-columns:270px minmax(0,1fr)!important}
+  .sidebar{width:270px!important;padding:14px 12px 16px!important;display:flex!important;flex-direction:column!important;gap:0!important}
+  .brand-text-only{padding:0 6px 12px 46px!important;margin-bottom:12px!important;border-bottom:none!important}
+  .brand-text-only::before{left:4px!important;top:4px!important;font-size:29px!important}
+  .brand-text-only .brand{font-size:16px!important;text-align:center!important;line-height:1.02!important}
+  .brand-text-only .brand span{font-size:28px!important;letter-spacing:.6px!important}
+  .kd-brand-jp{margin-top:2px!important;font-size:8px!important;letter-spacing:3px!important}
+  .kd-brand-tag{margin-top:8px!important;font-size:7px!important;letter-spacing:1.9px!important}
+
+  .sidebar-top-row{margin:0 0 12px!important;position:relative!important}
+  .auth-user-top{min-height:106px!important;grid-template-columns:60px 1fr!important;grid-template-rows:auto auto 1fr!important;padding:13px 14px 12px!important;border-radius:16px!important}
+  .auth-user-top::before{width:56px!important;height:56px!important;border-width:2px!important}
+  .auth-user-top span{font-size:10px!important;letter-spacing:.9px!important}
+  .auth-user-top strong{font-size:15px!important;letter-spacing:.2px!important}
+  .auth-user-top::after{font-size:10px!important;margin-top:9px!important;padding-top:8px!important;line-height:1.4!important}
+  .sidebar-toggle{right:10px!important;top:10px!important;width:35px!important;height:35px!important;border-radius:12px!important;font-size:17px!important;background:#25ea8d!important;color:#032114!important;box-shadow:0 8px 18px rgba(0,0,0,.18)!important}
+
+  .menu{display:flex!important;flex-direction:column!important;gap:7px!important}
+  .menu button,.submenu button{display:flex!important;align-items:center!important;justify-content:flex-start!important;min-height:44px!important;padding:10px 14px!important;border-radius:12px!important;font-size:14px!important;font-weight:800!important;gap:13px!important;letter-spacing:0!important;line-height:1!important;transform:none!important}
+  .menu .nav-icon{width:22px!important;height:22px!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 22px!important;color:currentColor!important}
+  .menu .nav-icon svg,.submenu .nav-icon svg,.dropdown-btn .nav-icon svg{width:21px!important;height:21px!important;stroke:currentColor!important;fill:none!important;stroke-width:2.1!important;stroke-linecap:round!important;stroke-linejoin:round!important;display:block!important}
+  .menu-label{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;font-size:14px!important}
+  .menu button:hover,.menu button.active,.submenu button:hover,.submenu button.active{background:linear-gradient(90deg,#31f294 0%,#1fe684 100%)!important;color:#021b11!important;border-color:#79ffc0!important;box-shadow:0 8px 20px rgba(0,220,120,.18)!important;transform:none!important}
+  .dropdown-btn{display:flex!important;align-items:center!important;justify-content:space-between!important;padding-right:12px!important}
+  .dropdown-btn .menu-main{display:flex!important;align-items:center!important;gap:13px!important;min-width:0!important}
+  .dropdown-btn #dropdownIcon{display:flex!important;align-items:center!important;justify-content:center!important;font-size:12px!important;line-height:1!important;margin-left:8px!important}
+  .submenu{margin-left:18px!important;padding-left:12px!important;border-left:1px solid rgba(53,242,154,.28)!important;gap:5px!important}
+
+  .kd-sidebar-motivation{margin:18px 0 14px!important;aspect-ratio:1086/1448!important;height:auto!important;min-height:0!important;border-radius:12px!important;border:1px solid rgba(53,242,154,.55)!important;background:#020806 url("../images/sidebar-motivasi-kaizokugari.png") center/cover no-repeat!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)!important}
+
+  .sidebar-footer.sidebar-footer-logout-only{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;margin-top:auto!important;padding:6px 4px 0!important;background:transparent!important;border:none!important;display:grid!important;grid-template-columns:46px 1fr!important;align-items:center!important;gap:12px!important;box-shadow:none!important}
+  .sidebar-logout.logout-image-only{width:46px!important;height:46px!important;min-width:46px!important;border-radius:10px!important;border:1px solid rgba(53,242,154,.65)!important;background:linear-gradient(180deg,#8ef8bb 0%,#21e485 100%)!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;filter:none!important;transform:none!important;box-shadow:0 8px 18px rgba(0,0,0,.22)!important}
+  .sidebar-logout.logout-image-only:hover{transform:translateY(-1px)!important;filter:none!important}
+  .sidebar-logout.logout-image-only img{display:none!important}
+  .logout-svg{display:flex!important;align-items:center!important;justify-content:center!important;width:26px!important;height:26px!important;color:#04412a!important}
+  .logout-svg svg{width:24px!important;height:24px!important;stroke:currentColor!important;fill:none!important;stroke-width:2.3!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+  .sidebar-footer-brand{display:flex!important;flex-direction:column!important;align-items:flex-start!important;line-height:1!important}
+  .sidebar-footer-brand strong{font-size:16px!important;color:#fff!important;letter-spacing:1.3px!important}
+  .sidebar-footer-brand span{margin-top:7px!important;font-size:10px!important;color:#d4e4dc!important;letter-spacing:4px!important}
+
+  body.sidebar-collapsed .sidebar{padding-bottom:14px!important}
+  body.sidebar-collapsed .kd-sidebar-motivation,.sidebar-collapsed .sidebar-footer-brand{display:none!important}
+  body.sidebar-collapsed .sidebar-footer.sidebar-footer-logout-only{grid-template-columns:1fr!important;justify-items:center!important;padding:0!important;margin-top:8px!important}
+  body.sidebar-collapsed .sidebar-logout.logout-image-only{width:44px!important;height:44px!important}
+  body.sidebar-collapsed .menu button,body.sidebar-collapsed .submenu button{justify-content:center!important;padding:0!important}
+  body.sidebar-collapsed .menu .nav-icon{width:20px!important;height:20px!important;flex:0 0 20px!important}
+}
+
+@media (max-width:980px){
+  .sidebar-footer.sidebar-footer-logout-only{position:static!important;display:grid!important;grid-template-columns:46px 1fr!important;gap:12px!important;align-items:center!important}
+  .sidebar-logout.logout-image-only img{display:none!important}
+  .sidebar-logout.logout-image-only{width:46px!important;height:46px!important;border-radius:10px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;filter:none!important;transform:none!important}
+  .logout-svg{display:flex!important}
+  .logout-svg svg{width:24px!important;height:24px!important;stroke:currentColor!important;fill:none!important;stroke-width:2.3!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+}
+<style id="kd-v27-postingan-chat-fix">
+
+  /* V27 patch — rapikan Postingan dan hilangkan CHAT */
+  .dropdown-btn{
+    width:100%!important;
+    min-height:44px!important;
+    padding:10px 42px 10px 14px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    position:relative!important;
+    gap:0!important;
+  }
+  .dropdown-btn .menu-main,
+  .dropdown-btn .menu-main .nav-icon,
+  .dropdown-btn .menu-main .menu-label{
+    margin-left:0!important;
+  }
+  .dropdown-btn .menu-main{
+    width:100%!important;
+    min-width:0!important;
+    display:grid!important;
+    grid-template-columns:22px minmax(0,1fr)!important;
+    align-items:center!important;
+    column-gap:13px!important;
+    justify-content:flex-start!important;
+  }
+  .dropdown-btn .nav-icon{
+    width:22px!important;
+    height:22px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    color:currentColor!important;
+  }
+  .dropdown-btn .menu-label{
+    display:block!important;
+    text-align:left!important;
+    white-space:nowrap!important;
+  }
+  .dropdown-btn #dropdownIcon{
+    position:absolute!important;
+    right:14px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    margin:0!important;
+    width:auto!important;
+    min-width:12px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    line-height:1!important;
+  }
+  .nav-btn[data-page="chat"],
+  [data-page="chat"].page,
+  .open-page[data-page="chat"]{
+    display:none!important;
+  }

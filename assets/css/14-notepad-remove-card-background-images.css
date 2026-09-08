@@ -1,0 +1,7 @@
+/* Hapus artwork/gambar background di dalam kartu Notepad saja.
+   Layout, warna ribbon, teks, tombol, hover, dan fungsi lain tetap. */
+#page-notepad .note-card::after{
+  content:none !important;
+  display:none !important;
+  background-image:none !important;
+}
