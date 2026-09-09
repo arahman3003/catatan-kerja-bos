@@ -1,0 +1,42 @@
+<section class="qris-page" id="dashSelisihQris" aria-label="Selisih QRIS">
+  <div class="qris-wrap-v436">
+    <header class="qris-hero-v436">
+      <div class="qris-hero-copy"><small>REKONSILIASI TRANSAKSI</small><h1>SELISIH QRIS</h1></div>
+      <div class="qris-hero-actions"><button type="button" class="qris-btn ghost" id="qrisResetBtn">↻ RESET DATA</button><button type="button" class="qris-btn gold" id="qrisAnalyzeBtn">⌁ CEK SELISIH</button></div>
+    </header>
+
+    <section class="qris-import-grid">
+      <article class="qris-import-card provider">
+        <div class="qris-card-kicker-row-v444"><span class="qris-step-badge">01</span><span>PANEL QRIS</span></div>
+        <h2 class="qris-card-main-title-v444">Mutasi Provider QRIS</h2>
+        <label class="qris-field-label">Provider QRIS<select id="qrisProviderSelect"><option value="XPAY">XPAY</option><option value="MINERAPAY">MINERAPAY</option><option value="ORION">ORION</option><option value="P2MIH">P2MIH</option></select></label>
+        <label class="qris-upload-shell qris-file-drop"><input id="qrisProviderFile" type="file" accept=".csv,.tsv,.txt,.xlsx,.xls" hidden><span class="upload-ico">⇪</span><b>Import file provider</b><span>CSV, TXT, XLSX atau XLS</span></label>
+        <div class="qris-file-state" id="qrisProviderState">Siap upload data.</div>
+      </article>
+      <article class="qris-import-card zona">
+        <div class="qris-card-kicker-row-v444"><span class="qris-step-badge">02</span><span>ZONA MAIN</span></div>
+        <h2 class="qris-card-main-title-v444">Mutasi Zona Main</h2>
+        <label class="qris-upload-shell qris-file-drop"><input id="qrisZonaFile" type="file" accept=".csv,.tsv,.txt,.xlsx,.xls" hidden><span class="upload-ico">⇪</span><b>Import file Zona Main</b><span>CSV, TXT, XLSX atau XLS</span></label>
+        <div class="qris-file-state" id="qrisZonaState">Siap upload data Zona Main.</div>
+      </article>
+      <article class="qris-import-card koin">
+        <div class="qris-card-kicker-row-v444"><span class="qris-step-badge">03</span><span>HISTORY KOIN</span></div>
+        <h2 class="qris-card-main-title-v444">History Koin Admin</h2>
+        <label class="qris-upload-shell qris-file-drop"><input id="qrisKoinFile" type="file" accept=".csv,.tsv,.txt,.xlsx,.xls" hidden><span class="upload-ico">⇪</span><b>Import History Koin</b><span>Opsional untuk pengecekan lanjutan</span></label>
+        <div class="qris-file-state" id="qrisKoinState">Opsional.</div>
+      </article>
+    </section>
+
+    <section class="qris-summary-grid">
+      <article><div class="qris-sum-icon">▦</div><div><small>TOTAL PROVIDER</small><strong id="qrisTotalProvider">Rp 0</strong><span id="qrisProviderCount">0 mutasi SUCCESS</span></div></article>
+      <article><div class="qris-sum-icon">▤</div><div><small>TOTAL ZONA MAIN</small><strong id="qrisTotalZona">Rp 0</strong><span id="qrisZonaCount">0 mutasi</span></div></article>
+      <article><div class="qris-sum-icon">◫</div><div><small>TOTAL KOIN ADMIN</small><strong id="qrisTotalKoin">Rp 0</strong><span id="qrisKoinCount">0 mutasi panel</span></div></article>
+      <article class="difference"><div class="qris-sum-icon">⇄</div><div><small>SELISIH PANEL ↔ ZONA</small><strong id="qrisTotalDifference">Rp 0</strong><span id="qrisDifferenceCaption">Saldo Panel dan Zona Main cocok</span></div></article>
+    </section>
+
+    <section class="qris-result-card">
+      <div class="qris-result-top"><div><small>HASIL PENCARIAN</small><h2>Mutasi Selisih</h2></div><div class="qris-result-actions"><button type="button" class="qris-btn ghost" id="qrisCopyBtn">⧉ Copy Data</button><button type="button" class="qris-btn ghost" id="qrisExportBtn">⇩ Export CSV</button></div></div>
+      <div class="qris-table-wrap"><table class="qris-table"><thead><tr><th>ORDER ID / TICKET</th><th>RRN</th><th>USER ID</th><th>CLIENT</th><th>OPERATOR</th><th id="qrisProviderCol">XPAY</th><th>ZONA MAIN</th><th>KOIN</th><th>SELISIH</th></tr></thead><tbody id="qrisResultRows"><tr><td colspan="9" class="qris-empty">Belum ada mutasi selisih. Upload data lalu klik <b>Cek Selisih</b>.</td></tr></tbody></table></div>
+    </section>
+  </div>
+</section>
