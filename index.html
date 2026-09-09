@@ -105,7 +105,8 @@ CATATAN:
 <link href="assets/css/40-prediksi-top-layout-final.css" rel="stylesheet"/>
 <link href="assets/css/41-prediksi-summary-icons-final.css" rel="stylesheet"/>
 <link href="assets/css/42-prediksi-market-scroll-banner-final.css" rel="stylesheet"/>
-<link href="assets/css/99-inline-attributes.css" rel="stylesheet"/></head>
+<link href="assets/css/99-inline-attributes.css" rel="stylesheet"/>
+<link href="assets/css/43-jadwal-togel-exact-reference-final.css" rel="stylesheet"/></head>
 <body class="dark-workspace">
 <!-- ===== HALAMAN LOGIN ===== -->
 <div class="auth-gate checking" id="authGate">
@@ -475,24 +476,23 @@ CATATAN:
 <span class="leaf l23">🍂</span>
 <span class="leaf l24">🍃</span>
 </div>
-<section class="jadwal-shell">
-<div class="jadwal-header">
-<div>
-<span class="jadwal-kicker">📅 JADWAL TOGEL</span>
-<p>Daftar jam tutup dan jam buka seluruh pasaran.</p>
+<section class="jadwal-shell jt-v26-shell">
+<div class="jt-v26-hero" aria-label="Jadwal Togel Kaizokugari" role="img"></div>
+<div class="jt-v26-toolbar">
+<label class="jadwal-search-wrap jt-v26-search">
+<span aria-hidden="true" class="jt-v26-search-icon">
+<svg viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+</span>
+<input id="jadwalSearchInput" placeholder="Cari pasaran..." type="text"/>
+</label>
+<select id="jadwalStatusFilter" class="jt-v26-filter" aria-label="Filter jadwal togel">
+<option value="all">Semua Status</option>
+<option value="normal">Jadwal Setiap Hari</option>
+<option value="special">Jadwal Khusus</option>
+<option value="edit">✎ Mode Edit</option>
+</select>
+<button id="jadwalEditModeBtn" class="jadwal-edit-mode-btn jt-v26-hidden-edit" type="button" tabindex="-1" aria-hidden="true">Edit Jadwal</button>
 </div>
-<div class="jadwal-header-actions">
-<div class="jadwal-search-wrap">
-<span>⌕</span>
-<input id="jadwalSearchInput" placeholder="Cari pasar..." type="text"/>
-</div>
-<button class="jadwal-edit-mode-btn" id="jadwalEditModeBtn" type="button">
-<span>✏️</span>
-<strong>Edit Jadwal</strong>
-</button>
-</div>
-</div>
-<div class="jadwal-top-line"></div>
 <div class="jadwal-grid" id="jadwalGrid"></div>
 </section>
 <div class="jadwal-edit-modal" id="jadwalEditModal">
