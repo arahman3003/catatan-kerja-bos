@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+<!--
+============================================================
+ DASHBOARD KAIZOKUGARI — COMIC DASHBOARD V2 (05-09-2026)
+============================================================
+
+BAGIAN YANG BISA DIEDIT LANGSUNG:
+1. Judul tab browser:
+   Cari: <title>Dashboard Kaizokugari</title>
+
+2. Firebase:
+   Cari: /* ===== FIREBASE CONFIG — BOLEH DIEDIT MANUAL ===== */
+const firebaseConfig = {
+
+3. Email Owner:
+   Cari: /* ===== EMAIL OWNER UTAMA ===== */
+const OWNER_EMAIL =
+
+4. Background login:
+   Cari link: https://files.catbox.moe/idr0wa.mp4
+
+5. Video card login:
+   Cari link: https://files.catbox.moe/plpp10.mp4
+
+6. Background Dashboard:
+   Cari: background-image:url(
+
+7. Tulisan sidebar:
+   Cari: Dashboard Kaizokugari
+
+8. Menu sidebar:
+   Cari: <nav class="menu">
+
+9. Warna utama hijau:
+   Cari: --green:#22c55e
+
+10. Folder gambar lokal:
+    - assets/favicon-zoro.png
+    - assets/logo-zoro-welcome.png
+
+11. Semua data tetap memakai Firebase:
+    - notepadKerjaBoss
+    - pkCsKerjaBoss
+    - usersKerjaBoss
+    - gambarKerjaBoss
+
+CATATAN:
+- File ini tidak dikunci dan tetap bisa diedit manual.
+- Sebelum mengubah, simpan salinan cadangan.
+============================================================
+-->
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Kaizokugari</title>
+<link href="assets/favicon-zoro.png" rel="icon" type="image/png"/>
+<link href="assets/favicon-zoro.png" rel="shortcut icon" type="image/png"/>
+<link href="assets/favicon-zoro.png" rel="apple-touch-icon"/>
+<link href="assets/css/01-main.css" rel="stylesheet"/>
+<link href="assets/css/02-kd-density-fix-v3.css" rel="stylesheet"/>
+<!-- V6: comic brush font khusus quote topbar -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/03-kd-v21-clean-v3-base.css" rel="stylesheet"/>
+<link href="assets/css/04-kd-v26-sidebar-like-reference.css" rel="stylesheet"/>
+<link href="assets/css/05-pkx-v27-clean-layout.css" rel="stylesheet"/>
+<link href="assets/css/06-pkcs-result-center-fix.css" rel="stylesheet"/>
+<link href="assets/css/07-pkcs-result-true-center-fix.css" rel="stylesheet"/>
+<script src="assets/js/01-pkcs-result-true-center-script.js"></script>
+<link href="assets/css/08-pkcs-result-center-clean-fix.css" rel="stylesheet"/>
+<script src="assets/js/02-pkcs-result-center-clean-script.js"></script>
+<link href="assets/css/09-pkcs-scroll-edge-final-fix.css" rel="stylesheet"/>
+<link href="assets/css/10-kaizokugari-alive-v1.css" rel="stylesheet"/>
+<link href="assets/css/11-kaizokugari-alive-v2-sidebar.css" rel="stylesheet"/>
+<link href="assets/css/12-kaizokugari-notepad-v2-full-fix.css" rel="stylesheet"/>
+<link href="assets/css/13-notepad-font13-center-fix.css" rel="stylesheet"/>
+<link href="assets/css/14-notepad-remove-card-background-images.css" rel="stylesheet"/>
+<link href="assets/css/15-notepad-card-size-v3-fix.css" rel="stylesheet"/>
+<link href="assets/css/16-notepad-card-size-v5-wider-less-side-space.css" rel="stylesheet"/>
+<link href="assets/css/17-notepad-card-size-v6-min-side-space.css" rel="stylesheet"/>
+<link href="assets/css/18-notepad-card-v7-wide-balanced.css" rel="stylesheet"/>
+<link href="assets/css/19-notepad-v8-legacy-text-only.css" rel="stylesheet"/>
+<link href="assets/css/20-notepad-v9-text-full-width-fix.css" rel="stylesheet"/>
+<link href="assets/css/21-notepad-v10-no-empty-image-space-fix.css" rel="stylesheet"/>
+<link href="assets/css/22-notepad-v12-pastel-card-scroll-edge-final.css" rel="stylesheet"/>
+<link href="assets/css/23-kaizokugari-login-asli-safe-final.css" rel="stylesheet"/>
+<link href="assets/css/24-notepad-scroll-pinggir-fix-final.css" rel="stylesheet"/>
+<link href="assets/css/25-notepad-comic-random-5-background-final.css" rel="stylesheet"/>
+<link href="assets/css/26-notepad-comic-bg-no-body-color-final.css" rel="stylesheet"/>
+<link href="assets/css/27-notepad-comic-bg-dark-whitefont-final.css" rel="stylesheet"/>
+<link href="assets/css/28-notepad-comic-bg-title-color-fix-shadow-final.css" rel="stylesheet"/>
+<link href="assets/css/29-kaizokugari-note-eye-preview-style.css" rel="stylesheet"/>
+<link href="assets/css/30-kg-gambar-reference-exact-v2.css" rel="stylesheet"/>
+<link href="assets/css/31-kg-gambar-reference-lock-final-v1.css" rel="stylesheet"/>
+<link href="assets/css/32-kaizokugari-gambar-viewer-fix-final.css" rel="stylesheet"/>
+<link href="assets/css/33-prediksi-togel-exact-reference-full-final.css" rel="stylesheet"/>
+<link href="assets/css/34-prediksi-result-background-override-final-v2.css" rel="stylesheet"/>
+<link href="assets/css/35-prediksi-padat-persis-referensi-final.css" rel="stylesheet"/>
+<link href="assets/css/36-prediksi-header-tinggi-fix-full-final.css" rel="stylesheet"/>
+<link href="assets/css/37-prediksi-right-poster-replace-fix.css" rel="stylesheet"/>
+<link href="assets/css/39-prediksi-bottom-banner-replace.css" rel="stylesheet"/>
+<link href="assets/css/40-prediksi-top-layout-final.css" rel="stylesheet"/>
+<link href="assets/css/41-prediksi-summary-icons-final.css" rel="stylesheet"/>
+<link href="assets/css/42-prediksi-market-scroll-banner-final.css" rel="stylesheet"/>
+<link href="assets/css/99-inline-attributes.css" rel="stylesheet"/>
+<link href="assets/css/43-jadwal-togel-exact-reference-final.css" rel="stylesheet"/></head>
+<body class="dark-workspace">
+<!-- ===== HALAMAN LOGIN ===== -->
+<div class="auth-gate checking" id="authGate">
+<video autoplay="" class="auth-bg-video" loop="" muted="" playsinline="" preload="auto">
+<source src="https://files.catbox.moe/idr0wa.mp4" type="video/mp4"/>
+</video>
+<div class="auth-bg-overlay"></div>
+<div class="auth-card auth-book book-closed" id="authBook">
+<button aria-label="Buka halaman login" class="auth-book-cover" id="authBookCover" type="button">
+<img alt="Dashboard access cover" class="auth-book-cover-img" src="https://i.imgur.com/zTgbtWo.jpeg"/>
+<span class="auth-book-cover-overlay"></span>
+<span class="auth-book-cover-content">
+<span class="auth-book-symbol">⚔</span>
+<span class="auth-book-jp">ロロノア・ゾロ</span>
+<span class="auth-book-sub">DASHBOARD ACCESS</span>
+<span class="auth-book-open-hint">KLIK UNTUK MEMBUKA</span>
+</span>
+</button>
+<div class="auth-book-left">
+<video autoplay="" class="auth-book-video" loop="" muted="" playsinline="" preload="auto">
+<source src="https://files.catbox.moe/plpp10.mp4" type="video/mp4"/>
+</video>
+<div class="auth-book-left-overlay"></div>
+<div class="auth-book-left-content">
+<div class="auth-book-symbol">⚔</div>
+<div class="auth-book-jp">ロロノア・ゾロ</div>
+<div class="auth-book-sub">DASHBOARD ACCESS</div>
+</div>
+</div>
+<div class="auth-book-right">
+<div class="auth-card-content">
+<h1>ロロノア・ゾロ</h1>
+<p>Masuk untuk membuka dashboard. Pengguna baru otomatis terdaftar sebagai CS Livechat.</p>
+<div class="auth-tabs">
+<button class="auth-tab active" data-auth-tab="login" type="button">LOGIN</button>
+<button class="auth-tab" data-auth-tab="register" type="button">DAFTAR</button>
+</div>
+<form autocomplete="off" class="auth-form active" id="loginForm">
+<div class="form-group"><label for="loginEmail">Email</label><input autocapitalize="none" autocomplete="off" id="loginEmail" required="" spellcheck="false" type="email"/></div>
+<div class="form-group"><label for="loginPassword">Password</label><input autocomplete="new-password" id="loginPassword" minlength="6" required="" type="password"/></div>
+<button class="btn btn-green auth-submit" type="submit">Masuk Dashboard</button>
+</form>
+<form class="auth-form" id="registerForm">
+<div class="form-group"><label for="registerName">Nama</label><input id="registerName" required="" type="text"/></div>
+<div class="form-group"><label for="registerEmail">Email</label><input autocomplete="email" id="registerEmail" required="" type="email"/></div>
+<div class="form-group"><label for="registerPassword">Password</label><input autocomplete="new-password" id="registerPassword" minlength="6" required="" type="password"/></div>
+<div class="form-group"><label for="registerPasswordConfirm">Ulangi Password</label><input autocomplete="new-password" id="registerPasswordConfirm" minlength="6" required="" type="password"/></div>
+<button class="btn btn-green auth-submit" type="submit">Daftar Akun CS Livechat</button>
+</form>
+<div class="auth-message" id="authMessage"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== APLIKASI DASHBOARD ===== -->
+<div class="app">
+<!-- ===== SIDEBAR / MENU ===== -->
+<aside class="sidebar">
+<div class="brand-text-only">
+<div class="brand">Dashboard <span>KAIZOKUGARI</span></div><div class="kd-brand-jp">カイゾクガリ</div><div class="kd-brand-tag">TOOLS UNTUK ORANG SERIUS</div>
+</div>
+<div class="sidebar-top-row">
+<div class="auth-user-box auth-user-top" id="sidebarUserBox"><span>Belum login</span></div>
+<button class="sidebar-toggle" id="sidebarToggleBtn" title="Kecilkan/Besarkan Menu" type="button">☰</button>
+</div>
+<nav class="menu">
+<button class="nav-btn active" data-page="dashboard"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M3 11.5L12 4l9 7.5"></path><path d="M6.5 10.5V20h11V10.5"></path><path d="M10 20v-5h4v5"></path></svg></span><span class="menu-label">Dashboard</span></button>
+<button class="nav-btn" data-page="pk-cs"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><rect height="16" rx="1.6" width="12" x="6" y="4"></rect><path d="M9 8h6"></path><path d="M9 12h6"></path><path d="M9 16h4"></path></svg></span><span class="menu-label">PK CS</span></button>
+<button class="nav-btn" data-page="notepad"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M7 4.5h8l3 3V19.5H7z"></path><path d="M15 4.5v3h3"></path><path d="M9 11h6"></path><path d="M9 14h6"></path><path d="M9 17h4"></path></svg></span><span class="menu-label">Notepad</span></button>
+<button class="nav-btn" data-page="gambar"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><rect height="14" rx="1.8" width="16" x="4" y="5"></rect><circle cx="9" cy="10" r="1.4"></circle><path d="M6.5 16l3.4-3.5 2.7 2.5 2.1-2 2.8 3"></path></svg></span><span class="menu-label">Gambar</span></button>
+<button class="nav-btn" data-page="prediksi-togel"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M12 3l1.3 3.7L17 8l-3.7 1.3L12 13l-1.3-3.7L7 8l3.7-1.3z"></path><path d="M18.2 13.8l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"></path><path d="M5.2 14.8l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg></span><span class="menu-label">Prediksi Togel</span></button>
+<button class="nav-btn" data-page="jadwal-togel"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><rect height="14" rx="1.8" width="16" x="4" y="5.5"></rect><path d="M8 3.8v3.2"></path><path d="M16 3.8v3.2"></path><path d="M4 9.5h16"></path><path d="M8 12.5h.01"></path><path d="M12 12.5h.01"></path><path d="M16 12.5h.01"></path><path d="M8 16h.01"></path><path d="M12 16h.01"></path><path d="M16 16h.01"></path></svg></span><span class="menu-label">Jadwal Togel</span></button>
+<button class="dropdown-btn" id="postinganDropdownBtn"><span class="menu-main"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M7 4.5h8l3 3V19.5H7z"></path><path d="M15 4.5v3h3"></path><path d="M9 11h6"></path><path d="M9 14h6"></path><path d="M9 17h5"></path></svg></span><span class="menu-label">Postingan</span></span><span id="dropdownIcon">▾</span></button>
+<div class="submenu" id="postinganSubmenu">
+<button class="nav-btn" data-page="syair-togel"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M7 4.5h10"></path><path d="M7 8.5h10"></path><path d="M7 12.5h10"></path><path d="M7 16.5h6"></path><path d="M5 4.5h.01"></path><path d="M5 8.5h.01"></path><path d="M5 12.5h.01"></path><path d="M5 16.5h.01"></path></svg></span><span class="menu-label">Syair Togel</span></button>
+<button class="nav-btn" data-page="bukti-kemenangan"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M8 5h8v3a4 4 0 0 1-8 0z"></path><path d="M9 15h6"></path><path d="M12 11v4"></path><path d="M7 19h10"></path><path d="M8 7H5a2 2 0 0 0 2 2h1"></path><path d="M16 7h3a2 2 0 0 1-2 2h-1"></path></svg></span><span class="menu-label">Bukti Kemenangan</span></button>
+<button class="nav-btn" data-page="prediksi"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M12 3l1.3 3.7L17 8l-3.7 1.3L12 13l-1.3-3.7L7 8l3.7-1.3z"></path><path d="M18.2 13.8l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"></path></svg></span><span class="menu-label">Prediksi</span></button>
+</div>
+<button class="nav-btn" data-page="selisih"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M7 7h10"></path><path d="M7 12h10"></path><path d="M7 17h10"></path><path d="M5 7h.01"></path><path d="M5 12h.01"></path><path d="M5 17h.01"></path></svg></span><span class="menu-label">Selisih</span></button>
+<button class="nav-btn" data-page="link-domain"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M10.5 13.5l3-3"></path><path d="M7.5 15.5l-2 2a3 3 0 1 1-4.2-4.2l3-3A3 3 0 0 1 8.5 10"></path><path d="M16.5 8.5l2-2a3 3 0 1 1 4.2 4.2l-3 3A3 3 0 0 1 15.5 14"></path></svg></span><span class="menu-label">Link Domain</span></button>
+<button class="nav-btn owner-only kaizo-inline-style-01" data-page="user-management"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><circle cx="9" cy="9" r="3"></circle><circle cx="17" cy="10" r="2.5"></circle><path d="M3.5 19a5.5 5.5 0 0 1 11 0"></path><path d="M13.5 19a4.5 4.5 0 0 1 8 0"></path></svg></span><span class="menu-label">Manajemen User</span></button>
+</nav>
+<div class="kd-sidebar-motivation">
+<div class="kd-sidebar-manga-word">DISCIPLINE<br/>TODAY<br/><b>BIGGER RESULTS</b><br/>TOMORROW</div>
+</div>
+<div class="sidebar-footer sidebar-footer-logout-only">
+<button aria-label="Logout" class="sidebar-logout logout-image-only" id="logoutBtn" title="Logout" type="button">
+<span aria-hidden="true" class="logout-svg"><svg viewbox="0 0 24 24"><path d="M10 7V4h10v16H10v-3"></path><path d="M14 12H4"></path><path d="M8 8l-4 4 4 4"></path></svg></span>
+</button>
+<div class="sidebar-footer-brand">
+<strong>KAIZOKUGARI</strong>
+<span>ALL IN ONE</span>
+</div>
+</div>
+</aside>
+<!-- ===== ISI HALAMAN ===== -->
+<main class="main">
+<div class="page active" id="page-dashboard">
+<div class="dashboard-bg-image"></div>
+<div class="dashboard-bg-overlay"></div>
+<section class="kd-dashboard-v2">
+<header class="kd-top-strip">
+<div class="kd-process-line">
+<span>GOOD TOOLS</span><b>›</b><span>BETTER PROCESS</span><b>›</b><span>BIGGER RESULTS</span>
+</div>
+<div class="kd-top-quote"><span>“KONSISTENSI ADALAH SENJATA<br/>PALING MEMATIKAN.”</span><i aria-hidden="true"></i></div>
+</header>
+<section class="kd-hero-grid">
+<article class="kd-hero-main">
+<div class="kd-hero-copy">
+<span class="kd-hero-kicker">WELCOME</span>
+<h1 id="dashboardWelcomeName">WELCOME</h1>
+<div class="kd-hero-ribbon">
+<strong>SATU DASHBOARD</strong>
+<span>SEMUA KEBUTUHAN, HASIL LEBIH MAKSIMAL!</span>
+</div>
+</div>
+</article>
+<aside class="kd-manga-panel">
+<div class="kd-manga-frame kd-manga-single">
+<b>進み続ける</b>
+<span class="kd-manga-top-quote">PERJALANAN PANJANG BERAWAL DARI LANGKAH KECIL.</span>
+<span class="kd-manga-bottom-quote">“BUKAN HANYA TOOLS, TAPI TEMAN PERJUANGAN MENUJU HASIL BESAR.”</span>
+</div>
+</aside>
+</section>
+<section class="kd-stat-grid">
+<article class="kd-stat-card kd-online-card">
+<div aria-hidden="true" class="kd-stat-icon"><svg viewbox="0 0 24 24"><rect height="4" rx="1.5" width="18" x="3" y="4"></rect><rect height="4" rx="1.5" width="18" x="3" y="10"></rect><rect height="4" rx="1.5" width="18" x="3" y="16"></rect><circle class="kd-fill" cx="7" cy="6" r="0.8"></circle><circle class="kd-fill" cx="7" cy="12" r="0.8"></circle><circle class="kd-fill" cx="7" cy="18" r="0.8"></circle></svg></div>
+<div><span>STATUS SISTEM</span><strong>ONLINE <i></i></strong><small>Semua fitur berjalan normal</small></div>
+</article>
+<article class="kd-stat-card">
+<div aria-hidden="true" class="kd-stat-icon"><svg viewbox="0 0 24 24"><path d="M7 3.5h7l4 4V20.5H7z"></path><path d="M14 3.5v4h4"></path><path d="M9 13.5h6"></path><path d="M9 16.5h6"></path></svg></div>
+<div><span>TOTAL NOTEPAD</span><strong id="kdStatNotes">0</strong><small>Catatan tersimpan</small></div>
+</article>
+<article class="kd-stat-card">
+<div aria-hidden="true" class="kd-stat-icon"><svg viewbox="0 0 24 24"><rect height="14" rx="1.8" width="17" x="3.5" y="5"></rect><path d="M6.5 16l3.8-4 3.1 3 2.2-2 2.9 3"></path><circle cx="9" cy="9" r="1.3"></circle></svg></div>
+<div><span>TOTAL GAMBAR</span><strong id="kdStatImages">0</strong><small>File di galeri</small></div>
+</article>
+<article class="kd-stat-card">
+<div aria-hidden="true" class="kd-stat-icon"><svg viewbox="0 0 24 24"><path d="M5 18.5V11"></path><path d="M10 18.5V7"></path><path d="M15 18.5V13"></path><path d="M20 18.5V5"></path><path d="M3.5 18.5h18"></path></svg></div>
+<div><span>TOTAL PASARAN</span><strong id="kdStatMarkets">0</strong><small>Pasaran tersedia</small></div>
+</article>
+<article class="kd-stat-card">
+<div aria-hidden="true" class="kd-stat-icon"><svg viewbox="0 0 24 24"><circle cx="8" cy="9" r="2.5"></circle><circle cx="16" cy="9" r="2.5"></circle><path d="M3.5 18c.8-2.5 2.8-4 5.2-4h.6c2.4 0 4.4 1.5 5.2 4"></path><path d="M11.5 18c.7-2 2.3-3.1 4.3-3.1h.4c1.9 0 3.6 1.1 4.3 3.1"></path></svg></div>
+<div><span>TOTAL USER</span><strong id="kdStatUsers">0</strong><small>Pengguna aktif</small></div>
+</article>
+</section>
+<section class="kd-quick-section">
+<div class="kd-section-heading">
+<h2>AKSES CEPAT <span>///</span></h2>
+<p>PILIH MENU, MULAI AKSI, RAIH HASIL!</p>
+<small>SEMUA DALAM SATU TEMPAT »</small>
+</div>
+<div class="kd-quick-grid">
+<button class="kd-quick-card kd-quick-pk" data-kaizo-click="kaizo-click-01" type="button">
+<div class="kd-card-art"></div><div class="kd-card-body"><b aria-hidden="true"><svg viewbox="0 0 24 24"><rect height="16" rx="1.6" width="12" x="6" y="4"></rect><path d="M9 8h6"></path><path d="M9 12h6"></path><path d="M9 16h4"></path></svg></b><h3>PK CS</h3><p>Kelola data, buat copy cepat, lebih efisien.</p><i>➜</i></div>
+</button>
+<button class="kd-quick-card kd-quick-note" data-kaizo-click="kaizo-click-02" type="button">
+<div class="kd-card-art"></div><div class="kd-card-body"><b aria-hidden="true"><svg viewbox="0 0 24 24"><path d="M7 4.5h8l3 3V19.5H7z"></path><path d="M15 4.5v3h3"></path><path d="M9 11h6"></path><path d="M9 14h6"></path><path d="M9 17h4"></path></svg></b><h3>Notepad</h3><p>Catatan penting selalu tersimpan.</p><i>➜</i></div>
+</button>
+<button class="kd-quick-card kd-quick-image" data-kaizo-click="kaizo-click-03" type="button">
+<div class="kd-card-art"></div><div class="kd-card-body"><b aria-hidden="true"><svg viewbox="0 0 24 24"><rect height="14" rx="1.8" width="16" x="4" y="5"></rect><circle cx="9" cy="10" r="1.4"></circle><path d="M6.5 16l3.4-3.5 2.7 2.5 2.1-2 2.8 3"></path></svg></b><h3>Gambar</h3><p>Kelola koleksi gambar dengan mudah.</p><i>➜</i></div>
+</button>
+<button class="kd-quick-card kd-quick-pred" data-kaizo-click="kaizo-click-04" type="button">
+<div class="kd-card-art"></div><div class="kd-card-body"><b aria-hidden="true"><svg viewbox="0 0 24 24"><path d="M5 18.5V12"></path><path d="M10 18.5V8"></path><path d="M15 18.5V14"></path><path d="M20 18.5V6"></path><path d="M3.5 18.5h18"></path></svg></b><h3>Prediksi Togel</h3><p>Lihat prediksi harian dengan akurat.</p><i>➜</i></div>
+</button>
+<button class="kd-quick-card kd-quick-schedule" data-kaizo-click="kaizo-click-05" type="button">
+<div class="kd-card-art"></div><div class="kd-card-body"><b aria-hidden="true"><svg viewbox="0 0 24 24"><rect height="14" rx="1.8" width="16" x="4" y="5.5"></rect><path d="M8 3.8v3.2"></path><path d="M16 3.8v3.2"></path><path d="M4 9.5h16"></path><path d="M8 12.5h.01"></path><path d="M12 12.5h.01"></path><path d="M16 12.5h.01"></path><path d="M8 16h.01"></path><path d="M12 16h.01"></path><path d="M16 16h.01"></path></svg></b><h3>Jadwal Togel</h3><p>Cek jadwal lengkap semua pasaran.</p><i>➜</i></div>
+</button>
+<button class="kd-quick-card kd-quick-post" data-kaizo-click="kaizo-click-06" type="button">
+<div class="kd-card-art"></div><div class="kd-card-body"><b aria-hidden="true"><svg viewbox="0 0 24 24"><path d="M7 4.5h8l3 3V19.5H7z"></path><path d="M15 4.5v3h3"></path><path d="M9 11h6"></path><path d="M9 14h6"></path><path d="M9 17h5"></path></svg></b><h3>Postingan</h3><p>Kelola semua postingan konten.</p><i>➜</i></div>
+</button>
+</div>
+</section>
+<section class="kd-bottom-grid">
+<article class="kd-quote-card">
+<h3>QUOTE HARI INI</h3>
+<blockquote>“ HASIL BESAR TIDAK DATANG DARI HOKI, TETAPI DARI KERJA CERDAS DAN KONSISTENSI. ”</blockquote>
+<span>- KAIZOKUGARI</span>
+</article>
+<article aria-label="Tips cepat banner" class="kd-tips-banner"><img alt="Tips Cepat banner" class="kd-tips-banner-img" src="assets/images/image-25.png"/></article>
+<article class="kd-brand-card">
+<h3>KAIZOKUGARI</h3>
+<span>TOOLS UNTUK ORANG SERIUS</span>
+<hr/>
+<p>LEBIH DARI SEKEDAR TOOLS<br/>INI ADALAH TEMAN PERJUANGAN</p>
+<b>⚔</b>
+</article>
+</section>
+<footer class="kd-dashboard-footer">
+<span>© 2026 Kaizokugari. All rights reserved.</span>
+<strong>FOKUS × KONSISTENSI × HASIL MAKSIMAL × KAIZOKUGARI</strong>
+</footer>
+</section>
+</div>
+<div class="page" id="page-notepad">
+<section class="kn2-note-page">
+<section class="kn2-note-header">
+<div aria-label="Notepad Kaizokugari" class="kn2-main-header"></div>
+<aside class="kn2-head-side">
+<div class="kn2-live-clock">
+<div aria-hidden="true" class="kn2-clock-face">
+<span class="kn2-clock-hand kn2-clock-hour" id="kn2ClockHour"></span>
+<span class="kn2-clock-hand kn2-clock-minute" id="kn2ClockMinute"></span>
+<span class="kn2-clock-hand kn2-clock-second" id="kn2ClockSecond"></span>
+<i></i>
+</div>
+<div class="kn2-clock-copy">
+<b>WAKTU INDONESIA</b>
+<strong id="kn2ClockTime">00:00:00</strong>
+<span id="kn2ClockDate">Memuat tanggal...</span>
+</div>
+</div>
+<div aria-hidden="true" class="kn2-right-quote"></div>
+</aside>
+</section>
+<section class="kn2-toolbar">
+<div class="notehub-search-wrap" id="noteSearchWrap">
+<span aria-hidden="true" class="kn2-search-icon">⌕</span>
+<input id="noteSearchInput" placeholder="Cari judul atau isi catatan..." type="text"/>
+<button class="notehub-search-close" id="noteSearchCloseBtn" title="Tutup pencarian" type="button">✕</button>
+</div>
+<select class="notehub-category-select" id="noteCategoryFilter" title="Kategori Notepad">
+<option selected="" value="PK CS">PK CS</option>
+<option value="REPORT CS LINE">REPORT CS LINE</option>
+<option value="LAINNYA">LAINNYA</option>
+</select>
+<button class="notehub-btn kn2-reset" id="noteSearchResetBtn" type="button"><span>↻</span> RESET</button>
+<button class="notehub-btn primary kn2-add" id="openNoteModalBtn" type="button">＋ NOTE</button>
+<button class="notehub-btn kn2-move" id="noteMoveBtn" title="Pindahkan posisi Notepad" type="button">↕ MOVE</button>
+<span class="kn2-toolbar-space"></span>
+<span class="notehub-pill kn2-count" id="noteCountBadge">0 NOTE</span>
+<span class="notehub-pill kn2-sync"><i></i><b>Firebase Sync</b><small>Data tersimpan otomatis</small></span>
+<button aria-hidden="true" class="kn2-hidden" id="noteSearchToggleBtn" tabindex="-1" type="button">SEARCH</button>
+</section>
+<section class="notes-area notehub-board kn2-note-board">
+<div class="note-grid" id="noteList"></div>
+</section>
+</section>
+</div>
+<div class="page" id="page-syair-togel">
+<section class="syair-clean">
+<div class="syair-shell">
+<div class="syair-stage"><canvas height="1448" id="syairCanvas" width="1086"></canvas></div>
+<div class="syair-panel">
+<div class="syair-panel-title">Generator Syair</div>
+<div class="syair-controls">
+<select class="syair-select" id="pasaranSelect"></select>
+<select class="syair-select" id="shioSelect"></select>
+<button class="btn btn-green" id="acakSemuaBtn" type="button">🎲 Acak Semua</button>
+<button class="btn btn-primary" id="acakSyairBtn" type="button">📝 Acak Syair</button>
+<button class="btn btn-soft" id="downloadSyairBtn" type="button">⬇ Download PNG</button>
+</div>
+<div class="syair-help">Tanggal otomatis mengikuti hari ini. Template tampil di kiri, tombol ada di kanan.</div>
+</div>
+</div>
+<img alt="template syair" class="kaizo-inline-style-02" id="templateImg" src="syair-template.png"/>
+</section>
+</div>
+<div class="page" id="page-bukti-kemenangan">
+<section class="bukti-clean">
+<div class="bukti-shell">
+<div class="bukti-stage"><canvas height="1080" id="buktiCanvas" width="1080"></canvas></div>
+<div class="bukti-panel">
+<div class="bukti-panel-title">Generator Bukti Kemenangan</div>
+<div class="bukti-controls">
+<div class="form-group"><label for="buktiWallpaperSelect">Background Bukti</label><select id="buktiWallpaperSelect"></select></div>
+<div class="form-group"><label for="bankSelect">Kategori Bank</label><select id="bankSelect"></select></div>
+<div class="form-group"><label for="buktiDateInput">Tanggal Bukti</label><input id="buktiDateInput" type="date"/></div>
+<div class="form-group"><label for="buktiTimeInput">Waktu Bukti</label><input id="buktiTimeInput" step="1" type="time"/></div>
+<div class="form-group"><label for="generatedRecipientInput">Nama Penerima</label><input id="generatedRecipientInput" readonly="" type="text"/></div>
+<div class="form-group"><label for="generatedRekeningInput">Rekening Tujuan</label><input id="generatedRekeningInput" readonly="" type="text"/></div>
+<div class="form-group"><label for="generatedNominalInput">Nominal</label><input id="generatedNominalInput" readonly="" type="text"/></div>
+<button class="btn btn-green" id="generateBuktiDataBtn" type="button">🎲 Generate Data</button>
+<button class="btn btn-primary" id="copyBuktiImageBtn" type="button">📋 Copy Image</button>
+<button class="btn btn-primary" id="copyBuktiTextBtn" type="button">📄 Copy Text</button>
+<button class="btn btn-soft" id="downloadBuktiBtn" type="button">⬇ Download PNG</button>
+</div>
+<div class="bukti-help">Pilih background bukti, kategori bank, atur tanggal dan waktu, lalu klik Generate Data untuk mengacak contoh data pada bukti transfer.</div>
+</div>
+</div>
+<input accept="image/*" class="hidden-file" id="buktiImageInput" type="file"/>
+</section>
+</div>
+<div class="page" id="page-gambar">
+<section class="gambar-shell kg-gambar-page-v2">
+<div aria-label="Koleksi Gambar" class="kg-gambar-hero"></div>
+<div class="gambar-toolbar kg-gambar-toolbar">
+<div class="gambar-search">
+<span aria-hidden="true" class="kg-search-icon">⌕</span>
+<input id="gambarSearchInput" placeholder="Cari judul gambar..." type="text"/>
+</div>
+<div aria-hidden="true" class="kg-gambar-motto"></div>
+<span class="gambar-count" id="gambarCount">0 GAMBAR</span>
+<button class="btn btn-green kg-input-gambar-btn" id="openGambarModalBtn" type="button">＋ INPUT GAMBAR</button>
+</div>
+<div class="kg-gambar-content">
+<div class="gambar-grid" id="gambarGrid"></div>
+<aside aria-hidden="true" class="kg-gambar-poster"></aside>
+</div>
+</section>
+<div class="gambar-modal" id="gambarModal">
+<div class="gambar-modal-box">
+<div class="gambar-modal-head">
+<h3 id="gambarModalTitle">Input Gambar Baru</h3>
+<button class="gambar-close" id="closeGambarModalBtn" type="button">✕</button>
+</div>
+<input id="gambarEditId" type="hidden"/>
+<div class="form-group">
+<label for="gambarTitleInput">Judul Gambar</label>
+<input id="gambarTitleInput" placeholder="Contoh: Bukti Transfer BCA" type="text"/>
+</div>
+<div class="form-group">
+<label for="gambarLinkInput">Link Gambar Screenshot / Imgur</label>
+<input id="gambarLinkInput" placeholder="https://i.imgur.com/contoh.jpg" type="url"/>
+</div>
+<div class="gambar-divider"><span>ATAU</span></div>
+<div class="form-group">
+<label for="gambarFileInput">Pilih Gambar dari File</label>
+<input accept="image/*" id="gambarFileInput" type="file"/>
+<small>File akan diperkecil otomatis agar lebih ringan disimpan.</small>
+</div>
+<div class="gambar-preview-box" id="gambarPreviewBox">
+<span>Preview gambar akan tampil di sini</span>
+<img alt="Preview gambar" id="gambarPreview"/>
+</div>
+<div class="gambar-modal-actions">
+<button class="btn btn-green" id="saveGambarBtn" type="button">Simpan Gambar</button>
+<button class="btn btn-soft" id="cancelGambarBtn" type="button">Batal</button>
+</div>
+</div>
+</div>
+<div class="gambar-viewer" id="gambarViewer">
+<div class="gambar-viewer-backdrop" id="gambarViewerBackdrop"></div>
+<div class="gambar-viewer-box">
+<button class="gambar-viewer-close" id="gambarViewerCloseBtn" type="button">✕</button>
+<img alt="Preview besar" id="gambarViewerImage"/>
+<div class="gambar-viewer-title" id="gambarViewerTitle"></div>
+</div>
+</div>
+</div>
+<div class="page" id="page-jadwal-togel">
+<div aria-hidden="true" class="leaf-overlay">
+<span class="leaf l1">🍀</span>
+<span class="leaf l2">🍂</span>
+<span class="leaf l3">🍃</span>
+<span class="leaf l4">🍀</span>
+<span class="leaf l5">🍂</span>
+<span class="leaf l6">🍃</span>
+<span class="leaf l7">🍀</span>
+<span class="leaf l8">🍂</span>
+<span class="leaf l9">🍃</span>
+<span class="leaf l10">🍀</span>
+<span class="leaf l11">🍂</span>
+<span class="leaf l12">🍃</span>
+<span class="leaf l13">🍀</span>
+<span class="leaf l14">🍂</span>
+<span class="leaf l15">🍃</span>
+<span class="leaf l16">🍀</span>
+<span class="leaf l17">🍂</span>
+<span class="leaf l18">🍃</span>
+<span class="leaf l19">🍀</span>
+<span class="leaf l20">🍂</span>
+<span class="leaf l21">🍃</span>
+<span class="leaf l22">🍀</span>
+<span class="leaf l23">🍂</span>
+<span class="leaf l24">🍃</span>
+</div>
+<section class="jadwal-shell jt-ref-shell">
+<div class="jt-ref-top">
+<div aria-label="Jadwal Togel Kaizokugari" class="jt-ref-hero" role="img"></div>
+<div aria-hidden="true" class="jt-ref-top-poster"></div>
+</div>
+<div class="jt-ref-body">
+<aside aria-hidden="true" class="jt-ref-left-poster"></aside>
+<div class="jt-ref-center">
+<div class="jt-ref-toolbar">
+<label class="jadwal-search-wrap jt-ref-search">
+<span aria-hidden="true">⌕</span>
+<input id="jadwalSearchInput" placeholder="Cari pasaran..." type="text"/>
+</label>
+</div>
+<div class="jadwal-grid" id="jadwalGrid"></div>
+</div>
+<aside class="jt-ref-right">
+<button class="jadwal-edit-mode-btn jt-ref-edit-btn" id="jadwalEditModeBtn" type="button">
+<span aria-hidden="true">✎</span>
+<strong>Edit Jadwal</strong>
+</button>
+<div aria-hidden="true" class="jt-ref-right-poster"></div>
+</aside>
+</div>
+<div aria-hidden="true" class="jt-ref-footer"></div>
+</section>
+<div class="jadwal-edit-modal" id="jadwalEditModal">
+<div class="jadwal-edit-backdrop" id="jadwalEditBackdrop"></div>
+<div class="jadwal-edit-box">
+<div class="jadwal-edit-head">
+<div>
+<span>✏️ EDIT JADWAL</span>
+<h3 id="jadwalEditTitle">Ubah Jadwal Togel</h3>
+</div>
+<button class="jadwal-edit-close" id="jadwalEditCloseBtn" type="button">✕</button>
+</div>
+<input id="jadwalEditId" type="hidden"/>
+<div class="form-group">
+<label for="jadwalEditName">Nama Pasaran</label>
+<input id="jadwalEditName" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="jadwalEditDay">Hari</label>
+<input id="jadwalEditDay" placeholder="Contoh: Senin s/d Minggu" required="" type="text"/>
+</div>
+<div class="jadwal-edit-time-grid">
+<div class="form-group">
+<label for="jadwalEditClose">Tutup</label>
+<input id="jadwalEditClose" placeholder="00:00 WIB" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="jadwalEditOpen">Buka</label>
+<input id="jadwalEditOpen" placeholder="00:15 WIB" required="" type="text"/>
+</div>
+</div>
+<div class="jadwal-edit-actions">
+<button class="btn btn-green" id="jadwalEditSaveBtn" type="button">Simpan Perubahan</button>
+<button class="btn btn-soft" id="jadwalEditCancelBtn" type="button">Batal</button>
+</div>
+</div>
+</div>
+</div>
+<div class="page" id="page-prediksi-togel">
+<div aria-hidden="true" class="prediksi-leaf-layer"></div>
+<section class="prediksi-market-shell prediksi-ref-shell">
+<header class="prediksi-hero-wrap">
+<div class="prediksi-hero-main">
+<div class="prediksi-hero-crumb">KAIZOKUGARI <span>›</span> PREDIKSI TOGEL</div>
+<div aria-label="Banner Prediksi Pasaran" class="prediksi-hero-banner" role="img"></div>
+<div class="prediksi-controls">
+<label class="prediksi-search-box">
+<span>🔎</span>
+<input id="prediksiMarketSearch" placeholder="Cari pasaran..." type="text"/>
+</label>
+<select aria-label="Filter status pasaran" id="prediksiStatusFilter">
+<option value="all">Semua Status</option>
+<option value="open">Sedang Buka</option>
+<option value="closed">Sedang Tutup</option>
+</select>
+</div>
+</div>
+<aside class="prediksi-hero-side">
+<div class="prediksi-clock-card">
+<div class="prediksi-clock-badge"></div>
+<div class="prediksi-clock-copy">
+<small>WAKTU INDONESIA</small>
+<strong id="prediksiClockTime">00:00:00 WIB</strong>
+<span id="prediksiClockMeta">Memuat data...</span>
+</div>
+</div>
+<div aria-hidden="true" class="prediksi-side-poster"></div>
+</aside>
+</header>
+<div class="prediksi-summary-grid">
+<article class="prediksi-summary total">
+<div class="prediksi-summary-icon summary-icon-total" aria-hidden="true">
+<svg viewBox="0 0 64 64" role="img" focusable="false">
+<path class="chart-axis" d="M12 11v41h41"/>
+<rect class="chart-bar" x="18" y="31" width="8" height="16" rx="1.8"/>
+<rect class="chart-bar" x="30" y="21" width="8" height="26" rx="1.8"/>
+<rect class="chart-bar" x="42" y="14" width="8" height="33" rx="1.8"/>
+</svg>
+</div>
+<div class="prediksi-summary-copy"><span>TOTAL PASARAN</span><strong id="prediksiTotalCount">0</strong><em>Seluruh pasaran tersedia</em></div>
+</article>
+<article class="prediksi-summary open">
+<div class="prediksi-summary-icon summary-icon-open" aria-hidden="true">
+<svg viewBox="0 0 64 64" role="img" focusable="false">
+<path class="door-frame" d="M16 10h29v42H16z"/>
+<path class="door-leaf" d="M17 13 39 8v43l-22-5z"/>
+<path class="door-edge" d="M39 8l7 4v37l-7 2z"/>
+<circle class="door-knob" cx="34" cy="30" r="2.2"/>
+<ellipse class="door-shadow" cx="32" cy="54" rx="17" ry="2.3"/>
+</svg>
+</div>
+<div class="prediksi-summary-copy"><span>SEDANG BUKA</span><strong id="prediksiOpenCount">0</strong><em>Pasaran aktif saat ini</em></div>
+</article>
+<article class="prediksi-summary closed">
+<div class="prediksi-summary-icon summary-icon-closed" aria-hidden="true">
+<svg viewBox="0 0 64 64" role="img" focusable="false">
+<path class="door-frame" d="M16 10h29v42H16z"/>
+<path class="door-leaf" d="M17 13 39 8v43l-22-5z"/>
+<path class="door-edge" d="M39 8l7 4v37l-7 2z"/>
+<circle class="door-knob" cx="34" cy="30" r="2.2"/>
+<ellipse class="door-shadow" cx="32" cy="54" rx="17" ry="2.3"/>
+</svg>
+</div>
+<div class="prediksi-summary-copy"><span>SEDANG TUTUP</span><strong id="prediksiClosedCount">0</strong><em>Pasaran sudah tutup</em></div>
+</article>
+</div>
+<div class="prediksi-workspace">
+<aside class="prediksi-market-list-panel">
+<div class="prediksi-panel-ribbon green">DAFTAR PASARAN</div>
+<div class="prediksi-panel-subline">PILIH PASARAN UNTUK MELIHAT PREDIKSI</div>
+<div class="prediksi-market-list" id="prediksiMarketList">
+<div class="prediksi-loading">Mengambil data prediksi dari Google Sheet...</div>
+</div>
+<div aria-hidden="true" class="prediksi-panel-foot-banner"></div>
+</aside>
+<main class="prediksi-result-panel">
+<div class="prediksi-result-head">
+<div class="prediksi-result-title-group">
+<div class="prediksi-panel-ribbon green">HASIL PREDIKSI</div>
+<small id="prediksiSourceStatus">DATA DARI GOOGLE SHEET (AUTO UPDATE)</small>
+</div>
+<div class="prediksi-result-actions">
+<button id="prediksiRefreshBtn" type="button">↻ Refresh Sheet</button>
+<button class="primary" id="prediksiCopyBtn" type="button">📋 Copy Sekarang</button>
+</div>
+</div>
+<div class="prediksi-result-content" id="prediksiResultContent">
+<div class="prediksi-empty-state">
+<span>🔮</span>
+<strong>Pilih pasaran</strong>
+<p>Nama pasaran dari kolom E dan isi prediksi dari kolom F akan tampil di sini.</p>
+</div>
+<div class="prediksi-result-sticker">GOOD LUCK<br/>AND STAY<br/>CONSISTENT!</div>
+</div>
+</main>
+</div>
+</section>
+</div>
+<div class="page" id="page-prediksi">
+<section class="predpost-shell">
+<div class="predpost-stage">
+<canvas height="726" id="predPostCanvas" width="1060"></canvas>
+</div>
+<aside class="predpost-panel">
+<div class="predpost-panel-title">Generator Prediksi</div>
+<div class="predpost-controls">
+<div class="form-group">
+<label>Judul Atas</label>
+<input id="predPostTitle" value="PREDIKSI JITU"/>
+</div>
+<div class="form-group">
+<label>Nama Pasaran</label>
+<input id="predPostMarket" value="HUAHIN 0100"/>
+</div>
+<div class="form-group">
+<label>Tanggal</label>
+<input id="predPostDate" value=""/>
+</div>
+<div class="form-group">
+<label>Logo / Teks Tengah</label>
+<input id="predPostLogoText" value="HuaHin Lottery"/>
+</div>
+<div class="form-group">
+<label>Shio</label>
+<select id="predPostShio">
+<option>ANJING</option>
+<option>AYAM</option>
+<option>BABI</option>
+<option>HARIMAU</option>
+<option>KAMBING</option>
+<option>KELINCI</option>
+<option>KERBAU</option>
+<option>KUDA</option>
+<option>MONYET</option>
+<option>NAGA</option>
+<option>TIKUS</option>
+<option>ULAR</option>
+</select>
+</div>
+<button class="btn btn-green" id="predPostGenerateBtn">🎲 Generate</button>
+<button class="btn btn-primary" id="predPostDownloadBtn">⬇ Download PNG</button>
+<button class="btn btn-soft" id="predPostCopyImgBtn">📋 Copy Image</button>
+<button class="btn btn-soft" id="predPostCopyTextBtn">📄 Copy Text</button>
+</div>
+<div class="predpost-help">Card mengikuti contoh: BBFS, Angka Main, Shio, 4D, 3D, 2D, Colok Bebas, Colok Bebas 2D, dan 2D Cadangan.</div>
+</aside>
+</section>
+</div>
+<div class="page" id="page-link-domain">
+<section class="nawala-shell">
+<aside class="nawala-side">
+<div class="nawala-side-head">
+<div class="nawala-side-title">
+<span class="nawala-icon-badge">
+<svg fill="none" stroke="#70b7ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a15 15 0 0 1 0 18"></path><path d="M12 3a15 15 0 0 0 0 18"></path></svg>
+</span>
+                Domain
+              </div>
+<div class="nawala-search">
+<svg fill="none" stroke="#90a3bd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+<input id="domainSearchInput" placeholder="Cari domain..." type="text"/>
+</div>
+<div class="nawala-actions">
+<button class="nawala-btn" id="addDomainBtn">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" viewbox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                  Tambah
+                </button>
+<button class="nawala-btn" id="domainFilterBtn">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24"><path d="M4 6h16"></path><path d="M7 12h10"></path><path d="M10 18h4"></path></svg>
+                  Semua
+                </button>
+</div>
+</div>
+<div class="nawala-domain-list" id="domainList"></div>
+<div class="nawala-side-foot"><span id="domainCountFoot">0/0</span><span>‹　›</span></div>
+</aside>
+<main class="nawala-main">
+<div class="nawala-main-head">
+<div class="nawala-main-title">
+<span class="nawala-icon-badge">
+<svg fill="none" stroke="#f6c453" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="8"></circle></svg>
+</span>
+<div><small>RINGKASAN MONITOR</small><h3>STATUS CHECKER</h3></div>
+</div>
+<div class="nawala-safe-all"><span class="kaizo-inline-style-03">●</span><span id="allDomainStatus">Semua domain aman</span></div>
+</div>
+<div class="nawala-action-row">
+<div class="nawala-summary-box safe">
+<div class="left">
+<span class="kaizo-inline-style-04">🚨</span>
+<span>Domain Terblokir</span>
+</div>
+<strong id="blockedTopCount">0</strong>
+</div>
+<button class="nawala-action-btn" id="pushDomainBtn">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" viewbox="0 0 24 24"><path d="M15 17h5l-1.5-1.5A2 2 0 0 1 18 14.1V11a6 6 0 0 0-5-5.91V4a1 1 0 1 0-2 0v1.09A6 6 0 0 0 6 11v3.1a2 2 0 0 1-.5 1.4L4 17h5"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>
+                Aktifkan Push
+              </button>
+<button class="nawala-action-btn" id="manualCheckBtn">
+<span class="kaizo-inline-style-05">💻</span>
+                Cek Manual
+              </button>
+</div>
+<div class="nawala-monitor-note" id="monitorNote">Monitoring aktif — belum ada domain yang diperiksa.</div>
+<div class="nawala-stat-grid">
+<div class="nawala-stat-card">
+<div class="nawala-stat-top">
+<div class="nawala-stat-icon kaizo-inline-style-06">🌐</div>
+<div class="nawala-stat-badge">Aktif</div>
+</div>
+<div><div class="nawala-stat-number" id="totalDomainStat">0</div><div class="nawala-stat-label">Total Domain</div></div>
+</div>
+<div class="nawala-stat-card green">
+<div class="nawala-stat-top">
+<div class="nawala-stat-icon kaizo-inline-style-07">✅</div>
+<div class="nawala-stat-badge" id="safePercentBadge">0%</div>
+</div>
+<div><div class="nawala-stat-number" id="safeDomainStat">0</div><div class="nawala-stat-label">Aman</div></div>
+</div>
+<div class="nawala-stat-card red">
+<div class="nawala-stat-top">
+<div class="nawala-stat-icon kaizo-inline-style-08">🚨</div>
+<div class="nawala-stat-badge" id="blockedPercentBadge">0%</div>
+</div>
+<div><div class="nawala-stat-number" id="blockedDomainStat">0</div><div class="nawala-stat-label">Terblokir</div></div>
+</div>
+<div class="nawala-stat-card gold">
+<div class="nawala-stat-top">
+<div class="nawala-stat-icon kaizo-inline-style-09">🕒</div>
+<div class="nawala-stat-badge">5m</div>
+</div>
+<div><div class="nawala-stat-number" id="lastCheckStat">--:--</div><div class="nawala-stat-label">Last Check</div></div>
+</div>
+</div>
+</main>
+</section>
+<div class="domain-modal" id="domainModal">
+<div class="domain-modal-box">
+<h3>Tambah Domain</h3>
+<textarea id="newDomainInput" placeholder="Masukkan banyak domain, satu domain per baris.
+
+Contoh:
+domain1.com
+domain2.com
+https://domain3.com" rows="8"></textarea>
+<div class="domain-modal-actions">
+<button class="btn btn-green" id="saveDomainBtn">Simpan Semua Domain</button>
+<button class="btn btn-soft" id="closeDomainModalBtn">Batal</button>
+</div>
+</div>
+</div>
+</div>
+<div class="page" id="page-pk-cs">
+<section class="pkx-stage">
+<div class="pkx-header">
+<img alt="PK CS Quick Copy" src="assets/images/image-26.png"/>
+<div aria-label="Waktu Indonesia realtime" class="pkx-live-clock">
+<div aria-hidden="true" class="pkx-live-clock-icon">
+<span class="pkx-clock-dot dot12"></span><span class="pkx-clock-dot dot3"></span><span class="pkx-clock-dot dot6"></span><span class="pkx-clock-dot dot9"></span>
+<span class="pkx-clock-hand hour"></span><span class="pkx-clock-hand minute"></span><span class="pkx-clock-hand second"></span>
+</div>
+<div class="pkx-live-clock-copy">
+<div class="pkx-live-clock-label">WAKTU INDONESIA</div>
+<div class="pkx-live-clock-time" id="pkcsClockTime">--:--:--</div>
+<div class="pkx-live-clock-date" id="pkcsClockDate">-</div>
+</div>
+</div>
+</div>
+<div class="pkx-action">
+<div class="pkx-action-label"><span>AKSI CEPAT</span><b>»</b></div>
+<button class="pkx-action-btn primary" id="pkcsAddBtn" type="button">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3h7l4 4v14H8z"></path><path d="M15 3v4h4"></path><path d="M12 11v6"></path><path d="M9 14h6"></path></svg>
+<span>INPUT PK BARU</span>
+</button>
+<button class="pkx-action-btn" id="pkcsImportSheetBtn" type="button">
+<svg aria-hidden="true" viewbox="0 0 24 24"><rect height="16" rx="1.6" width="14" x="5" y="4"></rect><path d="M8 8h8"></path><path d="M8 12h8"></path><path d="M8 16h5"></path></svg>
+<span>IMPORT GOOGLE SHEET</span>
+</button>
+<div class="pkx-action-art"><img alt="Kerja cepat hasil tepat" src="assets/images/image-27.png"/></div>
+</div>
+<div class="pkx-work">
+<aside class="pkx-panel pkx-search-panel">
+<div class="pkx-search-head">
+<div class="pkx-search-title"><span class="lens">⌕</span><span>CARI TEMPLATE</span></div>
+<div class="pkx-slash">///</div>
+</div>
+<div class="pkx-search-sub">Cari template PK berdasarkan kata kunci</div>
+<div class="pkx-search-row">
+<label class="pkx-input-wrap" for="pkcsSearchInput"><span class="lens">⌕</span><input id="pkcsSearchInput" placeholder="Masukkan kata kunci PK..." type="text"/></label>
+<button class="pkx-search-btn" data-kaizo-click="kaizo-click-07" type="button">SEARCH</button>
+</div>
+<div class="pkx-list pkcs-list" id="pkcsList"></div>
+<div class="pkx-search-art"><img alt="Cari temukan copy selesai" src="assets/images/image-28.png"/></div>
+<div id="pkcsImportStatus"></div>
+</aside>
+<section class="pkx-panel pkx-result-panel">
+<div class="pkx-result-head">
+<div class="pkx-result-title">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3h7l4 4v14H8z"></path><path d="M15 3v4h4"></path><path d="M10 11h6"></path><path d="M10 15h6"></path></svg>
+<span>HASIL / ISI</span>
+</div>
+<span class="pkx-ready" id="pkcsReadyBadge">DATA SIAP UNTUK DI COPY</span>
+</div>
+<div class="pkx-resultbox">
+<div class="pkcs-result-empty" id="pkcsResult">PK tidak ditemukan untuk kata kunci tersebut.</div>
+<div class="pkcs-copy-success" id="pkcsCopySuccess"><span>✓ ✓ ✓</span></div>
+</div>
+<div class="pkx-result-foot">
+<span class="pkx-note"><span class="info">i</span>Pastikan isi sudah benar sebelum dicopy.</span>
+<div class="pkx-actions">
+<button class="pkcs-edit" id="pkcsEditBtn" type="button"><svg viewbox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg><span>Edit</span></button>
+<button class="pkcs-delete" id="pkcsDeleteBtn" type="button"><svg viewbox="0 0 24 24"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg><span>Hapus</span></button>
+<button class="pkcs-copy" id="pkcsCopyBtn" type="button"><svg viewbox="0 0 24 24"><rect height="11" rx="2" width="11" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy Sekarang</span></button>
+</div>
+</div>
+</section>
+</div>
+<footer class="pkx-footer">
+<div class="pkx-footer-left"><strong>KAIZOKUGARI</strong><span>TOOLS UNTUK ORANG SERIUS</span></div>
+<div class="pkx-footer-line"></div>
+<div class="pkx-footer-right"><strong>LEBIH DARI SEKEDAR TOOLS</strong><span>INI ADALAH TEMAN PERJUANGAN</span></div>
+</footer>
+</section>
+<div class="pkcs-modal" id="pkcsModal"><div class="pkcs-modal-box"><div class="pkcs-modal-head"><h3 id="pkcsModalTitle">Input PK Baru</h3><button class="pkcs-close" id="pkcsCloseBtn" type="button">✕</button></div><input id="pkcsEditId" type="hidden"/><div class="form-group"><label for="pkcsKeywordInput">Kata Kunci / Judul PK</label><input id="pkcsKeywordInput" placeholder="Contoh: MANDIRI KE QRIS" type="text"/></div><div class="form-group"><label for="pkcsContentInput">Isi PK</label><textarea id="pkcsContentInput" placeholder="Masukkan isi lengkap PK di sini..."></textarea></div><div class="pkcs-modal-actions"><button class="btn btn-green" id="pkcsSaveBtn" type="button">Simpan PK</button><button class="btn btn-soft" id="pkcsCancelBtn" type="button">Batal</button></div></div></div>
+</div>
+<div class="page" id="page-user-management">
+<section class="owner-shell">
+<section class="hero">
+<div>
+<div class="pill">👑 Khusus Owner</div>
+<h1>Manajemen User</h1>
+<p>Atur role dan status akun. Akses menu otomatis mengikuti role yang dipilih.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-head">
+<div><h2 class="section-title">Daftar Pengguna</h2><p class="section-desc">Perubahan akses langsung disimpan ke Firebase.</p></div>
+<button class="btn btn-soft" id="refreshUsersBtn" type="button">↻ Refresh</button>
+</div>
+<div class="owner-users" id="ownerUsersList"></div>
+</section>
+</section>
+</div>
+<div class="page" id="page-selisih"><section class="hero"><div><div class="pill">⇄ Ruang Selisih</div><h1>Selisih</h1><p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Selisih.</b><br/>Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div></section></div>
+</main>
+</div>
+<div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button class="modal-close" id="closeNoteModalBtn" type="button">✕</button></div><form id="noteForm"><input id="noteEditId" type="hidden"/><input id="noteColor" type="hidden" value="yellow"/><div class="form-group"><label for="noteCategory">Kategori Catatan</label><select id="noteCategory" required=""><option selected="" value="PK CS">PK CS</option><option value="REPORT CS LINE">REPORT CS LINE</option><option value="LAINNYA">LAINNYA</option></select></div><div class="form-group"><label for="noteTitle">Judul Catatan</label><input id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required="" type="text"/></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required=""></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button class="modal-color-dot dot-yellow active" data-color="yellow" type="button"></button><button class="modal-color-dot dot-green" data-color="green" type="button"></button><button class="modal-color-dot dot-blue" data-color="blue" type="button"></button><button class="modal-color-dot dot-pink" data-color="pink" type="button"></button><button class="modal-color-dot dot-purple" data-color="purple" type="button"></button><button class="modal-color-dot dot-orange" data-color="orange" type="button"></button><button class="modal-color-dot dot-cyan" data-color="cyan" type="button"></button><button class="modal-color-dot dot-rose" data-color="rose" type="button"></button></div></div><div class="form-actions"><button class="btn btn-primary" id="noteSaveBtn" type="submit">Simpan Catatan</button><button class="btn btn-soft" id="noteResetBtn" type="button">Reset</button></div></form></div></div>
+<input accept="image/*" class="hidden-file" id="noteImageInput" type="file"/><div class="toast" id="toast">Berhasil</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<link href="assets/css/38-kg-gambar-poster-left-wider-v2.css" rel="stylesheet"/>
+<script src="assets/js/03-app-core-data-jadwal.js"></script>
+<div class="note-image-modal" id="noteImageModal">
+<div class="note-image-modal-backdrop" id="noteImageModalBackdrop"></div>
+<div class="note-image-modal-box">
+<button class="note-image-modal-close" id="noteImageModalCloseBtn" title="Tutup" type="button">✕</button>
+<img alt="Preview gambar catatan" id="noteImageModalPreview" src=""/>
+</div>
+</div>
+<script src="assets/js/04-note-image-popup.js"></script>
+<script src="assets/js/05-auth-book-animation.js"></script>
+<script src="assets/js/06-dashboard-clock-counters.js"></script>
+<script src="assets/js/07-kaizokugari-alive-v1-js.js"></script>
+<script src="assets/js/08-kaizokugari-alive-v2-sidebar-js.js"></script>
+<script src="assets/js/09-kaizokugari-notepad-v2-clock.js"></script>
+<script src="assets/js/10-kaizokugari-login-asli-safe-controller.js"></script>
+<div aria-hidden="true" id="kgNotePreviewModal">
+<section aria-labelledby="kgPreviewTitle" aria-modal="true" class="kg-preview-panel" role="dialog">
+<header class="kg-preview-head">
+<div class="kg-preview-kicker" id="kgPreviewCategory">PK CS • PREVIEW</div>
+<h2 class="kg-preview-title" id="kgPreviewTitle">PREVIEW NOTE</h2>
+<button aria-label="Tutup" class="kg-preview-close" id="kgPreviewClose" type="button">×</button>
+</header>
+<div class="kg-preview-body">
+<div class="kg-preview-content" id="kgPreviewContent"></div>
+<div class="kg-preview-meta"><span id="kgPreviewDate"></span></div>
+</div>
+</section>
+</div>
+<script src="assets/js/11-kaizokugari-note-eye-preview-script.js"></script>
+<script src="assets/js/12-kaizokugari-gambar-viewer-fix-script.js"></script>
+<script src="assets/js/99-inline-events.js"></script></body>
+</html>
