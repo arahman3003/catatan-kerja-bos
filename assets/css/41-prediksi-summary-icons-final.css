@@ -141,3 +141,70 @@
     height:42px!important;
   }
 }
+
+/* =========================================================
+   V18 - FIX CLOCK + HEADER TITLE BORDER
+   - Jam kanan atas dirapikan agar tidak keluar box
+   - Border box gambar/header judul PREDIKSI PASARAN = 0px
+   ========================================================= */
+
+/* Header judul/banner utama: hilangkan border CSS di sekeliling gambar */
+#page-prediksi-togel .prediksi-hero-banner{
+  border:0 !important;
+  outline:0 !important;
+}
+
+/* Rapikan isi kartu jam kanan atas */
+#page-prediksi-togel .prediksi-clock-card{
+  overflow:hidden !important;
+  gap:10px !important;
+  padding-left:10px !important;
+  padding-right:10px !important;
+}
+
+#page-prediksi-togel .prediksi-clock-copy{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+}
+
+#page-prediksi-togel .prediksi-clock-copy small{
+  font-size:10px !important;
+  line-height:1.05 !important;
+  letter-spacing:.65px !important;
+  white-space:nowrap !important;
+}
+
+#page-prediksi-togel .prediksi-clock-copy strong{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  font-size:20px !important;
+  line-height:1.05 !important;
+  letter-spacing:0 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}
+
+#page-prediksi-togel .prediksi-clock-copy span{
+  font-size:10px !important;
+  line-height:1.1 !important;
+  white-space:nowrap !important;
+}
+
+/* Sedikit hemat ruang tanpa mengubah bentuk icon jam */
+#page-prediksi-togel .prediksi-clock-badge{
+  flex:0 0 44px !important;
+  width:44px !important;
+  height:44px !important;
+}
+#page-prediksi-togel .prediksi-clock-badge::before{
+  left:20px !important;
+  top:9px !important;
+}
+#page-prediksi-togel .prediksi-clock-badge::after{
+  left:20px !important;
+  top:19px !important;
+}
