@@ -1,7 +1,0 @@
-
-/* JONI WORKGAME V15 - Bukti Kemenangan demo integration */
-.content.bukti-content{padding:0!important;background:#050504!important;overflow:visible!important}
-#dashPostinganBukti.kartu-kemenangan-page{min-height:calc(100vh - 76px)!important;padding:10px!important;background:#050504!important}
-#kartuKemenanganHost{width:100%;min-height:calc(100vh - 112px)}
-.bukti-demo-notice{position:relative;z-index:20;margin:0 14px 8px;padding:9px 12px;border:1px solid rgba(255,197,77,.38);border-radius:10px;background:rgba(35,25,5,.92);color:#ffd76c;text-align:center;font:900 11px/1.4 Inter,system-ui,sans-serif;letter-spacing:.08em}
-#kartuKemenanganHost .kk-poster::after{content:"DEMO • BUKAN BUKTI TRANSAKSI"!important;position:absolute!important;z-index:2147480000!important;left:50%!important;top:50%!important;width:92%!important;transform:translate(-50%,-50%) rotate(-24deg)!important;padding:14px 10px!important;border:4px solid rgba(255,255,255,.58)!important;color:rgba(255,255,255,.76)!important;background:rgba(120,0,0,.18)!important;text-align:center!important;font:1000 clamp(20px,3.1vw,42px)/1 Inter,Arial,sans-serif!important;letter-spacing:.10em!important;text-shadow:0 2px 8px rgba(0,0,0,.65)!important;box-shadow:0 0 0 2px rgba(0,0,0,.20),inset 0 0 0 2px rgba(0,0,0,.18)!important;pointer-events:none!important;user-select:none!important}
