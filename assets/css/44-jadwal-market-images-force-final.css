@@ -1,70 +1,145 @@
-/* KAIZOKUGARI - JADWAL MARKET IMAGES FILE MODE (KECIL)
-   Timpa assets/css/44-jadwal-market-images-force-final.css dengan file ini.
-   Gambar TIDAK ditanam dalam CSS. Semua gambar dibaca dari assets/images/jadwal-markets/.
-*/
+/* ============================================================
+   KAIZOKUGARI - JADWAL TOGEL MARKET IMAGES MERGED FINAL
+   FIX TOTAL:
+   - Semua mapping lama DIPERTAHANKAN.
+   - 10 gambar baru DITAMBAHKAN.
+   - Artwork dipasang LANGSUNG ke .jadwal-card, jadi tidak tergantung
+     pada elemen .jadwal-card-art / JavaScript artwork.
+   - Semua asset memakai file WEBP kecil di assets/images/jadwal-markets/.
+   ============================================================ */
 
+#page-jadwal-togel .jadwal-card{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background-color:#002219!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
+
+/* Hindari layer artwork lama menutup / mengacaukan background card. */
 #page-jadwal-togel .jadwal-card .jadwal-card-art{
+  display:none!important;
+}
+
+/* Gradient kiri untuk keterbacaan teks. Gambar tetap kuat di sisi kanan. */
+#page-jadwal-togel .jadwal-card .jadwal-card-shade{
   display:block!important;
   visibility:visible!important;
-  opacity:1!important;
-  background-size:cover!important;
-  background-position:center center!important;
-  background-repeat:no-repeat!important;
+  position:absolute!important;
+  z-index:2!important;
+  inset:0!important;
+  pointer-events:none!important;
+  background:linear-gradient(90deg,
+    rgba(0,34,25,.98) 0%,
+    rgba(0,32,24,.94) 30%,
+    rgba(0,28,22,.76) 47%,
+    rgba(0,24,19,.38) 64%,
+    rgba(0,16,13,.10) 82%,
+    rgba(0,10,8,.03) 100%)!important;
 }
-#page-jadwal-togel .jadwal-card .jadwal-card-art img{display:none!important;}
 
-#page-jadwal-togel .jadwal-card[data-jadwal-id="hokidraw"] .jadwal-card-art{background-image:url("../images/jadwal-markets/hokidraw.png")!important;background-position:center center!important;}
+#page-jadwal-togel .jadwal-card .jadwal-card-content{position:relative!important;z-index:7!important;}
+#page-jadwal-togel .jadwal-card .jadwal-card-title,
+#page-jadwal-togel .jadwal-card .jadwal-card-slashes,
+#page-jadwal-togel .jadwal-card .jadwal-card-edit{z-index:9!important;}
 
-#page-jadwal-togel .jadwal-card[data-jadwal-id="toto-macau-pagi"] .jadwal-card-art{background-image:url("../images/jadwal-markets/toto-macau-pagi.png")!important;background-position:center center!important;}
+/* ===== 10 PASARAN AWAL ===== */
+#page-jadwal-togel .jadwal-card[data-jadwal-id="hokidraw"]{
+  background-image:url("../images/jadwal-markets/hokidraw.webp")!important;
+  background-position:center 55%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="toto-macau-pagi"]{
+  background-image:url("../images/jadwal-markets/toto-macau-pagi.webp")!important;
+  background-position:center 52%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="kentucky-midday"]{
+  background-image:url("../images/jadwal-markets/kentucky-midday.webp")!important;
+  background-position:38% 51%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="florida-midday"]{
+  background-image:url("../images/jadwal-markets/florida-midday.webp")!important;
+  background-position:center 58%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="huahin-0100"]{
+  background-image:url("../images/jadwal-markets/huahin-0100.webp")!important;
+  background-position:64% 54%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="bangkok-0130"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="bangkok-0930"]{
+  background-image:url("../images/jadwal-markets/bangkok-0130.webp")!important;
+  background-position:62% 51%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="newyork-midday"]{
+  background-image:url("../images/jadwal-markets/newyork-midday.webp")!important;
+  background-position:71% 46%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="carolina-day"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="carolina-evening"]{
+  background-image:url("../images/jadwal-markets/carolina-day.webp")!important;
+  background-position:65% 49%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="brunei-02"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="brunei-14"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="brunei-21"]{
+  background-image:url("../images/jadwal-markets/brunei-02.webp")!important;
+  background-position:70% 49%!important;
+}
 
-#page-jadwal-togel .jadwal-card[data-jadwal-id="kentucky-midday"] .jadwal-card-art{background-image:url("../images/jadwal-markets/kentucky-midday.png")!important;background-position:center center!important;}
+/* OREGON 03 / 06 / 09 / 12 semuanya memakai SATU gambar yang sama. */
+#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-03"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-06"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-09"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-12"]{
+  background-image:url("../images/jadwal-markets/oregon-all.webp")!important;
+  background-position:center 48%!important;
+}
 
-#page-jadwal-togel .jadwal-card[data-jadwal-id="florida-midday"] .jadwal-card-art{background-image:url("../images/jadwal-markets/florida-midday.png")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="huahin-0100"] .jadwal-card-art{background-image:url("../images/jadwal-markets/huahin-0100.png")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="bangkok-0130"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="bangkok-0930"] .jadwal-card-art{background-image:url("../images/jadwal-markets/bangkok-0130.png")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="newyork-midday"] .jadwal-card-art{background-image:url("../images/jadwal-markets/newyork-midday.png")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="carolina-day"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="carolina-evening"] .jadwal-card-art{background-image:url("../images/jadwal-markets/carolina-day.png")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="brunei-02"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="brunei-14"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="brunei-21"] .jadwal-card-art{background-image:url("../images/jadwal-markets/brunei-02.png")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-03"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-06"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-09"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="oregon-12"] .jadwal-card-art{background-image:url("../images/jadwal-markets/oregon-all.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="florida-evening"] .jadwal-card-art{background-image:url("../images/jadwal-markets/florida-evening.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="newyork-evening"] .jadwal-card-art{background-image:url("../images/jadwal-markets/newyork-evening.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totocambodia"] .jadwal-card-art{background-image:url("../images/jadwal-markets/totocambodia.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="kentucky-evening"] .jadwal-card-art{background-image:url("../images/jadwal-markets/kentucky-evening.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-11"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-15"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-19"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-21"] .jadwal-card-art{background-image:url("../images/jadwal-markets/chelsea-all.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="sydney"] .jadwal-card-art{background-image:url("../images/jadwal-markets/sydney.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-siang"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-sore"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-malam-i"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-malam-ii"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-malam-iii"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-5d-sore"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-5d-malam"] .jadwal-card-art{background-image:url("../images/jadwal-markets/totomacau-all.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="huahin-1630"] .jadwal-card-art,
-#page-jadwal-togel .jadwal-card[data-jadwal-id="huahin-2100"] .jadwal-card-art{background-image:url("../images/jadwal-markets/huahin-all.webp")!important;background-position:center center!important;}
-
-#page-jadwal-togel .jadwal-card[data-jadwal-id="singapore"] .jadwal-card-art{background-image:url("../images/jadwal-markets/singapore.webp")!important;background-position:center center!important;}
-
+/* ===== 10 GAMBAR TAMBAHAN ===== */
+#page-jadwal-togel .jadwal-card[data-jadwal-id="california"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="florida-evening"]{
+  background-image:url("../images/jadwal-markets/florida-evening.webp")!important;
+  background-position:center 52%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="newyork-evening"]{
+  background-image:url("../images/jadwal-markets/newyork-evening.webp")!important;
+  background-position:center 50%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totocambodia"]{
+  background-image:url("../images/jadwal-markets/totocambodia.webp")!important;
+  background-position:center 50%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="kentucky-evening"]{
+  background-image:url("../images/jadwal-markets/kentucky-evening.webp")!important;
+  background-position:center 52%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-11"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-15"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-19"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="chelsea-21"]{
+  background-image:url("../images/jadwal-markets/chelsea-all.webp")!important;
+  background-position:center 50%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="sydney"]{
+  background-image:url("../images/jadwal-markets/sydney.webp")!important;
+  background-position:center 50%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-siang"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-sore"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-malam-i"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-malam-ii"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-malam-iii"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-5d-sore"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="totomacau-5d-malam"]{
+  background-image:url("../images/jadwal-markets/totomacau-all.webp")!important;
+  background-position:center 50%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="huahin-1630"],
+#page-jadwal-togel .jadwal-card[data-jadwal-id="huahin-2100"]{
+  background-image:url("../images/jadwal-markets/huahin-all.webp")!important;
+  background-position:center 50%!important;
+}
+#page-jadwal-togel .jadwal-card[data-jadwal-id="singapore"]{
+  background-image:url("../images/jadwal-markets/singapore.webp")!important;
+  background-position:center 50%!important;
+}
