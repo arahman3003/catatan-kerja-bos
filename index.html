@@ -105,7 +105,8 @@ CATATAN:
 <link href="assets/css/40-prediksi-top-layout-final.css" rel="stylesheet"/>
 <link href="assets/css/41-prediksi-summary-icons-final.css" rel="stylesheet"/>
 <link href="assets/css/42-prediksi-market-scroll-banner-final.css" rel="stylesheet"/>
-<link href="assets/css/99-inline-attributes.css" rel="stylesheet"/></head>
+<link href="assets/css/99-inline-attributes.css" rel="stylesheet"/><link href="assets/css/43-joni-v28-module-shell.css" rel="stylesheet"/>
+</head>
 <body class="dark-workspace">
 <!-- ===== HALAMAN LOGIN ===== -->
 <div class="auth-gate checking" id="authGate">
@@ -185,6 +186,7 @@ CATATAN:
 <button class="nav-btn" data-page="prediksi"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M12 3l1.3 3.7L17 8l-3.7 1.3L12 13l-1.3-3.7L7 8l3.7-1.3z"></path><path d="M18.2 13.8l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"></path></svg></span><span class="menu-label">Prediksi</span></button>
 </div>
 <button class="nav-btn" data-page="selisih"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M7 7h10"></path><path d="M7 12h10"></path><path d="M7 17h10"></path><path d="M5 7h.01"></path><path d="M5 12h.01"></path><path d="M5 17h.01"></path></svg></span><span class="menu-label">Selisih</span></button>
+<button class="nav-btn" data-page="kalkulator-bola"><span aria-hidden="true" class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M9.5 9.5 12 8l2.5 1.5-.7 3H10.2z"></path><path d="m8 15 2.2-2.5M16 15l-2.2-2.5M9 7l.5 2.5M15 7l-.5 2.5"></path></svg></span><span class="menu-label">Kalkulator Bola</span></button>
 <button class="nav-btn" data-page="link-domain"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><path d="M10.5 13.5l3-3"></path><path d="M7.5 15.5l-2 2a3 3 0 1 1-4.2-4.2l3-3A3 3 0 0 1 8.5 10"></path><path d="M16.5 8.5l2-2a3 3 0 1 1 4.2 4.2l-3 3A3 3 0 0 1 15.5 14"></path></svg></span><span class="menu-label">Link Domain</span></button>
 <button class="nav-btn owner-only kaizo-inline-style-01" data-page="user-management"><span aria-hidden="true" class="nav-icon"><svg viewbox="0 0 24 24"><circle cx="9" cy="9" r="3"></circle><circle cx="17" cy="10" r="2.5"></circle><path d="M3.5 19a5.5 5.5 0 0 1 11 0"></path><path d="M13.5 19a4.5 4.5 0 0 1 8 0"></path></svg></span><span class="menu-label">Manajemen User</span></button>
 </nav>
@@ -347,50 +349,8 @@ CATATAN:
 </section>
 </section>
 </div>
-<div class="page" id="page-syair-togel">
-<section class="syair-clean">
-<div class="syair-shell">
-<div class="syair-stage"><canvas height="1448" id="syairCanvas" width="1086"></canvas></div>
-<div class="syair-panel">
-<div class="syair-panel-title">Generator Syair</div>
-<div class="syair-controls">
-<select class="syair-select" id="pasaranSelect"></select>
-<select class="syair-select" id="shioSelect"></select>
-<button class="btn btn-green" id="acakSemuaBtn" type="button">🎲 Acak Semua</button>
-<button class="btn btn-primary" id="acakSyairBtn" type="button">📝 Acak Syair</button>
-<button class="btn btn-soft" id="downloadSyairBtn" type="button">⬇ Download PNG</button>
-</div>
-<div class="syair-help">Tanggal otomatis mengikuti hari ini. Template tampil di kiri, tombol ada di kanan.</div>
-</div>
-</div>
-<img alt="template syair" class="kaizo-inline-style-02" id="templateImg" src="syair-template.png"/>
-</section>
-</div>
-<div class="page" id="page-bukti-kemenangan">
-<section class="bukti-clean">
-<div class="bukti-shell">
-<div class="bukti-stage"><canvas height="1080" id="buktiCanvas" width="1080"></canvas></div>
-<div class="bukti-panel">
-<div class="bukti-panel-title">Generator Bukti Kemenangan</div>
-<div class="bukti-controls">
-<div class="form-group"><label for="buktiWallpaperSelect">Background Bukti</label><select id="buktiWallpaperSelect"></select></div>
-<div class="form-group"><label for="bankSelect">Kategori Bank</label><select id="bankSelect"></select></div>
-<div class="form-group"><label for="buktiDateInput">Tanggal Bukti</label><input id="buktiDateInput" type="date"/></div>
-<div class="form-group"><label for="buktiTimeInput">Waktu Bukti</label><input id="buktiTimeInput" step="1" type="time"/></div>
-<div class="form-group"><label for="generatedRecipientInput">Nama Penerima</label><input id="generatedRecipientInput" readonly="" type="text"/></div>
-<div class="form-group"><label for="generatedRekeningInput">Rekening Tujuan</label><input id="generatedRekeningInput" readonly="" type="text"/></div>
-<div class="form-group"><label for="generatedNominalInput">Nominal</label><input id="generatedNominalInput" readonly="" type="text"/></div>
-<button class="btn btn-green" id="generateBuktiDataBtn" type="button">🎲 Generate Data</button>
-<button class="btn btn-primary" id="copyBuktiImageBtn" type="button">📋 Copy Image</button>
-<button class="btn btn-primary" id="copyBuktiTextBtn" type="button">📄 Copy Text</button>
-<button class="btn btn-soft" id="downloadBuktiBtn" type="button">⬇ Download PNG</button>
-</div>
-<div class="bukti-help">Pilih background bukti, kategori bank, atur tanggal dan waktu, lalu klik Generate Data untuk mengacak contoh data pada bukti transfer.</div>
-</div>
-</div>
-<input accept="image/*" class="hidden-file" id="buktiImageInput" type="file"/>
-</section>
-</div>
+<div class="page" id="page-syair-togel"><div class="joni-v28-module-host" id="joniV28SyairHost"></div></div>
+<div class="page" id="page-bukti-kemenangan"><div class="joni-v28-module-host" id="joniV28BuktiHost"></div></div>
 <div class="page" id="page-gambar">
 <section class="gambar-shell kg-gambar-page-v2">
 <div aria-label="Koleksi Gambar" class="kg-gambar-hero"></div>
@@ -876,7 +836,8 @@ https://domain3.com" rows="8"></textarea>
 </section>
 </section>
 </div>
-<div class="page" id="page-selisih"><section class="hero"><div><div class="pill">⇄ Ruang Selisih</div><h1>Selisih</h1><p>Ruang khusus untuk menghitung atau menyimpan data selisih.</p></div></section><section class="section"><div class="placeholder-box"><b>Placeholder Selisih.</b><br/>Nanti bisa dibuat kalkulator selisih, catatan hasil, atau tabel perbandingan data.</div></section></div>
+<div class="page" id="page-selisih"><div class="joni-v28-module-host" id="joniV28QrisHost"></div></div>
+<div class="page" id="page-kalkulator-bola"><div class="joni-v28-module-host" id="joniV28BolaHost"></div></div>
 </main>
 </div>
 <div class="modal-overlay" id="noteModal"><div class="modal-box"><div class="modal-header"><h3 id="noteFormTitle">Tambah Catatan</h3><button class="modal-close" id="closeNoteModalBtn" type="button">✕</button></div><form id="noteForm"><input id="noteEditId" type="hidden"/><input id="noteColor" type="hidden" value="yellow"/><div class="form-group"><label for="noteCategory">Kategori Catatan</label><select id="noteCategory" required=""><option selected="" value="PK CS">PK CS</option><option value="REPORT CS LINE">REPORT CS LINE</option><option value="LAINNYA">LAINNYA</option></select></div><div class="form-group"><label for="noteTitle">Judul Catatan</label><input id="noteTitle" placeholder="Contoh: Catatan harian / teks postingan" required="" type="text"/></div><div class="form-group"><label for="noteContent">Isi Catatan</label><textarea id="noteContent" placeholder="Tulis catatan di sini..." required=""></textarea></div><div class="form-group"><label>Pilih Warna Sticky Note</label><div class="modal-colors" id="modalColors"><button class="modal-color-dot dot-yellow active" data-color="yellow" type="button"></button><button class="modal-color-dot dot-green" data-color="green" type="button"></button><button class="modal-color-dot dot-blue" data-color="blue" type="button"></button><button class="modal-color-dot dot-pink" data-color="pink" type="button"></button><button class="modal-color-dot dot-purple" data-color="purple" type="button"></button><button class="modal-color-dot dot-orange" data-color="orange" type="button"></button><button class="modal-color-dot dot-cyan" data-color="cyan" type="button"></button><button class="modal-color-dot dot-rose" data-color="rose" type="button"></button></div></div><div class="form-actions"><button class="btn btn-primary" id="noteSaveBtn" type="submit">Simpan Catatan</button><button class="btn btn-soft" id="noteResetBtn" type="button">Reset</button></div></form></div></div>
@@ -915,5 +876,6 @@ https://domain3.com" rows="8"></textarea>
 </div>
 <script src="assets/js/11-kaizokugari-note-eye-preview-script.js"></script>
 <script src="assets/js/12-kaizokugari-gambar-viewer-fix-script.js"></script>
-<script src="assets/js/99-inline-events.js"></script></body>
+<script src="assets/js/99-inline-events.js"></script>
+<script src="assets/js/17-joni-v28-module-loader.js"></script></body>
 </html>
