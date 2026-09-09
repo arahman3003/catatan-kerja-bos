@@ -200,7 +200,26 @@
   line-height:1.5!important;
   text-align:center!important;
 }
-#page-prediksi-togel .prediksi-result-sticker{right:18px!important;bottom:14px!important;transform:scale(.88)!important;transform-origin:bottom right!important}
+#page-prediksi-togel .prediksi-result-sticker{
+  right:22px!important;
+  bottom:18px!important;
+  min-width:178px!important;
+  padding:20px 24px 18px!important;
+  background:linear-gradient(180deg,#fff 0%,#f5f5f1 100%)!important;
+  color:#101010!important;
+  font-size:15px!important;
+  line-height:.94!important;
+  font-weight:1000!important;
+  font-style:italic!important;
+  letter-spacing:.1px!important;
+  text-align:center!important;
+  text-transform:uppercase!important;
+  clip-path:polygon(8% 10%,96% 0,92% 15%,100% 28%,94% 42%,99% 58%,92% 72%,96% 88%,86% 100%,6% 94%,10% 78%,1% 66%,7% 50%,0 35%,8% 22%)!important;
+  transform:rotate(-2deg) scale(1)!important;
+  transform-origin:bottom right!important;
+  filter:drop-shadow(0 8px 10px rgba(0,0,0,.30))!important;
+  box-shadow:none!important;
+}
 #page-prediksi-togel .prediksi-empty-state{min-height:100%!important}
 @media (max-width:1500px){
   #page-prediksi-togel .prediksi-workspace{grid-template-columns:34% minmax(0,1fr)!important}
