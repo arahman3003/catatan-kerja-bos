@@ -111,3 +111,13 @@
     height:80px!important;
   }
 }
+
+/* =========================================================
+   V23 - JAM KANAN ATAS TANPA BORDER + BACKGROUND TRANSPARAN
+   ========================================================= */
+#page-prediksi-togel .prediksi-clock-card{
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
