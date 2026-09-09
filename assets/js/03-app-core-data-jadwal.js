@@ -22,82 +22,109 @@
       }[char]));
     }
 
-    const JADWAL_MARKET_BACKGROUNDS = {
-      "hokidraw":"newyork-liberty-1.png",
-      "toto-macau-pagi":"macau-tower-3.png",
-      "kentucky-midday":"kentucky-horse-1.png",
-      "florida-midday":"florida-beach-2.png",
-      "huahin-0100":"huahin-temple-1.png",
-      "bangkok-0130":"bangkok-temple-2.png",
-      "newyork-midday":"newyork-liberty-1.png",
-      "carolina-day":"carolina-beach-2.png",
-      "brunei-02":"brunei-mosque-2.png",
-      "oregon-03":"oregon-mountain-1.png",
-      "oregon-06":"oregon-mountain-2.png",
-      "california":"california-goldengate.png",
-      "florida-evening":"florida-beach-1.png",
-      "oregon-09":"oregon-coast-1.png",
-      "bangkok-0930":"bangkok-temple-1.png",
-      "newyork-evening":"newyork-liberty-1.png",
-      "totocambodia":"cambodia-angkor-2.png",
-      "kentucky-evening":"kentucky-horse-1.png",
-      "carolina-evening":"carolina-beach-1.png",
-      "chelsea-11":"chelsea-bigben-1.png",
-      "oregon-12":"oregon-mountain-1.png",
-      "poipet12":"poipet-gate-1.png",
-      "bullseye":"bullseye-target-1.png",
-      "totomacau-siang":"macau-tower-1.png",
-      "sydney":"sydney-opera-1.png",
-      "jakarta-1400":"jakarta-monas-1.png",
-      "brunei-14":"brunei-mosque-1.png",
-      "chelsea-15":"chelsea-bigben-2.png",
-      "totomali-1530":"usa-flag.png",
-      "totomacau-5d-sore":"macau-tower-2.png",
-      "poipet15":"poipet-gate-2.png",
-      "totomacau-sore":"macau-tower-3.png",
-      "huahin-1630":"huahin-temple-1.png",
-      "king-kong4d-i":"usa-flag.png",
-      "singapore":"singapore-merlion-1.png",
-      "magnum4d":"malaysia-petronas-1.png",
-      "totomacau-malam-i":"macau-tower-1.png",
-      "chelsea-19":"chelsea-bigben-1.png",
-      "poipet19":"poipet-gate-1.png",
-      "pcso":"pcso-generic-1.png",
-      "totomali-2030":"usa-flag.png",
-      "huahin-2100":"huahin-temple-1.png",
-      "chelsea-21":"chelsea-bigben-2.png",
-      "totomacau-5d-malam":"macau-tower-2.png",
-      "nevada":"nevada-mountain-1.png",
-      "brunei-21":"brunei-mosque-2.png",
-      "totomacau-malam-ii":"macau-tower-3.png",
-      "poipet22":"poipet-gate-2.png",
-      "hongkong":"macau-tower-2.png",
-      "totomacau-malam-iii":"macau-tower-1.png",
-      "totomali-2330":"usa-flag.png",
-      "jakarta-2330":"jakarta-monas-1.png",
-      "king-kong4d-ii":"usa-flag.png"
+    const JADWAL_MARKET_IMAGE = {
+      "hokidraw":"assets/images/market-icons/bullseye-target-1.png",
+      "toto-macau-pagi":"assets/images/market-icons/macau-tower-1.png",
+      "kentucky-midday":"assets/images/market-icons/kentucky-horse-1.png",
+      "florida-midday":"assets/images/market-icons/florida-beach-1.png",
+      "huahin-0100":"assets/images/market-icons/huahin-temple-1.png",
+      "bangkok-0130":"assets/images/market-icons/bangkok-temple-1.png",
+      "newyork-midday":"assets/images/market-icons/newyork-liberty-1.png",
+      "carolina-day":"assets/images/market-icons/carolina-beach-1.png",
+      "brunei-02":"assets/images/market-icons/brunei-mosque-1.png",
+      "oregon-03":"assets/images/market-icons/oregon-mountain-1.png",
+      "oregon-06":"assets/images/market-icons/oregon-mountain-2.png",
+      "california":"assets/images/market-icons/california-goldengate.png",
+      "florida-evening":"assets/images/market-icons/florida-beach-2.png",
+      "oregon-09":"assets/images/market-icons/oregon-coast-1.png",
+      "bangkok-0930":"assets/images/market-icons/bangkok-temple-2.png",
+      "newyork-evening":"assets/images/market-icons/newyork-liberty-1.png",
+      "totocambodia":"assets/images/market-icons/cambodia-angkor-1.png",
+      "kentucky-evening":"assets/images/market-icons/kentucky-horse-1.png",
+      "carolina-evening":"assets/images/market-icons/carolina-beach-2.png",
+      "chelsea-11":"assets/images/market-icons/chelsea-bigben-1.png",
+      "oregon-12":"assets/images/market-icons/oregon-mountain-2.png",
+      "poipet12":"assets/images/market-icons/poipet-gate-1.png",
+      "bullseye":"assets/images/market-icons/bullseye-target-1.png",
+      "totomacau-siang":"assets/images/market-icons/macau-tower-2.png",
+      "sydney":"assets/images/market-icons/sydney-opera-1.png",
+      "jakarta-1400":"assets/images/market-icons/jakarta-monas-1.png",
+      "brunei-14":"assets/images/market-icons/brunei-mosque-2.png",
+      "chelsea-15":"assets/images/market-icons/chelsea-bigben-2.png",
+      "totomali-1530":"assets/images/market-icons/pcso-generic-1.png",
+      "totomacau-5d-sore":"assets/images/market-icons/macau-tower-3.png",
+      "poipet15":"assets/images/market-icons/poipet-gate-2.png",
+      "totomacau-sore":"assets/images/market-icons/macau-tower-1.png",
+      "huahin-1630":"assets/images/market-icons/huahin-temple-1.png",
+      "king-kong4d-i":"assets/images/market-icons/usa-flag.png",
+      "singapore":"assets/images/market-icons/singapore-merlion-1.png",
+      "magnum4d":"assets/images/market-icons/malaysia-petronas-1.png",
+      "totomacau-malam-i":"assets/images/market-icons/macau-tower-2.png",
+      "chelsea-19":"assets/images/market-icons/chelsea-bigben-1.png",
+      "poipet19":"assets/images/market-icons/poipet-gate-1.png",
+      "pcso":"assets/images/market-icons/pcso-generic-1.png",
+      "totomali-2030":"assets/images/market-icons/pcso-generic-1.png",
+      "huahin-2100":"assets/images/market-icons/huahin-temple-1.png",
+      "chelsea-21":"assets/images/market-icons/chelsea-bigben-2.png",
+      "totomacau-5d-malam":"assets/images/market-icons/macau-tower-3.png",
+      "nevada":"assets/images/market-icons/nevada-mountain-1.png",
+      "brunei-21":"assets/images/market-icons/brunei-mosque-1.png",
+      "totomacau-malam-ii":"assets/images/market-icons/macau-tower-1.png",
+      "poipet22":"assets/images/market-icons/poipet-gate-2.png",
+      "hongkong":"assets/images/market-icons/macau-tower-2.png",
+      "totomacau-malam-iii":"assets/images/market-icons/macau-tower-3.png",
+      "totomali-2330":"assets/images/market-icons/pcso-generic-1.png",
+      "jakarta-2330":"assets/images/market-icons/jakarta-monas-1.png",
+      "king-kong4d-ii":"assets/images/market-icons/usa-flag.png"
     };
 
-    const JADWAL_ICON_CALENDAR = '<svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="6" width="16" height="14" rx="2"></rect><path d="M8 3.8v4M16 3.8v4M4 10h16"></path></svg>';
-    const JADWAL_ICON_CLOCK = '<svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="8.3"></circle><path d="M12 7.5v5l3.3 2"></path></svg>';
-    const JADWAL_ICON_OPEN = '<svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg>';
+    const JADWAL_ICON_DAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="2"></rect><path d="M8 3.5v4M16 3.5v4M4 9.5h16"></path><path d="M8 13h2M12 13h2M16 13h1M8 16h2M12 16h2"></path></svg>';
+    const JADWAL_ICON_CLOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5v5l3.5 2"></path></svg>';
+    const JADWAL_ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path class="fill" d="M10 8.6l6 3.4-6 3.4z"></path></svg>';
 
-    function jadwalBackgroundFor(item){
-      const file=JADWAL_MARKET_BACKGROUNDS[item?.id]||"usa-flag.png";
-      return `assets/images/market-icons/${file}`;
+    function jadwalTimeMinutes(value){
+      const match=String(value||"").match(/(\d{1,2}):(\d{2})/);
+      if(!match)return null;
+      const h=Number(match[1]);
+      const m=Number(match[2]);
+      if(!Number.isFinite(h)||!Number.isFinite(m)||h>23||m>59)return null;
+      return h*60+m;
+    }
+
+    function jadwalJakartaMinutesNow(){
+      try{
+        const parts=new Intl.DateTimeFormat("en-GB",{
+          timeZone:"Asia/Jakarta",hour:"2-digit",minute:"2-digit",hourCycle:"h23"
+        }).formatToParts(new Date());
+        const h=Number(parts.find(p=>p.type==="hour")?.value||0);
+        const m=Number(parts.find(p=>p.type==="minute")?.value||0);
+        return h*60+m;
+      }catch(_){
+        const now=new Date();
+        return now.getHours()*60+now.getMinutes();
+      }
+    }
+
+    function jadwalMarketStatus(item){
+      const close=jadwalTimeMinutes(item?.close);
+      const open=jadwalTimeMinutes(item?.open);
+      if(close===null||open===null)return "open";
+      const now=jadwalJakartaMinutesNow();
+      const closed=open>close
+        ? now>=close&&now<open
+        : now>=close||now<open;
+      return closed?"closed":"open";
     }
 
     function renderJadwalTogel(){
       if(!jadwalGrid) return;
-
       const query=(jadwalSearchInput?.value||"").trim().toLowerCase();
-      const status=(jadwalStatusFilter?.value||"all").toLowerCase();
-
-      let shown=jadwalTogelData.filter(item=>{
-        if(query && !String(item.name||"").toLowerCase().includes(query)) return false;
-        if(status==="normal" && String(item.day||"").trim().toLowerCase()!=="senin s/d minggu") return false;
-        if(status==="special" && String(item.day||"").trim().toLowerCase()==="senin s/d minggu") return false;
-        return true;
+      const statusFilter=jadwalStatusFilter?.value||"all";
+      const shown=jadwalTogelData.filter(item=>{
+        const matchQuery=!query||String(item.name||"").toLowerCase().includes(query);
+        const status=jadwalMarketStatus(item);
+        const matchStatus=statusFilter==="all"||status===statusFilter;
+        return matchQuery&&matchStatus;
       });
 
       if(!shown.length){
@@ -105,27 +132,37 @@
         return;
       }
 
-      jadwalGrid.innerHTML=shown.map(item=>`
-        <article class="jadwal-card" data-jadwal-id="${escapeJadwalText(item.id)}" style="--jadwal-bg:url('${jadwalBackgroundFor(item)}')">
-          <button type="button" class="jadwal-card-edit" data-edit-jadwal="${escapeJadwalText(item.id)}" title="Edit jadwal">✎</button>
-          <div class="jadwal-card-title">${escapeJadwalText(item.name)}</div>
-          <div class="jadwal-row">
-            <span class="jadwal-row-icon calendar-icon" aria-hidden="true">${JADWAL_ICON_CALENDAR}</span>
-            <div class="jadwal-label">Hari</div>
-            <div class="jadwal-value day">${escapeJadwalText(item.day)}</div>
+      jadwalGrid.innerHTML=shown.map(item=>{
+        const image=JADWAL_MARKET_IMAGE[item.id]||"assets/images/market-icons/bullseye-target-1.png";
+        const status=jadwalMarketStatus(item);
+        return `
+        <article class="jadwal-card status-${status}" data-jadwal-id="${escapeJadwalText(item.id)}" title="Klik dua kali untuk edit jadwal">
+          <div class="jadwal-card-art" aria-hidden="true"><img src="${image}" alt="" loading="lazy"/></div>
+          <div class="jadwal-card-shade" aria-hidden="true"></div>
+          <div class="jadwal-card-slashes" aria-hidden="true">//</div>
+          <button type="button" class="jadwal-card-edit" data-edit-jadwal="${escapeJadwalText(item.id)}" title="Edit jadwal">✏️</button>
+          <div class="jadwal-card-content">
+            <div class="jadwal-card-title">${escapeJadwalText(item.name)}</div>
+            <div class="jadwal-info-list">
+              <div class="jadwal-row day-row">
+                <span class="jadwal-row-icon">${JADWAL_ICON_DAY}</span>
+                <span class="jadwal-label">Hari</span>
+                <span class="jadwal-value day">${escapeJadwalText(item.day)}</span>
+              </div>
+              <div class="jadwal-row close-row">
+                <span class="jadwal-row-icon">${JADWAL_ICON_CLOCK}</span>
+                <span class="jadwal-label">Tutup</span>
+                <span class="jadwal-value close">${escapeJadwalText(item.close)}</span>
+              </div>
+              <div class="jadwal-row open-row">
+                <span class="jadwal-row-icon">${JADWAL_ICON_PLAY}</span>
+                <span class="jadwal-label">Buka</span>
+                <span class="jadwal-value open">${escapeJadwalText(item.open)}</span>
+              </div>
+            </div>
           </div>
-          <div class="jadwal-row">
-            <span class="jadwal-row-icon clock-icon" aria-hidden="true">${JADWAL_ICON_CLOCK}</span>
-            <div class="jadwal-label">Tutup</div>
-            <div class="jadwal-value close">${escapeJadwalText(item.close)}</div>
-          </div>
-          <div class="jadwal-row">
-            <span class="jadwal-row-icon open-icon" aria-hidden="true">${JADWAL_ICON_OPEN}</span>
-            <div class="jadwal-label">Buka</div>
-            <div class="jadwal-value open">${escapeJadwalText(item.open)}</div>
-          </div>
-        </article>
-      `).join("");
+        </article>`;
+      }).join("");
     }
 
     function openJadwalEditModal(id){
@@ -215,23 +252,16 @@
       }
     });
 
-    jadwalStatusFilter?.addEventListener("change",()=>{
-      if(jadwalStatusFilter.value==="edit"){
-        if(!isFullAccessRole(currentUserProfile?.role)){
-          showToast("Hanya Owner yang dapat mengaktifkan mode edit");
-          jadwalStatusFilter.value="all";
-          document.body.classList.remove("jadwal-editing");
-          return renderJadwalTogel();
-        }
-        const editing=!document.body.classList.contains("jadwal-editing");
-        document.body.classList.toggle("jadwal-editing",editing);
-        showToast(editing ? "Mode edit jadwal aktif" : "Mode edit jadwal dimatikan");
-        jadwalStatusFilter.value="all";
-      }
-      renderJadwalTogel();
-    });
-
     jadwalSearchInput?.addEventListener("input",renderJadwalTogel);
+    jadwalStatusFilter?.addEventListener("change",renderJadwalTogel);
+    jadwalGrid?.addEventListener("dblclick",event=>{
+      if(!isFullAccessRole(currentUserProfile?.role))return;
+      const card=event.target.closest("[data-jadwal-id]");
+      if(card)openJadwalEditModal(card.dataset.jadwalId);
+    });
+    setInterval(()=>{
+      if(document.getElementById("page-jadwal-togel")?.classList.contains("active"))renderJadwalTogel();
+    },60000);
     renderJadwalTogel();
 
 
