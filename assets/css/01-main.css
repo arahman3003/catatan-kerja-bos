@@ -4833,8 +4833,3 @@ body.sidebar-collapsed .dropdown-btn #dropdownIcon{display:none!important}
       #page-pk-cs .pkcs-left-art{min-height:300px;}
       #page-pk-cs .pkcs-right{min-height:520px;}
     }
-
-
-/* V25 LAZY MODULE HOST - hanya container, style modul berada di file masing-masing */
-.module-fragment-host{width:100%;min-width:0;}
-#page-syair-togel,#page-bukti-kemenangan,#page-selisih,#page-kalkulator-bola{padding:0!important;background:transparent!important;}

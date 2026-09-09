@@ -1,0 +1,19 @@
+KAIZOKUGARI V27 VERIFICATION
+
+LOGIN/CORE FILES RESTORED FROM V24 BYTE-FOR-BYTE:
+- assets/css/01-main.css: SHA256 0af693cd9821629d5a01802acbce051e5ae3e87ba871cc271d29c636bf71d20b
+- assets/css/23-kaizokugari-login-asli-safe-final.css: SHA256 c2b1e34b68a2888769f2fdac91b61d5fcc32fe4e687483e038bb336f84675046
+- assets/js/03-app-core-data-jadwal.js: SHA256 a2116ccd943d64e9c7bdd0bbf53c1f083f5b1a03f4eccca4a9d088ce9fe1e7c7
+- assets/js/05-auth-book-animation.js: SHA256 f9c649312d47741e04fd3c0258a00de7af1db2aac3e240651b88455d094e26c4
+- assets/js/10-kaizokugari-login-asli-safe-controller.js: SHA256 2a1d4253473fb43460596b7f7afae5cfa9a67749260cd95fb835553f5ceec97c
+
+MODULE ROUTING:
+- Postingan > Syair Togel -> lazy syair module
+- Postingan > Bukti Kemenangan -> lazy bukti module
+- Selisih -> lazy QRIS module
+- Kalkulator Bola -> new sidebar page
+
+IMPORTANT:
+- Modules are not executed on the login screen.
+- Firebase initialization remains in the original V24 core.
+- The V25/V26 core file is not used.

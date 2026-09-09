@@ -1,0 +1,358 @@
+/* JONI WORKGAME - KALKULATOR BOLA LAYOUT FIX V15.4.1 */
+#dashKalkulatorBola,
+#dashKalkulatorBola *{box-sizing:border-box}
+#dashKalkulatorBola{
+  --bola-bg:#050816;
+  --bola-panel:#081122;
+  --bola-panel-2:#0a1428;
+  --bola-line:rgba(76,226,255,.24);
+  --bola-line-2:rgba(188,113,255,.25);
+  --bola-cyan:#67eaff;
+  --bola-cyan-2:#15bdf5;
+  --bola-blue:#5ca8ff;
+  --bola-violet:#a568ff;
+  --bola-pink:#ff59ca;
+  --bola-green:#57f0bf;
+  --bola-red:#ff5b78;
+  color:#eff8ff;
+}
+#dashKalkulatorBola .bola-wrap-v120{
+  width:100%;
+  padding:18px 18px 26px;
+  border:1px solid rgba(70,145,255,.18);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(25,114,255,.14), transparent 28%),
+    radial-gradient(circle at 86% 10%, rgba(0,230,255,.12), transparent 26%),
+    linear-gradient(180deg, rgba(5,10,24,.94), rgba(3,8,18,.96));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025), 0 18px 42px rgba(0,0,0,.26);
+}
+#dashKalkulatorBola .bola-hero-v120{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:26px 26px;
+  min-height:142px;
+  border-radius:26px;
+  border:1px solid rgba(87,220,255,.22);
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 72% 40%, rgba(70,125,255,.35), transparent 20%),
+    radial-gradient(circle at 78% 40%, rgba(0,195,255,.16), transparent 30%),
+    radial-gradient(circle at 18% 10%, rgba(145,76,255,.15), transparent 22%),
+    linear-gradient(90deg, rgba(4,12,28,.98), rgba(8,24,48,.94));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 12px 28px rgba(0,0,0,.22);
+}
+#dashKalkulatorBola .bola-hero-v120::before{
+  content:"";
+  position:absolute;
+  right:175px;
+  top:16px;
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(143,234,255,.9), rgba(29,116,255,.38) 32%, rgba(9,19,44,0) 66%),
+    radial-gradient(circle at 50% 50%, rgba(138,101,255,.36), transparent 60%);
+  box-shadow:0 0 30px rgba(82,190,255,.25), inset 0 0 40px rgba(255,255,255,.18);
+  opacity:.9;
+  filter:saturate(1.15);
+}
+#dashKalkulatorBola .bola-hero-v120::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 74% 44%, rgba(255,255,255,.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 83% 31%, rgba(255,255,255,.15) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 61% 23%, rgba(255,255,255,.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 19% 22%, rgba(255,255,255,.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 43% 65%, rgba(255,255,255,.12) 0 1px, transparent 2px);
+  pointer-events:none;
+}
+#dashKalkulatorBola .bola-hero-copy-v120,
+#dashKalkulatorBola .bola-help-v120{position:relative;z-index:2}
+#dashKalkulatorBola .bola-hero-copy-v120{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  max-width:min(62%, 820px);
+}
+#dashKalkulatorBola .bola-logo-badge-v120{
+  flex:0 0 72px;
+  width:72px;height:72px;border-radius:22px;
+  display:grid;place-items:center;
+  border:2px solid rgba(91,240,255,.85);
+  color:#7ff7ff;
+  font-size:31px;font-weight:900;
+  background:linear-gradient(180deg, rgba(10,24,50,.98), rgba(5,14,28,.98));
+  box-shadow:0 0 0 1px rgba(255,255,255,.03), inset 0 0 18px rgba(42,223,255,.16), 0 0 20px rgba(34,190,255,.18);
+}
+#dashKalkulatorBola .bola-hero-copy-v120 small{
+  display:block;
+  margin-bottom:6px;
+  font-size:12px;
+  letter-spacing:.18em;
+  color:#8ec9ff;
+  text-transform:uppercase;
+  font-weight:800;
+}
+#dashKalkulatorBola .bola-hero-copy-v120 h1{
+  margin:0;
+  font-size:clamp(32px,4vw,64px);
+  line-height:1;
+  letter-spacing:.02em;
+  font-weight:900;
+  background:linear-gradient(180deg, #8ef7ff 0%, #4eb7ff 60%, #72d0ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#dashKalkulatorBola .bola-hero-copy-v120 p{
+  margin:10px 0 0;
+  max-width:680px;
+  color:#d4e8ff;
+  font-size:19px;
+  line-height:1.45;
+  opacity:.92;
+}
+#dashKalkulatorBola .bola-help-v120{
+  flex:0 0 auto;
+  min-width:158px;
+  height:56px;
+  padding:0 24px;
+  border-radius:18px;
+  border:1px solid rgba(92,236,255,.4);
+  background:linear-gradient(180deg, rgba(6,20,36,.98), rgba(10,34,54,.96));
+  color:#eff8ff;
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.05em;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 0 0 1px rgba(0,0,0,.18);
+  cursor:pointer;
+}
+#dashKalkulatorBola .bola-help-v120:hover{border-color:rgba(122,243,255,.65);box-shadow:0 0 0 1px rgba(133,243,255,.12),0 10px 18px rgba(0,0,0,.18)}
+
+#dashKalkulatorBola .bola-layout-v120{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:200px minmax(0,1fr) 348px;
+  gap:18px;
+  align-items:start;
+}
+#dashKalkulatorBola .bola-mode-card-v120,
+#dashKalkulatorBola .bola-calc-card-v120,
+#dashKalkulatorBola .bola-result-card-v120{
+  border-radius:24px;
+  border:1px solid rgba(75,214,255,.18);
+  background:linear-gradient(180deg, rgba(7,15,32,.98), rgba(6,14,28,.96));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02), 0 16px 30px rgba(0,0,0,.22);
+}
+#dashKalkulatorBola .bola-mode-card-v120{padding:18px 14px 16px;position:sticky;top:18px}
+#dashKalkulatorBola .bola-side-title-v120{
+  margin-bottom:14px;
+  padding:0 6px;
+  font-size:13px;
+  letter-spacing:.12em;
+  font-weight:900;
+  color:#84f3ff;
+  text-transform:uppercase;
+}
+#dashKalkulatorBola .bola-mode-tabs-v120{display:flex;flex-direction:column;gap:12px}
+#dashKalkulatorBola .bola-mode-tabs-v120 button{
+  width:100%;
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 12px;
+  border-radius:16px;
+  border:1px solid rgba(106,156,255,.18);
+  background:linear-gradient(180deg, rgba(10,18,38,.96), rgba(8,15,28,.95));
+  color:#edf7ff;
+  text-align:left;
+  cursor:pointer;
+  transition:all .18s ease;
+}
+#dashKalkulatorBola .bola-mode-tabs-v120 button b{
+  flex:0 0 36px;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
+  font-size:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06)
+}
+#dashKalkulatorBola .bola-mode-tabs-v120 button span{display:flex;flex-direction:column;gap:2px;font-size:19px;font-weight:800;line-height:1.05}
+#dashKalkulatorBola .bola-mode-tabs-v120 button small{font-size:13px;font-weight:600;color:#bdd3e7;opacity:.85}
+#dashKalkulatorBola .bola-mode-tabs-v120 button.active{
+  border-color:rgba(104,240,255,.75);
+  background:linear-gradient(90deg, rgba(31,227,240,.20), rgba(165,94,255,.15) 60%, rgba(12,20,40,.96));
+  box-shadow:0 0 0 1px rgba(118,244,255,.16), inset 0 0 26px rgba(68,230,255,.11), 0 0 20px rgba(38,206,255,.16);
+}
+#dashKalkulatorBola .bola-mode-tabs-v120 button.active b{background:linear-gradient(180deg, rgba(76,241,255,.24), rgba(110,111,255,.18));border-color:rgba(131,245,255,.18)}
+#dashKalkulatorBola .bola-mode-tabs-v120 button:hover{transform:translateY(-1px);border-color:rgba(126,232,255,.34)}
+#dashKalkulatorBola .bola-mini-status-v120{
+  margin-top:16px;
+  padding:12px 12px 4px;
+  border-radius:16px;
+  border:1px solid rgba(90,143,255,.15);
+  background:rgba(5,12,26,.72);
+  display:grid;grid-template-columns:1fr auto;gap:8px 12px;
+  color:#b4cbdf;font-size:13px
+}
+#dashKalkulatorBola .bola-mini-status-v120 b{color:#72ffd0;font-size:15px}
+
+#dashKalkulatorBola .bola-calc-card-v120{padding:18px}
+#dashKalkulatorBola .bola-mode-panel{display:none}
+#dashKalkulatorBola .bola-mode-panel.active{display:block}
+#dashKalkulatorBola .bola-panel-heading{
+  display:flex;align-items:flex-start;gap:14px;margin-bottom:16px
+}
+#dashKalkulatorBola .bola-panel-heading span{
+  flex:0 0 46px;width:46px;height:46px;border-radius:16px;display:grid;place-items:center;
+  border:1px solid rgba(105,219,255,.45);
+  color:#82eaff;font-weight:900;font-size:24px;
+  background:linear-gradient(180deg, rgba(18,40,74,.92), rgba(10,22,44,.92));
+}
+#dashKalkulatorBola .bola-panel-heading h2{margin:0;font-size:24px;color:#78dfff;line-height:1.05}
+#dashKalkulatorBola .bola-panel-heading p{margin:6px 0 0;color:#b8cfdf;font-size:15px;line-height:1.45}
+#dashKalkulatorBola .bola-note-v120,
+#dashKalkulatorBola .bola-market-banner,
+#dashKalkulatorBola .bola-form-note,
+#dashKalkulatorBola .bola-parlay-note,
+#dashKalkulatorBola .bola-market-explain{
+  border-radius:16px;
+  border:1px solid rgba(82,216,255,.18);
+  background:linear-gradient(90deg, rgba(9,30,49,.75), rgba(8,18,34,.86));
+}
+#dashKalkulatorBola .bola-note-v120{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:16px 18px;margin-bottom:16px}
+#dashKalkulatorBola .bola-note-v120 b{font-size:14px;letter-spacing:.12em;color:#79f2ff}
+#dashKalkulatorBola .bola-note-v120 span{font-size:14px;color:#d5ebf9;text-align:right;line-height:1.45}
+#dashKalkulatorBola .bola-parlay-shell{display:flex;flex-direction:column;gap:16px}
+#dashKalkulatorBola label{display:block;font-size:14px;color:#cce0ef;font-weight:700}
+#dashKalkulatorBola input,
+#dashKalkulatorBola select{
+  width:100%;height:54px;margin-top:8px;padding:0 16px;
+  border-radius:14px;border:1px solid rgba(93,156,255,.18);
+  background:rgba(4,12,26,.94);color:#eff8ff;font-size:18px;font-weight:700;outline:none;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)
+}
+#dashKalkulatorBola input::placeholder{color:#7d93ac;font-weight:600}
+#dashKalkulatorBola input:focus,
+#dashKalkulatorBola select:focus{border-color:rgba(108,238,255,.52);box-shadow:0 0 0 3px rgba(53,197,255,.10), inset 0 0 0 1px rgba(255,255,255,.03)}
+#dashKalkulatorBola .bola-full-field input{font-size:20px}
+#dashKalkulatorBola .bola-leg-table-simple{display:flex;flex-direction:column;gap:14px}
+#dashKalkulatorBola .bola-leg-row-simple{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 210px 56px;
+  gap:12px;
+  align-items:end;
+  padding:16px;
+  border-radius:18px;
+  border:1px solid rgba(82,216,255,.18);
+  background:linear-gradient(180deg, rgba(8,17,34,.92), rgba(6,13,28,.94));
+}
+#dashKalkulatorBola .bola-leg-row-simple .bola-leg-field span{display:block;font-size:13px;letter-spacing:.02em;color:#8eb7d3}
+#dashKalkulatorBola .bola-leg-row-simple .bola-leg-field-odds input{font-size:22px;color:#f8fdff}
+#dashKalkulatorBola .bola-remove{
+  width:56px;height:54px;border-radius:14px;border:1px solid rgba(255,105,138,.42);
+  background:linear-gradient(180deg, rgba(69,13,28,.92), rgba(39,10,20,.96));color:#ffcdd8;font-size:24px;font-weight:900;cursor:pointer
+}
+#dashKalkulatorBola .bola-remove:hover{filter:brightness(1.08)}
+#dashKalkulatorBola .bola-actions-v120{display:flex;flex-wrap:wrap;gap:12px}
+#dashKalkulatorBola .bola-actions-v120 button,
+#dashKalkulatorBola .bola-result-actions button,
+#dashKalkulatorBola .bola-help-modal button{
+  height:52px;padding:0 22px;border-radius:16px;border:1px solid rgba(102,170,255,.2);font-size:16px;font-weight:800;cursor:pointer
+}
+#dashKalkulatorBola .bola-calc-btn{
+  background:linear-gradient(90deg, #3dc7ff, #a45bff 70%, #f468ff);
+  color:#fff;box-shadow:0 14px 22px rgba(92,62,255,.22)
+}
+#dashKalkulatorBola .bola-plain-btn,
+#dashKalkulatorBola .bola-result-actions button:first-child{
+  background:linear-gradient(180deg, rgba(8,18,37,.96), rgba(7,15,29,.96));
+  color:#eff7ff
+}
+#dashKalkulatorBola .bola-result-actions button:last-child{background:linear-gradient(180deg, rgba(59,8,17,.95), rgba(42,10,18,.95));border-color:rgba(255,95,124,.42);color:#ffd4df}
+#dashKalkulatorBola .bola-actions-v120-parlay .bola-calc-btn{min-width:184px}
+#dashKalkulatorBola .bola-parlay-note{padding:14px 16px;font-size:14px;line-height:1.5;color:#c9daeb}
+#dashKalkulatorBola .bola-form-note{padding:14px 16px;font-size:14px;line-height:1.5;color:#cae1f1;margin-top:14px}
+#dashKalkulatorBola .bola-simple-form,
+#dashKalkulatorBola .bola-market-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#dashKalkulatorBola .bola-market-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+#dashKalkulatorBola .bola-market-dynamic{display:grid;grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+#dashKalkulatorBola .bola-market-banner{display:flex;flex-direction:column;gap:6px;padding:15px 16px;margin-bottom:14px}
+#dashKalkulatorBola .bola-market-banner b{color:#82f0ff;font-size:14px;letter-spacing:.1em}
+#dashKalkulatorBola .bola-market-banner span,
+#dashKalkulatorBola .bola-market-explain{color:#d5e6f4;font-size:14px;line-height:1.55}
+#dashKalkulatorBola .bola-market-explain{margin-top:14px;padding:14px 16px;min-height:72px}
+
+#dashKalkulatorBola .bola-result-card-v120{padding:18px;position:sticky;top:18px}
+#dashKalkulatorBola .bola-result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+#dashKalkulatorBola .bola-result-title{display:flex;gap:12px;align-items:center}
+#dashKalkulatorBola .bola-result-logo{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#7ceeff,#9163ff);font-weight:900;color:#fff;font-size:24px}
+#dashKalkulatorBola .bola-result-title small{display:block;font-size:12px;letter-spacing:.14em;color:#84ebff;font-weight:900}
+#dashKalkulatorBola .bola-result-title h2{margin:4px 0 0;font-size:22px;line-height:1.05;color:#b8f4ff}
+#dashKalkulatorBola .bola-result-live{padding:8px 12px;border-radius:999px;border:1px solid rgba(109,242,201,.25);background:rgba(14,49,38,.54);color:#7af3cb;font-size:12px;font-weight:900;letter-spacing:.08em}
+#dashKalkulatorBola .bola-result-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:14px}
+#dashKalkulatorBola .bola-result-metrics article,
+#dashKalkulatorBola .bola-summary-box,
+#dashKalkulatorBola .bola-detail-black{
+  border-radius:18px;border:1px solid rgba(79,198,255,.16);background:linear-gradient(180deg, rgba(8,18,38,.97), rgba(5,13,28,.96));
+}
+#dashKalkulatorBola .bola-result-metrics article{padding:14px 16px}
+#dashKalkulatorBola .bola-result-metrics small,
+#dashKalkulatorBola .bola-summary-box small,
+#dashKalkulatorBola .bola-detail-black small{display:block;font-size:12px;letter-spacing:.12em;color:#80dff2;font-weight:900;margin-bottom:8px}
+#dashKalkulatorBola .bola-result-metrics strong{display:block;font-size:22px;line-height:1.1;color:#f7fcff}
+#dashKalkulatorBola .bola-result-metrics article:last-child strong{color:#65f0bb}
+#dashKalkulatorBola .bola-summary-box{padding:18px;margin-bottom:14px;box-shadow:inset 0 0 20px rgba(66,231,255,.08), 0 0 0 1px rgba(68,235,255,.06)}
+#dashKalkulatorBola .bola-summary-box h3{margin:0;font-size:18px;line-height:1.3;color:#67ecff}
+#dashKalkulatorBola .bola-detail-black{padding:16px;min-height:190px;max-height:460px;overflow:auto}
+#dashKalkulatorBola .bola-detail-black p{margin:0;color:#d7e4f4;line-height:1.6}
+#dashKalkulatorBola .bola-detail-black .green{color:#66efbf}
+#dashKalkulatorBola .bola-detail-black .redtxt{color:#ff8aa1}
+#dashKalkulatorBola .bola-detail-black .gray{color:#95a7ba}
+#dashKalkulatorBola .bola-result-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+
+#dashKalkulatorBola .bola-help-modal.hidden{display:none}
+#dashKalkulatorBola .bola-help-modal{position:fixed;inset:0;z-index:9999;background:rgba(3,6,14,.75);backdrop-filter:blur(10px);display:grid;place-items:center;padding:22px}
+#dashKalkulatorBola .bola-help-modal>div{width:min(760px,100%);border-radius:24px;border:1px solid rgba(99,221,255,.22);background:linear-gradient(180deg, rgba(8,17,35,.98), rgba(5,12,26,.98));padding:26px;position:relative;box-shadow:0 22px 44px rgba(0,0,0,.34)}
+#dashKalkulatorBola .bola-help-modal button{position:absolute;right:14px;top:14px;width:44px;height:44px;padding:0;background:rgba(255,255,255,.06);color:#fff}
+#dashKalkulatorBola .bola-help-modal h2{margin:0 0 12px;color:#92eefe;font-size:28px}
+#dashKalkulatorBola .bola-help-modal p{margin:0;color:#d5e6f3;line-height:1.7;font-size:15px}
+
+@media (max-width: 1490px){
+  #dashKalkulatorBola .bola-layout-v120{grid-template-columns:190px minmax(0,1fr) 324px}
+  #dashKalkulatorBola .bola-hero-v120::before{right:135px;width:170px;height:170px}
+}
+@media (max-width: 1280px){
+  #dashKalkulatorBola .bola-layout-v120{grid-template-columns:190px minmax(0,1fr)}
+  #dashKalkulatorBola .bola-result-card-v120{grid-column:1 / -1;position:relative;top:auto}
+  #dashKalkulatorBola .bola-hero-copy-v120{max-width:100%}
+}
+@media (max-width: 980px){
+  #dashKalkulatorBola .bola-wrap-v120{padding:14px}
+  #dashKalkulatorBola .bola-hero-v120{padding:20px;min-height:auto;align-items:flex-start;flex-direction:column}
+  #dashKalkulatorBola .bola-hero-v120::before{display:none}
+  #dashKalkulatorBola .bola-hero-copy-v120{max-width:100%}
+  #dashKalkulatorBola .bola-help-v120{width:100%}
+  #dashKalkulatorBola .bola-layout-v120{grid-template-columns:1fr}
+  #dashKalkulatorBola .bola-mode-card-v120{position:relative;top:auto}
+  #dashKalkulatorBola .bola-mode-tabs-v120{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  #dashKalkulatorBola .bola-mode-tabs-v120 button{min-height:66px}
+  #dashKalkulatorBola .bola-note-v120{flex-direction:column;align-items:flex-start}
+  #dashKalkulatorBola .bola-note-v120 span{text-align:left}
+  #dashKalkulatorBola .bola-leg-row-simple{grid-template-columns:1fr}
+  #dashKalkulatorBola .bola-remove{width:100%}
+  #dashKalkulatorBola .bola-simple-form,
+  #dashKalkulatorBola .bola-market-grid,
+  #dashKalkulatorBola .bola-market-dynamic{grid-template-columns:1fr}
+}
+@media (max-width: 640px){
+  #dashKalkulatorBola .bola-hero-copy-v120{flex-direction:column;align-items:flex-start}
+  #dashKalkulatorBola .bola-logo-badge-v120{width:64px;height:64px;font-size:28px}
+  #dashKalkulatorBola .bola-hero-copy-v120 h1{font-size:38px}
+  #dashKalkulatorBola .bola-hero-copy-v120 p{font-size:15px}
+  #dashKalkulatorBola .bola-mode-tabs-v120{grid-template-columns:1fr}
+  #dashKalkulatorBola .bola-result-actions{grid-template-columns:1fr}
+}
+
+/* V27 SAFE: final image-banner override omitted because its referenced local image was not included in the supplied files. Base neon hero remains active. */

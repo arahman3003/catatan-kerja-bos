@@ -240,7 +240,7 @@ const ALL_MENU_KEYS = [
   "dashboard","pk-cs","notepad","gambar",
   "prediksi-togel","jadwal-togel",
   "prediksi","syair-togel","bukti-kemenangan",
-  "chat","selisih","kalkulator-bola","link-domain","user-management"
+  "chat","selisih","link-domain","user-management"
 ];
 
 const MENU_LABELS = {
@@ -255,7 +255,6 @@ const MENU_LABELS = {
   "bukti-kemenangan":"Bukti Kemenangan",
   chat:"CHAT",
   selisih:"Selisih",
-  "kalkulator-bola":"Kalkulator Bola",
   "link-domain":"Link Domain",
   "user-management":"Manajemen User"
 };
@@ -295,7 +294,7 @@ const ROLE_PERMISSION_PRESETS = {
 
   "cs-line":makePermissions([
     "dashboard","pk-cs","gambar","prediksi-togel","jadwal-togel","notepad",
-    "prediksi","syair-togel","bukti-kemenangan","selisih","kalkulator-bola","link-domain"
+    "prediksi","syair-togel","bukti-kemenangan","link-domain"
   ]),
 
   leader:makePermissions(ALL_MENU_KEYS),
@@ -493,10 +492,7 @@ window.canOpenKerjaBossPage=function(page){
   if(currentUserProfile.status==="disabled")return false;
   if(isFullAccessRole(currentUserProfile.role))return true;
   if(page==="user-management")return false;
-  const stored=currentUserProfile.permissions?.[page];
-  if(stored===true)return true;
-  if(stored===false)return false;
-  return permissionsForRole(currentUserProfile.role)?.[page]===true;
+  return currentUserProfile.permissions?.[page]===true;
 };
 
 function updateAccessUI(){
@@ -509,8 +505,7 @@ function updateAccessUI(){
       btn.style.display=isFullAccess?"flex":"none";
       return;
     }
-    const stored=currentUserProfile?.permissions?.[page];
-    const allowed=isFullAccess||stored===true||(stored==null&&permissionsForRole(currentUserProfile?.role)?.[page]===true);
+    const allowed=isFullAccess||currentUserProfile?.permissions?.[page]===true;
     btn.style.display=allowed?"flex":"none";
   });
   document.querySelectorAll(".submenu").forEach(sub=>{
@@ -780,9 +775,7 @@ function validComicBg(v){ const n=Number(v); return Number.isInteger(n)&&n>=1&&n
       const t=document.getElementById(`page-${n}`);
       if(t)t.classList.add("active");
       sidebarButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===n));
-      document.body.classList.toggle("dark-workspace",["dashboard","notepad","gambar","prediksi-togel","jadwal-togel","link-domain","pk-cs","selisih","syair-togel","bukti-kemenangan","kalkulator-bola"].includes(n));
-      if(window.JONI_setActiveModulePage)window.JONI_setActiveModulePage(n);
-      if(window.JONI_loadPageModule)window.JONI_loadPageModule(n).catch(()=>showToast("Modul gagal dimuat. Cek file upload."));
+      document.body.classList.toggle("dark-workspace",["dashboard","notepad","gambar","prediksi-togel","jadwal-togel","link-domain","pk-cs","selisih"].includes(n));
       window.scrollTo({top:0,behavior:"smooth"});
     }
     if(sidebarToggleBtn)sidebarToggleBtn.addEventListener("click",()=>{document.body.classList.toggle("sidebar-collapsed")});
@@ -1109,8 +1102,1797 @@ async function deleteNoteFromFirebase(id){
       draggedNoteId=null;
     });
 
-    // V25: Syair, Bukti Kemenangan, QRIS Selisih dan Kalkulator Bola dimuat sebagai modul terpisah.
-    // Index/core tidak lagi membawa engine berat modul-modul tersebut.
+    const SHIO_LOGOS={kerbau:"https://i.imgur.com/eA5lF9e.jpeg",ular:"https://i.imgur.com/1uw80aJ.jpeg",monyet:"https://i.imgur.com/MyF3SOq.jpeg",kuda:"https://i.imgur.com/L5EF06J.jpeg",anjing:"https://i.imgur.com/lLXEVKo.jpeg",ayam:"https://i.imgur.com/VFDoAkd.jpeg",harimau:"https://i.imgur.com/t5Rci6U.jpeg",naga:"https://i.imgur.com/DASGzjq.jpeg",babi:"https://i.imgur.com/EfC2xTI.jpeg",kelinci:"https://i.imgur.com/CWH6fqC.jpeg",tikus:"https://i.imgur.com/RINeQAz.jpeg",kambing:"https://i.imgur.com/yYwi83a.jpeg"};
+    const PASARAN_LOGOS={BANGKOK:"https://i.imgur.com/HAtzQR1.png",BRUNEI:"https://i.imgur.com/02h0XAy.png",CHELSEA:"https://i.imgur.com/JWNoLlq.png",HUAHIN:"https://i.imgur.com/5pX7Etm.png",POIPET:"https://i.imgur.com/mfxnAms.png",NEVADA:"https://i.imgur.com/8ueARHz.gif"};
+    const SYAIR_DATA={
+      kuda:[["Kuda berlari di padang luas","Mengejar mimpi tanpa lelah","Rezeki datang semakin deras","Hoki baik membawa berkah"],["Langkah kuda penuh semangat","Tak takut jalan berbatu","Shio Kuda membawa berkat","Untung datang satu persatu"],["Deru kaki membelah malam","Tanda baik mulai bersinar","Nasib cerah masuk ke dalam","Angka hoki makin benar"],["Kuda putih melintas cepat","Membawa kabar penuh harapan","Rezeki baik semakin dekat","Menjemput untung dalam genggaman"],["Jangan ragu melangkah maju","Jalan terang mulai terbuka","Shio Kuda membawa restu","Hoki datang penuh bahagia"]],
+      tikus:[["Tikus kecil lincah berlari","Mencari jalan di gelap malam","Rezeki datang silih berganti","Asal sabar janganlah kelam"],["Di balik sunyi ia mengintai","Pintar membaca arah dan masa","Shio Tikus tak mudah lalai","Untung datang dengan usaha"],["Langkah kecil penuh siasat","Tak gentar walau jalan sempit","Hoki mendekat membawa berkat","Angka baik mulai terjepit"],["Malam tenang membawa tanda","Tikus bergerak mencari celah","Nasib baik mulai menyapa","Jangan ragu mengambil langkah"],["Cerdik hati pandai memilih","Dalam gelap tetap berjaya","Shio Tikus membawa kasih","Rezeki tumbuh sepanjang raya"]],
+      anjing:[["Anjing setia menjaga malam","Langkahnya kuat penuh percaya","Rezeki datang perlahan dalam","Hoki mendekat membawa cahaya"],["Di pintu sunyi ia berjaga","Tanda baik mulai terasa","Shio Anjing membawa tenaga","Untung hadir karena usaha"],["Setia hati tak mudah goyah","Meski jalan penuh rintangan","Nasib baik datang melangkah","Membawa berkah dalam genggaman"],["Anjing menggonggong beri isyarat","Malam gelap jadi terang","Hoki datang makin dekat","Angka bagus ikut menyerang"],["Jaga langkah jangan terburu","Rezeki baik sedang menanti","Shio Anjing membawa restu","Untung datang sepenuh hati"]],
+      kerbau:[["Kerbau kuat membelah tanah","Pelan melangkah penuh tenaga","Rezeki datang takkan punah","Asal sabar dalam usaha"],["Di sawah luas ia bekerja","Tak kenal lelah mengejar mimpi","Shio Kerbau membawa jaya","Hoki datang silih berganti"],["Tanduk tajam penuh wibawa","Langkah mantap tak tergoda","Nasib baik mulai terbuka","Untung besar siap menyapa"],["Kerbau tenang dalam berjalan","Namun kuat saat menerjang","Rezeki hadir perlahan-lahan","Membawa terang di jalan panjang"],["Sabar hati jadi kekuatan","Kerja keras jadi pegangan","Shio Kerbau penuh keberuntungan","Berkah turun dalam hitungan"]],
+      ular:[["Ular melata di bawah bulan","Diam tenang penuh rahasia","Hoki datang dari kejauhan","Membawa untung luar biasa"],["Gerak halus penuh siasat","Pandai membaca arah malam","Shio Ular membawa berkat","Rezeki masuk semakin dalam"],["Dalam sunyi ia menunggu","Saat tepat baru bergerak","Nasib baik mulai menuju","Angka hoki mulai tampak"],["Ular licin melewati batu","Tak mudah jatuh di jalan gelap","Untung datang satu persatu","Harapan lama kembali lengkap"],["Bijak langkah jangan tergesa","Rahasia malam memberi tanda","Shio Ular membawa rasa","Hoki besar datang menggoda"]],
+      naga:[["Naga terbang menembus awan","Membawa cahaya dari angkasa","Rezeki datang penuh kejutan","Hoki besar mulai terasa"],["Api naga menyala terang","Membuka jalan penuh kuasa","Shio Naga gagah menyerang","Untung datang luar biasa"],["Di langit tinggi ia berjaya","Tak gentar menghadapi badai","Nasib baik mulai menyala","Angka hoki ikut merangkai"],["Naga emas turun perlahan","Membawa berkah di malam hari","Rezeki datang dalam genggaman","Hati tenang janganlah lari"],["Suara naga menggema jauh","Tanda besar mulai terlihat","Hoki datang semakin penuh","Untung besar makin dekat"]],
+      babi:[["Babi tenang membawa hoki","Rezeki datang dari segala arah","Nasib baik mulai mengikuti","Hidup cerah penuh berkah"],["Di ladang luas ia berjalan","Pelan tapi penuh makna","Shio Babi membawa harapan","Untung datang tak disangka"],["Hati sabar membawa rezeki","Malam sunyi jadi pertanda","Babi hadir membawa hoki","Angka baik mulai menggoda"],["Jangan kecilkan langkah sederhana","Di balik diam ada kejutan","Shio Babi penuh pesona","Hoki besar dalam hitungan"],["Babi emas datang menyapa","Membawa terang di malam hari","Rezeki baik mulai terbuka","Untung hadir menghampiri"]],
+      ayam:[["Ayam berkokok di pagi hari","Membangunkan nasib yang tertidur","Rezeki datang silih berganti","Hoki baik mulai mengalir"],["Sayap ayam mengepak ringan","Membawa tanda dari timur","Shio Ayam penuh harapan","Untung datang makin subur"],["Kokok nyaring menjadi tanda","Hari baru membawa cahaya","Nasib baik mulai menyapa","Rezeki masuk penuh bahagia"],["Ayam jantan tegak berdiri","Penuh percaya di depan mata","Hoki datang menghampiri","Angka baik mulai terbaca"],["Pagi cerah membawa pesan","Jangan lengah dalam memilih","Shio Ayam penuh keberuntungan","Rezeki datang takkan letih"]],
+      kambing:[["Kambing berjalan di bukit hijau","Mencari rumput di pagi hari","Rezeki datang dari kejauhan","Hoki baik menghampiri diri"],["Langkah lembut penuh ketenangan","Hati sabar jadi kekuatan","Shio Kambing membawa harapan","Untung datang dalam hitungan"],["Di lereng sunyi ia berdiri","Menatap langit penuh tanda","Nasib baik mulai mendekati","Rezeki besar siap menyapa"],["Kambing putih membawa restu","Jalan terang mulai terbuka","Hoki hadir satu persatu","Membawa damai dan bahagia"],["Jangan takut jalan mendaki","Di atas bukit ada cahaya","Shio Kambing membawa hoki","Untung datang luar biasa"]],
+      kelinci:[["Kelinci kecil melompat ringan","Di taman sunyi penuh bunga","Rezeki datang perlahan-lahan","Hoki manis mulai terasa"],["Telinga tajam membaca tanda","Langkah cepat penuh waspada","Shio Kelinci membawa rasa","Untung datang tanpa diduga"],["Di balik rumput ia berlari","Mencari jalan penuh harapan","Nasib baik menghampiri","Angka hoki dalam genggaman"],["Kelinci putih membawa damai","Malam gelap jadi berseri","Rezeki datang tak tercerai","Hoki baik mendekat diri"],["Lembut hati janganlah ragu","Jalan terang mulai menanti","Shio Kelinci membawa restu","Untung datang sepenuh hati"]],
+      monyet:[["Monyet lincah di atas dahan","Melompat cepat penuh ceria","Rezeki datang jadi kejutan","Hoki baik luar biasa"],["Cerdik akal pandai membaca","Tak mudah kalah oleh keadaan","Shio Monyet membawa rasa","Untung hadir dalam genggaman"],["Di hutan ramai ia menari","Membawa tanda dari alam","Nasib baik menghampiri","Angka hoki masuk ke dalam"],["Monyet tertawa di pagi terang","Pertanda baik mulai terbuka","Rezeki datang tidak kurang","Hoki besar ikut menyapa"],["Langkah cerdik membawa jalan","Jangan ragu mengambil peluang","Shio Monyet penuh harapan","Untung datang makin gemilang"]],
+      harimau:[["Harimau gagah di tengah rimba","Matanya tajam penuh kuasa","Rezeki datang membawa wibawa","Hoki besar mulai terasa"],["Auman kuat membelah malam","Tanda baik mulai terdengar","Shio Harimau masuk ke dalam","Untung datang makin besar"],["Langkah berani tak pernah mundur","Meski jalan penuh halangan","Nasib baik mulai mengalir","Membawa berkah dan kemenangan"],["Harimau emas turun perlahan","Membawa pesan dari kejauhan","Rezeki hadir dalam hitungan","Hoki datang jadi pegangan"],["Jangan takut menghadapi badai","Kekuatan hati jadi cahaya","Shio Harimau membawa damai","Untung besar siap berjaya"]]
+    };
+    const shioSelect=document.getElementById("shioSelect"),pasaranSelect=document.getElementById("pasaranSelect"),acakSyairBtn=document.getElementById("acakSyairBtn"),acakSemuaBtn=document.getElementById("acakSemuaBtn"),downloadSyairBtn=document.getElementById("downloadSyairBtn"),canvas=document.getElementById("syairCanvas"),ctx=canvas.getContext("2d"),templateImg=document.getElementById("templateImg");
+    let syairState={shio:"kerbau",pasaran:"BANGKOK",bbfs:[1,3,2,7,9,5,8],colok:[6,4,2,8],angkaMain:[2,8,7,1,5],syair:SYAIR_DATA.kerbau[0]};
+    Object.keys(SHIO_LOGOS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k.toUpperCase();shioSelect.appendChild(o)});Object.keys(PASARAN_LOGOS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;pasaranSelect.appendChild(o)});shioSelect.value=syairState.shio;pasaranSelect.value=syairState.pasaran;
+    function rand1to9(){return Math.floor(Math.random()*9)+1}function unique1to9(n){let a=[1,2,3,4,5,6,7,8,9];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,n)}function pick(a){return a[Math.floor(Math.random()*a.length)]}
+    
+    function normalizeColok() {
+      if (!Array.isArray(syairState.colok) || syairState.colok.length !== 4) {
+        syairState.colok = [rand1to9(), rand1to9(), rand1to9(), rand1to9()];
+      }
+      syairState.colok = syairState.colok.map(n => {
+        const angka = Number(n);
+        return Number.isFinite(angka) && angka >= 1 && angka <= 9 ? angka : rand1to9();
+      }).slice(0, 4);
+    }
+
+    function todayText(){return new Date().toLocaleDateString("id-ID",{day:"2-digit",month:"long",year:"numeric"}).replace(/\s/g," ").toUpperCase()}
+    function loadImg(src){return new Promise((res,rej)=>{let im=new Image();im.crossOrigin="anonymous";im.onload=()=>res(im);im.onerror=rej;im.src=src})}
+    function textGold(t,x,y,size,align="center"){
+      ctx.save();
+      ctx.textAlign=align;ctx.textBaseline="middle";ctx.font=`${size}px Arial Black`;
+      let g=ctx.createLinearGradient(x,y-size/2,x,y+size/2);
+      g.addColorStop(0,"#fff6c7");g.addColorStop(.22,"#fffef2");g.addColorStop(.48,"#ffe57e");g.addColorStop(.75,"#f2bf33");g.addColorStop(1,"#9f5f00");
+      ctx.fillStyle=g;ctx.shadowColor="rgba(0,0,0,.88)";ctx.shadowBlur=10;
+      ctx.lineWidth=Math.max(4,size/7);ctx.strokeStyle="rgba(0,0,0,.92)";ctx.strokeText(String(t).toUpperCase(),x,y);
+      ctx.lineWidth=Math.max(1.5,size/18);ctx.strokeStyle="rgba(255,220,110,.65)";ctx.strokeText(String(t).toUpperCase(),x,y);
+      ctx.fillText(String(t).toUpperCase(),x,y);ctx.restore()
+    }
+    function textPlain(t,x,y,size,color="#ffe56a",align="center"){
+      ctx.save();ctx.font=`${size}px Arial Black`;ctx.textAlign=align;ctx.textBaseline="middle";
+      let g=ctx.createLinearGradient(x,y-size/2,x,y+size/2);
+      g.addColorStop(0,"#fff6c7");g.addColorStop(.18,"#fffef0");g.addColorStop(.45,"#ffe57e");g.addColorStop(.72,"#edc03f");g.addColorStop(1,"#9f5f00");
+      ctx.fillStyle=color==="#ffe56a"?g:color;ctx.shadowColor="rgba(0,0,0,.9)";ctx.shadowBlur=8;
+      ctx.lineWidth=Math.max(3,size/8);ctx.strokeStyle="rgba(0,0,0,.88)";ctx.strokeText(String(t).toUpperCase(),x,y);
+      ctx.lineWidth=Math.max(1,size/20);ctx.strokeStyle="rgba(255,220,110,.45)";ctx.strokeText(String(t).toUpperCase(),x,y);
+      ctx.fillText(String(t).toUpperCase(),x,y);ctx.restore()
+    }
+    function drawShioBadge(cx,cy){ctx.save();
+      const outer=118, ring1=98, ring2=88, inner=80;
+      const rg=ctx.createRadialGradient(cx,cy,10,cx,cy,outer);
+      rg.addColorStop(0,"rgba(48,33,10,.98)");
+      rg.addColorStop(.55,"rgba(27,18,6,.96)");
+      rg.addColorStop(.86,"rgba(12,8,3,.88)");
+      rg.addColorStop(1,"rgba(0,0,0,0)");
+      ctx.fillStyle=rg;ctx.beginPath();ctx.arc(cx,cy,outer,0,Math.PI*2);ctx.fill();
+      ctx.shadowColor="rgba(255,191,55,.42)";ctx.shadowBlur=20;
+      ctx.lineWidth=8;ctx.strokeStyle="rgba(235,183,48,.98)";ctx.beginPath();ctx.arc(cx,cy,ring1,0,Math.PI*2);ctx.stroke();
+      ctx.shadowBlur=0;
+      ctx.lineWidth=3;ctx.strokeStyle="rgba(255,236,170,.86)";ctx.beginPath();ctx.arc(cx,cy,ring2,0,Math.PI*2);ctx.stroke();
+      ctx.setLineDash([5,7]);ctx.lineWidth=2.2;ctx.strokeStyle="rgba(171,116,17,.76)";ctx.beginPath();ctx.arc(cx,cy,inner,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle="rgba(20,13,5,.84)";ctx.beginPath();ctx.arc(cx,cy,74,0,Math.PI*2);ctx.fill();
+      ctx.restore()}
+    function fitImage(img,cx,cy,maxW,maxH){let r=Math.min(maxW/img.width,maxH/img.height);let w=img.width*r,h=img.height*r;ctx.drawImage(img,cx-w/2,cy-h/2,w,h)}
+function cssNum(name, fallback){
+  const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const value = Number(raw);
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function drawBigShioOnly(img){
+  // Semua posisi logo shio sekarang bisa diatur dari CSS :root
+  const cx = cssNum("--shio-logo-x", 543);
+  const cy = cssNum("--shio-logo-y", 786);
+  const bgRadius = cssNum("--shio-logo-bg-radius", 134);
+  const clipRadius = cssNum("--shio-logo-clip-radius", 132);
+  const targetSize = cssNum("--shio-logo-size", 365);
+  const offsetX = cssNum("--shio-logo-offset-x", 0);
+  const offsetY = cssNum("--shio-logo-offset-y", -8);
+
+  // Tutup lingkaran dalam template agar tidak kelihatan lagi
+  ctx.save();
+  const bg = ctx.createRadialGradient(cx, cy, 15, cx, cy, bgRadius);
+  bg.addColorStop(0, "rgba(28,18,6,0.99)");
+  bg.addColorStop(0.65, "rgba(16,10,3,0.99)");
+  bg.addColorStop(1, "rgba(8,5,2,1)");
+  ctx.fillStyle = bg;
+  ctx.beginPath();
+  ctx.arc(cx, cy, bgRadius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  // Clip gambar agar tetap bulat dan benar-benar di tengah bingkai
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, clipRadius, 0, Math.PI * 2);
+  ctx.closePath();
+  ctx.clip();
+
+  const ratio = Math.max(targetSize / img.width, targetSize / img.height);
+  const w = img.width * ratio;
+  const h = img.height * ratio;
+
+  ctx.drawImage(img, cx - w / 2 + offsetX, cy - h / 2 + offsetY, w, h);
+  ctx.restore();
+}
+    async function drawSyair(){
+  ctx.clearRect(0,0,1086,1448);
+  if(!templateImg.complete||!templateImg.naturalWidth){
+    ctx.fillStyle="#000";
+    ctx.fillRect(0,0,1086,1448);
+    textPlain("TEMPLATE BELUM TERBACA",543,724,42);
+    return;
+  }
+  ctx.drawImage(templateImg,0,0,1086,1448);
+
+  // Tanggal
+  textGold(todayText(),560,304,24);
+
+  // Logo pasaran
+try{
+  let p=await loadImg(PASARAN_LOGOS[syairState.pasaran]);
+  fitImage(p,543,427,360,90);
+}catch(e){
+  textGold(syairState.pasaran,543,427,34);
+}
+
+// Shio - posisi dan ukuran logo diatur dari CSS :root
+try{
+  let s = await loadImg(SHIO_LOGOS[syairState.shio]);
+  drawBigShioOnly(s);
+}catch(e){}
+
+textPlain(
+  syairState.shio.toUpperCase(),
+  cssNum("--shio-logo-x", 543),
+  cssNum("--shio-name-y", 904),
+  cssNum("--shio-name-size", 44)
+);
+
+  // COLOK BEBAS - posisi sudah dirapikan mengikuti contoh
+  normalizeColok();
+  const colokPos = [
+    [175, 772], // kiri atas
+    [261, 772], // kanan atas
+    [175, 840], // kiri bawah
+    [261, 840]  // kanan bawah
+  ];
+  colokPos.forEach((p, i) => {
+    textPlain(String(syairState.colok[i]), p[0], p[1], 30);
+  });
+
+  // Angka main
+  [[848,758],[927,758],[890,813],[848,869],[927,869]].forEach((p,i)=>
+    textPlain(syairState.angkaMain[i],p[0],p[1],28)
+  );
+
+  // BBFS
+  [325,403,479,556,629,703,777].forEach((x,i)=>
+    textPlain(syairState.bbfs[i],x,1072,30)
+  );
+
+  // Syair
+  ctx.save();
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+  ctx.font="22px Arial Black";
+  ctx.fillStyle="#f2cd63";
+  ctx.shadowColor="rgba(0,0,0,.95)";
+  ctx.shadowBlur=8;
+  ctx.lineWidth=4;
+  ctx.strokeStyle="rgba(0,0,0,.88)";
+  syairState.syair.forEach((line,i)=>{
+    let y=1248+i*34;
+    ctx.strokeText(line.toUpperCase(),543,y);
+    ctx.fillText(line.toUpperCase(),543,y);
+  });
+  ctx.restore();
+}
+    function acakSyair(){syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Syair berhasil diacak")}function acakSemua(){syairState.shio=pick(Object.keys(SHIO_LOGOS));shioSelect.value=syairState.shio;syairState.bbfs=unique1to9(7);syairState.colok=[rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.angkaMain=[rand1to9(),rand1to9(),rand1to9(),rand1to9(),rand1to9()];syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair();showToast("Semua berhasil diacak")}function downloadSyair(){drawSyair().then(()=>{let a=document.createElement("a");a.download=`syair-${Date.now()}.png`;a.href=canvas.toDataURL("image/png");a.click()}).catch(()=>alert("Gambar logo dari internet belum siap. Coba klik Download lagi."))}
+    shioSelect.addEventListener("change",()=>{syairState.shio=shioSelect.value;syairState.syair=pick(SYAIR_DATA[syairState.shio]);drawSyair()});pasaranSelect.addEventListener("change",()=>{syairState.pasaran=pasaranSelect.value;drawSyair()});acakSyairBtn.addEventListener("click",acakSyair);acakSemuaBtn.addEventListener("click",acakSemua);downloadSyairBtn.addEventListener("click",downloadSyair);templateImg.addEventListener("load",drawSyair);templateImg.addEventListener("error",()=>showToast("File syair-template.png belum terbaca"));
+
+
+    // GENERATOR BUKTI KEMENANGAN
+    const BUKTI_BACKGROUNDS=[
+      {nama:"Background Bukti 1",url:"https://i.imgur.com/8fZVbaN.jpeg"},
+      {nama:"Background Bukti 2",url:"https://i.imgur.com/9QW35MY.png"},
+      {nama:"Background Bukti 3",url:"https://i.imgur.com/rLpPiX2.jpeg"}
+      // Bos bisa tambah link background bukti baru di sini, contoh:
+      // {nama:"Background Bukti 3",url:"https://i.imgur.com/xxxxxxx.jpeg"}
+    ];
+    const BANK_OPTIONS=["BCA","BRI","BNI","CIMB","DANAMON","SEABANK","BANKJAGO","MAYBANK"];
+    const BRI_SUMBER_INITIALS=["AR","R","DW","SP","B","MS","FA","BW","CH","FI"];
+    const JONITOGEL_LOGO_URL="https://i.imgur.com/k441qE0.png";
+    const BANK_TRANSFER_BACKGROUNDS={
+      BCA:"bca-template.png",
+      BRI:"",
+      BNI:"",
+      CIMB:"",
+      DANAMON:"",
+      SEABANK:"",
+      BANKJAGO:"",
+      MAYBANK:""
+      // Nanti jika bos lampirkan gambarnya, isi seperti ini:
+      // BCA:"https://...gambar-bca.jpg",
+      // BRI:"https://...gambar-bri.jpg"
+    };
+    const BUKTI_SAMPLE_DATA={
+      BCA:[
+        {
+          nama:"AGUS SETIAWAN",
+          rekening:"7483921056",
+          userId:"rez785ate",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"BUDI SANTOSO",
+          rekening:"5019283746",
+          userId:"zyx902xyv",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RUDI HARTONO",
+          rekening:"8392017465",
+          userId:"ram428hra",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"DENI AKRAM",
+          rekening:"6201948573",
+          userId:"bca731pro",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"ANDI SAPUTRA",
+          rekening:"9137462058",
+          userId:"jon884win",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"HENDRA WIJAYA",
+          rekening:"2746509183",
+          userId:"mks627vip",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"FAJAR NUGROHO",
+          rekening:"8061394725",
+          userId:"ari390bos",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"YOGA PRATAMA",
+          rekening:"3590172846",
+          userId:"den541max",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"ARIF RAHMAN",
+          rekening:"4928107365",
+          userId:"eko736jpt",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RIZKY MAULANA",
+          rekening:"7102938465",
+          userId:"wah285gas",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"BAMBANG SUTRISNO",
+          rekening:"1684927350",
+          userId:"rka918top",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"EKO PURNOMO",
+          rekening:"9273048165",
+          userId:"bdy450bet",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"HERI SUSANTO",
+          rekening:"6049182735",
+          userId:"dri603hok",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"JOKO WIDODO",
+          rekening:"8357102946",
+          userId:"fjr829jpz",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"MULYADI",
+          rekening:"2468013579",
+          userId:"yog174tgl",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"SURYADI",
+          rekening:"5739201846",
+          userId:"and965win",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"IRFAN HAKIM",
+          rekening:"9182736450",
+          userId:"rif517bos",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RAHMAT HIDAYAT",
+          rekening:"3029184756",
+          userId:"bay308max",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"FERDIANSYAH",
+          rekening:"7642019385",
+          userId:"dod642pro",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"WAHYU SAPUTRA",
+          rekening:"4859302716",
+          userId:"ton871vip",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"DIAN PERMANA",
+          rekening:"1293847560",
+          userId:"iwg239gas",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"TONI KURNIAWAN",
+          rekening:"6728491035",
+          userId:"rza704jpt",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"IWAN GUNAWAN",
+          rekening:"9501726384",
+          userId:"ahm156hok",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"REZA FAHLEVI",
+          rekening:"3147859206",
+          userId:"ysf482top",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"AHMAD FAUZI",
+          rekening:"5872049136",
+          userId:"mul690bet",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"YUSUF ARDIANSYAH",
+          rekening:"7294051836",
+          userId:"sur375jpz",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"BAYU PRASETYO",
+          rekening:"4638192750",
+          userId:"hnd814tgl",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"DODI IRAWAN",
+          rekening:"8017263945",
+          userId:"bmb529win",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RANGGA PRATAMA",
+          rekening:"2364758190",
+          userId:"jkw260bos",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"ARI WIBOWO",
+          rekening:"6940281735",
+          userId:"rag937max",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BCA",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"129 - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        }
+      ],
+      BRI:[
+        {
+          nama:"AGUS SETIAWAN",
+          rekening:"7483921056",
+          userId:"rez785ate",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"BUDI SANTOSO",
+          rekening:"5019283746",
+          userId:"zyx902xyv",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RUDI HARTONO",
+          rekening:"8392017465",
+          userId:"ram428hra",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"DENI AKRAM",
+          rekening:"6201948573",
+          userId:"bca731pro",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"ANDI SAPUTRA",
+          rekening:"9137462058",
+          userId:"jon884win",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"HENDRA WIJAYA",
+          rekening:"2746509183",
+          userId:"mks627vip",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"FAJAR NUGROHO",
+          rekening:"8061394725",
+          userId:"ari390bos",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"YOGA PRATAMA",
+          rekening:"3590172846",
+          userId:"den541max",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"ARIF RAHMAN",
+          rekening:"4928107365",
+          userId:"eko736jpt",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RIZKY MAULANA",
+          rekening:"7102938465",
+          userId:"wah285gas",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"BAMBANG SUTRISNO",
+          rekening:"1684927350",
+          userId:"rka918top",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"EKO PURNOMO",
+          rekening:"9273048165",
+          userId:"bdy450bet",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"HERI SUSANTO",
+          rekening:"6049182735",
+          userId:"dri603hok",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"JOKO WIDODO",
+          rekening:"8357102946",
+          userId:"fjr829jpz",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"MULYADI",
+          rekening:"2468013579",
+          userId:"yog174tgl",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"SURYADI",
+          rekening:"5739201846",
+          userId:"and965win",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"IRFAN HAKIM",
+          rekening:"9182736450",
+          userId:"rif517bos",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RAHMAT HIDAYAT",
+          rekening:"3029184756",
+          userId:"bay308max",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"FERDIANSYAH",
+          rekening:"7642019385",
+          userId:"dod642pro",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"WAHYU SAPUTRA",
+          rekening:"4859302716",
+          userId:"ton871vip",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"DIAN PERMANA",
+          rekening:"1293847560",
+          userId:"iwg239gas",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"TONI KURNIAWAN",
+          rekening:"6728491035",
+          userId:"rza704jpt",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"IWAN GUNAWAN",
+          rekening:"9501726384",
+          userId:"ahm156hok",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"REZA FAHLEVI",
+          rekening:"3147859206",
+          userId:"ysf482top",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"AHMAD FAUZI",
+          rekening:"5872049136",
+          userId:"mul690bet",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"YUSUF ARDIANSYAH",
+          rekening:"7294051836",
+          userId:"sur375jpz",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"BAYU PRASETYO",
+          rekening:"4638192750",
+          userId:"hnd814tgl",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"DODI IRAWAN",
+          rekening:"8017263945",
+          userId:"bmb529win",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"RANGGA PRATAMA",
+          rekening:"2364758190",
+          userId:"jkw260bos",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        },
+        {
+          nama:"ARI WIBOWO",
+          rekening:"6940281735",
+          userId:"rag937max",
+          nominal:"94,000,000,00",
+          jenis:"Transfer ke Rekening BRI",
+          mataTujuan:"IDR - Indonesian Rupiah",
+          dariRekening:"WA - 0** - **31",
+          mataAsal:"IDR - Indonesian Rupiah",
+          nominalTujuan:"94,000,000,00",
+          berita:"",
+          referensi:"952712025110812400928\n7TRF0834498060"
+        }
+      ]
+      // Nanti kalau bos mau tambah contoh lagi tinggal lanjut seperti ini:
+      // BCA:[{nama:"A",rekening:"123",nominal:"10,000,000,00"},{nama:"B",rekening:"456",nominal:"20,000,000,00"}]
+    };
+    const buktiCanvas=document.getElementById("buktiCanvas"),buktiCtx=buktiCanvas?buktiCanvas.getContext("2d"):null;
+    const buktiWallpaperSelect=document.getElementById("buktiWallpaperSelect"),bankSelect=document.getElementById("bankSelect"),buktiDateInput=document.getElementById("buktiDateInput"),buktiTimeInput=document.getElementById("buktiTimeInput"),generatedRecipientInput=document.getElementById("generatedRecipientInput"),generatedRekeningInput=document.getElementById("generatedRekeningInput"),generatedNominalInput=document.getElementById("generatedNominalInput"),generateBuktiDataBtn=document.getElementById("generateBuktiDataBtn"),uploadBuktiBtn=document.getElementById("uploadBuktiBtn"),buktiImageInput=document.getElementById("buktiImageInput"),updateBuktiBtn=document.getElementById("updateBuktiBtn"),copyBuktiImageBtn=document.getElementById("copyBuktiImageBtn"),copyBuktiTextBtn=document.getElementById("copyBuktiTextBtn"),resetBuktiBtn=document.getElementById("resetBuktiBtn"),downloadBuktiBtn=document.getElementById("downloadBuktiBtn");
+    let buktiUploadedImage="";
+    let currentBuktiData={nama:"",rekening:"",nominal:""};
+
+    if(buktiWallpaperSelect){
+      buktiWallpaperSelect.innerHTML=BUKTI_BACKGROUNDS.map((item,i)=>`<option value="${i}">${item.nama}</option>`).join("");
+      buktiWallpaperSelect.value="0";
+    }
+    if(bankSelect){
+      bankSelect.innerHTML=BANK_OPTIONS.map(bank=>`<option value="${bank}">${bank}</option>`).join("");
+      bankSelect.value="BCA";
+    }
+    function pad2(n){return String(n).padStart(2,"0")}
+    function setDefaultBuktiDateTime(){
+      const now=new Date();
+      if(buktiDateInput && !buktiDateInput.value){
+        buktiDateInput.value=`${now.getFullYear()}-${pad2(now.getMonth()+1)}-${pad2(now.getDate())}`;
+      }
+      if(buktiTimeInput && !buktiTimeInput.value){
+        buktiTimeInput.value=`${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+      }
+    }
+    setDefaultBuktiDateTime();
+    function randomPick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+    function randomNominalBukti(){
+      const juta=Math.floor(Math.random()*54)+45; // 45 sampai 98 juta
+      return `${juta.toLocaleString("en-US")},000,000,00`;
+    }
+    function syncGeneratedInputs(){
+      if(generatedRecipientInput)generatedRecipientInput.value=currentBuktiData.nama||"";
+      if(generatedRekeningInput)generatedRekeningInput.value=currentBuktiData.rekening||"";
+      if(generatedNominalInput)generatedNominalInput.value=currentBuktiData.nominal||"";
+    }
+    function generateBuktiData(showMsg=true){
+      const bank=getSelectedBank();
+      const samples=BUKTI_SAMPLE_DATA[bank]||[];
+      if(samples.length){
+        currentBuktiData={...randomPick(samples)};
+        const nominalAcak=randomNominalBukti();
+        currentBuktiData.nominal=nominalAcak;
+        currentBuktiData.nominalTujuan=nominalAcak;
+      }else{
+        currentBuktiData={nama:"",rekening:"",userId:"rez785ate",nominal:randomNominalBukti(),nominalTujuan:randomNominalBukti()};
+      }
+      if(bank==="BRI"){
+        currentBuktiData.sumberInitial=randomPick(BRI_SUMBER_INITIALS);
+      }
+      syncGeneratedInputs();
+      drawBukti();
+      if(showMsg)showToast("Data bukti berhasil digenerate");
+    }
+
+    function drawRoundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath()}
+    function coverDraw(c,img,x,y,w,h){const r=Math.max(w/img.width,h/img.height);const iw=img.width*r,ih=img.height*r;c.drawImage(img,x+(w-iw)/2,y+(h-ih)/2,iw,ih)}
+    function containDraw(c,img,x,y,w,h){const r=Math.min(w/img.width,h/img.height);const iw=img.width*r,ih=img.height*r;const dx=x+(w-iw)/2,dy=y+(h-ih)/2;c.drawImage(img,dx,dy,iw,ih);return {x:dx,y:dy,w:iw,h:ih,scale:r};}
+    function buktiLoadImg(src){return new Promise((res,rej)=>{const im=new Image();im.crossOrigin="anonymous";im.onload=()=>res(im);im.onerror=rej;im.src=src})}
+    function buktiText(c,t,x,y,size,align="center",color="#fff"){
+      c.save();c.textAlign=align;c.textBaseline="middle";c.font=`${size}px Arial Black`;c.fillStyle=color;c.shadowColor="rgba(0,0,0,.85)";c.shadowBlur=12;c.lineWidth=Math.max(3,size/9);c.strokeStyle="rgba(0,0,0,.78)";c.strokeText(String(t||"").toUpperCase(),x,y);c.fillText(String(t||"").toUpperCase(),x,y);c.restore();
+    }
+    async function drawJoniTogelLogo(c,cardX,cardY,cardW){
+      const boxW=340, boxH=90, boxX=(1080-boxW)/2, boxY=Math.max(10,cardY-102);
+      try{
+        const logoImg=await buktiLoadImg(JONITOGEL_LOGO_URL);
+        c.save();
+        containDraw(c,logoImg,boxX,boxY,boxW,boxH);
+        c.restore();
+      }catch(e){
+        c.save();
+        c.textAlign="center";
+        c.textBaseline="middle";
+        const x=540,y=boxY+boxH/2;
+        const g1=c.createLinearGradient(x-120,y-40,x+120,y+40);
+        g1.addColorStop(0,"#fff3a1");
+        g1.addColorStop(.25,"#ffd35a");
+        g1.addColorStop(.6,"#ff7c1f");
+        g1.addColorStop(1,"#b11200");
+        c.fillStyle=g1;
+        c.shadowColor="rgba(0,0,0,.45)";
+        c.shadowBlur=10;
+        c.lineJoin="round";
+        c.font="italic 900 70px Arial Black";
+        c.lineWidth=10;
+        c.strokeStyle="rgba(0,0,0,.92)";
+        c.strokeText("JT",445,y+2);
+        c.fillText("JT",445,y+2);
+        c.font="italic 900 44px Arial Black";
+        c.lineWidth=8;
+        c.strokeText("JONI",585,y-14);
+        c.fillText("JONI",585,y-14);
+        c.strokeText("TOGEL",615,y+24);
+        c.fillText("TOGEL",615,y+24);
+        c.restore();
+      }
+    }
+    function getSelectedBank(){
+      return bankSelect?.value||"BCA";
+    }
+    function getSelectedBuktiTransferBackground(){
+      return BANK_TRANSFER_BACKGROUNDS[getSelectedBank()]||"";
+    }
+    function formatTanggalBukti(value){
+      if(!value) return "";
+      const bulan=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+      const parts=value.split("-");
+      if(parts.length!==3) return value;
+      return `${parts[2]} ${bulan[Number(parts[1])-1]||parts[1]} ${parts[0]}`;
+    }
+    function getBuktiDateTimeText(){
+      const tgl=formatTanggalBukti(buktiDateInput?.value||"");
+      const jam=buktiTimeInput?.value||"";
+      return [tgl,jam].filter(Boolean).join(" ").trim();
+    }
+    function drawTransferDateTime(c,bank,x,y,w,h){
+      const text=getBuktiDateTimeText();
+      if(!text) return;
+      if(bank==="BCA"){
+        const scale=w/941, fr=w/460;
+        c.save();
+        c.textAlign="center";
+        c.textBaseline="middle";
+        c.font=`${14.5*fr}px Arial`;
+        c.fillStyle="#7b8089";
+        c.fillText(text,x+w/2,y+786*scale);
+        c.restore();
+        return;
+      }
+      c.save();
+      c.textAlign="center";
+      c.textBaseline="middle";
+      c.font="18px Arial";
+      c.fillStyle="#666f7c";
+      c.fillText(text,x+w/2,y+318);
+      c.restore();
+    }
+    function normalizeNominalString(nominal){
+      if(!nominal) return "";
+      let s=String(nominal).trim();
+      if(/^\d{1,3}(,\d{3})+,\d{2}$/.test(s)){
+        const idx=s.lastIndexOf(",");
+        s=s.slice(0,idx)+"."+s.slice(idx+1);
+      }
+      return s;
+    }
+    function formatNominalTop(nominal){
+      const s=normalizeNominalString(nominal);
+      return s?`IDR ${s}`:"";
+    }
+    function formatMaskedUserId(userId){
+      const raw=String(userId||"").replace(/\s+/g,"").toUpperCase();
+      if(!raw) return "ZYXXXXYV";
+      if(raw.length<=4) return raw.slice(0,2)+"XXXX";
+      return raw.slice(0,2)+"XXXX"+raw.slice(-2);
+    }
+    function formatNominalBottom(nominal){
+      if(!nominal) return "RP. -";
+      const s=String(nominal).replace(/,00$/,"").replace(/\.00$/,"");
+      return `RP. ${s},-`;
+    }
+    function formatBcaRekening(rekening){
+      const digits=String(rekening||"").replace(/\D/g,"");
+      if(!digits) return "";
+      if(digits.length<=3) return digits;
+      if(digits.length<=6) return `${digits.slice(0,3)} - ${digits.slice(3)}`;
+      return `${digits.slice(0,3)} - ${digits.slice(3,6)} - ${digits.slice(6)}`;
+    }
+    function drawValueLine(c,text,x,y,opts={}){
+      c.save();
+      c.textAlign=opts.align||"right";
+      c.textBaseline="middle";
+      c.fillStyle=opts.color||"#4d535c";
+      c.font=opts.font||"bold 17px Arial";
+      const lines=String(text||"").split("\n");
+      const lineGap=opts.lineGap||28;
+      lines.forEach((line,i)=>c.fillText(line,x,y+i*lineGap));
+      c.restore();
+    }
+    function getLastNameChars(name,count=3){
+      const value=String(name||"").trim().toUpperCase();
+      return value.slice(-count);
+    }
+    function getLastDigits(value,count=3){
+      const digits=String(value||"").replace(/\D/g,"");
+      return digits.slice(-count);
+    }
+    function drawBlurRevealRight(c,fullText,revealText,x,y,opts={}){
+      const allText=String(fullText||"").trim();
+      const reveal=String(revealText||"").trim();
+      c.save();
+      c.textBaseline="middle";
+      c.textAlign="right";
+      c.font=opts.font||"bold 18px Arial";
+      const color=opts.color||"#4d535c";
+      const gap=opts.gap||8;
+      if(allText && reveal){
+        const lead=allText.slice(0, Math.max(0, allText.length-reveal.length)).trim();
+        const revealWidth=c.measureText(reveal).width;
+        if(lead){
+          const leadWidth=c.measureText(lead).width;
+          const boxW=opts.boxWidth||Math.max(86,Math.min(leadWidth+26,126));
+          const boxH=opts.boxHeight||26;
+          const boxRight=x-revealWidth-gap-6;
+          const boxX=boxRight-boxW;
+
+          c.save();
+          c.filter=`blur(${opts.boxBlur||6}px)`;
+          c.globalAlpha=.96;
+          c.fillStyle=opts.boxColor||"rgba(235,235,235,.98)";
+          drawRoundRect(c,boxX,y-boxH/2,boxW,boxH,2.5);
+          c.fill();
+          c.restore();
+
+          c.save();
+          drawRoundRect(c,boxX,y-boxH/2,boxW,boxH,2.5);
+          c.clip();
+          c.fillStyle=color;
+          c.globalAlpha=.16;
+          c.filter=`blur(${opts.blur||11}px)`;
+          c.fillText(lead,boxRight-8,y);
+          c.restore();
+        }
+      }
+      c.fillStyle=color;
+      c.fillText(reveal||allText, x, y);
+      c.restore();
+    }
+    function drawFitRight(c,text,x,y,opts={}){
+      c.save();
+      c.textAlign="right";
+      c.textBaseline="middle";
+      const family=opts.family||"Arial";
+      const weight=opts.weight||"bold";
+      let size=opts.size||18;
+      const minSize=opts.minSize||12;
+      const maxWidth=opts.maxWidth||180;
+      c.fillStyle=opts.color||"#4d535c";
+      while(size>minSize){
+        c.font=`${weight} ${size}px ${family}`;
+        if(c.measureText(String(text||"")).width<=maxWidth) break;
+        size-=.5;
+      }
+      c.font=`${weight} ${size}px ${family}`;
+      c.fillText(String(text||""),x,y);
+      c.restore();
+    }
+    function drawAdjustedBcaTemplate(c,img,x,y,w,h){
+      const scale=w/img.width;
+      const drawH=img.height*scale;
+      const detailStartSrcY=1025;
+      const detailShiftSrcY=150;
+      c.save();
+      drawRoundRect(c,x,y,w,h,10);
+      c.clip();
+      c.drawImage(img,x,y,w,drawH);
+      const coverY=y+detailStartSrcY*scale;
+      c.fillStyle="rgba(255,255,255,.985)";
+      c.fillRect(x,coverY,w,h-(coverY-y));
+      c.drawImage(
+        img,
+        0,detailStartSrcY,img.width,img.height-detailStartSrcY,
+        x,y+(detailStartSrcY-detailShiftSrcY)*scale,w,(img.height-detailStartSrcY)*scale
+      );
+      c.restore();
+    }
+    function drawGeneratedBankData(c,bank,x,y,w,h){
+      if(!currentBuktiData) return;
+      const data=currentBuktiData;
+      if(bank==="BCA"){
+        const scale=w/941, fr=w/460;
+        const detailShiftSrcY=150;
+        c.save();
+        c.textAlign="center";
+        c.textBaseline="middle";
+        c.fillStyle="#123f84";
+        // Nominal BCA: tetap memakai IDR, ukuran lebih besar, ketebalan lebih tipis
+        c.font=`600 ${30*fr}px Arial`;
+        c.fillText(formatNominalTop(data.nominal),x+w/2,y+874*scale);
+        c.restore();
+
+        const valueColor="#4a4f58";
+        const rightX=x+w-34*fr;
+        drawBlurRevealRight(c,String(data.nama||"").toUpperCase(),getLastNameChars(data.nama,3),rightX,y+(1122-detailShiftSrcY)*scale,{font:`bold ${16.5*fr}px Arial`,color:valueColor,blur:12,gap:8*fr});
+        drawBlurRevealRight(c,formatBcaRekening(data.rekening),getLastDigits(data.rekening,3),rightX,y+(1255-detailShiftSrcY)*scale,{font:`bold ${16.2*fr}px Arial`,color:valueColor,blur:12,gap:8*fr});
+        return;
+      }
+      c.save();
+      c.textAlign="right";
+      c.textBaseline="middle";
+      c.fillStyle="#4d535c";
+      c.font="bold 20px Arial";
+      c.fillText(data.nama||"",x+w-26,y+500);
+      c.fillText(data.rekening||"",x+w-26,y+586);
+      c.fillText(formatNominalTop(data.nominal),x+w-26,y+260);
+      c.restore();
+    }
+    function getFallbackBankColors(bank){
+      const map={
+        BCA:["#f7fbff","#dcefff","#2c6fd6"],
+        BRI:["#f4f9ff","#d8ebff","#0056c7"],
+        BNI:["#fff9f2","#ffe2bf","#f36f21"],
+        CIMB:["#fff6f6","#ffd2d2","#c91523"],
+        DANAMON:["#fffef5","#fff2b8","#ff9a00"],
+        SEABANK:["#f7fcff","#cdefff","#00a7e5"],
+        BANKJAGO:["#fff8f3","#ffe0cb","#ff6b00"],
+        MAYBANK:["#fffdf4","#fff1b2","#ffcf00"]
+      };
+      return map[bank]||["#ffffff","#eef4ff","#3562b8"];
+    }
+    function drawBriTemplate(c,x,y,w,h){
+      const data=currentBuktiData||{};
+      const scale=w/430;
+      const sx=v=>x+v*scale;
+      const sy=v=>y+v*scale;
+      const sw=v=>v*scale;
+      const sh=v=>v*scale;
+
+      c.save();
+      drawRoundRect(c,x,y,w,h,10);
+      c.clip();
+
+      // background utama BRI
+      c.fillStyle="#f7fbf8";
+      c.fillRect(x,y,w,h);
+      c.fillStyle="#177ec6";
+      c.fillRect(x,y,w,205*scale);
+
+      // ikon centang
+      c.fillStyle="#ffffff";
+      c.beginPath();
+      c.arc(sx(215),sy(60),sw(29),0,Math.PI*2);
+      c.fill();
+      c.strokeStyle="rgba(227,235,242,.95)";
+      c.lineWidth=7*scale;
+      c.beginPath();
+      c.arc(sx(215),sy(60),sw(34),0,Math.PI*2);
+      c.stroke();
+      c.strokeStyle="#177ec6";
+      c.lineWidth=4.2*scale;
+      c.lineCap="round";
+      c.lineJoin="round";
+      c.beginPath();
+      c.moveTo(sx(202),sy(60));
+      c.lineTo(sx(212),sy(70));
+      c.lineTo(sx(229),sy(49));
+      c.stroke();
+
+      // teks atas
+      c.textAlign="center";
+      c.textBaseline="middle";
+      c.fillStyle="#ffffff";
+      c.font=`900 ${20*scale}px Arial`;
+      c.fillText("Transaksi Berhasil",sx(215),sy(116));
+      c.font=`700 ${13*scale}px Arial`;
+      c.fillText(getBuktiDateTimeText()+" WIB",sx(215),sy(142));
+
+      // kartu putih bukti
+      const cardX=sx(24), cardY=sy(170), cardW=sw(382), cardH=sh(450);
+      c.save();
+      c.shadowColor="rgba(0,0,0,.13)";
+      c.shadowBlur=10*scale;
+      drawRoundRect(c,cardX,cardY,cardW,cardH,12*scale);
+      c.fillStyle="rgba(255,255,255,.98)";
+      c.fill();
+      c.restore();
+
+      // watermark BRI
+      c.save();
+      drawRoundRect(c,cardX,cardY,cardW,cardH,12*scale);
+      c.clip();
+      c.globalAlpha=.055;
+      c.fillStyle="#8b98a6";
+      c.font=`900 ${24*scale}px Arial`;
+      c.translate(cardX,cardY);
+      c.rotate(-0.55);
+      for(let yy=-70; yy<560; yy+=62){
+        for(let xx=-100; xx<470; xx+=118){
+          c.fillText("BRI",xx,yy);
+        }
+      }
+      c.restore();
+
+      // Total transaksi
+      c.textAlign="center";
+      c.textBaseline="middle";
+      c.fillStyle="#8b94a1";
+      c.font=`700 ${13*scale}px Arial`;
+      c.fillText("Total Transaksi",sx(215),sy(193));
+      c.fillStyle="#0b66a5";
+      c.font=`900 ${25*scale}px Arial`;
+      c.fillText(formatNominalBri(data.nominal),sx(215),sy(225));
+
+      // No Ref
+      c.textAlign="left";
+      c.fillStyle="#9aa1a9";
+      c.font=`700 ${12.5*scale}px Arial`;
+      c.fillText("No. Ref",sx(43),sy(263));
+
+      // garis putus
+      c.strokeStyle="#e3e8ee";
+      c.lineWidth=1*scale;
+      c.setLineDash([5*scale,5*scale]);
+      c.beginPath(); c.moveTo(sx(43),sy(287)); c.lineTo(sx(386),sy(287)); c.stroke();
+      c.setLineDash([]);
+
+      // Sumber Dana
+      c.textAlign="left";
+      c.textBaseline="middle";
+      c.fillStyle="#4a4f55";
+      c.font=`900 ${14.5*scale}px Arial`;
+      c.fillText("Sumber Dana",sx(40),sy(322));
+
+      c.fillStyle="#1e86d5";
+      c.beginPath(); c.arc(sx(66),sy(371),sw(20),0,Math.PI*2); c.fill();
+      c.fillStyle="#ffffff";
+      c.font=`900 ${11*scale}px Arial`;
+      c.textAlign="center";
+      c.fillText(String(data.sumberInitial||randomPick(BRI_SUMBER_INITIALS)).toUpperCase(),sx(66),sy(371));
+
+      c.textAlign="left";
+      c.fillStyle="#3b434a";
+      c.font=`800 ${12.5*scale}px Arial`;
+      drawBriSoftMask(c,sx(100),sy(349),sw(158),sh(15),{blur:4,radius:3*scale});
+      c.fillStyle="#7d848d";
+      c.font=`700 ${12.5*scale}px Arial`;
+      c.fillText("BANK BRI",sx(100),sy(377));
+      drawBriSoftMask(c,sx(100),sy(401),sw(138),sh(14),{blur:4,radius:3*scale,color:"rgba(186,192,200,.96)",overlay:"rgba(207,211,217,.9)"});
+
+      c.strokeStyle="#edf0f4";
+      c.lineWidth=1*scale;
+      c.beginPath(); c.moveTo(sx(40),sy(425)); c.lineTo(sx(387),sy(425)); c.stroke();
+
+      // Tujuan
+      c.fillStyle="#4a4f55";
+      c.font=`900 ${14.5*scale}px Arial`;
+      c.fillText("Tujuan",sx(40),sy(455));
+      c.fillStyle="#e9f3fb";
+      c.beginPath(); c.arc(sx(66),sy(506),sw(20),0,Math.PI*2); c.fill();
+      c.fillStyle="#1e86d5";
+      c.font=`900 ${11*scale}px Arial`;
+      c.textAlign="center";
+      c.fillText(getBriInitials(data.nama,2),sx(66),sy(506));
+
+      c.textAlign="left";
+      c.fillStyle="#333941";
+      c.font=`900 ${13.5*scale}px Arial`;
+      const name=String(data.nama||"").toUpperCase();
+      const visibleName=name ? name.slice(0,3) : "RAH";
+      c.fillText(visibleName,sx(100),sy(484));
+      const prefixW=c.measureText(visibleName).width;
+      drawBriSoftMask(c,sx(105)+prefixW,sy(484),sw(118),sh(15),{blur:4,radius:3*scale});
+      c.fillStyle="#7d848d";
+      c.font=`700 ${12.5*scale}px Arial`;
+      c.fillText("BANK BRI",sx(100),sy(511));
+      drawBriSoftMask(c,sx(100),sy(535),sw(170),sh(14),{blur:4,radius:3*scale,color:"rgba(186,192,200,.96)",overlay:"rgba(207,211,217,.9)"});
+
+      // Lihat detail
+      c.save();
+      c.fillStyle="#0b74b8";
+      c.font=`900 ${14.5*scale}px Arial`;
+      c.textAlign="left";
+      c.textBaseline="middle";
+      const detailLabel="Lihat Detail Transaksi";
+      const detailTextW=c.measureText(detailLabel).width;
+      const detailGap=8*scale;
+      const chevronW=10*scale;
+      const detailGroupW=detailTextW+detailGap+chevronW;
+      const detailStartX=sx(215)-detailGroupW/2;
+      const detailY=sy(570);
+      c.fillText(detailLabel,detailStartX,detailY);
+
+      const chevX=detailStartX+detailTextW+detailGap;
+      c.strokeStyle="#0b74b8";
+      c.lineWidth=2.4*scale;
+      c.lineCap="round";
+      c.beginPath();
+      c.moveTo(chevX,detailY-3*scale);
+      c.lineTo(chevX+chevronW/2,detailY+3*scale);
+      c.lineTo(chevX+chevronW,detailY-3*scale);
+      c.stroke();
+      c.restore();
+
+      // potongan bawah bergerigi
+      c.strokeStyle="#e3e8ee";
+      c.lineWidth=2*scale;
+      c.beginPath();
+      for(let xx=43; xx<=386; xx+=18){
+        c.arc(sx(xx),sy(607),sw(8),Math.PI,0,true);
+      }
+      c.stroke();
+
+      // Tombol bagian bawah
+      const shareX=sx(24), shareY=sy(675), shareW=sw(382), shareH=sh(54), shareR=8*scale;
+      c.save();
+      drawRoundRect(c,shareX,shareY,shareW,shareH,shareR);
+      c.fillStyle="#fbfdff";
+      c.fill();
+      c.strokeStyle="#3b93d8";
+      c.lineWidth=1.8*scale;
+      c.stroke();
+      c.restore();
+
+      // grup ikon + teks dibuat benar-benar di tengah
+      const shareLabel="Bagikan Bukti Transaksi";
+      c.save();
+      c.font=`800 ${15.5*scale}px Arial`;
+      const shareTextW=c.measureText(shareLabel).width;
+      const iconGap=10*scale;
+      const iconSpan=17*scale;
+      const groupW=iconSpan+iconGap+shareTextW;
+      const groupStartX=shareX+(shareW-groupW)/2;
+      const iconCenterX=groupStartX+4*scale;
+      const iconCenterY=sy(700);
+      const iconRightX=iconCenterX+13*scale;
+
+      c.strokeStyle="#2c84ce";
+      c.fillStyle="#2c84ce";
+      c.lineWidth=2.15*scale;
+      c.lineCap="round";
+      c.beginPath();
+      c.moveTo(iconCenterX,iconCenterY);
+      c.lineTo(iconRightX,iconCenterY-8*scale);
+      c.moveTo(iconCenterX,iconCenterY);
+      c.lineTo(iconRightX,iconCenterY+8*scale);
+      c.stroke();
+      c.beginPath(); c.arc(iconCenterX,iconCenterY,3.1*scale,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(iconRightX,iconCenterY-8*scale,3.1*scale,0,Math.PI*2); c.fill();
+      c.beginPath(); c.arc(iconRightX,iconCenterY+8*scale,3.1*scale,0,Math.PI*2); c.fill();
+
+      c.textAlign="left";
+      c.textBaseline="middle";
+      c.fillText(shareLabel,groupStartX+iconSpan+iconGap,sy(702));
+      c.restore();
+
+      const homeX=sx(24), homeY=sy(748), homeW=sw(382), homeH=sh(55);
+      drawRoundRect(c,homeX,homeY,homeW,homeH,7*scale);
+      c.fillStyle="#147bd1";
+      c.fill();
+      c.fillStyle="#ffffff";
+      c.font=`900 ${17*scale}px Arial`;
+      c.textAlign="center";
+      c.textBaseline="middle";
+      c.fillText("Halaman Utama",homeX+homeW/2,homeY+homeH/2);
+
+      // home indicator
+      c.fillStyle="#111111";
+      drawRoundRect(c,sx(156),sy(835),sw(118),sh(6),3*scale);
+      c.fill();
+
+      c.restore();
+    }
+    function drawBriBlur(c,fullText,revealText,x,y,w,h){
+      c.save();
+      c.filter="blur(5px)";
+      c.fillStyle="rgba(229,32,32,.96)";
+      drawRoundRect(c,x,y-h/2,w,h,3);
+      c.fill();
+      c.restore();
+    }
+    function formatNominalBri(nominal){
+      const s=String(nominal||"").replace(/,00$/,"").replace(/\.00$/,"");
+      return s?`Rp${s}`:"Rp0";
+    }
+    function drawBriSoftMask(c,x,y,w,h,opts={}){
+      const radius=opts.radius||4;
+      c.save();
+      c.filter=`blur(${opts.blur||4}px)`;
+      c.fillStyle=opts.color||"rgba(176,184,194,.96)";
+      drawRoundRect(c,x,y-h/2,w,h,radius);
+      c.fill();
+      c.restore();
+      c.save();
+      c.fillStyle=opts.overlay||"rgba(198,204,212,.88)";
+      drawRoundRect(c,x,y-h/2,w,h,radius);
+      c.fill();
+      c.restore();
+    }
+    function getBriInitials(name,maxLetters=2){
+      const words=String(name||"").trim().toUpperCase().split(/\s+/).filter(Boolean);
+      if(!words.length) return "BR";
+      if(words.length===1) return words[0].slice(0,Math.min(maxLetters,2));
+      return (words[0][0] + (words[1][0]||"")).slice(0,maxLetters);
+    }
+
+    function drawTransferPlaceholder(c,bank,x,y,w,h){
+      const [base,soft,accent]=getFallbackBankColors(bank);
+      c.save();
+      drawRoundRect(c,x,y,w,h,8);
+      c.clip();
+      c.fillStyle=base;
+      c.fillRect(x,y,w,h);
+      for(let i=0;i<8;i++){
+        c.save();
+        c.globalAlpha=.08;
+        c.translate(x+90+(i%3)*210,y+80+i*64);
+        c.rotate(-0.28);
+        c.fillStyle=accent;
+        c.font="900 44px Arial";
+        c.fillText(bank,0,0);
+        c.restore();
+      }
+      c.strokeStyle="rgba(0,0,0,.12)";
+      c.lineWidth=1;
+      c.beginPath();c.moveTo(x+24,y+118);c.lineTo(x+w-24,y+118);c.stroke();
+      c.fillStyle=accent;
+      c.font="900 28px Arial";
+      c.textAlign="center";
+      c.textBaseline="middle";
+      c.fillText(bank,x+w/2,y+52);
+      c.fillStyle=soft;
+      c.fillRect(x,y,w,118);
+      c.strokeStyle="rgba(0,0,0,.08)";
+      c.strokeRect(x,y,w,118);
+      c.fillStyle=accent;
+      c.font="900 54px Arial";
+      c.fillText("✓",x+w/2,y+224);
+      c.font="900 28px Arial";
+      c.fillStyle="#202833";
+      c.fillText("TRANSFER BERHASIL",x+w/2,y+280);
+      c.font="20px Arial";
+      c.fillStyle="#616b7a";
+      c.fillText(getBuktiDateTimeText()||"Atur tanggal & waktu bukti dari panel kanan",x+w/2,y+318);
+      c.font="900 36px Arial";
+      c.fillStyle=accent;
+      c.fillText("UPLOAD FOTO BUKTI",x+w/2,y+385);
+      c.font="18px Arial";
+      c.fillStyle="#616b7a";
+      c.fillText("Atau nanti bos isi gambar template transfer masing-masing bank",x+w/2,y+420);
+      const rows=[
+        ["Nama Penerima","ANI"],
+        ["Rekening Tujuan","***407"],
+        ["Jenis Transaksi",`Transfer ke rekening ${bank}`]
+      ];
+      let yy=y+500;
+      rows.forEach(([l,r],i)=>{
+        c.strokeStyle="rgba(0,0,0,.08)";
+        c.beginPath();c.moveTo(x+24,yy+34);c.lineTo(x+w-24,yy+34);c.stroke();
+        c.fillStyle="#31343a";
+        c.font="24px Arial";
+        c.textAlign="left";
+        c.fillText(l,x+26,yy);
+        c.textAlign="right";
+        c.font="bold 22px Arial";
+        c.fillText(r,x+w-26,yy);
+        yy+=86;
+      });
+      c.restore();
+    }
+    function getSelectedBuktiBackground(){
+      const index=Number(buktiWallpaperSelect?.value||0);
+      return BUKTI_BACKGROUNDS[index]?.url||BUKTI_BACKGROUNDS[0].url;
+    }
+    async function drawBukti(){
+      if(!buktiCanvas||!buktiCtx)return;
+      const c=buktiCtx;c.clearRect(0,0,1080,1080);
+      const backgroundBukti=getSelectedBuktiBackground();
+      const selectedBank=getSelectedBank();
+      const bankBackground=getSelectedBuktiTransferBackground();
+
+      try{const bg=await buktiLoadImg(backgroundBukti);coverDraw(c,bg,0,0,1080,1080)}catch(e){const g=c.createLinearGradient(0,0,1080,1080);g.addColorStop(0,"#061833");g.addColorStop(1,"#002b56");c.fillStyle=g;c.fillRect(0,0,1080,1080)}
+      c.fillStyle="rgba(0,0,0,.14)";c.fillRect(0,0,1080,1080);
+
+      const cardW=selectedBank==="BRI"?400:430;
+      const cardX=(1080-cardW)/2;
+      const cardY=selectedBank==="BCA"?130:(selectedBank==="BRI"?100:118);
+      const cardH=selectedBank==="BCA"?690:(selectedBank==="BRI"?790:764);
+      await drawJoniTogelLogo(c,cardX,cardY,cardW);
+
+      c.save();
+      c.shadowColor="rgba(0,0,0,.35)";
+      c.shadowBlur=24;
+      drawRoundRect(c,cardX,cardY,cardW,cardH,10);
+      c.fillStyle="rgba(255,255,255,.98)";
+      c.fill();
+      c.restore();
+
+      if(selectedBank==="BRI"){
+        drawBriTemplate(c,cardX,cardY,cardW,cardH);
+      }else if(bankBackground){
+        try{
+          const bankBg=await buktiLoadImg(bankBackground);
+          if(selectedBank==="BCA"){
+            drawAdjustedBcaTemplate(c,bankBg,cardX,cardY,cardW,cardH);
+          }else{
+            c.save();
+            drawRoundRect(c,cardX,cardY,cardW,cardH,10);
+            c.clip();
+            containDraw(c,bankBg,cardX,cardY,cardW,cardH);
+            c.restore();
+          }
+        }catch(e){
+          drawTransferPlaceholder(c,selectedBank,cardX,cardY,cardW,cardH);
+        }
+      }else{
+        drawTransferPlaceholder(c,selectedBank,cardX,cardY,cardW,cardH);
+      }
+
+      if(!buktiUploadedImage && selectedBank!=="BRI"){
+        drawTransferDateTime(c,selectedBank,cardX,cardY,cardW,cardH);
+        drawGeneratedBankData(c,selectedBank,cardX,cardY,cardW,cardH);
+      }
+
+      if(buktiUploadedImage){
+        try{
+          const im=await buktiLoadImg(buktiUploadedImage);
+          c.save();
+          drawRoundRect(c,cardX,cardY,cardW,cardH,10);
+          c.clip();
+          c.globalAlpha=.92;
+          coverDraw(c,im,cardX,cardY,cardW,cardH);
+          c.restore();
+        }catch(e){}
+      }
+
+      c.save();
+      c.strokeStyle="rgba(0,0,0,.9)";
+      c.lineWidth=4;
+      drawRoundRect(c,cardX,cardY,cardW,cardH,10);
+      c.stroke();
+      c.restore();
+
+      if(selectedBank==="BRI"){
+        buktiText(c,"SELAMAT KEPADA PEMENANG",540,948,32,"center","#f8d27f");
+        buktiText(c,`USER ID : ${formatMaskedUserId(currentBuktiData.userId)}`,540,998,24,"center","#ff8f87");
+        buktiText(c,formatNominalBottom(currentBuktiData.nominal),540,1040,34,"center","#f5d37e");
+      }else{
+        buktiText(c,"SELAMAT KEPADA PEMENANG",540,915,38,"center","#f8d27f");
+        buktiText(c,`USER ID : ${formatMaskedUserId(currentBuktiData.userId)}`,540,972,28,"center","#ff8f87");
+        buktiText(c,formatNominalBottom(currentBuktiData.nominal),540,1028,44,"center","#f5d37e");
+      }
+    }
+    function getBuktiCopyText(){
+      const data=currentBuktiData||{};
+      return [
+        "SELAMAT KEPADA PEMENANG",
+        `USER ID : ${formatMaskedUserId(data.userId)}`,
+        formatNominalBottom(data.nominal),
+        "",
+        `NAMA PENERIMA : ${String(data.nama||"").toUpperCase()}`,
+        `REKENING TUJUAN : ${String(data.rekening||"")}`,
+        `NOMINAL : ${formatNominalTop(data.nominal)}`
+      ].join("\n");
+    }
+    async function copyBuktiText(){
+      const text=getBuktiCopyText();
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("Text berhasil dicopy");
+      }catch(e){
+        const area=document.createElement("textarea");
+        area.value=text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("Text berhasil dicopy");
+      }
+    }
+    async function copyBuktiImage(){
+      try{
+        await drawBukti();
+        if(!navigator.clipboard || !window.ClipboardItem){
+          showToast("Copy image tidak didukung browser ini");
+          return;
+        }
+        buktiCanvas.toBlob(async blob=>{
+          if(!blob){
+            showToast("Gagal copy image");
+            return;
+          }
+          try{
+            await navigator.clipboard.write([new ClipboardItem({"image/png":blob})]);
+            showToast("Image berhasil dicopy");
+          }catch(e){
+            showToast("Browser menolak copy image");
+          }
+        },"image/png");
+      }catch(e){
+        showToast("Gagal copy image");
+      }
+    }
+    if(buktiWallpaperSelect)buktiWallpaperSelect.addEventListener("change",drawBukti);
+    if(bankSelect)bankSelect.addEventListener("change",()=>generateBuktiData(false));
+    if(buktiDateInput)buktiDateInput.addEventListener("input",drawBukti);
+    if(buktiTimeInput)buktiTimeInput.addEventListener("input",drawBukti);
+    if(generateBuktiDataBtn)generateBuktiDataBtn.addEventListener("click",()=>generateBuktiData(true));
+    if(copyBuktiImageBtn)copyBuktiImageBtn.addEventListener("click",copyBuktiImage);
+    if(copyBuktiTextBtn)copyBuktiTextBtn.addEventListener("click",copyBuktiText);
+    if(uploadBuktiBtn)uploadBuktiBtn.addEventListener("click",()=>buktiImageInput.click());
+    if(buktiImageInput)buktiImageInput.addEventListener("change",function(){const file=this.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{buktiUploadedImage=e.target.result;drawBukti();showToast("Foto bukti berhasil dimasukkan")};reader.readAsDataURL(file)});
+    if(updateBuktiBtn)updateBuktiBtn.addEventListener("click",()=>{drawBukti();showToast("Preview bukti diupdate")});
+    if(resetBuktiBtn)resetBuktiBtn.addEventListener("click",()=>{if(buktiWallpaperSelect)buktiWallpaperSelect.value="0";if(bankSelect)bankSelect.value="BCA";if(buktiDateInput)buktiDateInput.value="";if(buktiTimeInput)buktiTimeInput.value="";setDefaultBuktiDateTime();buktiUploadedImage="";generateBuktiData(false);showToast("Bukti kemenangan direset")});
+    if(downloadBuktiBtn)downloadBuktiBtn.addEventListener("click",()=>{drawBukti().then(()=>{const a=document.createElement("a");a.download=`bukti-kemenangan-${Date.now()}.png`;a.href=buktiCanvas.toDataURL("image/png");a.click()}).catch(()=>alert("Background bukti dari internet belum siap. Coba klik Download lagi."))});
 
     // LINK DOMAIN / CHECKER NAWALA
     const domainListEl=document.getElementById("domainList");
