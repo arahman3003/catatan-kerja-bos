@@ -103,6 +103,7 @@ CATATAN:
 <link href="assets/css/37-prediksi-right-poster-replace-fix.css" rel="stylesheet"/>
 <link href="assets/css/39-prediksi-bottom-banner-replace.css" rel="stylesheet"/>
 <link href="assets/css/40-prediksi-top-layout-final.css" rel="stylesheet"/>
+<link href="assets/css/41-prediksi-summary-icons-final.css" rel="stylesheet"/>
 <link href="assets/css/99-inline-attributes.css" rel="stylesheet"/></head>
 <body class="dark-workspace">
 <!-- ===== HALAMAN LOGIN ===== -->
@@ -562,15 +563,38 @@ CATATAN:
 </header>
 <div class="prediksi-summary-grid">
 <article class="prediksi-summary total">
-<div class="prediksi-summary-icon bars"><span></span></div>
+<div class="prediksi-summary-icon summary-icon-total" aria-hidden="true">
+<svg viewBox="0 0 64 64" role="img" focusable="false">
+<path class="chart-axis" d="M12 11v41h41"/>
+<rect class="chart-bar" x="18" y="31" width="8" height="16" rx="1.8"/>
+<rect class="chart-bar" x="30" y="21" width="8" height="26" rx="1.8"/>
+<rect class="chart-bar" x="42" y="14" width="8" height="33" rx="1.8"/>
+</svg>
+</div>
 <div class="prediksi-summary-copy"><span>TOTAL PASARAN</span><strong id="prediksiTotalCount">0</strong><em>Seluruh pasaran tersedia</em></div>
 </article>
 <article class="prediksi-summary open">
-<div class="prediksi-summary-icon door open"><span></span></div>
+<div class="prediksi-summary-icon summary-icon-open" aria-hidden="true">
+<svg viewBox="0 0 64 64" role="img" focusable="false">
+<path class="door-frame" d="M16 10h29v42H16z"/>
+<path class="door-leaf" d="M17 13 39 8v43l-22-5z"/>
+<path class="door-edge" d="M39 8l7 4v37l-7 2z"/>
+<circle class="door-knob" cx="34" cy="30" r="2.2"/>
+<ellipse class="door-shadow" cx="32" cy="54" rx="17" ry="2.3"/>
+</svg>
+</div>
 <div class="prediksi-summary-copy"><span>SEDANG BUKA</span><strong id="prediksiOpenCount">0</strong><em>Pasaran aktif saat ini</em></div>
 </article>
 <article class="prediksi-summary closed">
-<div class="prediksi-summary-icon door closed"><span></span></div>
+<div class="prediksi-summary-icon summary-icon-closed" aria-hidden="true">
+<svg viewBox="0 0 64 64" role="img" focusable="false">
+<path class="door-frame" d="M16 10h29v42H16z"/>
+<path class="door-leaf" d="M17 13 39 8v43l-22-5z"/>
+<path class="door-edge" d="M39 8l7 4v37l-7 2z"/>
+<circle class="door-knob" cx="34" cy="30" r="2.2"/>
+<ellipse class="door-shadow" cx="32" cy="54" rx="17" ry="2.3"/>
+</svg>
+</div>
 <div class="prediksi-summary-copy"><span>SEDANG TUTUP</span><strong id="prediksiClosedCount">0</strong><em>Pasaran sudah tutup</em></div>
 </article>
 </div>
