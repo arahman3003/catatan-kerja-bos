@@ -1,0 +1,94 @@
+/* Ganti footer quote daftar pasaran dengan banner gambar penuh */
+#page-prediksi-togel .prediksi-market-list-panel{
+  position:relative!important;
+}
+#page-prediksi-togel .prediksi-market-list{
+  padding:0 10px 126px!important;
+}
+#page-prediksi-togel .prediksi-panel-foot-quote{
+  display:none!important;
+}
+#page-prediksi-togel .prediksi-panel-foot-banner{
+  position:absolute!important;
+  left:12px!important;
+  right:12px!important;
+  bottom:12px!important;
+  height:118px!important;
+  border:1px solid rgba(46,255,202,.72)!important;
+  border-radius:16px!important;
+  background:url("../images/prediksi-bottom-banner.png") center center/cover no-repeat!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.22)!important;
+  overflow:hidden!important;
+}
+@media (max-width: 1600px){
+  #page-prediksi-togel .prediksi-panel-foot-banner{
+    height:110px!important;
+  }
+  #page-prediksi-togel .prediksi-market-list{
+    padding-bottom:118px!important;
+  }
+}
+@media (max-width: 1200px){
+  #page-prediksi-togel .prediksi-panel-foot-banner{
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:calc(100% - 24px)!important;
+    margin:0 12px 12px!important;
+    height:96px!important;
+  }
+  #page-prediksi-togel .prediksi-market-list{
+    padding-bottom:10px!important;
+  }
+}
+
+/* V4 - pasang 3 gambar kategori pada summary prediksi */
+#page-prediksi-togel .prediksi-summary{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background:linear-gradient(90deg,rgba(3,18,16,.98) 0%,rgba(3,18,16,.96) 45%,rgba(3,18,16,.90) 68%,rgba(3,18,16,.84) 100%)!important;
+}
+#page-prediksi-togel .prediksi-summary > *{
+  position:relative!important;
+  z-index:2!important;
+}
+#page-prediksi-togel .prediksi-summary::before{
+  display:none!important;
+}
+#page-prediksi-togel .prediksi-summary::after{
+  content:''!important;
+  position:absolute!important;
+  top:0!important;
+  right:0!important;
+  height:100%!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  background-repeat:no-repeat!important;
+  background-position:right center!important;
+}
+#page-prediksi-togel .prediksi-summary.total::after{
+  width:42%!important;
+  min-width:190px!important;
+  background-image:url("../images/prediksi-summary-total.png")!important;
+  background-size:100% 100%!important;
+  opacity:.80!important;
+}
+#page-prediksi-togel .prediksi-summary.open::after{
+  width:31%!important;
+  min-width:150px!important;
+  background-image:url("../images/prediksi-summary-open.png")!important;
+  background-size:100% 100%!important;
+  opacity:.96!important;
+}
+#page-prediksi-togel .prediksi-summary.closed::after{
+  width:43%!important;
+  min-width:200px!important;
+  background-image:url("../images/prediksi-summary-closed.png")!important;
+  background-size:100% 100%!important;
+  opacity:.92!important;
+}
+#page-prediksi-togel .prediksi-summary-copy{
+  max-width:100%!important;
+}

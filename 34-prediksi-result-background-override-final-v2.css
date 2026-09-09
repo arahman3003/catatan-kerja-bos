@@ -1,0 +1,11 @@
+#page-prediksi-togel .prediksi-result-content{
+  position:relative!important;
+  background:
+    linear-gradient(180deg, rgba(2,18,15,.20), rgba(2,18,15,.34)),
+    url('../images/image-23.png') center 58% / cover no-repeat!important;
+}
+#page-prediksi-togel .prediksi-result-content::before,
+#page-prediksi-togel .prediksi-result-content::after{
+  content:none!important;
+  display:none!important;
+}

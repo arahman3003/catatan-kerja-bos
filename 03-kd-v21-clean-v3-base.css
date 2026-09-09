@@ -1,0 +1,88 @@
+/* ============================================================
+   V21 CLEAN — V3 PADAT FULLSCREEN sebagai mesin layout utama.
+   Hanya adaptasi fitur/gambar terbaru, tanpa tumpukan override V4-V20.
+   ============================================================ */
+@media (min-width:981px){
+  /* Panel kanan hero: satu gambar penuh */
+  .kd-manga-panel{
+    display:block!important;
+    height:auto!important;
+  }
+  .kd-manga-single{
+    width:100%!important;
+    height:100%!important;
+    min-height:100%!important;
+    padding:0!important;
+    border:1px solid rgba(53,242,154,.62)!important;
+    background:#f2f2f2 url("../images/panel-kanan-manga.png") center center/100% 100% no-repeat!important;
+    overflow:hidden!important;
+  }
+  .kd-manga-single::before,.kd-manga-single::after,
+  .kd-manga-single>b,.kd-manga-single>span{display:none!important;content:none!important;}
+
+  /* Sidebar motivation: gambar baru, proporsional dan tidak memaksa layout */
+  .kd-sidebar-motivation{
+    margin:14px 0 52px!important;
+    height:auto!important;
+    min-height:0!important;
+    aspect-ratio:1086/1448!important;
+    padding:0!important;
+    border:1px solid rgba(53,242,154,.50)!important;
+    border-radius:10px!important;
+    background:#020806 url("../images/sidebar-motivasi-kaizokugari.png") center/cover no-repeat!important;
+    overflow:hidden!important;
+  }
+  .kd-sidebar-motivation::before,.kd-sidebar-manga-word{display:none!important;content:none!important;}
+
+  /* Font quote atas tetap tema comic */
+  .kd-top-quote{
+    font-family:Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif!important;
+    font-style:italic!important;
+    font-weight:900!important;
+  }
+
+  /* Bottom: Quote + banner Tips + Brand, memakai ritme V3 */
+  .kd-bottom-grid{
+    grid-template-columns:1.05fr 2.7fr .82fr!important;
+    min-height:165px!important;
+    height:165px!important;
+    gap:10px!important;
+    margin-top:9px!important;
+    align-items:stretch!important;
+  }
+  .kd-bottom-grid>article{
+    height:165px!important;
+    min-height:165px!important;
+    max-height:165px!important;
+  }
+  .kd-tips-banner{
+    padding:0!important;
+    overflow:hidden!important;
+    border:none!important;
+    box-shadow:none!important;
+    background:transparent!important;
+  }
+  .kd-tips-banner-img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:fill!important;
+  }
+
+  /* Akses cepat tetap sepenuhnya mengikuti V3: tidak ada fixed-height tambahan. */
+  .kd-quick-section{flex:1 0 auto!important;}
+}
+
+@media (max-width:980px){
+  .kd-manga-panel{display:block!important;}
+  .kd-manga-single{
+    min-height:200px!important;
+    padding:0!important;
+    background:#f2f2f2 url("../images/panel-kanan-manga.png") center/cover no-repeat!important;
+  }
+  .kd-manga-single::before,.kd-manga-single::after,
+  .kd-manga-single>b,.kd-manga-single>span{display:none!important;content:none!important;}
+  .kd-bottom-grid{grid-template-columns:1fr!important;height:auto!important;}
+  .kd-bottom-grid>article{height:auto!important;max-height:none!important;}
+  .kd-tips-banner-img{width:100%!important;height:auto!important;object-fit:contain!important;}
+}

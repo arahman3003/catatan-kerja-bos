@@ -1,0 +1,129 @@
+/* ============================================================
+   MENU GAMBAR — FINAL LOCK RAPAT / PADAT SESUAI REFERENSI USER
+   Fix utama:
+   - kartu tidak berjauhan
+   - 6 kolom rapat seperti contoh
+   - poster kanan satu border dan lebar proporsional
+   ============================================================ */
+@media (min-width:1181px){
+  #page-gambar{
+    box-sizing:border-box!important;
+    overflow-x:hidden!important;
+  }
+  #page-gambar .gambar-shell{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    box-sizing:border-box!important;
+  }
+  #page-gambar .kg-gambar-hero,
+  #page-gambar .kg-gambar-toolbar,
+  #page-gambar .kg-gambar-content{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+  }
+
+  #page-gambar .kg-gambar-content{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 228px!important;
+    gap:12px!important;
+    align-items:start!important;
+  }
+
+  #page-gambar .gambar-grid{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    display:grid!important;
+    grid-template-columns:repeat(6,minmax(0,1fr))!important;
+    column-gap:12px!important;
+    row-gap:12px!important;
+    justify-content:stretch!important;
+    align-items:start!important;
+  }
+
+  #page-gambar .gambar-card{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:182px!important;
+    min-height:182px!important;
+    max-height:182px!important;
+  }
+  #page-gambar .gambar-card-head{
+    min-height:30px!important;
+    height:30px!important;
+    padding:5px 24px 4px 10px!important;
+  }
+  #page-gambar .gambar-card-title{
+    font-size:11px!important;
+    line-height:1.15!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  #page-gambar .gambar-card-image{
+    width:calc(100% - 16px)!important;
+    height:88px!important;
+    min-height:88px!important;
+    max-height:88px!important;
+    margin:0 8px!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+  #page-gambar .gambar-card-body{
+    padding:6px 8px 8px!important;
+    gap:5px!important;
+  }
+  #page-gambar .gambar-card-date{
+    font-size:9px!important;
+    line-height:1.12!important;
+  }
+  #page-gambar .gambar-card-actions{
+    gap:6px!important;
+  }
+  #page-gambar .gambar-card-actions button{
+    height:28px!important;
+    min-height:28px!important;
+    font-size:10px!important;
+  }
+
+  #page-gambar .kg-gambar-poster{
+    width:228px!important;
+    min-width:228px!important;
+    max-width:228px!important;
+    height:552px!important;
+    margin:0!important;
+    padding:0!important;
+    border:0px solid rgba(51,242,154,.72)!important;
+    border-radius:0!important;
+    outline:none!important;
+    box-shadow:none!important;
+    background-size:100% 100%!important;
+    background-position:center center!important;
+    background-repeat:no-repeat!important;
+    justify-self:stretch!important;
+    align-self:start!important;
+  }
+
+  .main{min-width:0!important;overflow-x:hidden!important;}
+  .app{min-width:0!important;overflow-x:hidden!important;}
+}
+
+@media (min-width:1700px){
+  #page-gambar .kg-gambar-content{
+    grid-template-columns:minmax(0,1fr) 238px!important;
+  }
+  #page-gambar .kg-gambar-poster{
+    width:238px!important;
+    min-width:238px!important;
+    max-width:238px!important;
+    height:560px!important;
+  }
+}

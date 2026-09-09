@@ -1,0 +1,34 @@
+/* V5: card sedikit lebih lebar + space kiri kanan diperkecil */
+#page-notepad .note-grid{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:15px !important;
+  width:calc(100% - 10px) !important;
+  margin:0 5px !important;
+  justify-content:stretch !important;
+  column-count:unset !important;
+  align-items:stretch !important;
+  box-sizing:border-box !important;
+}
+#page-notepad .note-card{
+  width:100% !important;
+  height:330px !important;
+  min-height:330px !important;
+  max-height:330px !important;
+}
+@media(max-width:1750px){
+  #page-notepad .note-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}
+}
+@media(max-width:1400px){
+  #page-notepad .note-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
+}
+@media(max-width:980px){
+  #page-notepad .note-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+}
+@media(max-width:640px){
+  #page-notepad .note-grid{
+    grid-template-columns:1fr !important;
+    width:100% !important;
+    margin:0 !important;
+  }
+}
