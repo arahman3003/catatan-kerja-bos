@@ -1,0 +1,27 @@
+{
+  "version": "V25_MODULES",
+  "base": "V24",
+  "modules": {
+    "syair-togel": {
+      "fragment": "pages/syair-togel.html",
+      "css": "assets/css/modules/syair-togel.css",
+      "js": "assets/js/modules/syair-togel.js",
+      "image": "assets/images/modules/syair-template.png"
+    },
+    "bukti-kemenangan": {
+      "fragment": "pages/bukti-kemenangan.html",
+      "css": "assets/css/modules/bukti-kemenangan.css",
+      "js": "assets/js/modules/bukti-kemenangan.js"
+    },
+    "selisih": {
+      "fragment": "pages/selisih-qris.html",
+      "css": "assets/css/modules/selisih-qris.css",
+      "js": "assets/js/modules/selisih-qris.js"
+    },
+    "kalkulator-bola": {
+      "fragment": "pages/kalkulator-bola.html",
+      "css": "assets/css/modules/kalkulator-bola.css",
+      "js": "assets/js/modules/kalkulator-bola.js"
+    }
+  }
+}
