@@ -35,17 +35,20 @@
 
       jadwalGrid.innerHTML=shown.map(item=>`
         <article class="jadwal-card" data-jadwal-id="${escapeJadwalText(item.id)}">
-          <button type="button" class="jadwal-card-edit" data-edit-jadwal="${escapeJadwalText(item.id)}" title="Edit jadwal">✏️</button>
+          <button type="button" class="jadwal-card-edit" data-edit-jadwal="${escapeJadwalText(item.id)}" title="Edit jadwal">✎</button>
           <div class="jadwal-card-title">${escapeJadwalText(item.name)}</div>
           <div class="jadwal-row">
+            <span class="jadwal-row-icon" aria-hidden="true">▦</span>
             <div class="jadwal-label">Hari</div>
             <div class="jadwal-value day">${escapeJadwalText(item.day)}</div>
           </div>
           <div class="jadwal-row">
+            <span class="jadwal-row-icon" aria-hidden="true">◷</span>
             <div class="jadwal-label">Tutup</div>
             <div class="jadwal-value close">${escapeJadwalText(item.close)}</div>
           </div>
           <div class="jadwal-row">
+            <span class="jadwal-row-icon" aria-hidden="true">➜</span>
             <div class="jadwal-label">Buka</div>
             <div class="jadwal-value open">${escapeJadwalText(item.open)}</div>
           </div>
