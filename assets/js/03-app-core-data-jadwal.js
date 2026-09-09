@@ -14,6 +14,7 @@
     const jadwalEditClose = document.getElementById("jadwalEditClose");
     const jadwalEditOpen = document.getElementById("jadwalEditOpen");
     const jadwalEditModeBtn = document.getElementById("jadwalEditModeBtn");
+    const jadwalStatusFilter = document.getElementById("jadwalStatusFilter");
 
     function escapeJadwalText(value){
       return String(value||"").replace(/[&<>"']/g,char=>({
@@ -21,12 +22,83 @@
       }[char]));
     }
 
+    const JADWAL_MARKET_BACKGROUNDS = {
+      "hokidraw":"newyork-liberty-1.png",
+      "toto-macau-pagi":"macau-tower-3.png",
+      "kentucky-midday":"kentucky-horse-1.png",
+      "florida-midday":"florida-beach-2.png",
+      "huahin-0100":"huahin-temple-1.png",
+      "bangkok-0130":"bangkok-temple-2.png",
+      "newyork-midday":"newyork-liberty-1.png",
+      "carolina-day":"carolina-beach-2.png",
+      "brunei-02":"brunei-mosque-2.png",
+      "oregon-03":"oregon-mountain-1.png",
+      "oregon-06":"oregon-mountain-2.png",
+      "california":"california-goldengate.png",
+      "florida-evening":"florida-beach-1.png",
+      "oregon-09":"oregon-coast-1.png",
+      "bangkok-0930":"bangkok-temple-1.png",
+      "newyork-evening":"newyork-liberty-1.png",
+      "totocambodia":"cambodia-angkor-2.png",
+      "kentucky-evening":"kentucky-horse-1.png",
+      "carolina-evening":"carolina-beach-1.png",
+      "chelsea-11":"chelsea-bigben-1.png",
+      "oregon-12":"oregon-mountain-1.png",
+      "poipet12":"poipet-gate-1.png",
+      "bullseye":"bullseye-target-1.png",
+      "totomacau-siang":"macau-tower-1.png",
+      "sydney":"sydney-opera-1.png",
+      "jakarta-1400":"jakarta-monas-1.png",
+      "brunei-14":"brunei-mosque-1.png",
+      "chelsea-15":"chelsea-bigben-2.png",
+      "totomali-1530":"usa-flag.png",
+      "totomacau-5d-sore":"macau-tower-2.png",
+      "poipet15":"poipet-gate-2.png",
+      "totomacau-sore":"macau-tower-3.png",
+      "huahin-1630":"huahin-temple-1.png",
+      "king-kong4d-i":"usa-flag.png",
+      "singapore":"singapore-merlion-1.png",
+      "magnum4d":"malaysia-petronas-1.png",
+      "totomacau-malam-i":"macau-tower-1.png",
+      "chelsea-19":"chelsea-bigben-1.png",
+      "poipet19":"poipet-gate-1.png",
+      "pcso":"pcso-generic-1.png",
+      "totomali-2030":"usa-flag.png",
+      "huahin-2100":"huahin-temple-1.png",
+      "chelsea-21":"chelsea-bigben-2.png",
+      "totomacau-5d-malam":"macau-tower-2.png",
+      "nevada":"nevada-mountain-1.png",
+      "brunei-21":"brunei-mosque-2.png",
+      "totomacau-malam-ii":"macau-tower-3.png",
+      "poipet22":"poipet-gate-2.png",
+      "hongkong":"macau-tower-2.png",
+      "totomacau-malam-iii":"macau-tower-1.png",
+      "totomali-2330":"usa-flag.png",
+      "jakarta-2330":"jakarta-monas-1.png",
+      "king-kong4d-ii":"usa-flag.png"
+    };
+
+    const JADWAL_ICON_CALENDAR = '<svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="6" width="16" height="14" rx="2"></rect><path d="M8 3.8v4M16 3.8v4M4 10h16"></path></svg>';
+    const JADWAL_ICON_CLOCK = '<svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="8.3"></circle><path d="M12 7.5v5l3.3 2"></path></svg>';
+    const JADWAL_ICON_OPEN = '<svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg>';
+
+    function jadwalBackgroundFor(item){
+      const file=JADWAL_MARKET_BACKGROUNDS[item?.id]||"usa-flag.png";
+      return `assets/images/market-icons/${file}`;
+    }
+
     function renderJadwalTogel(){
       if(!jadwalGrid) return;
+
       const query=(jadwalSearchInput?.value||"").trim().toLowerCase();
-      const shown=query
-        ? jadwalTogelData.filter(item=>item.name.toLowerCase().includes(query))
-        : jadwalTogelData;
+      const status=(jadwalStatusFilter?.value||"all").toLowerCase();
+
+      let shown=jadwalTogelData.filter(item=>{
+        if(query && !String(item.name||"").toLowerCase().includes(query)) return false;
+        if(status==="normal" && String(item.day||"").trim().toLowerCase()!=="senin s/d minggu") return false;
+        if(status==="special" && String(item.day||"").trim().toLowerCase()==="senin s/d minggu") return false;
+        return true;
+      });
 
       if(!shown.length){
         jadwalGrid.innerHTML='<div class="jadwal-empty">Pasaran tidak ditemukan.</div>';
@@ -34,21 +106,21 @@
       }
 
       jadwalGrid.innerHTML=shown.map(item=>`
-        <article class="jadwal-card" data-jadwal-id="${escapeJadwalText(item.id)}">
+        <article class="jadwal-card" data-jadwal-id="${escapeJadwalText(item.id)}" style="--jadwal-bg:url('${jadwalBackgroundFor(item)}')">
           <button type="button" class="jadwal-card-edit" data-edit-jadwal="${escapeJadwalText(item.id)}" title="Edit jadwal">✎</button>
           <div class="jadwal-card-title">${escapeJadwalText(item.name)}</div>
           <div class="jadwal-row">
-            <span class="jadwal-row-icon" aria-hidden="true">▦</span>
+            <span class="jadwal-row-icon calendar-icon" aria-hidden="true">${JADWAL_ICON_CALENDAR}</span>
             <div class="jadwal-label">Hari</div>
             <div class="jadwal-value day">${escapeJadwalText(item.day)}</div>
           </div>
           <div class="jadwal-row">
-            <span class="jadwal-row-icon" aria-hidden="true">◷</span>
+            <span class="jadwal-row-icon clock-icon" aria-hidden="true">${JADWAL_ICON_CLOCK}</span>
             <div class="jadwal-label">Tutup</div>
             <div class="jadwal-value close">${escapeJadwalText(item.close)}</div>
           </div>
           <div class="jadwal-row">
-            <span class="jadwal-row-icon" aria-hidden="true">➜</span>
+            <span class="jadwal-row-icon open-icon" aria-hidden="true">${JADWAL_ICON_OPEN}</span>
             <div class="jadwal-label">Buka</div>
             <div class="jadwal-value open">${escapeJadwalText(item.open)}</div>
           </div>
@@ -141,6 +213,22 @@
       if(event.key==="Escape"&&jadwalEditModal?.classList.contains("show")){
         closeJadwalEditModal();
       }
+    });
+
+    jadwalStatusFilter?.addEventListener("change",()=>{
+      if(jadwalStatusFilter.value==="edit"){
+        if(!isFullAccessRole(currentUserProfile?.role)){
+          showToast("Hanya Owner yang dapat mengaktifkan mode edit");
+          jadwalStatusFilter.value="all";
+          document.body.classList.remove("jadwal-editing");
+          return renderJadwalTogel();
+        }
+        const editing=!document.body.classList.contains("jadwal-editing");
+        document.body.classList.toggle("jadwal-editing",editing);
+        showToast(editing ? "Mode edit jadwal aktif" : "Mode edit jadwal dimatikan");
+        jadwalStatusFilter.value="all";
+      }
+      renderJadwalTogel();
     });
 
     jadwalSearchInput?.addEventListener("input",renderJadwalTogel);
