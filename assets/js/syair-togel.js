@@ -2,7 +2,7 @@ window.JONI_initSyairLegacy = function(){
 /* === SYAIR JS ASLI UPLOAD BOS: syair(3).js === */
 /* Generator Syair Togel — memakai template emas yang tertanam di file */
 (function(){
-  const templateData = "assets/images/modules/syair-template.png";
+  const templateData = "assets/images/syair-template.png";
   const canvas = document.getElementById('absensiSyairCanvas');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
