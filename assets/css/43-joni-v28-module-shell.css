@@ -1,9 +1,0 @@
-/* JONI V28 - shell only. Feature visuals live in their own module CSS files. */
-#page-syair-togel.active,#page-bukti-kemenangan.active,#page-selisih.active,#page-kalkulator-bola.active{padding:0!important;max-width:none!important}
-.joni-v28-module-host{width:100%;min-width:0;min-height:calc(100vh - 24px)}
-.joni-v28-loading,.joni-v28-error{min-height:240px;display:grid;place-items:center;align-content:center;gap:10px;padding:30px;text-align:center;background:#050914;color:#e9f5ff;border:1px solid rgba(88,230,255,.18);border-radius:18px;font:800 14px/1.5 Inter,system-ui,sans-serif}
-.joni-v28-error{color:#ffd2d8;border-color:rgba(255,88,110,.35)}
-.joni-v28-error span{font-weight:600;opacity:.85}
-body.page-qris-v440 #page-selisih{background:#050814!important}
-body.page-bola-v450 #page-kalkulator-bola{background:#050816!important}
-@media(max-width:900px){.joni-v28-module-host{min-height:calc(100vh - 12px)}}
