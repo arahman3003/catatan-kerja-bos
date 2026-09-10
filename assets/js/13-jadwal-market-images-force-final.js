@@ -1,13 +1,14 @@
 /* ============================================================
-   JADWAL TOGEL - FINAL BACKGROUND USER
-   File pengganti untuk: assets/js/13-jadwal-market-images-force-final.js
-
-   Tujuan:
-   - Semua 53 pasaran memakai gambar yang dikirim user.
-   - Tidak memakai lagi assets/images/market-icons/* yang sempat memunculkan
-     gambar putih/icon Prediksi.
-   - Background dipasang langsung ke CARD dengan inline !important.
-   - Layer img lama disembunyikan agar tidak bisa menimpa background.
+   JADWAL / PREDIKSI PASARAN - ICON + BACKGROUND FIX FINAL
+   Update:
+   - Menjaga background pasaran yang sudah dipakai.
+   - Memasang icon khusus untuk pasaran yang sebelumnya masih kosong / placeholder:
+     * TOTO MALI 1530 / 2030 / 2330
+     * POIPET 12 / 15 / 19 / 22
+     * KINGKONG 4D I / II
+     * ALL PREDIKSI
+     * ALL PREDIKSI BESOK
+   - Dibuat defensif agar tetap jalan walau struktur card sedikit berbeda.
    ============================================================ */
 (function(){
   "use strict";
@@ -68,51 +69,197 @@
     "king-kong4d-ii":"assets/images/hongkong.png"
   };
 
-  function applyCard(card){
-    if(!card) return;
-    const id=String(card.getAttribute("data-jadwal-id")||"").trim().toLowerCase();
-    const src=MARKET_BG[id];
-    if(!src) return;
+  const MARKET_ICON = {
+    "totomali-1530":"assets/images/toto-mali-icon.png",
+    "totomali-2030":"assets/images/toto-mali-icon.png",
+    "totomali-2330":"assets/images/toto-mali-icon.png",
+    "poipet12":"assets/images/poipet-icon.png",
+    "poipet15":"assets/images/poipet-icon.png",
+    "poipet19":"assets/images/poipet-icon.png",
+    "poipet22":"assets/images/poipet-icon.png",
+    "king-kong4d-i":"assets/images/kingkong4d-icon.png",
+    "king-kong4d-ii":"assets/images/kingkong4d-icon.png",
+    "all-prediksi":"assets/images/all-prediksi-icon.png",
+    "allprediksi":"assets/images/all-prediksi-icon.png",
+    "all-prediksi-besok":"assets/images/all-prediksi-besok-icon.png",
+    "allprediksibesok":"assets/images/all-prediksi-besok-icon.png"
+  };
 
-    // Inline + important menang terhadap CSS 43/44/45 lama.
-    card.style.setProperty("background-image", `url("${src}")`, "important");
-    card.style.setProperty("background-size", "cover", "important");
-    card.style.setProperty("background-position", "center center", "important");
-    card.style.setProperty("background-repeat", "no-repeat", "important");
-    card.style.setProperty("background-color", "#02231a", "important");
-    card.setAttribute("data-jadwal-final-user-bg", "1");
+  function normalize(val){
+    return String(val || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
 
-    // Matikan image/icon lama dari 03-app-core-data-jadwal.js.
-    const art=card.querySelector(".jadwal-card-art");
-    if(art){
-      art.style.setProperty("display", "none", "important");
-      art.style.setProperty("visibility", "hidden", "important");
-      art.style.setProperty("opacity", "0", "important");
-      const img=art.querySelector("img");
-      if(img) img.setAttribute("src", src);
+  function getCardTitle(card){
+    const selectors = [
+      '.jadwal-card-title', '.jadwal-card-name', '.market-title', '.market-name',
+      '.pasaran-title', '.pasaran-name', '.title', 'h2', 'h3', 'h4', 'strong'
+    ];
+    for(const sel of selectors){
+      const el = card.querySelector(sel);
+      if(el && el.textContent && el.textContent.trim()) return el.textContent.trim();
+    }
+    return card.textContent || '';
+  }
+
+  function detectKey(card){
+    const rawId = card.getAttribute('data-jadwal-id') || card.getAttribute('data-market-id') || card.id || '';
+    const id = normalize(rawId);
+    const title = normalize(getCardTitle(card));
+
+    if (MARKET_BG[id] || MARKET_ICON[id]) return id;
+    if (title.includes('all-prediksi-besok')) return 'all-prediksi-besok';
+    if (title.includes('all-prediksi')) return 'all-prediksi';
+    if ((id + ' ' + title).includes('king-kong4d-ii') || /king-?kong.*4d.*ii/.test(id + ' ' + title)) return 'king-kong4d-ii';
+    if ((id + ' ' + title).includes('king-kong4d-i') || /king-?kong.*4d/.test(id + ' ' + title)) return 'king-kong4d-i';
+    if ((id + ' ' + title).includes('poipet22') || /poipet.*22/.test(id + ' ' + title)) return 'poipet22';
+    if ((id + ' ' + title).includes('poipet19') || /poipet.*19/.test(id + ' ' + title)) return 'poipet19';
+    if ((id + ' ' + title).includes('poipet15') || /poipet.*15/.test(id + ' ' + title)) return 'poipet15';
+    if ((id + ' ' + title).includes('poipet12') || /poipet.*12/.test(id + ' ' + title)) return 'poipet12';
+    if ((id + ' ' + title).includes('totomali-2330') || /toto-?mali.*2330/.test(id + ' ' + title)) return 'totomali-2330';
+    if ((id + ' ' + title).includes('totomali-2030') || /toto-?mali.*2030/.test(id + ' ' + title)) return 'totomali-2030';
+    if ((id + ' ' + title).includes('totomali-1530') || /toto-?mali.*1530/.test(id + ' ' + title)) return 'totomali-1530';
+    return id || title;
+  }
+
+  function applyBackground(card, bgSrc){
+    if(!bgSrc) return;
+    card.style.setProperty('background-image', `url("${bgSrc}")`, 'important');
+    card.style.setProperty('background-size', 'cover', 'important');
+    card.style.setProperty('background-position', 'center center', 'important');
+    card.style.setProperty('background-repeat', 'no-repeat', 'important');
+    card.style.setProperty('background-color', '#02231a', 'important');
+    card.setAttribute('data-jadwal-final-user-bg', '1');
+  }
+
+  function findThumbElements(card){
+    const imgSelectors = [
+      '.jadwal-card-art img', '.jadwal-card-thumb img', '.market-thumb img',
+      '.pasaran-thumb img', '.thumb img', '.icon img'
+    ];
+    for(const sel of imgSelectors){
+      const el = card.querySelector(sel);
+      if(el) return { img: el, box: el.parentElement };
+    }
+
+    const boxSelectors = [
+      '.jadwal-card-art', '.jadwal-card-thumb', '.market-thumb',
+      '.pasaran-thumb', '.thumb', '.icon'
+    ];
+    for(const sel of boxSelectors){
+      const el = card.querySelector(sel);
+      if(el) return { img: el.querySelector('img'), box: el };
+    }
+
+    const firstImg = card.querySelector('img');
+    if(firstImg) return { img: firstImg, box: firstImg.parentElement };
+    return { img: null, box: null };
+  }
+
+  function createThumbBox(card, src){
+    const box = document.createElement('div');
+    box.className = 'jadwal-card-art jadwal-card-art--ghostwriter-icon';
+    box.style.cssText = [
+      'width:48px', 'min-width:48px', 'height:48px', 'border-radius:12px',
+      'overflow:hidden', 'margin-right:12px', 'background:#081814',
+      'box-shadow:0 0 0 1px rgba(255,255,255,.1) inset'
+    ].join(';');
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'market-icon';
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    box.appendChild(img);
+
+    const target = card.firstElementChild || card;
+    card.insertBefore(box, target);
+  }
+
+  function applyIcon(card, iconSrc){
+    if(!iconSrc) return;
+    const found = findThumbElements(card);
+    const img = found.img;
+    const box = found.box;
+
+    if(img){
+      img.src = iconSrc;
+      img.alt = 'market-icon';
+      img.removeAttribute('srcset');
+      img.style.setProperty('display', 'block', 'important');
+      img.style.setProperty('visibility', 'visible', 'important');
+      img.style.setProperty('opacity', '1', 'important');
+      img.style.setProperty('width', '100%', 'important');
+      img.style.setProperty('height', '100%', 'important');
+      img.style.setProperty('object-fit', 'cover', 'important');
+      img.onerror = function(){ this.src = iconSrc; };
+    }
+
+    if(box){
+      box.style.setProperty('display', 'block', 'important');
+      box.style.setProperty('visibility', 'visible', 'important');
+      box.style.setProperty('opacity', '1', 'important');
+      box.style.setProperty('overflow', 'hidden', 'important');
+      box.style.setProperty('border-radius', '12px', 'important');
+      box.style.setProperty('background-image', `url("${iconSrc}")`, 'important');
+      box.style.setProperty('background-size', 'cover', 'important');
+      box.style.setProperty('background-position', 'center center', 'important');
+      box.style.setProperty('background-repeat', 'no-repeat', 'important');
+      if(!img){
+        box.innerHTML = '';
+        const injected = document.createElement('img');
+        injected.src = iconSrc;
+        injected.alt = 'market-icon';
+        injected.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+        box.appendChild(injected);
+      }
+    }else if(card && !card.querySelector('.jadwal-card-art--ghostwriter-icon')){
+      createThumbBox(card, iconSrc);
     }
   }
 
+  function applyCard(card){
+    if(!card || card.nodeType !== 1) return;
+    const key = detectKey(card);
+    const bgSrc = MARKET_BG[key];
+    const iconSrc = MARKET_ICON[key];
+    if(bgSrc) applyBackground(card, bgSrc);
+    if(iconSrc) applyIcon(card, iconSrc);
+  }
+
+  function getAllCards(){
+    return document.querySelectorAll([
+      '#page-jadwal-togel .jadwal-card[data-jadwal-id]',
+      '.jadwal-card[data-jadwal-id]',
+      '.market-card[data-jadwal-id]',
+      '[data-jadwal-id]',
+      '[data-market-id]'
+    ].join(','));
+  }
+
   function applyAll(){
-    document.querySelectorAll('#page-jadwal-togel .jadwal-card[data-jadwal-id]').forEach(applyCard);
+    getAllCards().forEach(applyCard);
   }
 
   function boot(){
     applyAll();
+    const roots = [
+      document.getElementById('jadwalGrid'),
+      document.getElementById('page-jadwal-togel'),
+      document.body
+    ].filter(Boolean);
 
-    // Grid dirender ulang saat search/filter, jadi pantau perubahan DOM.
-    const grid=document.getElementById("jadwalGrid");
-    if(grid){
-      const observer=new MutationObserver(applyAll);
-      observer.observe(grid,{childList:true,subtree:true});
-    }
+    roots.forEach(root => {
+      const observer = new MutationObserver(() => applyAll());
+      observer.observe(root, { childList:true, subtree:true, attributes:true, attributeFilter:['data-jadwal-id','data-market-id','src'] });
+    });
 
-    // Pengaman terhadap file override lama yang mungkin masih ada di repo.
-    setInterval(applyAll, 1200);
+    setInterval(applyAll, 1500);
   }
 
-  if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded", boot, {once:true});
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot, {once:true});
   }else{
     boot();
   }
