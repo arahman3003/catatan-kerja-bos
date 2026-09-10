@@ -1,0 +1,42 @@
+/* ============================================================
+   FIX GAMBAR PUTIH / GAMBAR SALAH JADWAL TOGEL
+   - Menonaktifkan artwork icon lama yang salah ambil gambar prediksi
+   - Memaksa card memakai background dari gambar user terbaru
+   ============================================================ */
+
+#page-jadwal-togel .jadwal-card{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background-color:#02231a!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-position:center center!important;
+}
+
+#page-jadwal-togel .jadwal-card .jadwal-card-art{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+}
+
+#page-jadwal-togel .jadwal-card .jadwal-card-shade{
+  display:block!important;
+  visibility:visible!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  pointer-events:none!important;
+  background:linear-gradient(90deg,
+    rgba(0,31,24,.97) 0%,
+    rgba(0,31,24,.95) 26%,
+    rgba(0,31,24,.82) 45%,
+    rgba(0,31,24,.45) 66%,
+    rgba(0,31,24,.15) 84%,
+    rgba(0,31,24,.03) 100%)!important;
+}
+
+#page-jadwal-togel .jadwal-card .jadwal-card-content{position:relative!important;z-index:7!important;}
+#page-jadwal-togel .jadwal-card .jadwal-card-title,
+#page-jadwal-togel .jadwal-card .jadwal-card-slashes,
+#page-jadwal-togel .jadwal-card .jadwal-card-edit{position:relative!important;z-index:9!important;}
