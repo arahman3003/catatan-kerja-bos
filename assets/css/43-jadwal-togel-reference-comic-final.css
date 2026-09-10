@@ -577,7 +577,7 @@ body.jadwal-owner-mode.jadwal-editing #page-jadwal-togel .jadwal-card-edit{
   top:0!important;
   right:0!important;
   bottom:0!important;
-  left:270px!important;
+  left:0!important;
   width:auto!important;
   height:100vh!important;
   height:100dvh!important;
@@ -610,7 +610,7 @@ body.jadwal-owner-mode.jadwal-editing #page-jadwal-togel .jadwal-card-edit{
   bottom:auto!important;
   transform:none!important;
   margin:auto!important;
-  width:min(560px,calc(100vw - 314px))!important;
+  width:min(560px,calc(100vw - 44px))!important;
   max-width:560px!important;
   max-height:calc(100dvh - 44px)!important;
   overflow:auto!important;
