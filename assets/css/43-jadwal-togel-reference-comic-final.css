@@ -558,3 +558,20 @@ body.jadwal-owner-mode.jadwal-editing #page-jadwal-togel .jadwal-card-edit{
     width:72%;
   }
 }
+
+
+/* ============================================================
+   FINAL BOX SIZE MATCH REFERENCE
+   Hanya mengecilkan lebar area card di desktop.
+   Gambar, isi card, header, search, JS, dan data tidak disentuh.
+   ============================================================ */
+@media (min-width:1281px){
+  #page-jadwal-togel .jadwal-grid{
+    width:min(100%,1360px)!important;
+    max-width:1360px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:8px 10px!important;
+  }
+}
