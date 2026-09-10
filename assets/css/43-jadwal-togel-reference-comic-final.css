@@ -575,3 +575,83 @@ body.jadwal-owner-mode.jadwal-editing #page-jadwal-togel .jadwal-card-edit{
     gap:8px 10px!important;
   }
 }
+
+
+/* ============================================================
+   UPDATE: GRID 5 PASARAN PER BARIS DI LAYAR BESAR
+   Mengurangi ruang kosong kiri-kanan dan membuat card lebih padat.
+   ============================================================ */
+@media (min-width:1600px){
+  #page-jadwal-togel .jadwal-grid{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    gap:8px 8px!important;
+  }
+
+  #page-jadwal-togel .jadwal-card{
+    height:144px!important;
+    min-height:144px!important;
+  }
+
+  #page-jadwal-togel .jadwal-card-content{
+    padding:7px 10px 8px 12px!important;
+  }
+
+  #page-jadwal-togel .jadwal-card-title{
+    width:86%!important;
+    font-size:22px!important;
+    letter-spacing:.4px!important;
+  }
+
+  #page-jadwal-togel .jadwal-card-art{
+    width:70%!important;
+    right:-5%!important;
+  }
+
+  #page-jadwal-togel .jadwal-info-list{
+    width:69%!important;
+    min-width:0!important;
+    margin-top:3px!important;
+  }
+
+  #page-jadwal-togel .jadwal-row{
+    grid-template-columns:16px 44px minmax(0,1fr)!important;
+    column-gap:6px!important;
+    min-height:23px!important;
+    font-size:12px!important;
+  }
+
+  #page-jadwal-togel .jadwal-row-icon{
+    width:16px!important;
+    height:16px!important;
+  }
+
+  #page-jadwal-togel .jadwal-row-icon svg{
+    width:15px!important;
+    height:15px!important;
+  }
+
+  #page-jadwal-togel .jadwal-label,
+  #page-jadwal-togel .jadwal-value{
+    font-size:12px!important;
+  }
+
+  #page-jadwal-togel .jadwal-card-slashes{
+    right:8px!important;
+    font-size:28px!important;
+  }
+}
+
+@media (min-width:1281px) and (max-width:1599px){
+  #page-jadwal-togel .jadwal-grid{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:8px 8px!important;
+  }
+}
