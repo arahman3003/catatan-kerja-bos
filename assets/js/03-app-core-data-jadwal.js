@@ -1,3 +1,4 @@
+/* FIX JADWAL BACKGROUND INLINE FINAL 2026-09-10 */
 /* DATA JADWAL TOGEL */
     const DEFAULT_JADWAL_TOGEL = [{"id": "hokidraw", "name": "HOKIDRAW", "day": "Senin s/d Minggu", "close": "RESULT 24X", "open": "1 JAM SEKALI", "order": 0}, {"id": "toto-macau-pagi", "name": "TOTO MACAU PAGI", "day": "Senin s/d Minggu", "close": "00:00 WIB", "open": "00:15 WIB", "order": 1}, {"id": "kentucky-midday", "name": "KENTUCKY MIDDAY", "day": "Senin s/d Minggu", "close": "00:05 WIB", "open": "00:20 WIB", "order": 2}, {"id": "florida-midday", "name": "FLORIDA MIDDAY", "day": "Senin s/d Minggu", "close": "00:20 WIB", "open": "00:30 WIB", "order": 3}, {"id": "huahin-0100", "name": "HUAHIN 0100", "day": "Senin s/d Minggu", "close": "00:45 WIB", "open": "01:00 WIB", "order": 4}, {"id": "bangkok-0130", "name": "BANGKOK 0130", "day": "Senin s/d Minggu", "close": "01:15 WIB", "open": "01:30 WIB", "order": 5}, {"id": "newyork-midday", "name": "NEWYORK MIDDAY", "day": "Senin s/d Minggu", "close": "01:15 WIB", "open": "01:25 WIB", "order": 6}, {"id": "carolina-day", "name": "CAROLINA DAY", "day": "Senin s/d Minggu", "close": "01:45 WIB", "open": "02:00 WIB", "order": 7}, {"id": "brunei-02", "name": "BRUNEI 02", "day": "Senin s/d Minggu", "close": "02:30 WIB", "open": "02:45 WIB", "order": 8}, {"id": "oregon-03", "name": "OREGON 03", "day": "Senin s/d Minggu", "close": "02:50 WIB", "open": "03:00 WIB", "order": 9}, {"id": "oregon-06", "name": "OREGON 06", "day": "Senin s/d Minggu", "close": "05:50 WIB", "open": "06:00 WIB", "order": 10}, {"id": "california", "name": "CALIFORNIA", "day": "Senin s/d Minggu", "close": "08:25 WIB", "open": "08:30 WIB", "order": 11}, {"id": "florida-evening", "name": "FLORIDA EVENING", "day": "Senin s/d Minggu", "close": "08:35 WIB", "open": "08:45 WIB", "order": 12}, {"id": "oregon-09", "name": "OREGON 09", "day": "Senin s/d Minggu", "close": "08:50 WIB", "open": "09:00 WIB", "order": 13}, {"id": "bangkok-0930", "name": "BANGKOK 0930", "day": "Senin s/d Minggu", "close": "09:15 WIB", "open": "09:30 WIB", "order": 14}, {"id": "newyork-evening", "name": "NEWYORK EVENING", "day": "Senin s/d Minggu", "close": "09:25 WIB", "open": "09:35 WIB", "order": 15}, {"id": "totocambodia", "name": "TOTOCAMBODIA", "day": "Senin s/d Minggu", "close": "10:45 WIB", "open": "11:00 WIB", "order": 16}, {"id": "kentucky-evening", "name": "KENTUCKY EVENING", "day": "Senin s/d Minggu", "close": "09:45 WIB", "open": "10:00 WIB", "order": 17}, {"id": "carolina-evening", "name": "CAROLINA EVENING", "day": "Senin s/d Minggu", "close": "10:17 WIB", "open": "10:22 WIB", "order": 18}, {"id": "chelsea-11", "name": "CHELSEA 11", "day": "Senin s/d Minggu", "close": "11:00 WIB", "open": "11:15 WIB", "order": 19}, {"id": "oregon-12", "name": "OREGON 12", "day": "Senin s/d Minggu", "close": "11:50 WIB", "open": "12:00 WIB", "order": 20}, {"id": "poipet12", "name": "POIPET12", "day": "Senin s/d Minggu", "close": "12:15 WIB", "open": "12:30 WIB", "order": 21}, {"id": "bullseye", "name": "BULLSEYE", "day": "Senin s/d Minggu", "close": "13:00 WIB", "open": "13:15 WIB", "order": 22}, {"id": "totomacau-siang", "name": "TOTOMACAU SIANG", "day": "Senin s/d Minggu", "close": "13:00 WIB", "open": "13:15 WIB", "order": 23}, {"id": "sydney", "name": "SYDNEY", "day": "Senin s/d Minggu", "close": "13:49 WIB", "open": "14:05 WIB", "order": 24}, {"id": "jakarta-1400", "name": "JAKARTA 1400", "day": "Senin s/d Minggu", "close": "13:55 WIB", "open": "14:10 WIB", "order": 25}, {"id": "brunei-14", "name": "BRUNEI 14", "day": "Senin s/d Minggu", "close": "14:30 WIB", "open": "14:45 WIB", "order": 26}, {"id": "chelsea-15", "name": "CHELSEA 15", "day": "Senin s/d Minggu", "close": "15:00 WIB", "open": "15:15 WIB", "order": 27}, {"id": "totomali-1530", "name": "TOTOMALI 1530", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB", "order": 28}, {"id": "totomacau-5d-sore", "name": "TOTOMACAU 5D SORE", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB", "order": 29}, {"id": "poipet15", "name": "POIPET15", "day": "Senin s/d Minggu", "close": "15:15 WIB", "open": "15:30 WIB", "order": 30}, {"id": "totomacau-sore", "name": "TOTOMACAU SORE", "day": "Senin s/d Minggu", "close": "16:00 WIB", "open": "16:15 WIB", "order": 31}, {"id": "huahin-1630", "name": "HUAHIN 1630", "day": "Senin s/d Minggu", "close": "16:15 WIB", "open": "16:30 WIB", "order": 32}, {"id": "king-kong4d-i", "name": "KING KONG4D I", "day": "Senin s/d Minggu", "close": "17:00 WIB", "open": "17:15 WIB", "order": 33}, {"id": "singapore", "name": "SINGAPORE", "day": "HARI SELASA & JUM'AT ( LIBUR )", "close": "17:30 WIB", "open": "17:45 WIB", "order": 34}, {"id": "magnum4d", "name": "MAGNUM4D", "day": "HARI RABU, SABTU & MINGGU", "close": "18:10 WIB", "open": "18:40 WIB", "order": 35}, {"id": "totomacau-malam-i", "name": "TOTOMACAU MALAM I", "day": "Senin s/d Minggu", "close": "19:00 WIB", "open": "19:15 WIB", "order": 36}, {"id": "chelsea-19", "name": "CHELSEA 19", "day": "Senin s/d Minggu", "close": "19:00 WIB", "open": "19:15 WIB", "order": 37}, {"id": "poipet19", "name": "POIPET19", "day": "Senin s/d Minggu", "close": "19:30 WIB", "open": "19:45 WIB", "order": 38}, {"id": "pcso", "name": "PCSO", "day": "Minggu Libur", "close": "19:50 WIB", "open": "20:10 WIB", "order": 39}, {"id": "totomali-2030", "name": "TOTOMALI 2030", "day": "Selasa s/d Minggu", "close": "20:15 WIB", "open": "20:30 WIB", "order": 40}, {"id": "huahin-2100", "name": "HUAHIN 2100", "day": "Selasa s/d Minggu", "close": "20:45 WIB", "open": "21:00 WIB", "order": 41}, {"id": "chelsea-21", "name": "CHELSEA 21", "day": "Senin s/d Minggu", "close": "21:00 WIB", "open": "21:15 WIB", "order": 42}, {"id": "totomacau-5d-malam", "name": "TOTOMACAU 5D MALAM", "day": "Senin s/d Minggu", "close": "21:15 WIB", "open": "21:30 WIB", "order": 43}, {"id": "nevada", "name": "NEVADA", "day": "Senin s/d Minggu", "close": "21:15 WIB", "open": "21:30 WIB", "order": 44}, {"id": "brunei-21", "name": "BRUNEI 21", "day": "Senin s/d Minggu", "close": "21:30 WIB", "open": "21:45 WIB", "order": 45}, {"id": "totomacau-malam-ii", "name": "TOTOMACAU MALAM II", "day": "Senin s/d Minggu", "close": "22:00 WIB", "open": "22:15 WIB", "order": 46}, {"id": "poipet22", "name": "POIPET22", "day": "Senin s/d Minggu", "close": "22:30 WIB", "open": "22:45 WIB", "order": 47}, {"id": "hongkong", "name": "HONGKONG", "day": "Senin s/d Minggu", "close": "22:59 WIB", "open": "23:15 WIB", "order": 48}, {"id": "totomacau-malam-iii", "name": "TOTOMACAU MALAM III", "day": "Senin s/d Minggu", "close": "23:00 WIB", "open": "23:15 WIB", "order": 49}, {"id": "totomali-2330", "name": "TOTOMALI 2330", "day": "Senin s/d Minggu", "close": "23:15 WIB", "open": "23:30 WIB", "order": 50}, {"id": "jakarta-2330", "name": "JAKARTA 2330", "day": "Senin s/d Sabtu", "close": "23:25 WIB", "open": "23:40 WIB", "order": 51}, {"id": "king-kong4d-ii", "name": "KING KONG4D II", "day": "Senin s/d Sabtu", "close": "23:30 WIB", "open": "23:45 WIB", "order": 52}];
     let jadwalTogelData = DEFAULT_JADWAL_TOGEL.map(item=>({...item}));
@@ -23,59 +24,98 @@
     }
 
     const JADWAL_MARKET_IMAGE = {
-      "hokidraw":"assets/images/jadwal-markets/hokidraw.png",
-      "toto-macau-pagi":"assets/images/jadwal-markets/toto-macau-pagi.png",
-      "kentucky-midday":"assets/images/jadwal-markets/kentucky-midday.png",
-      "florida-midday":"assets/images/jadwal-markets/florida-midday.png",
-      "huahin-0100":"assets/images/jadwal-markets/huahin-0100.png",
-      "bangkok-0130":"assets/images/jadwal-markets/bangkok-0130.png",
-      "newyork-midday":"assets/images/jadwal-markets/newyork-midday.png",
-      "carolina-day":"assets/images/jadwal-markets/carolina-day.png",
-      "brunei-02":"assets/images/jadwal-markets/brunei-02.png",
-      "oregon-03":"assets/images/jadwal-markets/oregon-03.png",
-      "oregon-06":"assets/images/market-icons/oregon-mountain-2.png",
+      "hokidraw":"assets/images/jadwal-markets/hokidraw.webp",
+      "toto-macau-pagi":"assets/images/jadwal-markets/toto-macau-pagi.webp",
+      "kentucky-midday":"assets/images/jadwal-markets/kentucky-midday.webp",
+      "florida-midday":"assets/images/jadwal-markets/florida-midday.webp",
+      "huahin-0100":"assets/images/jadwal-markets/huahin-0100.webp",
+      "bangkok-0130":"assets/images/jadwal-markets/bangkok-0130.webp",
+      "newyork-midday":"assets/images/jadwal-markets/newyork-midday.webp",
+      "carolina-day":"assets/images/jadwal-markets/carolina-day.webp",
+      "brunei-02":"assets/images/jadwal-markets/brunei-02.webp",
+      "oregon-03":"assets/images/jadwal-markets/oregon-all.webp",
+      "oregon-06":"assets/images/jadwal-markets/oregon-all.webp",
       "california":"assets/images/market-icons/california-goldengate.png",
-      "florida-evening":"assets/images/market-icons/florida-beach-2.png",
-      "oregon-09":"assets/images/market-icons/oregon-coast-1.png",
-      "bangkok-0930":"assets/images/market-icons/bangkok-temple-2.png",
-      "newyork-evening":"assets/images/market-icons/newyork-liberty-1.png",
-      "totocambodia":"assets/images/market-icons/cambodia-angkor-1.png",
-      "kentucky-evening":"assets/images/market-icons/kentucky-horse-1.png",
-      "carolina-evening":"assets/images/market-icons/carolina-beach-2.png",
-      "chelsea-11":"assets/images/market-icons/chelsea-bigben-1.png",
-      "oregon-12":"assets/images/market-icons/oregon-mountain-2.png",
+      "florida-evening":"assets/images/jadwal-markets/florida-evening.webp",
+      "oregon-09":"assets/images/jadwal-markets/oregon-all.webp",
+      "bangkok-0930":"assets/images/jadwal-markets/bangkok-0130.webp",
+      "newyork-evening":"assets/images/jadwal-markets/newyork-evening.webp",
+      "totocambodia":"assets/images/jadwal-markets/totocambodia.webp",
+      "kentucky-evening":"assets/images/jadwal-markets/kentucky-evening.webp",
+      "carolina-evening":"assets/images/jadwal-markets/carolina-day.webp",
+      "chelsea-11":"assets/images/jadwal-markets/chelsea-all.webp",
+      "oregon-12":"assets/images/jadwal-markets/oregon-all.webp",
       "poipet12":"assets/images/market-icons/poipet-gate-1.png",
       "bullseye":"assets/images/market-icons/bullseye-target-1.png",
-      "totomacau-siang":"assets/images/market-icons/macau-tower-2.png",
-      "sydney":"assets/images/market-icons/sydney-opera-1.png",
+      "totomacau-siang":"assets/images/jadwal-markets/totomacau-all.webp",
+      "sydney":"assets/images/jadwal-markets/sydney.webp",
       "jakarta-1400":"assets/images/market-icons/jakarta-monas-1.png",
-      "brunei-14":"assets/images/market-icons/brunei-mosque-2.png",
-      "chelsea-15":"assets/images/market-icons/chelsea-bigben-2.png",
+      "brunei-14":"assets/images/jadwal-markets/brunei-02.webp",
+      "chelsea-15":"assets/images/jadwal-markets/chelsea-all.webp",
       "totomali-1530":"assets/images/market-icons/pcso-generic-1.png",
-      "totomacau-5d-sore":"assets/images/market-icons/macau-tower-3.png",
+      "totomacau-5d-sore":"assets/images/jadwal-markets/totomacau-all.webp",
       "poipet15":"assets/images/market-icons/poipet-gate-2.png",
-      "totomacau-sore":"assets/images/market-icons/macau-tower-1.png",
-      "huahin-1630":"assets/images/market-icons/huahin-temple-1.png",
+      "totomacau-sore":"assets/images/jadwal-markets/totomacau-all.webp",
+      "huahin-1630":"assets/images/jadwal-markets/huahin-all.webp",
       "king-kong4d-i":"assets/images/market-icons/usa-flag.png",
-      "singapore":"assets/images/market-icons/singapore-merlion-1.png",
+      "singapore":"assets/images/jadwal-markets/singapore.webp",
       "magnum4d":"assets/images/market-icons/malaysia-petronas-1.png",
-      "totomacau-malam-i":"assets/images/market-icons/macau-tower-2.png",
-      "chelsea-19":"assets/images/market-icons/chelsea-bigben-1.png",
+      "totomacau-malam-i":"assets/images/jadwal-markets/totomacau-all.webp",
+      "chelsea-19":"assets/images/jadwal-markets/chelsea-all.webp",
       "poipet19":"assets/images/market-icons/poipet-gate-1.png",
       "pcso":"assets/images/market-icons/pcso-generic-1.png",
       "totomali-2030":"assets/images/market-icons/pcso-generic-1.png",
-      "huahin-2100":"assets/images/market-icons/huahin-temple-1.png",
-      "chelsea-21":"assets/images/market-icons/chelsea-bigben-2.png",
-      "totomacau-5d-malam":"assets/images/market-icons/macau-tower-3.png",
+      "huahin-2100":"assets/images/jadwal-markets/huahin-all.webp",
+      "chelsea-21":"assets/images/jadwal-markets/chelsea-all.webp",
+      "totomacau-5d-malam":"assets/images/jadwal-markets/totomacau-all.webp",
       "nevada":"assets/images/market-icons/nevada-mountain-1.png",
-      "brunei-21":"assets/images/market-icons/brunei-mosque-1.png",
-      "totomacau-malam-ii":"assets/images/market-icons/macau-tower-1.png",
+      "brunei-21":"assets/images/jadwal-markets/brunei-02.webp",
+      "totomacau-malam-ii":"assets/images/jadwal-markets/totomacau-all.webp",
       "poipet22":"assets/images/market-icons/poipet-gate-2.png",
       "hongkong":"assets/images/market-icons/macau-tower-2.png",
-      "totomacau-malam-iii":"assets/images/market-icons/macau-tower-3.png",
+      "totomacau-malam-iii":"assets/images/jadwal-markets/totomacau-all.webp",
       "totomali-2330":"assets/images/market-icons/pcso-generic-1.png",
       "jakarta-2330":"assets/images/market-icons/jakarta-monas-1.png",
       "king-kong4d-ii":"assets/images/market-icons/usa-flag.png"
+    };
+
+    const JADWAL_MARKET_POSITION = {
+      "hokidraw":"center 55%",
+      "toto-macau-pagi":"center 52%",
+      "kentucky-midday":"38% 51%",
+      "florida-midday":"center 58%",
+      "huahin-0100":"64% 54%",
+      "bangkok-0130":"62% 51%",
+      "bangkok-0930":"62% 51%",
+      "newyork-midday":"71% 46%",
+      "newyork-evening":"center 50%",
+      "carolina-day":"65% 49%",
+      "carolina-evening":"65% 49%",
+      "brunei-02":"70% 49%",
+      "brunei-14":"70% 49%",
+      "brunei-21":"70% 49%",
+      "oregon-03":"center 48%",
+      "oregon-06":"center 48%",
+      "oregon-09":"center 48%",
+      "oregon-12":"center 48%",
+      "florida-evening":"center 52%",
+      "totocambodia":"center 50%",
+      "kentucky-evening":"center 52%",
+      "chelsea-11":"center 50%",
+      "chelsea-15":"center 50%",
+      "chelsea-19":"center 50%",
+      "chelsea-21":"center 50%",
+      "sydney":"center 50%",
+      "totomacau-siang":"center 50%",
+      "totomacau-5d-sore":"center 50%",
+      "totomacau-sore":"center 50%",
+      "totomacau-malam-i":"center 50%",
+      "totomacau-5d-malam":"center 50%",
+      "totomacau-malam-ii":"center 50%",
+      "totomacau-malam-iii":"center 50%",
+      "huahin-1630":"center 50%",
+      "huahin-2100":"center 50%",
+      "singapore":"center 50%"
     };
 
     const JADWAL_ICON_DAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="2"></rect><path d="M8 3.5v4M16 3.5v4M4 9.5h16"></path><path d="M8 13h2M12 13h2M16 13h1M8 16h2M12 16h2"></path></svg>';
@@ -134,10 +174,11 @@
 
       jadwalGrid.innerHTML=shown.map(item=>{
         const image=JADWAL_MARKET_IMAGE[item.id]||"assets/images/market-icons/bullseye-target-1.png";
+        const imagePosition=JADWAL_MARKET_POSITION[item.id]||"center center";
         const status=jadwalMarketStatus(item);
+        const cardStyle=`background-image:url('${image}') !important;background-position:${imagePosition} !important;background-size:cover !important;background-repeat:no-repeat !important;`;
         return `
-        <article class="jadwal-card status-${status}" data-jadwal-id="${escapeJadwalText(item.id)}" title="Klik dua kali untuk edit jadwal">
-          <div class="jadwal-card-art" aria-hidden="true"><img src="${image}" alt="" loading="lazy"/></div>
+        <article class="jadwal-card status-${status}" data-jadwal-id="${escapeJadwalText(item.id)}" style="${cardStyle}" title="Klik dua kali untuk edit jadwal">
           <div class="jadwal-card-shade" aria-hidden="true"></div>
           <div class="jadwal-card-slashes" aria-hidden="true">//</div>
           <button type="button" class="jadwal-card-edit" data-edit-jadwal="${escapeJadwalText(item.id)}" title="Edit jadwal">✏️</button>
